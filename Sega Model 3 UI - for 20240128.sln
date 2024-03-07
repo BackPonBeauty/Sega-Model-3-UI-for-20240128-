@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Sega Model 3 UI - for 20240128", "Sega Model 3 UI - To 202402\Sega Model 3 UI - for 20240128.vbproj", "{A9F6765B-B925-4599-B049-C43C96CACE75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9F6765B-B925-4599-B049-C43C96CACE75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F6765B-B925-4599-B049-C43C96CACE75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F6765B-B925-4599-B049-C43C96CACE75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F6765B-B925-4599-B049-C43C96CACE75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3417B07-15F1-46EA-A558-67E1EA88B400}
+	EndGlobalSection
+EndGlobal
