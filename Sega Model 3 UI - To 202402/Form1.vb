@@ -119,6 +119,7 @@ Public Class Form1
         Dim ShowFrameRate As StringBuilder = New StringBuilder(300)
 
         Dim PowerPCFrequency As StringBuilder = New StringBuilder(300)
+        Dim Supersampling As StringBuilder = New StringBuilder(300)
 
         Dim EmulateSound As StringBuilder = New StringBuilder(300)
         Dim EmulateDSB As StringBuilder = New StringBuilder(300)
@@ -156,6 +157,7 @@ Public Class Form1
 
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.5246", RefreshRate, 15, iniFileName) 'Why nSize = 15?
+        GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
         GetPrivateProfileString(" Global ", "XResolution", "496", XResolution, 15, iniFileName) '#
         GetPrivateProfileString(" Global ", "YResolution", "384", YResolution, 15, iniFileName) '#
         GetPrivateProfileString(" Global ", "WindowXPosition", "50", WindowXPosition, 15, iniFileName)
@@ -213,6 +215,8 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "HideCMD", "False", HideCMD, 15, iniFileName) '#
 
         GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\supermodel\Roms", Dir, 150, iniFileName) '#
+
+
         GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
 
 
@@ -367,7 +371,9 @@ Public Class Form1
         Label_PPC.Text = PowerPCFrequency.ToString()
         PPC_Bar.Value = PowerPCFrequency.ToString()
 
-
+        'Supersampling
+        Label_SS.Text = Supersampling.ToString()
+        SS_Bar.Value = Supersampling.ToString()
 
         'WindowsPosition
         Label_xPos.Text = WindowXPosition.ToString()
@@ -565,6 +571,10 @@ Public Class Form1
         Label_PPC.Text = PPC_Bar.Value
     End Sub
 
+    Private Sub SS_Bar_Scroll(sender As Object, e As EventArgs) Handles SS_Bar.Scroll
+        Label_SS.Text = SS_Bar.Value
+    End Sub
+
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_resolution.SelectedIndexChanged
         Dim S_Select As String = ComboBox_resolution.SelectedItem
         Debug(S_Select)
@@ -724,6 +734,7 @@ Public Class Form1
         WritePrivateProfileString(Section, "Throttle", CheckBox_throttle.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "ShowFrameRate", CheckBox_showfrmerate.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "PowerPCFrequency", Label_PPC.Text, iniFileName)
+        WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
         WritePrivateProfileString(Section, "EmulateSound", CheckBox_emulatesound.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "EmulateDSB", CheckBox_emuDSB.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "FlipStereo", CheckBox_flipstereo.Checked.ToString, iniFileName)

@@ -32,6 +32,9 @@ Partial Class Form1
         Me.Button_folder = New System.Windows.Forms.Button()
         Me.Label_path = New System.Windows.Forms.Label()
         Me.Panel_Video = New System.Windows.Forms.Panel()
+        Me.SS_Bar = New System.Windows.Forms.TrackBar()
+        Me.Label_SS = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.CheckBox_throttle = New System.Windows.Forms.CheckBox()
         Me.CheckBox_showfrmerate = New System.Windows.Forms.CheckBox()
         Me.Label_refreshrate = New System.Windows.Forms.Label()
@@ -136,6 +139,7 @@ Partial Class Form1
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.Panel_Video.SuspendLayout()
+        CType(Me.SS_Bar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PPC_Bar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -233,6 +237,9 @@ Partial Class Form1
         '
         'Panel_Video
         '
+        Me.Panel_Video.Controls.Add(Me.SS_Bar)
+        Me.Panel_Video.Controls.Add(Me.Label_SS)
+        Me.Panel_Video.Controls.Add(Me.Label1)
         Me.Panel_Video.Controls.Add(Me.CheckBox_throttle)
         Me.Panel_Video.Controls.Add(Me.CheckBox_showfrmerate)
         Me.Panel_Video.Controls.Add(Me.Label_refreshrate)
@@ -258,12 +265,49 @@ Partial Class Form1
         Me.Panel_Video.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Video.TabIndex = 48
         '
+        'SS_Bar
+        '
+        Me.SS_Bar.AutoSize = False
+        Me.SS_Bar.LargeChange = 1
+        Me.SS_Bar.Location = New System.Drawing.Point(162, 200)
+        Me.SS_Bar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SS_Bar.Maximum = 8
+        Me.SS_Bar.Minimum = 1
+        Me.SS_Bar.Name = "SS_Bar"
+        Me.SS_Bar.Size = New System.Drawing.Size(194, 23)
+        Me.SS_Bar.TabIndex = 72
+        Me.SS_Bar.Value = 1
+        '
+        'Label_SS
+        '
+        Me.Label_SS.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_SS.ForeColor = System.Drawing.Color.White
+        Me.Label_SS.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label_SS.Location = New System.Drawing.Point(355, 198)
+        Me.Label_SS.Name = "Label_SS"
+        Me.Label_SS.Size = New System.Drawing.Size(37, 20)
+        Me.Label_SS.TabIndex = 73
+        Me.Label_SS.Text = "888"
+        Me.Label_SS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label1
+        '
+        Me.Label1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(4, 199)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(152, 20)
+        Me.Label1.TabIndex = 71
+        Me.Label1.Text = "Supersampling"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'CheckBox_throttle
         '
         Me.CheckBox_throttle.AutoSize = True
         Me.CheckBox_throttle.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_throttle.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_throttle.Location = New System.Drawing.Point(244, 167)
+        Me.CheckBox_throttle.Location = New System.Drawing.Point(244, 153)
         Me.CheckBox_throttle.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_throttle.Name = "CheckBox_throttle"
         Me.CheckBox_throttle.Size = New System.Drawing.Size(78, 22)
@@ -276,7 +320,7 @@ Partial Class Form1
         Me.CheckBox_showfrmerate.AutoSize = True
         Me.CheckBox_showfrmerate.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_showfrmerate.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_showfrmerate.Location = New System.Drawing.Point(244, 144)
+        Me.CheckBox_showfrmerate.Location = New System.Drawing.Point(244, 132)
         Me.CheckBox_showfrmerate.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_showfrmerate.Name = "CheckBox_showfrmerate"
         Me.CheckBox_showfrmerate.Size = New System.Drawing.Size(145, 22)
@@ -289,9 +333,9 @@ Partial Class Form1
         Me.Label_refreshrate.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_refreshrate.ForeColor = System.Drawing.Color.White
         Me.Label_refreshrate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_refreshrate.Location = New System.Drawing.Point(160, 199)
+        Me.Label_refreshrate.Location = New System.Drawing.Point(157, 176)
         Me.Label_refreshrate.Name = "Label_refreshrate"
-        Me.Label_refreshrate.Size = New System.Drawing.Size(192, 20)
+        Me.Label_refreshrate.Size = New System.Drawing.Size(94, 20)
         Me.Label_refreshrate.TabIndex = 68
         Me.Label_refreshrate.Text = "57.524160"
         Me.Label_refreshrate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -337,9 +381,9 @@ Partial Class Form1
         Me.Label2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label2.Location = New System.Drawing.Point(48, 199)
+        Me.Label2.Location = New System.Drawing.Point(15, 175)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(108, 20)
+        Me.Label2.Size = New System.Drawing.Size(100, 20)
         Me.Label2.TabIndex = 64
         Me.Label2.Text = "RefreshRate"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -349,7 +393,7 @@ Partial Class Form1
         Me.CheckBox_stretch.AutoSize = True
         Me.CheckBox_stretch.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_stretch.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_stretch.Location = New System.Drawing.Point(244, 121)
+        Me.CheckBox_stretch.Location = New System.Drawing.Point(244, 111)
         Me.CheckBox_stretch.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_stretch.Name = "CheckBox_stretch"
         Me.CheckBox_stretch.Size = New System.Drawing.Size(76, 22)
@@ -362,7 +406,7 @@ Partial Class Form1
         Me.CheckBox_widebg.AutoSize = True
         Me.CheckBox_widebg.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_widebg.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_widebg.Location = New System.Drawing.Point(244, 96)
+        Me.CheckBox_widebg.Location = New System.Drawing.Point(244, 90)
         Me.CheckBox_widebg.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_widebg.Name = "CheckBox_widebg"
         Me.CheckBox_widebg.Size = New System.Drawing.Size(148, 22)
@@ -375,7 +419,7 @@ Partial Class Form1
         Me.CheckBox_widescreen.AutoSize = True
         Me.CheckBox_widescreen.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_widescreen.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_widescreen.Location = New System.Drawing.Point(244, 71)
+        Me.CheckBox_widescreen.Location = New System.Drawing.Point(244, 69)
         Me.CheckBox_widescreen.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_widescreen.Name = "CheckBox_widescreen"
         Me.CheckBox_widescreen.Size = New System.Drawing.Size(114, 22)
@@ -401,7 +445,7 @@ Partial Class Form1
         Me.CheckBox_borderless.AutoSize = True
         Me.CheckBox_borderless.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_borderless.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_borderless.Location = New System.Drawing.Point(24, 167)
+        Me.CheckBox_borderless.Location = New System.Drawing.Point(24, 153)
         Me.CheckBox_borderless.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_borderless.Name = "CheckBox_borderless"
         Me.CheckBox_borderless.Size = New System.Drawing.Size(103, 22)
@@ -414,7 +458,7 @@ Partial Class Form1
         Me.CheckBox_multitexture.AutoSize = True
         Me.CheckBox_multitexture.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_multitexture.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_multitexture.Location = New System.Drawing.Point(24, 144)
+        Me.CheckBox_multitexture.Location = New System.Drawing.Point(24, 132)
         Me.CheckBox_multitexture.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_multitexture.Name = "CheckBox_multitexture"
         Me.CheckBox_multitexture.Size = New System.Drawing.Size(108, 22)
@@ -427,7 +471,7 @@ Partial Class Form1
         Me.CheckBox_multishread.AutoSize = True
         Me.CheckBox_multishread.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_multishread.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_multishread.Location = New System.Drawing.Point(24, 121)
+        Me.CheckBox_multishread.Location = New System.Drawing.Point(24, 111)
         Me.CheckBox_multishread.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_multishread.Name = "CheckBox_multishread"
         Me.CheckBox_multishread.Size = New System.Drawing.Size(117, 22)
@@ -440,7 +484,7 @@ Partial Class Form1
         Me.CheckBox_gpumulti.AutoSize = True
         Me.CheckBox_gpumulti.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_gpumulti.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_gpumulti.Location = New System.Drawing.Point(24, 96)
+        Me.CheckBox_gpumulti.Location = New System.Drawing.Point(24, 90)
         Me.CheckBox_gpumulti.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_gpumulti.Name = "CheckBox_gpumulti"
         Me.CheckBox_gpumulti.Size = New System.Drawing.Size(160, 22)
@@ -453,7 +497,7 @@ Partial Class Form1
         Me.CheckBox_quadrender.AutoSize = True
         Me.CheckBox_quadrender.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_quadrender.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_quadrender.Location = New System.Drawing.Point(24, 71)
+        Me.CheckBox_quadrender.Location = New System.Drawing.Point(24, 69)
         Me.CheckBox_quadrender.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_quadrender.Name = "CheckBox_quadrender"
         Me.CheckBox_quadrender.Size = New System.Drawing.Size(137, 22)
@@ -1531,6 +1575,7 @@ Partial Class Form1
         Me.GroupBox1.ResumeLayout(False)
         Me.Panel_Video.ResumeLayout(False)
         Me.Panel_Video.PerformLayout()
+        CType(Me.SS_Bar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PPC_Bar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
@@ -1662,4 +1707,7 @@ Partial Class Form1
     Friend WithEvents Label25 As Label
     Friend WithEvents ComboBox_style As ComboBox
     Friend WithEvents Label29 As Label
+    Friend WithEvents Label_SS As Label
+    Friend WithEvents SS_Bar As TrackBar
+    Friend WithEvents Label1 As Label
 End Class
