@@ -368,7 +368,11 @@ Public Class Form1
         Label_refreshrate.Text = RefreshRate.ToString()
 
         'PowerPCFrequency
-        Label_PPC.Text = PowerPCFrequency.ToString()
+        Dim PPC As String = PowerPCFrequency.ToString()
+        If PPC = "0" Then
+            PPC = "Auto"
+        End If
+        Label_PPC.Text = PPC
         PPC_Bar.Value = PowerPCFrequency.ToString()
 
         'Supersampling
@@ -568,7 +572,12 @@ Public Class Form1
     End Sub
 
     Private Sub PPC_Bar_Scroll(sender As Object, e As EventArgs) Handles PPC_Bar.Scroll
-        Label_PPC.Text = PPC_Bar.Value
+        If PPC_Bar.Value = 0 Then
+            Label_PPC.Text = "Auto"
+        Else
+            Label_PPC.Text = PPC_Bar.Value
+        End If
+
     End Sub
 
     Private Sub SS_Bar_Scroll(sender As Object, e As EventArgs) Handles SS_Bar.Scroll
@@ -733,7 +742,12 @@ Public Class Form1
         WritePrivateProfileString(Section, "FullScreen", CheckBox_fullscreen.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "Throttle", CheckBox_throttle.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "ShowFrameRate", CheckBox_showfrmerate.Checked.ToString, iniFileName)
-        WritePrivateProfileString(Section, "PowerPCFrequency", Label_PPC.Text, iniFileName)
+        If Label_PPC.Text = "Auto" Then
+            WritePrivateProfileString(Section, "PowerPCFrequency", "0", iniFileName)
+        Else
+            WritePrivateProfileString(Section, "PowerPCFrequency", Label_PPC.Text, iniFileName)
+        End If
+
         WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
         WritePrivateProfileString(Section, "EmulateSound", CheckBox_emulatesound.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "EmulateDSB", CheckBox_emuDSB.Checked.ToString, iniFileName)
