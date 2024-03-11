@@ -97,7 +97,7 @@ Public Class Form1
     Private Sub Load_initialfile()
 
         Dim iniFileName = "Config\Supermodel.ini"
-        Dim RefreshRate As StringBuilder = New StringBuilder(300) 'Why capacity = 300?.  bytes or Length?
+        Dim RefreshRate As StringBuilder = New StringBuilder(300)
         Dim XResolution As StringBuilder = New StringBuilder(300)
         Dim YResolution As StringBuilder = New StringBuilder(300)
         Dim WindowXPosition As StringBuilder = New StringBuilder(300)
@@ -156,65 +156,65 @@ Public Class Form1
         Dim CrosshairStyle As StringBuilder = New StringBuilder(300)
 
 
-        GetPrivateProfileString(" Global ", "RefreshRate", "57.5246", RefreshRate, 15, iniFileName) 'Why nSize = 15?
+        GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "XResolution", "496", XResolution, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "YResolution", "384", YResolution, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "XResolution", "496", XResolution, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "YResolution", "384", YResolution, 15, iniFileName)
         GetPrivateProfileString(" Global ", "WindowXPosition", "50", WindowXPosition, 15, iniFileName)
         GetPrivateProfileString(" Global ", "WindowYPosition", "50", WindowYPosition, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "BorderlessWindow", "False", BorderlessWindow, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "New3DEngine", "True", New3DEngine, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "QuadRendering", "True", QuadRendering, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "WideScreen", "True", WideScreen, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "Stretch", "False", Stretch, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "WideBackground", "False", WideBackground, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "BorderlessWindow", "False", BorderlessWindow, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "New3DEngine", "True", New3DEngine, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "QuadRendering", "True", QuadRendering, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "WideScreen", "True", WideScreen, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "Stretch", "False", Stretch, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "WideBackground", "False", WideBackground, 15, iniFileName)
 
-        GetPrivateProfileString(" Global ", "Crosshairs", "3", Crosshairs, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "Crosshairs", "3", Crosshairs, 15, iniFileName)
 
-        GetPrivateProfileString(" Global ", "GPUMultiThreaded", "True", GPUMultiThreaded, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "MultiThreaded", "True", MultiThreaded, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "MultiTexture", "True", MultiTexture, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "VSync", "False", VSync, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "GPUMultiThreaded", "True", GPUMultiThreaded, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "MultiThreaded", "True", MultiThreaded, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "MultiTexture", "True", MultiTexture, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "VSync", "False", VSync, 15, iniFileName)
 
-        GetPrivateProfileString(" Global ", "FullScreen", "False", FullScreen, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "Throttle", "True", Throttle, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "ShowFrameRate", "False", ShowFrameRate, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "PowerPCFrequency", "58", PowerPCFrequency, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "FullScreen", "False", FullScreen, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "Throttle", "True", Throttle, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "ShowFrameRate", "False", ShowFrameRate, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "PowerPCFrequency", "58", PowerPCFrequency, 15, iniFileName)
 
-        GetPrivateProfileString(" Global ", "EmulateSound", "True", EmulateSound, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "EmulateDSB", "True", EmulateDSB, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "FlipStereo", "False", FlipStereo, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "LegacySoundDSP", "False", LegacySoundDSP, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "MusicVolume", "100", MusicVolume, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "SoundVolume", "100", SoundVolume, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "Balance", "0", Balance, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "EmulateSound", "True", EmulateSound, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "EmulateDSB", "True", EmulateDSB, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "FlipStereo", "False", FlipStereo, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "LegacySoundDSP", "False", LegacySoundDSP, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "MusicVolume", "100", MusicVolume, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "SoundVolume", "100", SoundVolume, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "Balance", "0", Balance, 15, iniFileName)
 
-        GetPrivateProfileString(" Global ", "ForceFeedback", "True", ForceFeedback, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "ForceFeedback", "True", ForceFeedback, 15, iniFileName)
 
-        GetPrivateProfileString(" Global ", "Network", "True", Network, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "SimulateNet", "True", SimulateNet, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "PortIn", "1971", PortIn, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "PortOut", "1972", PortOut, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "AddressOut", "127.0.0.1", AddressOut, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "Network", "True", Network, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "SimulateNet", "True", SimulateNet, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "PortIn", "1971", PortIn, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "PortOut", "1972", PortOut, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "AddressOut", "127.0.0.1", AddressOut, 15, iniFileName)
 
-        GetPrivateProfileString(" Global ", "DirectInputConstForceLeftMax", "100", DirectInputConstForceLeftMax, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "DirectInputConstForceRightMax", "100", DirectInputConstForceRightMax, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "DirectInputSelfCenterMax", "100", DirectInputSelfCenterMax, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "DirectInputFrictionMax", "100", DirectInputFrictionMax, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "DirectInputVibrateMax", "100", DirectInputVibrateMax, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "DirectInputConstForceLeftMax", "100", DirectInputConstForceLeftMax, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "DirectInputConstForceRightMax", "100", DirectInputConstForceRightMax, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "DirectInputSelfCenterMax", "100", DirectInputSelfCenterMax, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "DirectInputFrictionMax", "100", DirectInputFrictionMax, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "DirectInputVibrateMax", "100", DirectInputVibrateMax, 15, iniFileName)
 
-        GetPrivateProfileString(" Global ", "XInputConstForceThreshold", "100", XInputConstForceThreshold, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "XInputConstForceMax", "100", XInputConstForceMax, 15, iniFileName) '#
-        GetPrivateProfileString(" Global ", "XInputVibrateMax", "100", XInputVibrateMax, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "XInputConstForceThreshold", "100", XInputConstForceThreshold, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "XInputConstForceMax", "100", XInputConstForceMax, 15, iniFileName)
+        GetPrivateProfileString(" Global ", "XInputVibrateMax", "100", XInputVibrateMax, 15, iniFileName)
 
-        GetPrivateProfileString(" Global ", "InputSystem", "xinput", InputSystem, 15, iniFileName) '#
+        GetPrivateProfileString(" Global ", "InputSystem", "xinput", InputSystem, 15, iniFileName)
 
         'GetPrivateProfileString(" Global ", "InputAutoTrigger", "Error", InputAutoTrigger, 15, iniFileName)
         'GetPrivateProfileString(" Global ", "InputAutoTrigger2", "Error", InputAutoTrigger2, 15, iniFileName)
 
-        GetPrivateProfileString(" Supermodel3 UI ", "HideCMD", "False", HideCMD, 15, iniFileName) '#
+        GetPrivateProfileString(" Supermodel3 UI ", "HideCMD", "False", HideCMD, 15, iniFileName)
 
-        GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\supermodel\Roms", Dir, 150, iniFileName) '#
+        GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\supermodel\Roms", Dir, 150, iniFileName)
 
 
         GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
@@ -365,7 +365,14 @@ Public Class Form1
 
 
         'RefreshRate
+        Dim RR As String = RefreshRate.ToString
+        If RR = "60" Then
+            CheckBox_TrueHz.Checked = False
+        Else
+            CheckBox_TrueHz.Checked = True
+        End If
         Label_refreshrate.Text = RefreshRate.ToString()
+
 
         'PowerPCFrequency
         Dim PPC As String = PowerPCFrequency.ToString()
@@ -599,7 +606,7 @@ Public Class Form1
         WriteIni()
 
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
-        Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " " & Label_path.Text & "\" & Roms & ".zip")
+        Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""")
         startInfo.CreateNoWindow = CheckBox_hidecmd.Checked ' コンソール・ウィンドウを開かない
         startInfo.UseShellExecute = False ' シェル機能を使用しない
 
@@ -824,5 +831,13 @@ Public Class Form1
         Roms = DataGridView1.CurrentRow.Cells(2).Value
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Load_Roms()
+    End Sub
+
+    Private Sub CheckBox_TrueHz_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox_TrueHz.CheckedChanged
+        If CheckBox_TrueHz.Checked = False Then
+            Label_refreshrate.Text = "60"
+        Else
+            Label_refreshrate.Text = "57.42160"
+        End If
     End Sub
 End Class

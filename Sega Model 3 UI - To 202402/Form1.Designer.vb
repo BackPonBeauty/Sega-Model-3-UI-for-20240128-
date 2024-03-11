@@ -41,7 +41,6 @@ Partial Class Form1
         Me.Label_PPC = New System.Windows.Forms.Label()
         Me.PPC_Bar = New System.Windows.Forms.TrackBar()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.CheckBox_stretch = New System.Windows.Forms.CheckBox()
         Me.CheckBox_widebg = New System.Windows.Forms.CheckBox()
         Me.CheckBox_widescreen = New System.Windows.Forms.CheckBox()
@@ -135,6 +134,7 @@ Partial Class Form1
         Me.CheckBox_network = New System.Windows.Forms.CheckBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Button_writeini = New System.Windows.Forms.Button()
+        Me.CheckBox_TrueHz = New System.Windows.Forms.CheckBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -237,6 +237,7 @@ Partial Class Form1
         '
         'Panel_Video
         '
+        Me.Panel_Video.Controls.Add(Me.CheckBox_TrueHz)
         Me.Panel_Video.Controls.Add(Me.SS_Bar)
         Me.Panel_Video.Controls.Add(Me.Label_SS)
         Me.Panel_Video.Controls.Add(Me.Label1)
@@ -246,7 +247,6 @@ Partial Class Form1
         Me.Panel_Video.Controls.Add(Me.Label_PPC)
         Me.Panel_Video.Controls.Add(Me.PPC_Bar)
         Me.Panel_Video.Controls.Add(Me.Label5)
-        Me.Panel_Video.Controls.Add(Me.Label2)
         Me.Panel_Video.Controls.Add(Me.CheckBox_stretch)
         Me.Panel_Video.Controls.Add(Me.CheckBox_widebg)
         Me.Panel_Video.Controls.Add(Me.CheckBox_widescreen)
@@ -333,7 +333,7 @@ Partial Class Form1
         Me.Label_refreshrate.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_refreshrate.ForeColor = System.Drawing.Color.White
         Me.Label_refreshrate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_refreshrate.Location = New System.Drawing.Point(157, 176)
+        Me.Label_refreshrate.Location = New System.Drawing.Point(181, 174)
         Me.Label_refreshrate.Name = "Label_refreshrate"
         Me.Label_refreshrate.Size = New System.Drawing.Size(94, 20)
         Me.Label_refreshrate.TabIndex = 68
@@ -375,18 +375,6 @@ Partial Class Form1
         Me.Label5.TabIndex = 65
         Me.Label5.Text = "PowerPCFrequency"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label2
-        '
-        Me.Label2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label2.Location = New System.Drawing.Point(15, 175)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(100, 20)
-        Me.Label2.TabIndex = 64
-        Me.Label2.Text = "RefreshRate"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'CheckBox_stretch
         '
@@ -1536,6 +1524,19 @@ Partial Class Form1
         Me.Button_writeini.Text = "Write ini"
         Me.Button_writeini.UseVisualStyleBackColor = True
         '
+        'CheckBox_TrueHz
+        '
+        Me.CheckBox_TrueHz.AutoSize = True
+        Me.CheckBox_TrueHz.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_TrueHz.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_TrueHz.Location = New System.Drawing.Point(72, 174)
+        Me.CheckBox_TrueHz.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_TrueHz.Name = "CheckBox_TrueHz"
+        Me.CheckBox_TrueHz.Size = New System.Drawing.Size(77, 22)
+        Me.CheckBox_TrueHz.TabIndex = 74
+        Me.CheckBox_TrueHz.Text = "True-hz"
+        Me.CheckBox_TrueHz.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -1634,7 +1635,6 @@ Partial Class Form1
     Friend WithEvents Panel3 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents Label2 As Label
     Friend WithEvents CheckBox_stretch As CheckBox
     Friend WithEvents CheckBox_widebg As CheckBox
     Friend WithEvents CheckBox_widescreen As CheckBox
@@ -1710,4 +1710,5 @@ Partial Class Form1
     Friend WithEvents Label_SS As Label
     Friend WithEvents SS_Bar As TrackBar
     Friend WithEvents Label1 As Label
+    Friend WithEvents CheckBox_TrueHz As CheckBox
 End Class
