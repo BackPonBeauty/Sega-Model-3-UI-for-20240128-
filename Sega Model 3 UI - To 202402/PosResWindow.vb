@@ -17,6 +17,8 @@
 
             End If
         Next
+        Me.BackgroundImage = Image.FromFile("Snaps\" & Form1.Roms & ".jpg")
+        Me.BackgroundImageLayout = ImageLayout.Stretch
     End Sub
 
 

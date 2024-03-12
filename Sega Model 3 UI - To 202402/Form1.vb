@@ -23,7 +23,7 @@ Public Class Form1
     End Function
 
     Dim GameData As New DataTable
-    Dim Roms As String
+    Public Roms As String
     Public ScreenN(3) As String
     Public Bx(3) As Integer
     Public By(3) As Integer
@@ -40,8 +40,6 @@ Public Class Form1
         Load_gamexml()
         DataGridView_Setting()
         Load_initialfile()
-
-
     End Sub
 
     Private Sub Load_gamexml()
@@ -67,7 +65,6 @@ Public Class Form1
             xVersion(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/version").InnerText
             xRoms(i) = xnode.SelectSingleNode("//game[" & i & "]/@name").Value
             xStep(i) = xnode.SelectSingleNode("//game[" & i & "]/hardware/stepping").InnerText
-            'Debug(i & "----" & xname(i) & " : " & xVersion(i) & " : " & xRoms(i) & " : " & xStep(i))
             GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i))
             i += 1
         Next
@@ -87,10 +84,6 @@ Public Class Form1
         DataGridView1.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         DataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(54, 57, 63)
         DataGridView1.DefaultCellStyle.ForeColor = Color.White
-        'Unable to sort column headers
-        For Each c As DataGridViewColumn In DataGridView1.Columns
-            c.SortMode = DataGridViewColumnSortMode.NotSortable
-        Next c
 
     End Sub
 
@@ -155,7 +148,6 @@ Public Class Form1
         Dim Dir As StringBuilder = New StringBuilder(300)
         Dim CrosshairStyle As StringBuilder = New StringBuilder(300)
 
-
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
         GetPrivateProfileString(" Global ", "XResolution", "496", XResolution, 15, iniFileName)
@@ -216,10 +208,7 @@ Public Class Form1
 
         GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\supermodel\Roms", Dir, 150, iniFileName)
 
-
         GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
-
-
 
         'New3DEngine
         If New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
@@ -361,9 +350,6 @@ Public Class Form1
         Label_Balance.Text = Balance.ToString()
         BalanceBar.Value = Balance.ToString()
 
-
-
-
         'RefreshRate
         Dim RR As String = RefreshRate.ToString
         If RR = "60" Then
@@ -372,7 +358,6 @@ Public Class Form1
             CheckBox_TrueHz.Checked = True
         End If
         Label_refreshrate.Text = RefreshRate.ToString()
-
 
         'PowerPCFrequency
         Dim PPC As String = PowerPCFrequency.ToString()
@@ -422,6 +407,7 @@ Public Class Form1
 
         'CrosshairStyle
         ComboBox_style.Text = CrosshairStyle.ToString
+
         'ForceFeedback
         If ForceFeedback.ToString() = "True" Or ForceFeedback.ToString() = "1" Then
             CheckBox18.Checked = True
@@ -476,55 +462,7 @@ Public Class Form1
         'XInputVibrateMax
         XViblate.Text = XInputVibrateMax.ToString
 
-
-        'Dim Resolution As String = ""
-        'Dim CSelected As Integer
-        'Select Case XResolution.ToString
-        '    Case "496"
-        '        CSelected = 0
-        '        Resolution = "496x384"
-        '    Case "640"
-        '        Select Case YResolution.ToString
-        '            Case "360"
-        '                CSelected = 1
-        '                Resolution = "640x360"
-        '            Case "480"
-        '                CSelected = 2
-        '                Resolution = "640x480"
-        '        End Select
-        '    Case "800"
-        '        CSelected = 3
-        '        Resolution = "800x600"
-        '    Case "1024"
-        '        CSelected = 4
-        '        Resolution = "1024x768"
-        '    Case "1152"
-        '        CSelected = 5
-        '        Resolution = "1152x864"
-        '    Case "1280"
-        '        Select Case YResolution.ToString
-        '            Case "720"
-        '                CSelected = 6
-        '                Resolution = "1280x720"
-        '            Case "768"
-        '                CSelected = 7
-        '                Resolution = "1280x768"
-        '            Case "800"
-        '                CSelected = 8
-        '                Resolution = "1280x800"
-        '            Case "960"
-        '                CSelected = 9
-        '                Resolution = "1280x960"
-        '            Case "1024"
-        '                CSelected = 10
-        '                Resolution = "1280x1024"
-        '        End Select '20240218  here is the latest ######### unfinished ### (Top , Left) =  ((yResolution-Height)/2 , (xResolution-Width)/2)
-        '        ' need more Case ##############################
-        '    Case Else
-        '        CSelected = 0
-        '        Resolution = ""
-        'End Select
-
+        'Resolution
         ComboBox_resolution.Text = XResolution.ToString & "x" & YResolution.ToString
 
         'Get Display Size 
@@ -560,21 +498,32 @@ Public Class Form1
         If My.Application.OpenForms("PosResWindow") IsNot Nothing Then
 
         Else
-            Dim f As PosResWindow = New PosResWindow()
-            f.StartPosition = FormStartPosition.CenterScreen
-            If (f.ShowDialog(Me) = DialogResult.OK) Then
+            If Integer.Parse(Label_wScreenRes.Text) < Integer.Parse(Label_xRes.Text) Or Integer.Parse(Label_hScreenRes.Text) < Integer.Parse(Label_yRes.Text) Then
+                Dim result As DialogResult = MessageBox.Show("It's bigger than the screen size.",
+                                             "confirmation",
+                                             MessageBoxButtons.OKCancel,
+                                             MessageBoxIcon.Exclamation,
+                                            MessageBoxDefaultButton.Button2)
+                If result = DialogResult.OK Then
+                    Dim f As PosResWindow = New PosResWindow()
+                    f.StartPosition = FormStartPosition.CenterScreen
+                    If (f.ShowDialog(Me) = DialogResult.OK) Then
+                    End If
+                    f.Dispose()
+                ElseIf result = DialogResult.Cancel Then
+                End If
+            Else
+                Dim f As PosResWindow = New PosResWindow()
+                f.StartPosition = FormStartPosition.CenterScreen
+                If (f.ShowDialog(Me) = DialogResult.OK) Then
+                End If
+                f.Dispose()
             End If
-            f.Dispose()
         End If
     End Sub
 
     Private Sub DataGridView1_SelectCellChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEnter
-        'Dim pic_n As Integer
-        'For Each r As DataGridViewRow In DataGridView1.SelectedRows
-        '    pic_n = r.Index
-        'Next r
         Roms = DataGridView1.CurrentRow.Cells(2).Value
-
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
     End Sub
 
@@ -584,7 +533,6 @@ Public Class Form1
         Else
             Label_PPC.Text = PPC_Bar.Value
         End If
-
     End Sub
 
     Private Sub SS_Bar_Scroll(sender As Object, e As EventArgs) Handles SS_Bar.Scroll
@@ -604,21 +552,17 @@ Public Class Form1
     End Sub
     Private Sub Load_Roms()
         WriteIni()
-
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
         Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""")
-        startInfo.CreateNoWindow = CheckBox_hidecmd.Checked ' コンソール・ウィンドウを開かない
-        startInfo.UseShellExecute = False ' シェル機能を使用しない
-
+        startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
+        startInfo.UseShellExecute = False
         Process.Start(startInfo)
         loading.Show()
-        'Process.Start(appPath & "\supermodel.exe ", " ROMs\spikeofe.zip") ', appPath & "\supermodel04\ROMs\spikeofe.zip -res=1024,768")
     End Sub
 
 
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
         If My.Application.OpenForms("About") IsNot Nothing Then
-
         Else
             Dim f As About = New About()
             If (f.ShowDialog(Me) = DialogResult.OK) Then
@@ -641,13 +585,10 @@ Public Class Form1
 
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
-        Process.Start(appPath & "\Supermodel.exe ", " -config-inputs") ', appPath & "\supermodel04\ROMs\spikeofe.zip -res=1024,768")
-        '      Process.Start(appPath & "\supermodel04\supermodel", appPath & "\supermodel04\ROMs\spikeofe.zip -res=1024,768") ' -XResolution = " & Xres & " -YResolution = " & Yres)
-
+        Process.Start(appPath & "\Supermodel.exe ", " -config-inputs")
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button_folder.Click
-
         Dim fbd As New FolderBrowserDialog
         fbd.Description = "Select Roms folder."
         fbd.RootFolder = Environment.SpecialFolder.Desktop
@@ -656,25 +597,21 @@ Public Class Form1
         If fbd.ShowDialog(Me) = DialogResult.OK Then
             Label_path.Text = fbd.SelectedPath
         End If
-
     End Sub
 
     Private Sub TextBox1and2_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TextBox_Portin.KeyPress, TextBox_Portout.KeyPress
-        '0～9と、バックスペース以外の時は、イベントをキャンセルする
         If (e.KeyChar < "0"c OrElse "9"c < e.KeyChar) AndAlso e.KeyChar <> ControlChars.Back Then
             e.Handled = True
         End If
     End Sub
 
     Private Sub TextBox3_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TextBox_Addressout.KeyPress
-        '0～9と、バックスペース以外の時は、イベントをキャンセルする
         If (e.KeyChar < "0"c OrElse "9"c < e.KeyChar) AndAlso e.KeyChar <> ControlChars.Back AndAlso e.KeyChar <> "."c Then
             e.Handled = True
         End If
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        '612, 336
         Panel_Video.Left = 612
         Panel_Video.Top = 336
         Panel_Sound.Left = 2000
@@ -726,8 +663,6 @@ Public Class Form1
         Dim iniFileName As New StringBuilder(300)
         iniFileName.Append("Config\Supermodel.ini")
         Dim Section As String = " Global "
-        'WritePrivateProfileString(Section, "VSync", CheckBox1.Checked.ToString, iniFileName)
-        'Debug("11111" & CheckBox1.Checked.ToString)
         WritePrivateProfileString(Section, "RefreshRate", Label_refreshrate.Text, iniFileName)
         WritePrivateProfileString(Section, "XResolution", Label_xRes.Text, iniFileName)
         WritePrivateProfileString(Section, "YResolution", Label_yRes.Text, iniFileName)

@@ -32,6 +32,7 @@ Partial Class Form1
         Me.Button_folder = New System.Windows.Forms.Button()
         Me.Label_path = New System.Windows.Forms.Label()
         Me.Panel_Video = New System.Windows.Forms.Panel()
+        Me.CheckBox_TrueHz = New System.Windows.Forms.CheckBox()
         Me.SS_Bar = New System.Windows.Forms.TrackBar()
         Me.Label_SS = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -134,7 +135,6 @@ Partial Class Form1
         Me.CheckBox_network = New System.Windows.Forms.CheckBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Button_writeini = New System.Windows.Forms.Button()
-        Me.CheckBox_TrueHz = New System.Windows.Forms.CheckBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -264,6 +264,19 @@ Partial Class Form1
         Me.Panel_Video.Name = "Panel_Video"
         Me.Panel_Video.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Video.TabIndex = 48
+        '
+        'CheckBox_TrueHz
+        '
+        Me.CheckBox_TrueHz.AutoSize = True
+        Me.CheckBox_TrueHz.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_TrueHz.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_TrueHz.Location = New System.Drawing.Point(72, 174)
+        Me.CheckBox_TrueHz.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_TrueHz.Name = "CheckBox_TrueHz"
+        Me.CheckBox_TrueHz.Size = New System.Drawing.Size(77, 22)
+        Me.CheckBox_TrueHz.TabIndex = 74
+        Me.CheckBox_TrueHz.Text = "True-hz"
+        Me.CheckBox_TrueHz.UseVisualStyleBackColor = True
         '
         'SS_Bar
         '
@@ -1524,19 +1537,6 @@ Partial Class Form1
         Me.Button_writeini.Text = "Write ini"
         Me.Button_writeini.UseVisualStyleBackColor = True
         '
-        'CheckBox_TrueHz
-        '
-        Me.CheckBox_TrueHz.AutoSize = True
-        Me.CheckBox_TrueHz.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBox_TrueHz.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_TrueHz.Location = New System.Drawing.Point(72, 174)
-        Me.CheckBox_TrueHz.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox_TrueHz.Name = "CheckBox_TrueHz"
-        Me.CheckBox_TrueHz.Size = New System.Drawing.Size(77, 22)
-        Me.CheckBox_TrueHz.TabIndex = 74
-        Me.CheckBox_TrueHz.Text = "True-hz"
-        Me.CheckBox_TrueHz.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -1569,7 +1569,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - PonMi"
+        Me.Text = "Sega Model 3 UI - Ver 1.0.4 "
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
