@@ -126,6 +126,8 @@ Partial Class Form1
         Me.CheckBox18 = New System.Windows.Forms.CheckBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Panel_Network = New System.Windows.Forms.Panel()
+        Me.Button_GetIPAddress = New System.Windows.Forms.Button()
+        Me.Label_myaddress = New System.Windows.Forms.Label()
         Me.CheckBox_simnetwork = New System.Windows.Forms.CheckBox()
         Me.TextBox_Addressout = New System.Windows.Forms.TextBox()
         Me.TextBox_Portout = New System.Windows.Forms.TextBox()
@@ -173,7 +175,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1013, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1010, 24)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -205,7 +207,7 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.Button_folder)
         Me.GroupBox1.Controls.Add(Me.Label_path)
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
-        Me.GroupBox1.Location = New System.Drawing.Point(4, 535)
+        Me.GroupBox1.Location = New System.Drawing.Point(4, 532)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -312,7 +314,7 @@ Partial Class Form1
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(152, 20)
         Me.Label1.TabIndex = 71
-        Me.Label1.Text = "Supersampling"
+        Me.Label1.Text = "SuperSampling"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'CheckBox_throttle
@@ -1414,6 +1416,8 @@ Partial Class Form1
         '
         'Panel_Network
         '
+        Me.Panel_Network.Controls.Add(Me.Button_GetIPAddress)
+        Me.Panel_Network.Controls.Add(Me.Label_myaddress)
         Me.Panel_Network.Controls.Add(Me.CheckBox_simnetwork)
         Me.Panel_Network.Controls.Add(Me.TextBox_Addressout)
         Me.Panel_Network.Controls.Add(Me.TextBox_Portout)
@@ -1422,18 +1426,41 @@ Partial Class Form1
         Me.Panel_Network.Controls.Add(Me.Label14)
         Me.Panel_Network.Controls.Add(Me.CheckBox_network)
         Me.Panel_Network.Controls.Add(Me.Label19)
-        Me.Panel_Network.Location = New System.Drawing.Point(2314, 336)
+        Me.Panel_Network.Location = New System.Drawing.Point(1554, 57)
         Me.Panel_Network.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel_Network.Name = "Panel_Network"
         Me.Panel_Network.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Network.TabIndex = 71
+        '
+        'Button_GetIPAddress
+        '
+        Me.Button_GetIPAddress.ForeColor = System.Drawing.Color.Black
+        Me.Button_GetIPAddress.Location = New System.Drawing.Point(55, 93)
+        Me.Button_GetIPAddress.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button_GetIPAddress.Name = "Button_GetIPAddress"
+        Me.Button_GetIPAddress.Size = New System.Drawing.Size(120, 24)
+        Me.Button_GetIPAddress.TabIndex = 77
+        Me.Button_GetIPAddress.Text = "Get IP Address"
+        Me.Button_GetIPAddress.UseVisualStyleBackColor = True
+        '
+        'Label_myaddress
+        '
+        Me.Label_myaddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_myaddress.ForeColor = System.Drawing.Color.White
+        Me.Label_myaddress.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label_myaddress.Location = New System.Drawing.Point(175, 95)
+        Me.Label_myaddress.Name = "Label_myaddress"
+        Me.Label_myaddress.Size = New System.Drawing.Size(131, 20)
+        Me.Label_myaddress.TabIndex = 78
+        Me.Label_myaddress.Text = "127.0.0.1"
+        Me.Label_myaddress.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'CheckBox_simnetwork
         '
         Me.CheckBox_simnetwork.AutoSize = True
         Me.CheckBox_simnetwork.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_simnetwork.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_simnetwork.Location = New System.Drawing.Point(55, 71)
+        Me.CheckBox_simnetwork.Location = New System.Drawing.Point(56, 50)
         Me.CheckBox_simnetwork.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_simnetwork.Name = "CheckBox_simnetwork"
         Me.CheckBox_simnetwork.Size = New System.Drawing.Size(112, 22)
@@ -1445,10 +1472,10 @@ Partial Class Form1
         '
         Me.TextBox_Addressout.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TextBox_Addressout.ForeColor = System.Drawing.Color.White
-        Me.TextBox_Addressout.Location = New System.Drawing.Point(202, 215)
+        Me.TextBox_Addressout.Location = New System.Drawing.Point(235, 215)
         Me.TextBox_Addressout.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox_Addressout.Name = "TextBox_Addressout"
-        Me.TextBox_Addressout.Size = New System.Drawing.Size(103, 22)
+        Me.TextBox_Addressout.Size = New System.Drawing.Size(70, 22)
         Me.TextBox_Addressout.TabIndex = 75
         Me.TextBox_Addressout.Text = "127.0.0.1"
         Me.TextBox_Addressout.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1506,7 +1533,7 @@ Partial Class Form1
         Me.CheckBox_network.AutoSize = True
         Me.CheckBox_network.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_network.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_network.Location = New System.Drawing.Point(55, 44)
+        Me.CheckBox_network.Location = New System.Drawing.Point(56, 23)
         Me.CheckBox_network.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_network.Name = "CheckBox_network"
         Me.CheckBox_network.Size = New System.Drawing.Size(84, 22)
@@ -1542,7 +1569,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1013, 591)
+        Me.ClientSize = New System.Drawing.Size(1010, 591)
         Me.Controls.Add(Me.Panel_Sound)
         Me.Controls.Add(Me.Debugtext)
         Me.Controls.Add(Me.Button_writeini)
@@ -1569,7 +1596,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.0.4 "
+        Me.Text = "Sega Model 3 UI - Ver 1.0.5"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -1711,4 +1738,6 @@ Partial Class Form1
     Friend WithEvents SS_Bar As TrackBar
     Friend WithEvents Label1 As Label
     Friend WithEvents CheckBox_TrueHz As CheckBox
+    Friend WithEvents Button_GetIPAddress As Button
+    Friend WithEvents Label_myaddress As Label
 End Class

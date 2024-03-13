@@ -1,4 +1,5 @@
-﻿Imports System
+﻿Imports System.Resources
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -8,12 +9,12 @@ Imports System.Runtime.InteropServices
 
 ' アセンブリ属性の値を確認します
 
-<Assembly: AssemblyTitle("Sega Model 3 UI - To 202402")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("Sega Model 3 UI - To 202402")>
+<Assembly: AssemblyTitle("Sega Model 3 UI - for 20240128+")>
+<Assembly: AssemblyDescription("Supermodel3 Luncher")>
+<Assembly: AssemblyCompany("PonMi")>
+<Assembly: AssemblyProduct("Sega Model 3 UI - for 20240128+")>
 <Assembly: AssemblyCopyright("Copyright ©  2024")>
-<Assembly: AssemblyTrademark("")>
+<Assembly: AssemblyTrademark("PonMi")>
 
 <Assembly: ComVisible(False)>
 
@@ -31,5 +32,6 @@ Imports System.Runtime.InteropServices
 ' 既定値にすることができます:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.0.2.0")>
-<Assembly: AssemblyFileVersion("1.0.2.0")>
+<Assembly: AssemblyVersion("1.0.5.0")>
+<Assembly: AssemblyFileVersion("1.0.5.0")>
+<Assembly: NeutralResourcesLanguage("ja-JP")>

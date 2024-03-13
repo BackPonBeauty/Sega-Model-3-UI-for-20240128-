@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.InteropServices
+﻿Imports System.Net
+Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Xml
 
@@ -30,6 +31,11 @@ Public Class Form1
     Public Bw(3) As Integer
     Public Bh(3) As Integer
 
+    Dim Columns0Width As StringBuilder = New StringBuilder(300)
+    Dim Columns1Width As StringBuilder = New StringBuilder(300)
+    Dim Columns2Width As StringBuilder = New StringBuilder(300)
+    Dim Columns3Width As StringBuilder = New StringBuilder(300)
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Initialize DataTable
         GameData.Columns.Add("Games", GetType(String))
@@ -38,8 +44,9 @@ Public Class Form1
         GameData.Columns.Add("Step", GetType(String))
 
         Load_gamexml()
-        DataGridView_Setting()
         Load_initialfile()
+        DataGridView_Setting()
+
     End Sub
 
     Private Sub Load_gamexml()
@@ -75,8 +82,9 @@ Public Class Form1
 
         DataGridView1.DataSource = GameData
         DataGridView1.RowHeadersVisible = False
-        DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+        'DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        DataGridView1.AllowUserToResizeColumns = True
         DataGridView1.AllowUserToResizeRows = False
         DataGridView1.MultiSelect = False
         DataGridView1.ReadOnly = True
@@ -84,7 +92,14 @@ Public Class Form1
         DataGridView1.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         DataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(54, 57, 63)
         DataGridView1.DefaultCellStyle.ForeColor = Color.White
-
+        DataGridView1.Columns(0).Width = Integer.Parse(Columns0Width.ToString)
+        DataGridView1.Columns(1).Width = Integer.Parse(Columns1Width.ToString)
+        DataGridView1.Columns(2).Width = Integer.Parse(Columns2Width.ToString)
+        DataGridView1.Columns(3).Width = Integer.Parse(Columns3Width.ToString)
+        Try
+            DataGridView1.CurrentCell = DataGridView1.Rows(0).Cells(0)
+        Catch ex As Exception
+        End Try
     End Sub
 
     Private Sub Load_initialfile()
@@ -148,6 +163,7 @@ Public Class Form1
         Dim Dir As StringBuilder = New StringBuilder(300)
         Dim CrosshairStyle As StringBuilder = New StringBuilder(300)
 
+
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
         GetPrivateProfileString(" Global ", "XResolution", "496", XResolution, 15, iniFileName)
@@ -209,6 +225,11 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\supermodel\Roms", Dir, 150, iniFileName)
 
         GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
+
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns0Width", 250, Columns0Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns1Width", 150, Columns1Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns2Width", 120, Columns2Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns3Width", 50, Columns3Width, 15, iniFileName)
 
         'New3DEngine
         If New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
@@ -352,10 +373,10 @@ Public Class Form1
 
         'RefreshRate
         Dim RR As String = RefreshRate.ToString
-        If RR = "60" Then
-            CheckBox_TrueHz.Checked = False
-        Else
+        If RR = "57.524160" Then
             CheckBox_TrueHz.Checked = True
+        Else
+            CheckBox_TrueHz.Checked = False
         End If
         Label_refreshrate.Text = RefreshRate.ToString()
 
@@ -656,7 +677,14 @@ Public Class Form1
     End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button_writeini.Click
-        WriteIni()
+        Dim result As DialogResult = MessageBox.Show("Do you want to overwrite the ini file?",
+                                             "confirmation",
+                                             MessageBoxButtons.OKCancel,
+                                             MessageBoxIcon.Exclamation,
+                                            MessageBoxDefaultButton.Button2)
+        If result = DialogResult.OK Then
+            WriteIni()
+        End If
     End Sub
 
     Private Sub WriteIni()
@@ -709,6 +737,11 @@ Public Class Form1
         WritePrivateProfileString(" Supermodel3 UI ", "HideCMD", CheckBox_hidecmd.Checked.ToString, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Dir", Label_path.Text, iniFileName)
 
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Width", DataGridView1.Columns(0).Width, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Width", DataGridView1.Columns(1).Width, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Width", DataGridView1.Columns(2).Width, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Width", DataGridView1.Columns(3).Width, iniFileName)
+
         WritePrivateProfileString(Section, "DirectInputConstForceLeftMax", DConstLeft.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputConstForceRightMax", DConstRight.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputSelfCenterMax", DCenter.Text, iniFileName)
@@ -720,7 +753,15 @@ Public Class Form1
         WritePrivateProfileString(Section, "XInputVibrateMax", XViblate.Text, iniFileName)
 
         WritePrivateProfileString(Section, "CrosshairStyle", ComboBox_style.SelectedItem, iniFileName)
+    End Sub
 
+    Private Sub Me_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+        Dim iniFileName As New StringBuilder(300)
+        iniFileName.Append("Config\Supermodel.ini")
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Width", DataGridView1.Columns(0).Width, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Width", DataGridView1.Columns(1).Width, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Width", DataGridView1.Columns(2).Width, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Width", DataGridView1.Columns(3).Width, iniFileName)
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
@@ -772,7 +813,17 @@ Public Class Form1
         If CheckBox_TrueHz.Checked = False Then
             Label_refreshrate.Text = "60"
         Else
-            Label_refreshrate.Text = "57.42160"
+            Label_refreshrate.Text = "57.524160"
         End If
+    End Sub
+
+    Private Sub Get_IP_Address(sender As Object, e As EventArgs) Handles Button_GetIPAddress.Click
+        Dim hostname As String = Dns.GetHostName()
+        Dim adrList As IPAddress() = Dns.GetHostAddresses(hostname)
+        'For Each address As IPAddress In adrList
+        '    Debug(address.ToString())
+        'Next
+        Dim adrLength = adrList.Count - 1
+        Label_myaddress.Text = adrList(adrLength).ToString()
     End Sub
 End Class
