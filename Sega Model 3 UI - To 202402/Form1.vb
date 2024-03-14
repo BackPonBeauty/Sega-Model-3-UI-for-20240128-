@@ -1,4 +1,5 @@
-﻿Imports System.Net
+﻿Imports System.ComponentModel
+Imports System.Net
 Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Xml
@@ -35,6 +36,15 @@ Public Class Form1
     Dim Columns1Width As StringBuilder = New StringBuilder(300)
     Dim Columns2Width As StringBuilder = New StringBuilder(300)
     Dim Columns3Width As StringBuilder = New StringBuilder(300)
+    Dim C0_Sort_F As Boolean = False
+    Dim C1_Sort_F As Boolean = False
+    Dim C2_Sort_F As Boolean = False
+    Dim C3_Sort_F As Boolean = False
+
+    Dim Last_Sort As Integer = 0
+    Dim Onece As Boolean = False
+    Dim Last_SelectedRow As Integer = 0
+    Dim Last_SelectedRow_bin As Integer = 0
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Initialize DataTable
@@ -46,7 +56,29 @@ Public Class Form1
         Load_gamexml()
         Load_initialfile()
         DataGridView_Setting()
+        Select Case Last_Sort
+            Case 0
+                C0_Sort_F = Not (C0_Sort_F)
+                Header0.PerformClick()
+            Case 1
+                C1_Sort_F = Not (C1_Sort_F)
+                Header1.PerformClick()
+            Case 2
+                C2_Sort_F = Not (C2_Sort_F)
+                Header2.PerformClick()
+            Case 3
+                C3_Sort_F = Not (C3_Sort_F)
+                Header3.PerformClick()
+            Case Else
+                C0_Sort_F = Not (C0_Sort_F)
+                Header0.PerformClick()
+        End Select
+        LastSelectRow()
+    End Sub
 
+    Private Sub LastSelectRow()
+        DataGridView1.CurrentCell = DataGridView1(0, Last_SelectedRow_bin)
+        'Debug("LastSelect = " & Last_SelectedRow.ToString)
     End Sub
 
     Private Sub Load_gamexml()
@@ -82,7 +114,6 @@ Public Class Form1
 
         DataGridView1.DataSource = GameData
         DataGridView1.RowHeadersVisible = False
-        'DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         DataGridView1.AllowUserToResizeColumns = True
         DataGridView1.AllowUserToResizeRows = False
@@ -96,6 +127,10 @@ Public Class Form1
         DataGridView1.Columns(1).Width = Integer.Parse(Columns1Width.ToString)
         DataGridView1.Columns(2).Width = Integer.Parse(Columns2Width.ToString)
         DataGridView1.Columns(3).Width = Integer.Parse(Columns3Width.ToString)
+        'For Each c As DataGridViewColumn In DataGridView1.Columns
+        '    c.SortMode = DataGridViewColumnSortMode.Programmatic
+        'Next c
+
         Try
             DataGridView1.CurrentCell = DataGridView1.Rows(0).Cells(0)
         Catch ex As Exception
@@ -163,6 +198,13 @@ Public Class Form1
         Dim Dir As StringBuilder = New StringBuilder(300)
         Dim CrosshairStyle As StringBuilder = New StringBuilder(300)
 
+        Dim C0_F As StringBuilder = New StringBuilder(300)
+        Dim C1_F As StringBuilder = New StringBuilder(300)
+        Dim C2_F As StringBuilder = New StringBuilder(300)
+        Dim C3_F As StringBuilder = New StringBuilder(300)
+
+        Dim Last_Sort_s As StringBuilder = New StringBuilder(300)
+        Dim Last_Selected_s As StringBuilder = New StringBuilder(300)
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -231,6 +273,42 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "Columns2Width", 120, Columns2Width, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns3Width", 50, Columns3Width, 15, iniFileName)
 
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns0Sort", "False", C0_F, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns1Sort", "False", C1_F, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns2Sort", "False", C2_F, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns3Sort", "False", C3_F, 15, iniFileName)
+
+        GetPrivateProfileString(" Supermodel3 UI ", "LastSort", 0, Last_Sort_s, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", 0, Last_Selected_s, 15, iniFileName)
+
+        'Columuns Sort Flag
+        If C0_F.ToString() = "True" Then
+            C0_Sort_F = True
+        Else
+            C0_Sort_F = False
+        End If
+        If C1_F.ToString() = "True" Then
+            C1_Sort_F = True
+        Else
+            C1_Sort_F = False
+        End If
+        If C2_F.ToString() = "True" Then
+            C2_Sort_F = True
+        Else
+            C2_Sort_F = False
+        End If
+        If C3_F.ToString() = "True" Then
+            C3_Sort_F = True
+        Else
+            C3_Sort_F = False
+        End If
+
+        'Last_Sort
+        Last_Sort = Integer.Parse(Last_Sort_s.ToString)
+
+        'Last_Selected
+        Last_SelectedRow = Integer.Parse(Last_Selected_s.ToString)
+        Last_SelectedRow_bin = Integer.Parse(Last_Selected_s.ToString)
         'New3DEngine
         If New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
             RadioButton_new3d.Checked = True
@@ -546,6 +624,8 @@ Public Class Form1
     Private Sub DataGridView1_SelectCellChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEnter
         Roms = DataGridView1.CurrentRow.Cells(2).Value
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
+        Last_SelectedRow = DataGridView1.CurrentRow.Index
+        Debug(Last_SelectedRow)
     End Sub
 
     Private Sub PPC_Bar_Scroll(sender As Object, e As EventArgs) Handles PPC_Bar.Scroll
@@ -742,6 +822,15 @@ Public Class Form1
         WritePrivateProfileString(" Supermodel3 UI ", "Columns2Width", DataGridView1.Columns(2).Width, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns3Width", DataGridView1.Columns(3).Width, iniFileName)
 
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Sort", C0_Sort_F, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Sort", C1_Sort_F, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Sort", C2_Sort_F, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Sort", C3_Sort_F, iniFileName)
+
+        WritePrivateProfileString(" Supermodel3 UI ", "LastSort", Last_Sort, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", Last_SelectedRow, iniFileName)
+
+
         WritePrivateProfileString(Section, "DirectInputConstForceLeftMax", DConstLeft.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputConstForceRightMax", DConstRight.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputSelfCenterMax", DCenter.Text, iniFileName)
@@ -762,6 +851,14 @@ Public Class Form1
         WritePrivateProfileString(" Supermodel3 UI ", "Columns1Width", DataGridView1.Columns(1).Width, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns2Width", DataGridView1.Columns(2).Width, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns3Width", DataGridView1.Columns(3).Width, iniFileName)
+
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Sort", C0_Sort_F, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Sort", C1_Sort_F, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Sort", C2_Sort_F, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Sort", C3_Sort_F, iniFileName)
+
+        WritePrivateProfileString(" Supermodel3 UI ", "LastSort", Last_Sort, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", Last_SelectedRow, iniFileName)
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
@@ -825,5 +922,63 @@ Public Class Form1
         'Next
         Dim adrLength = adrList.Count - 1
         Label_myaddress.Text = adrList(adrLength).ToString()
+    End Sub
+
+    Private Sub DataGridView1_ColumnHeaderMouseClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles DataGridView1.ColumnHeaderMouseClick
+        Debug(DataGridView1.SelectedColumns.ToString)
+    End Sub
+
+    Private Sub Header0_Click(sender As Object, e As EventArgs) Handles Header0.Click
+        If C0_Sort_F = False Then
+            DataGridView1.Sort(DataGridView1.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
+            C0_Sort_F = True
+        Else
+            DataGridView1.Sort(DataGridView1.Columns(0), System.ComponentModel.ListSortDirection.Descending)
+            C0_Sort_F = False
+        End If
+        Last_Sort = 0
+    End Sub
+    Private Sub Header1_Click(sender As Object, e As EventArgs) Handles Header1.Click
+        If C1_Sort_F = False Then
+            DataGridView1.Sort(DataGridView1.Columns(1), System.ComponentModel.ListSortDirection.Ascending)
+            C1_Sort_F = True
+        Else
+            DataGridView1.Sort(DataGridView1.Columns(1), System.ComponentModel.ListSortDirection.Descending)
+            C1_Sort_F = False
+        End If
+        Last_Sort = 1
+    End Sub
+    Private Sub Header2_Click(sender As Object, e As EventArgs) Handles Header2.Click
+        If C2_Sort_F = False Then
+            DataGridView1.Sort(DataGridView1.Columns(2), System.ComponentModel.ListSortDirection.Ascending)
+            C2_Sort_F = True
+        Else
+            DataGridView1.Sort(DataGridView1.Columns(2), System.ComponentModel.ListSortDirection.Descending)
+            C2_Sort_F = False
+        End If
+        Last_Sort = 2
+    End Sub
+    Private Sub Header3_Click(sender As Object, e As EventArgs) Handles Header3.Click
+        If C3_Sort_F = False Then
+            DataGridView1.Sort(DataGridView1.Columns(3), System.ComponentModel.ListSortDirection.Ascending)
+            C3_Sort_F = True
+        Else
+            DataGridView1.Sort(DataGridView1.Columns(3), System.ComponentModel.ListSortDirection.Descending)
+            C3_Sort_F = False
+        End If
+        Last_Sort = 3
+    End Sub
+
+    Private Sub DataGridView1_ColumnWidthChanged(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
+        'Button1.Height = 22
+        Dim wn As Integer = 2
+        Dim wp As Integer = 7
+        Header0.Width = DataGridView1.Columns(0).Width - wn
+        Header1.Left = DataGridView1.Columns(0).Width + wp
+        Header1.Width = DataGridView1.Columns(1).Width - wn
+        Header2.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + wp
+        Header2.Width = DataGridView1.Columns(2).Width - wn
+        Header3.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + DataGridView1.Columns(2).Width + wp
+        Header3.Width = DataGridView1.Columns(3).Width - wn
     End Sub
 End Class

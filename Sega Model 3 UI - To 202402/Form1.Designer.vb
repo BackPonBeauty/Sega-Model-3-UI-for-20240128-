@@ -137,6 +137,10 @@ Partial Class Form1
         Me.CheckBox_network = New System.Windows.Forms.CheckBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Button_writeini = New System.Windows.Forms.Button()
+        Me.Header0 = New System.Windows.Forms.Button()
+        Me.Header1 = New System.Windows.Forms.Button()
+        Me.Header2 = New System.Windows.Forms.Button()
+        Me.Header3 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -171,11 +175,13 @@ Partial Class Form1
         '
         'MenuStrip1
         '
+        Me.MenuStrip1.Font = New System.Drawing.Font("Arial", 9.75!)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1010, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1009, 24)
+        Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -183,13 +189,13 @@ Partial Class Form1
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(45, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
         Me.AboutToolStripMenuItem.Text = "About"
         '
         'Debugtext
@@ -1564,12 +1570,84 @@ Partial Class Form1
         Me.Button_writeini.Text = "Write ini"
         Me.Button_writeini.UseVisualStyleBackColor = True
         '
+        'Header0
+        '
+        Me.Header0.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Header0.BackColor = System.Drawing.Color.White
+        Me.Header0.FlatAppearance.BorderSize = 0
+        Me.Header0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Header0.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header0.ForeColor = System.Drawing.Color.Black
+        Me.Header0.Location = New System.Drawing.Point(7, 32)
+        Me.Header0.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Header0.Name = "Header0"
+        Me.Header0.Size = New System.Drawing.Size(88, 22)
+        Me.Header0.TabIndex = 73
+        Me.Header0.Text = "Game"
+        Me.Header0.TextAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.Header0.UseVisualStyleBackColor = False
+        '
+        'Header1
+        '
+        Me.Header1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Header1.BackColor = System.Drawing.Color.White
+        Me.Header1.FlatAppearance.BorderSize = 0
+        Me.Header1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Header1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header1.ForeColor = System.Drawing.Color.Black
+        Me.Header1.Location = New System.Drawing.Point(101, 32)
+        Me.Header1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Header1.Name = "Header1"
+        Me.Header1.Size = New System.Drawing.Size(88, 22)
+        Me.Header1.TabIndex = 74
+        Me.Header1.Text = "Version"
+        Me.Header1.TextAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.Header1.UseVisualStyleBackColor = False
+        '
+        'Header2
+        '
+        Me.Header2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Header2.BackColor = System.Drawing.Color.White
+        Me.Header2.FlatAppearance.BorderSize = 0
+        Me.Header2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Header2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header2.ForeColor = System.Drawing.Color.Black
+        Me.Header2.Location = New System.Drawing.Point(195, 32)
+        Me.Header2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Header2.Name = "Header2"
+        Me.Header2.Size = New System.Drawing.Size(88, 22)
+        Me.Header2.TabIndex = 75
+        Me.Header2.Text = "Roms"
+        Me.Header2.TextAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.Header2.UseVisualStyleBackColor = False
+        '
+        'Header3
+        '
+        Me.Header3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Header3.BackColor = System.Drawing.Color.White
+        Me.Header3.FlatAppearance.BorderSize = 0
+        Me.Header3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Header3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header3.ForeColor = System.Drawing.Color.Black
+        Me.Header3.Location = New System.Drawing.Point(289, 32)
+        Me.Header3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Header3.Name = "Header3"
+        Me.Header3.Size = New System.Drawing.Size(88, 22)
+        Me.Header3.TabIndex = 76
+        Me.Header3.Text = "Step"
+        Me.Header3.TextAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.Header3.UseVisualStyleBackColor = False
+        '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1010, 591)
+        Me.ClientSize = New System.Drawing.Size(1009, 591)
+        Me.Controls.Add(Me.Header3)
+        Me.Controls.Add(Me.Header2)
+        Me.Controls.Add(Me.Header1)
+        Me.Controls.Add(Me.Header0)
         Me.Controls.Add(Me.Panel_Sound)
         Me.Controls.Add(Me.Debugtext)
         Me.Controls.Add(Me.Button_writeini)
@@ -1596,7 +1674,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.0.5"
+        Me.Text = "Sega Model 3 UI - Ver 1.0.6"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -1740,4 +1818,8 @@ Partial Class Form1
     Friend WithEvents CheckBox_TrueHz As CheckBox
     Friend WithEvents Button_GetIPAddress As Button
     Friend WithEvents Label_myaddress As Label
+    Friend WithEvents Header0 As Button
+    Friend WithEvents Header1 As Button
+    Friend WithEvents Header2 As Button
+    Friend WithEvents Header3 As Button
 End Class
