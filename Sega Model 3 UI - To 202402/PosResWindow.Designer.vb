@@ -34,7 +34,8 @@ Partial Class PosResWindow
         '
         'Label3
         '
-        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Gray
         Me.Label3.Location = New System.Drawing.Point(4, 4)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 20)
@@ -43,7 +44,8 @@ Partial Class PosResWindow
         '
         'Label4
         '
-        Me.Label4.ForeColor = System.Drawing.Color.White
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.Gray
         Me.Label4.Location = New System.Drawing.Point(4, 24)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(88, 20)
@@ -52,7 +54,8 @@ Partial Class PosResWindow
         '
         'Label5
         '
-        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Gray
         Me.Label5.Location = New System.Drawing.Point(88, 24)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(120, 20)
@@ -62,7 +65,8 @@ Partial Class PosResWindow
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.ForeColor = System.Drawing.Color.Gray
         Me.Label1.Location = New System.Drawing.Point(88, 4)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(56, 18)
@@ -71,31 +75,34 @@ Partial Class PosResWindow
         '
         'Button1
         '
+        Me.Button1.BackColor = System.Drawing.Color.Transparent
         Me.Button1.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
+        Me.Button1.ForeColor = System.Drawing.Color.Gray
         Me.Button1.Location = New System.Drawing.Point(7, 83)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(73, 27)
         Me.Button1.TabIndex = 8
         Me.Button1.Text = "SET"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.UseVisualStyleBackColor = False
         '
         'Button2
         '
+        Me.Button2.BackColor = System.Drawing.Color.Transparent
         Me.Button2.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.White
+        Me.Button2.ForeColor = System.Drawing.Color.Gray
         Me.Button2.Location = New System.Drawing.Point(86, 83)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(73, 27)
         Me.Button2.TabIndex = 9
         Me.Button2.Text = "Cancel"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.UseVisualStyleBackColor = False
         '
         'Label2
         '
-        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Gray
         Me.Label2.Location = New System.Drawing.Point(12, 122)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(120, 20)
@@ -104,16 +111,17 @@ Partial Class PosResWindow
         '
         'Button3
         '
+        Me.Button3.BackColor = System.Drawing.Color.Transparent
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.ForeColor = System.Drawing.Color.White
+        Me.Button3.ForeColor = System.Drawing.Color.Gray
         Me.Button3.Location = New System.Drawing.Point(459, 229)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(73, 27)
         Me.Button3.TabIndex = 11
         Me.Button3.Text = "Center"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.Button3.UseVisualStyleBackColor = False
         '
-        'Form2
+        'PosResWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -130,7 +138,7 @@ Partial Class PosResWindow
         Me.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.Name = "Form2"
+        Me.Name = "PosResWindow"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form2"
         Me.ResumeLayout(False)

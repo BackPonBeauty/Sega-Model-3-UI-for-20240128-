@@ -34,10 +34,11 @@ Partial Class About
         'Button1
         '
         Me.Button1.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Button1.Location = New System.Drawing.Point(114, 181)
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Location = New System.Drawing.Point(66, 194)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(79, 32)
+        Me.Button1.Size = New System.Drawing.Size(79, 27)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "OK"
         Me.Button1.UseVisualStyleBackColor = True
@@ -54,6 +55,7 @@ Partial Class About
         'LinkLabel1
         '
         Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.LinkColor = System.Drawing.Color.Aqua
         Me.LinkLabel1.Location = New System.Drawing.Point(67, 41)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(110, 16)
@@ -64,6 +66,7 @@ Partial Class About
         'LinkLabel2
         '
         Me.LinkLabel2.AutoSize = True
+        Me.LinkLabel2.LinkColor = System.Drawing.Color.Aqua
         Me.LinkLabel2.Location = New System.Drawing.Point(67, 73)
         Me.LinkLabel2.Name = "LinkLabel2"
         Me.LinkLabel2.Size = New System.Drawing.Size(117, 16)
@@ -78,11 +81,12 @@ Partial Class About
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(146, 16)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = "2024 Remade by PonMi"
+        Me.Label2.Text = "2024 Remake by PonMi"
         '
         'LinkLabel3
         '
         Me.LinkLabel3.AutoSize = True
+        Me.LinkLabel3.LinkColor = System.Drawing.Color.Aqua
         Me.LinkLabel3.Location = New System.Drawing.Point(74, 157)
         Me.LinkLabel3.Name = "LinkLabel3"
         Me.LinkLabel3.Size = New System.Drawing.Size(54, 16)
@@ -94,6 +98,7 @@ Partial Class About
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(206, 226)
         Me.Controls.Add(Me.LinkLabel3)
         Me.Controls.Add(Me.Label2)
@@ -102,6 +107,7 @@ Partial Class About
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button1)
         Me.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ForeColor = System.Drawing.Color.White
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)

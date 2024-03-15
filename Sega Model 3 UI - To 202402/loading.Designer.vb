@@ -32,7 +32,7 @@ Partial Class loading
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(39, 29)
+        Me.Label1.Location = New System.Drawing.Point(38, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(64, 16)
         Me.Label1.TabIndex = 0

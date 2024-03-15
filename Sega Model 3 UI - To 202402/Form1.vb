@@ -1,5 +1,7 @@
 ﻿Imports System.ComponentModel
+Imports System.IO
 Imports System.Net
+Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Xml
@@ -43,9 +45,34 @@ Public Class Form1
 
     Dim Last_Sort As Integer = 0
     Dim Onece As Boolean = False
+    Dim Last_SelectedItem As String = ""
     Dim Last_SelectedRow As Integer = 0
     Dim Last_SelectedRow_bin As Integer = 0
+    Public FontSize_bin As Integer = "10"
+    Dim Resolution_index_bin As Integer = 0
 
+    'DragMove
+    Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
+
+        Label1.Text = "( " & Me.Left & " , " & Me.Top & " )"
+        Dim s As System.Windows.Forms.Screen = System.Windows.Forms.Screen.FromControl(Me)
+        'ディスプレイの高さと幅を取得
+        Dim x As Integer = s.Bounds.X
+        Dim y As Integer = s.Bounds.Y
+        Label_hScreenRes.Text = s.Bounds.Height
+        Label_wScreenRes.Text = s.Bounds.Width
+
+        Dim N As Integer
+        For i = 0 To ScreenN.Length - 1
+            If Me.Top >= By(i) And Me.Top <= (By(i) + Bh(i)) And Me.Left >= Bx(i) And Me.Left <= (Bx(i) + Bw(i)) Then
+                Label2.Text = ScreenN(i).ToString
+                N = i
+                Exit For
+
+            End If
+        Next
+
+    End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Initialize DataTable
         GameData.Columns.Add("Games", GetType(String))
@@ -73,7 +100,25 @@ Public Class Form1
                 C0_Sort_F = Not (C0_Sort_F)
                 Header0.PerformClick()
         End Select
+        LoadResolution()
         LastSelectRow()
+        GetAllControls(Me, FontSize_bin)
+    End Sub
+
+    Private Sub LoadResolution()
+        Dim line As String = ""
+        Dim al As New ArrayList
+
+        Using sr As StreamReader = New StreamReader(
+          "Resolution.txt", Encoding.GetEncoding("UTF-8"))
+
+            line = sr.ReadLine()
+            Do Until line Is Nothing
+                ComboBox_resolution.Items.Add(line)
+                line = sr.ReadLine()
+            Loop
+            ComboBox_resolution.SelectedIndex = Resolution_index_bin
+        End Using
     End Sub
 
     Private Sub LastSelectRow()
@@ -206,6 +251,9 @@ Public Class Form1
         Dim Last_Sort_s As StringBuilder = New StringBuilder(300)
         Dim Last_Selected_s As StringBuilder = New StringBuilder(300)
 
+        Dim FontSize As StringBuilder = New StringBuilder(300)
+        Dim Resolution_index As StringBuilder = New StringBuilder(300)
+
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
         GetPrivateProfileString(" Global ", "XResolution", "496", XResolution, 15, iniFileName)
@@ -280,6 +328,8 @@ Public Class Form1
 
         GetPrivateProfileString(" Supermodel3 UI ", "LastSort", 0, Last_Sort_s, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", 0, Last_Selected_s, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "FontSize", 10, FontSize, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Resolution_index", 10, Resolution_index, 15, iniFileName)
 
         'Columuns Sort Flag
         If C0_F.ToString() = "True" Then
@@ -309,6 +359,13 @@ Public Class Form1
         'Last_Selected
         Last_SelectedRow = Integer.Parse(Last_Selected_s.ToString)
         Last_SelectedRow_bin = Integer.Parse(Last_Selected_s.ToString)
+
+        'FontSize
+        FontSize_bin = Integer.Parse(FontSize.ToString)
+
+        'Resolution_index
+        Resolution_index_bin = Integer.Parse(Resolution_index.ToString)
+
         'New3DEngine
         If New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
             RadioButton_new3d.Checked = True
@@ -625,7 +682,11 @@ Public Class Form1
         Roms = DataGridView1.CurrentRow.Cells(2).Value
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Last_SelectedRow = DataGridView1.CurrentRow.Index
-        Debug(Last_SelectedRow)
+    End Sub
+
+    Private Sub DataGridView1_SelectCellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+        Last_SelectedItem = DataGridView1.CurrentCell.Value
+        Debug(Last_SelectedItem)
     End Sub
 
     Private Sub PPC_Bar_Scroll(sender As Object, e As EventArgs) Handles PPC_Bar.Scroll
@@ -653,12 +714,16 @@ Public Class Form1
     End Sub
     Private Sub Load_Roms()
         WriteIni()
-        Dim appPath As String = System.Windows.Forms.Application.StartupPath
-        Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""")
-        startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
-        startInfo.UseShellExecute = False
-        Process.Start(startInfo)
-        loading.Show()
+        Try
+            Dim appPath As String = System.Windows.Forms.Application.StartupPath
+            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""")
+            startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
+            startInfo.UseShellExecute = False
+            Process.Start(startInfo)
+            loading.Show()
+        Catch ex As System.Exception
+            Debug(ex.Message)
+        End Try
     End Sub
 
 
@@ -756,7 +821,7 @@ Public Class Form1
         Panel_Network.Top = 336
     End Sub
 
-    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button_writeini.Click
+    Private Sub Button11_Click(sender As Object, e As EventArgs)
         Dim result As DialogResult = MessageBox.Show("Do you want to overwrite the ini file?",
                                              "confirmation",
                                              MessageBoxButtons.OKCancel,
@@ -829,7 +894,8 @@ Public Class Form1
 
         WritePrivateProfileString(" Supermodel3 UI ", "LastSort", Last_Sort, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", Last_SelectedRow, iniFileName)
-
+        WritePrivateProfileString(" Supermodel3 UI ", "FontSize", FontSize_bin, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Resolution_index", ComboBox_resolution.SelectedIndex, iniFileName)
 
         WritePrivateProfileString(Section, "DirectInputConstForceLeftMax", DConstLeft.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputConstForceRightMax", DConstRight.Text, iniFileName)
@@ -845,20 +911,7 @@ Public Class Form1
     End Sub
 
     Private Sub Me_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Dim iniFileName As New StringBuilder(300)
-        iniFileName.Append("Config\Supermodel.ini")
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Width", DataGridView1.Columns(0).Width, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Width", DataGridView1.Columns(1).Width, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Width", DataGridView1.Columns(2).Width, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Width", DataGridView1.Columns(3).Width, iniFileName)
-
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Sort", C0_Sort_F, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Sort", C1_Sort_F, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Sort", C2_Sort_F, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Sort", C3_Sort_F, iniFileName)
-
-        WritePrivateProfileString(" Supermodel3 UI ", "LastSort", Last_Sort, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", Last_SelectedRow, iniFileName)
+        WriteIni()
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
@@ -917,43 +970,44 @@ Public Class Form1
     Private Sub Get_IP_Address(sender As Object, e As EventArgs) Handles Button_GetIPAddress.Click
         Dim hostname As String = Dns.GetHostName()
         Dim adrList As IPAddress() = Dns.GetHostAddresses(hostname)
-        'For Each address As IPAddress In adrList
-        '    Debug(address.ToString())
-        'Next
         Dim adrLength = adrList.Count - 1
         Label_myaddress.Text = adrList(adrLength).ToString()
-    End Sub
-
-    Private Sub DataGridView1_ColumnHeaderMouseClick(ByVal sender As Object, ByVal e As DataGridViewCellMouseEventArgs) Handles DataGridView1.ColumnHeaderMouseClick
-        Debug(DataGridView1.SelectedColumns.ToString)
     End Sub
 
     Private Sub Header0_Click(sender As Object, e As EventArgs) Handles Header0.Click
         If C0_Sort_F = False Then
             DataGridView1.Sort(DataGridView1.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
+            GameData.DefaultView.Sort = "Games ASC"
             C0_Sort_F = True
         Else
             DataGridView1.Sort(DataGridView1.Columns(0), System.ComponentModel.ListSortDirection.Descending)
+            GameData.DefaultView.Sort = "Games DESC"
             C0_Sort_F = False
         End If
         Last_Sort = 0
     End Sub
     Private Sub Header1_Click(sender As Object, e As EventArgs) Handles Header1.Click
+        DataGridView1.ClearSelection()
         If C1_Sort_F = False Then
             DataGridView1.Sort(DataGridView1.Columns(1), System.ComponentModel.ListSortDirection.Ascending)
+            GameData.DefaultView.Sort = "Version ASC"
             C1_Sort_F = True
         Else
             DataGridView1.Sort(DataGridView1.Columns(1), System.ComponentModel.ListSortDirection.Descending)
+            GameData.DefaultView.Sort = "Version DESC"
             C1_Sort_F = False
         End If
         Last_Sort = 1
+
     End Sub
     Private Sub Header2_Click(sender As Object, e As EventArgs) Handles Header2.Click
         If C2_Sort_F = False Then
             DataGridView1.Sort(DataGridView1.Columns(2), System.ComponentModel.ListSortDirection.Ascending)
+            GameData.DefaultView.Sort = "Roms ASC"
             C2_Sort_F = True
         Else
             DataGridView1.Sort(DataGridView1.Columns(2), System.ComponentModel.ListSortDirection.Descending)
+            GameData.DefaultView.Sort = "Roms DESC"
             C2_Sort_F = False
         End If
         Last_Sort = 2
@@ -961,16 +1015,17 @@ Public Class Form1
     Private Sub Header3_Click(sender As Object, e As EventArgs) Handles Header3.Click
         If C3_Sort_F = False Then
             DataGridView1.Sort(DataGridView1.Columns(3), System.ComponentModel.ListSortDirection.Ascending)
+            GameData.DefaultView.Sort = "Step ASC"
             C3_Sort_F = True
         Else
             DataGridView1.Sort(DataGridView1.Columns(3), System.ComponentModel.ListSortDirection.Descending)
+            GameData.DefaultView.Sort = "Step DESC"
             C3_Sort_F = False
         End If
         Last_Sort = 3
     End Sub
 
     Private Sub DataGridView1_ColumnWidthChanged(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
-        'Button1.Height = 22
         Dim wn As Integer = 2
         Dim wp As Integer = 7
         Header0.Width = DataGridView1.Columns(0).Width - wn
@@ -980,5 +1035,27 @@ Public Class Form1
         Header2.Width = DataGridView1.Columns(2).Width - wn
         Header3.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + DataGridView1.Columns(2).Width + wp
         Header3.Width = DataGridView1.Columns(3).Width - wn
+    End Sub
+
+    Private Sub ToolStripMenuItem8_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem8.Click
+        FontSize_bin = 8
+        GetAllControls(Me, Integer.Parse(FontSize_bin))
+    End Sub
+    Private Sub ToolStripMenuItem10_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem10.Click
+        FontSize_bin = 10
+        GetAllControls(Me, Integer.Parse(FontSize_bin))
+    End Sub
+    Private Sub ToolStripMenuItem6_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem6.Click
+        FontSize_bin = 6
+        GetAllControls(Me, Integer.Parse(FontSize_bin))
+    End Sub
+
+    Private Sub GetAllControls(ByVal control As Control, size As Integer)
+        If control.HasChildren Then
+            For Each childControl As Control In control.Controls
+                GetAllControls(childControl, size)
+                childControl.Font = New Font("Arial", size, FontStyle.Regular)
+            Next childControl
+        End If
     End Sub
 End Class

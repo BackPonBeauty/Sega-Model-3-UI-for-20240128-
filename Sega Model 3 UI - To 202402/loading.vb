@@ -2,6 +2,18 @@
     Private Sub Form5_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.TopMost = True
         Timer1.Enabled = True
+        GetAllControls(Me, Integer.Parse(Form1.FontSize_bin))
+    End Sub
+    Private Sub GetAllControls(ByVal control As Control, size As Integer)
+        If control.HasChildren Then
+            For Each childControl As Control In control.Controls
+                GetAllControls(childControl, size)
+                'テキストボックスだけにアクセスしたい場合
+                ' If TypeOf childControl Is TextBox Then
+                childControl.Font = New Font("Arial", size, FontStyle.Regular)
+                ' End If
+            Next childControl
+        End If
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click

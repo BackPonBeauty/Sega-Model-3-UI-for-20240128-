@@ -215,7 +215,7 @@ Partial Class DinputForce
         Me.Label10.Text = "ViblateMax"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Form3
+        'DinputForce
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -242,7 +242,7 @@ Partial Class DinputForce
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Form3"
+        Me.Name = "DinputForce"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Dinput"
         CType(Me.ConstLeftBar, System.ComponentModel.ISupportInitialize).EndInit()

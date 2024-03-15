@@ -19,6 +19,18 @@
         Next
         Me.BackgroundImage = Image.FromFile("Snaps\" & Form1.Roms & ".jpg")
         Me.BackgroundImageLayout = ImageLayout.Stretch
+        GetAllControls(Me, Integer.Parse(Form1.FontSize_bin))
+    End Sub
+    Private Sub GetAllControls(ByVal control As Control, size As Integer)
+        If control.HasChildren Then
+            For Each childControl As Control In control.Controls
+                GetAllControls(childControl, size)
+                'テキストボックスだけにアクセスしたい場合
+                ' If TypeOf childControl Is TextBox Then
+                childControl.Font = New Font("Arial", size, FontStyle.Regular)
+                ' End If
+            Next childControl
+        End If
     End Sub
 
 

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>Sega_Model_3_UI_for_20240128.My.MyApplication</StartupObject>
     <RootNamespace>Sega_Model_3_UI_for_20240128</RootNamespace>
-    <AssemblyName>Sega Model 3 UI for 20240128</AssemblyName>
+    <AssemblyName>Sega Model 3 UI for 20240128+</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -37,7 +37,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Sega Model 3 UI for 20240128.xml</DocumentationFile>
+    <DocumentationFile>Sega Model 3 UI for 20240128+.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -47,7 +47,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Sega Model 3 UI for 20240128.xml</DocumentationFile>
+    <DocumentationFile>Sega Model 3 UI for 20240128+.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>

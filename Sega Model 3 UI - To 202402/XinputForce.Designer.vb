@@ -139,7 +139,7 @@ Partial Class XinputForce
         Me.Label3.Text = "ConstForceThreshold"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Form4
+        'XinputForce
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -160,7 +160,7 @@ Partial Class XinputForce
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Form4"
+        Me.Name = "XinputForce"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Xinput"
         CType(Me.ViblateBar, System.ComponentModel.ISupportInitialize).EndInit()
