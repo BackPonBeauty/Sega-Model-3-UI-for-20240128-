@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'フォームがコンポーネントの一覧をクリーンアップするために dispose をオーバーライドします。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'メモ: 以下のプロシージャは Windows フォーム デザイナーで必要です。
     'Windows フォーム デザイナーを使用して変更できます。  
     'コード エディターを使って変更しないでください。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -146,6 +146,8 @@ Partial Class Form1
         Me.Header2 = New System.Windows.Forms.Button()
         Me.Header3 = New System.Windows.Forms.Button()
         Me.Label_listed = New System.Windows.Forms.Label()
+        Me.Label_Roms = New System.Windows.Forms.Label()
+        Me.Header4 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -185,7 +187,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1012, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1010, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -214,20 +216,20 @@ Partial Class Form1
         '
         Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8})
         Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
-        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
         Me.FontSizeToolStripMenuItem.Text = "Font size"
         '
         'ToolStripMenuItem10
         '
         Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
-        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(115, 22)
         Me.ToolStripMenuItem10.Tag = "10"
         Me.ToolStripMenuItem10.Text = "Normal"
         '
         'ToolStripMenuItem8
         '
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(115, 22)
         Me.ToolStripMenuItem8.Tag = "8"
         Me.ToolStripMenuItem8.Text = "Small"
         '
@@ -273,7 +275,7 @@ Partial Class Form1
         Me.Label_path.Name = "Label_path"
         Me.Label_path.Size = New System.Drawing.Size(494, 32)
         Me.Label_path.TabIndex = 1
-        Me.Label_path.Text = "C:\supermodel\Roms"
+        Me.Label_path.Text = "C:\天上天下唯我独尊\Roms"
         Me.Label_path.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel_Video
@@ -1693,12 +1695,43 @@ Partial Class Form1
         Me.Label_listed.Text = "games listed"
         Me.Label_listed.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'Label_Roms
+        '
+        Me.Label_Roms.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Roms.ForeColor = System.Drawing.Color.White
+        Me.Label_Roms.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label_Roms.Location = New System.Drawing.Point(426, 502)
+        Me.Label_Roms.Name = "Label_Roms"
+        Me.Label_Roms.Size = New System.Drawing.Size(178, 20)
+        Me.Label_Roms.TabIndex = 78
+        Me.Label_Roms.Text = "0 rom(s) Available."
+        Me.Label_Roms.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Header4
+        '
+        Me.Header4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Header4.BackColor = System.Drawing.Color.White
+        Me.Header4.FlatAppearance.BorderSize = 0
+        Me.Header4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Header4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header4.ForeColor = System.Drawing.Color.Black
+        Me.Header4.Location = New System.Drawing.Point(383, 32)
+        Me.Header4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Header4.Name = "Header4"
+        Me.Header4.Size = New System.Drawing.Size(88, 22)
+        Me.Header4.TabIndex = 79
+        Me.Header4.Text = "A-E"
+        Me.Header4.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Header4.UseVisualStyleBackColor = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1012, 591)
+        Me.ClientSize = New System.Drawing.Size(1010, 591)
+        Me.Controls.Add(Me.Header4)
+        Me.Controls.Add(Me.Label_Roms)
         Me.Controls.Add(Me.Button_loadrom)
         Me.Controls.Add(Me.Label_listed)
         Me.Controls.Add(Me.Header3)
@@ -1729,7 +1762,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.0.7.1"
+        Me.Text = "Sega Model 3 UI - Ver 1.0.7.2"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -1882,4 +1915,6 @@ Partial Class Form1
     Friend WithEvents ToolStripMenuItem10 As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem8 As ToolStripMenuItem
     Friend WithEvents Label_listed As Label
+    Friend WithEvents Label_Roms As Label
+    Friend WithEvents Header4 As Button
 End Class

@@ -25,7 +25,7 @@ Partial Class PosResWindow
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button_Set = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
@@ -64,19 +64,19 @@ Partial Class PosResWindow
         Me.Label1.TabIndex = 7
         Me.Label1.Text = "Label1"
         '
-        'Button1
+        'Button_Set
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.Button1.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(10, 71)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(72, 28)
-        Me.Button1.TabIndex = 8
-        Me.Button1.Text = "SET"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.Button_Set.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.Button_Set.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.Button_Set.FlatAppearance.BorderSize = 0
+        Me.Button_Set.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button_Set.ForeColor = System.Drawing.Color.White
+        Me.Button_Set.Location = New System.Drawing.Point(8, 71)
+        Me.Button_Set.Name = "Button_Set"
+        Me.Button_Set.Size = New System.Drawing.Size(72, 28)
+        Me.Button_Set.TabIndex = 8
+        Me.Button_Set.Text = "SET"
+        Me.Button_Set.UseVisualStyleBackColor = False
         '
         'Button2
         '
@@ -121,7 +121,7 @@ Partial Class PosResWindow
         Me.Panel1.BackColor = System.Drawing.Color.Transparent
         Me.Panel1.Controls.Add(Me.Button3)
         Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.Button_Set)
         Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Location = New System.Drawing.Point(392, 195)
         Me.Panel1.Name = "Panel1"
@@ -156,7 +156,7 @@ Partial Class PosResWindow
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "PosResWindow"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Form2"
         Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -165,7 +165,7 @@ Partial Class PosResWindow
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents Button_Set As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents Button3 As Button

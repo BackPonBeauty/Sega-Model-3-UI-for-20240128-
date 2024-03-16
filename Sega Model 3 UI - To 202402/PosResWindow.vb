@@ -19,7 +19,6 @@ Public Class PosResWindow
                 Label2.Text = Form1.ScreenN(i).ToString
                 N = i
                 Exit For
-
             End If
         Next
         Dim canvas As New Bitmap(Integer.Parse(Form1.Label_xRes.Text), Integer.Parse(Form1.Label_yRes.Text))
@@ -69,7 +68,7 @@ Public Class PosResWindow
         End Using
     End Sub
 
-    Private Sub Button1_PreviewKeyDown(ByVal sender As Object, ByVal e As PreviewKeyDownEventArgs) Handles Button1.PreviewKeyDown, Button3.PreviewKeyDown
+    Private Sub Button1_PreviewKeyDown(ByVal sender As Object, ByVal e As PreviewKeyDownEventArgs) Handles Button_Set.PreviewKeyDown, Button3.PreviewKeyDown
         Dim n As Integer = 1
         Select Case e.KeyCode
             Case Keys.Up
@@ -83,7 +82,10 @@ Public Class PosResWindow
             Case Keys.Escape
                 Me.Close()
             Case Keys.Enter
-                Button1.PerformClick()
+                Button_Set.PerformClick()
+            Case Keys.R
+                Me.Top = 0
+                Me.Left = 0
         End Select
         Label1.Text = "( " & Me.Left & " , " & Me.Top & " )"
         e.IsInputKey = True
@@ -130,7 +132,6 @@ Public Class PosResWindow
             Label1.Text = "( " & Me.Left & " , " & Me.Top & " )"
         End If
         Dim s As System.Windows.Forms.Screen = System.Windows.Forms.Screen.FromControl(Me)
-        'ディスプレイの高さと幅を取得
         Dim x As Integer = s.Bounds.X
         Dim y As Integer = s.Bounds.Y
         Form1.Label_hScreenRes.Text = s.Bounds.Height
@@ -154,9 +155,7 @@ Public Class PosResWindow
                 Label2.Text = Form1.ScreenN(i).ToString
                 N = i
                 Exit For
-
             End If
-            'Form1.Debug(i & ":::::" & Form1.ScreenN(i).ToString)
         Next
         Center(Form1.By(N), Form1.Bh(N), Form1.Bx(N), Form1.Bw(N))
     End Sub
@@ -168,21 +167,12 @@ Public Class PosResWindow
         Label1.Text = "( " & Me.Left & " , " & Me.Top & " )"
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim result As DialogResult = MessageBox.Show("Are you sure set screen size and position?",
-                                             "confirmation",
-                                             MessageBoxButtons.OKCancel,
-                                             MessageBoxIcon.Exclamation,
-                                            MessageBoxDefaultButton.Button1)
-        If result = DialogResult.OK Then
-            Form1.Label_xPos.Text = Me.Left
-            Form1.Label_yPos.Text = Me.Top
-            Form1.Label_xRes.Text = Me.Width
-            Form1.Label_yRes.Text = Me.Height
-        ElseIf result = DialogResult.Cancel Then
-            Exit Sub
-        End If
-
+    Private Sub Button_Set_Click(sender As Object, e As EventArgs) Handles Button_Set.Click
+        Form1.Label_xPos.Text = Me.Left
+        Form1.Label_yPos.Text = Me.Top
+        Form1.Label_xRes.Text = Me.Width
+        Form1.Label_yRes.Text = Me.Height
+        FormSet.Show()
     End Sub
 
     Private Sub ComboBox_resolution_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_resolution.SelectedIndexChanged

@@ -28,6 +28,7 @@ Public Class Form1
 
     Dim GameData As New DataTable
     Public Roms As String
+    Dim DT_Roms As New DataTable
     Public ScreenN(3) As String
     Public Bx(3) As Integer
     Public By(3) As Integer
@@ -38,10 +39,12 @@ Public Class Form1
     Dim Columns1Width As StringBuilder = New StringBuilder(300)
     Dim Columns2Width As StringBuilder = New StringBuilder(300)
     Dim Columns3Width As StringBuilder = New StringBuilder(300)
+    Dim Columns4Width As StringBuilder = New StringBuilder(300)
     Dim C0_Sort_F As Boolean = False
     Dim C1_Sort_F As Boolean = False
     Dim C2_Sort_F As Boolean = False
     Dim C3_Sort_F As Boolean = False
+    Dim C4_Sort_F As Boolean = False
 
     Dim Last_Sort As Integer = 0
     Dim Onece As Boolean = False
@@ -54,7 +57,7 @@ Public Class Form1
     'DragMove
     Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
 
-        Label1.Text = "( " & Me.Left & " , " & Me.Top & " )"
+        'Label1.Text = "( " & Me.Left & " , " & Me.Top & " )"
         Dim s As System.Windows.Forms.Screen = System.Windows.Forms.Screen.FromControl(Me)
         'ディスプレイの高さと幅を取得
         Dim x As Integer = s.Bounds.X
@@ -79,6 +82,8 @@ Public Class Form1
         GameData.Columns.Add("Version", GetType(String))
         GameData.Columns.Add("Roms", GetType(String))
         GameData.Columns.Add("Step", GetType(String))
+        GameData.Columns.Add("A-E", GetType(String))
+        DT_Roms.Columns.Add("name", GetType(String))
 
         Load_gamexml()
         Load_initialfile()
@@ -103,6 +108,7 @@ Public Class Form1
         LoadResolution()
         LastSelectRow()
         GetAllControls(Me, FontSize_bin)
+        
     End Sub
 
     Private Sub LoadResolution()
@@ -149,7 +155,7 @@ Public Class Form1
             xVersion(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/version").InnerText
             xRoms(i) = xnode.SelectSingleNode("//game[" & i & "]/@name").Value
             xStep(i) = xnode.SelectSingleNode("//game[" & i & "]/hardware/stepping").InnerText
-            GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i))
+            GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i), " ")
             i += 1
         Next
 
@@ -172,6 +178,9 @@ Public Class Form1
         DataGridView1.Columns(1).Width = Integer.Parse(Columns1Width.ToString)
         DataGridView1.Columns(2).Width = Integer.Parse(Columns2Width.ToString)
         DataGridView1.Columns(3).Width = Integer.Parse(Columns3Width.ToString)
+        DataGridView1.Columns(4).Width = Integer.Parse(Columns4Width.ToString)
+        DataGridView1.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        DataGridView1.Columns(4).HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
         'For Each c As DataGridViewColumn In DataGridView1.Columns
         '    c.SortMode = DataGridViewColumnSortMode.Programmatic
         'Next c
@@ -247,6 +256,7 @@ Public Class Form1
         Dim C1_F As StringBuilder = New StringBuilder(300)
         Dim C2_F As StringBuilder = New StringBuilder(300)
         Dim C3_F As StringBuilder = New StringBuilder(300)
+        Dim C4_F As StringBuilder = New StringBuilder(300)
 
         Dim Last_Sort_s As StringBuilder = New StringBuilder(300)
         Dim Last_Selected_s As StringBuilder = New StringBuilder(300)
@@ -312,7 +322,7 @@ Public Class Form1
 
         GetPrivateProfileString(" Supermodel3 UI ", "HideCMD", "False", HideCMD, 15, iniFileName)
 
-        GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\supermodel\Roms", Dir, 150, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\天上天下唯我独尊\Roms", Dir, 150, iniFileName)
 
         GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
 
@@ -320,11 +330,13 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "Columns1Width", 150, Columns1Width, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns2Width", 120, Columns2Width, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns3Width", 50, Columns3Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns4Width", 50, Columns4Width, 15, iniFileName)
 
         GetPrivateProfileString(" Supermodel3 UI ", "Columns0Sort", "False", C0_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns1Sort", "False", C1_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns2Sort", "False", C2_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns3Sort", "False", C3_F, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns4Sort", "False", C3_F, 15, iniFileName)
 
         GetPrivateProfileString(" Supermodel3 UI ", "LastSort", 0, Last_Sort_s, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", 0, Last_Selected_s, 15, iniFileName)
@@ -545,6 +557,7 @@ Public Class Form1
 
         'Dir
         Label_path.Text = Dir.ToString
+        Roms_count(Dir.ToString)
         Debug("Dir" & Dir.ToString)
 
         'InputSystem
@@ -665,6 +678,8 @@ Public Class Form1
                 End If
             Else
                 Dim f As PosResWindow = New PosResWindow()
+                'f.Left = Integer.Parse(Label_xPos.Text)
+                'f.Top = Integer.Parse(Label_yPos.Text)
                 f.StartPosition = FormStartPosition.CenterScreen
                 If f.ShowDialog(Me) = DialogResult.OK Then
                 End If
@@ -677,7 +692,7 @@ Public Class Form1
         Roms = DataGridView1.CurrentRow.Cells(2).Value
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Last_SelectedRow = DataGridView1.CurrentRow.Index
-        Label_listed.Text = DataGridView1.CurrentRow.Index + 1 & " / " & GameData.Rows.Count & " games listed."
+        Label_listed.Text = GameData.Rows.Count & " games listed." 'DataGridView1.CurrentRow.Index + 1 & " / " &
     End Sub
 
     Private Sub DataGridView1_SelectCellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
@@ -704,7 +719,7 @@ Public Class Form1
         Label_yRes.Text = S_Split(1)
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button_loadrom.Click
+    Private Sub Button_LoadRom_Click(sender As Object, e As EventArgs) Handles Button_loadrom.Click
         Load_Roms()
     End Sub
     Private Sub Load_Roms()
@@ -755,13 +770,65 @@ Public Class Form1
         Dim fbd As New FolderBrowserDialog
         fbd.Description = "Select Roms folder."
         fbd.RootFolder = Environment.SpecialFolder.Desktop
-        fbd.SelectedPath = "C:\Windows"
+        fbd.SelectedPath = Label_path.Text
         fbd.ShowNewFolderButton = True
         If fbd.ShowDialog(Me) = DialogResult.OK Then
             Label_path.Text = fbd.SelectedPath
+            Roms_count(fbd.SelectedPath)
         End If
     End Sub
 
+
+    Private Sub Roms_count(Dir As String)
+        Try
+            If DT_Roms.Rows.Count > 0 Then
+                DT_Roms.Rows.Clear()
+            End If
+            Dim Roms_count As Integer = 0
+            Dim FileCount As Integer = Directory.GetFiles(Dir, "*.zip", SearchOption.TopDirectoryOnly).Length
+            If FileCount > 0 Then
+                Dim files As IEnumerable(Of String) = System.IO.Directory.EnumerateFiles(Dir, "*.zip", System.IO.SearchOption.TopDirectoryOnly)
+                'ファイルを列挙する
+
+                For Each f As String In files
+                    Dim f_split() As String
+                    f_split = Split(f, "\")
+                    Dim fl As Integer = f_split.Length - 1
+                    Dim f_replace As String = f_split(fl).Replace(".zip", "")
+                    DT_Roms.Rows.Add(f_replace)
+                Next
+                'DataGridView2.DataSource = DT_Roms
+
+                For i As Integer = 0 To GameData.Rows.Count - 1
+                    GameData.Rows(i).Item("A-E") = " "
+                Next
+
+
+
+                Dim Roms_bin As String
+
+                For i As Integer = 0 To GameData.Rows.Count - 1
+                    Roms_bin = GameData.Rows(i).Item("Roms").ToString
+                    For j As Integer = 0 To FileCount - 1
+                        If Roms_bin = DT_Roms.Rows(j).Item(0).ToString Then
+                            GameData.Rows(i).Item("A-E") = "o"
+                            Roms_count += 1
+                            Exit For
+                        End If
+                    Next
+                Next
+            Else
+                For i As Integer = 0 To GameData.Rows.Count - 1
+                    GameData.Rows(i).Item("A-E") = " "
+                Next
+            End If
+            DataGridView1.DataSource = GameData
+            Label_Roms.Text = Roms_count & " rom(s) Available."
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
     Private Sub TextBox1and2_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TextBox_Portin.KeyPress, TextBox_Portout.KeyPress
         If (e.KeyChar < "0"c OrElse "9"c < e.KeyChar) AndAlso e.KeyChar <> ControlChars.Back Then
             e.Handled = True
@@ -883,6 +950,7 @@ Public Class Form1
         WritePrivateProfileString(" Supermodel3 UI ", "Columns1Width", DataGridView1.Columns(1).Width, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns2Width", DataGridView1.Columns(2).Width, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns3Width", DataGridView1.Columns(3).Width, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns4Width", DataGridView1.Columns(4).Width, iniFileName)
 
         WritePrivateProfileString(" Supermodel3 UI ", "Columns0Sort", C0_Sort_F, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns1Sort", C1_Sort_F, iniFileName)
@@ -1022,6 +1090,19 @@ Public Class Form1
         Last_Sort = 3
     End Sub
 
+    Private Sub Header4_Click(sender As Object, e As EventArgs) Handles Header4.Click
+        If C4_Sort_F = False Then
+            DataGridView1.Sort(DataGridView1.Columns(4), System.ComponentModel.ListSortDirection.Ascending)
+            GameData.DefaultView.Sort = "A-E ASC"
+            C4_Sort_F = True
+        Else
+            DataGridView1.Sort(DataGridView1.Columns(4), System.ComponentModel.ListSortDirection.Descending)
+            GameData.DefaultView.Sort = "A-E DESC"
+            C4_Sort_F = False
+        End If
+        Last_Sort = 4
+    End Sub
+
     Private Sub DataGridView1_ColumnWidthChanged(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
         Dim wn As Integer = 2
         Dim wp As Integer = 7
@@ -1032,6 +1113,8 @@ Public Class Form1
         Header2.Width = DataGridView1.Columns(2).Width - wn
         Header3.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + DataGridView1.Columns(2).Width + wp
         Header3.Width = DataGridView1.Columns(3).Width - wn
+        Header4.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + DataGridView1.Columns(2).Width + DataGridView1.Columns(3).Width + wp
+        Header4.Width = DataGridView1.Columns(4).Width - wn
     End Sub
 
     Private Sub ToolStripMenuItem8_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem8.Click, ToolStripMenuItem10.Click
@@ -1047,4 +1130,6 @@ Public Class Form1
             Next childControl
         End If
     End Sub
+
+
 End Class
