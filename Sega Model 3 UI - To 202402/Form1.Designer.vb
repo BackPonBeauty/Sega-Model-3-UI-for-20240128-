@@ -27,6 +27,10 @@ Partial Class Form1
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OptionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FontSizeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Debugtext = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button_folder = New System.Windows.Forms.Button()
@@ -71,6 +75,7 @@ Partial Class Form1
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.XViblate = New System.Windows.Forms.Label()
         Me.XConst = New System.Windows.Forms.Label()
         Me.XThreshold = New System.Windows.Forms.Label()
@@ -140,12 +145,7 @@ Partial Class Form1
         Me.Header1 = New System.Windows.Forms.Button()
         Me.Header2 = New System.Windows.Forms.Button()
         Me.Header3 = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.OptionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FontSizeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label_listed = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -185,7 +185,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1010, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1012, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -200,8 +200,36 @@ Partial Class Form1
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
         Me.AboutToolStripMenuItem.Text = "About"
+        '
+        'OptionToolStripMenuItem
+        '
+        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem})
+        Me.OptionToolStripMenuItem.Name = "OptionToolStripMenuItem"
+        Me.OptionToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
+        Me.OptionToolStripMenuItem.Text = "Option"
+        '
+        'FontSizeToolStripMenuItem
+        '
+        Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8})
+        Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
+        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FontSizeToolStripMenuItem.Text = "Font size"
+        '
+        'ToolStripMenuItem10
+        '
+        Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
+        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem10.Tag = "10"
+        Me.ToolStripMenuItem10.Text = "Normal"
+        '
+        'ToolStripMenuItem8
+        '
+        Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem8.Tag = "8"
+        Me.ToolStripMenuItem8.Text = "Small"
         '
         'Debugtext
         '
@@ -774,6 +802,16 @@ Partial Class Form1
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(208, 472)
         Me.Panel2.TabIndex = 62
+        '
+        'Label2
+        '
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(24, 441)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(160, 24)
+        Me.Label2.TabIndex = 78
+        Me.Label2.Text = "Label2"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'XViblate
         '
@@ -1456,7 +1494,7 @@ Partial Class Form1
         Me.Button_GetIPAddress.Location = New System.Drawing.Point(55, 93)
         Me.Button_GetIPAddress.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_GetIPAddress.Name = "Button_GetIPAddress"
-        Me.Button_GetIPAddress.Size = New System.Drawing.Size(142, 24)
+        Me.Button_GetIPAddress.Size = New System.Drawing.Size(158, 24)
         Me.Button_GetIPAddress.TabIndex = 77
         Me.Button_GetIPAddress.Text = "Get Local IP Address"
         Me.Button_GetIPAddress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1643,54 +1681,26 @@ Partial Class Form1
         Me.Header3.TextAlign = System.Drawing.ContentAlignment.TopLeft
         Me.Header3.UseVisualStyleBackColor = False
         '
-        'Label2
+        'Label_listed
         '
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(24, 441)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(160, 24)
-        Me.Label2.TabIndex = 78
-        Me.Label2.Text = "Label2"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'OptionToolStripMenuItem
-        '
-        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem})
-        Me.OptionToolStripMenuItem.Name = "OptionToolStripMenuItem"
-        Me.OptionToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
-        Me.OptionToolStripMenuItem.Text = "Option"
-        '
-        'FontSizeToolStripMenuItem
-        '
-        Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8, Me.ToolStripMenuItem6})
-        Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
-        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.FontSizeToolStripMenuItem.Text = "Font size"
-        '
-        'ToolStripMenuItem10
-        '
-        Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
-        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem10.Text = "10"
-        '
-        'ToolStripMenuItem8
-        '
-        Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem8.Text = "8"
-        '
-        'ToolStripMenuItem6
-        '
-        Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem6.Text = "6"
+        Me.Label_listed.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_listed.ForeColor = System.Drawing.Color.White
+        Me.Label_listed.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label_listed.Location = New System.Drawing.Point(233, 482)
+        Me.Label_listed.Name = "Label_listed"
+        Me.Label_listed.Size = New System.Drawing.Size(371, 20)
+        Me.Label_listed.TabIndex = 77
+        Me.Label_listed.Text = "games listed"
+        Me.Label_listed.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1010, 591)
+        Me.ClientSize = New System.Drawing.Size(1012, 591)
+        Me.Controls.Add(Me.Button_loadrom)
+        Me.Controls.Add(Me.Label_listed)
         Me.Controls.Add(Me.Header3)
         Me.Controls.Add(Me.Header2)
         Me.Controls.Add(Me.Header1)
@@ -1706,7 +1716,6 @@ Partial Class Form1
         Me.Controls.Add(Me.CheckBox_hidecmd)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
-        Me.Controls.Add(Me.Button_loadrom)
         Me.Controls.Add(Me.Panel_Video)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.DataGridView1)
@@ -1720,7 +1729,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.0.7"
+        Me.Text = "Sega Model 3 UI - Ver 1.0.7.1"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -1872,5 +1881,5 @@ Partial Class Form1
     Friend WithEvents FontSizeToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem10 As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem8 As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem6 As ToolStripMenuItem
+    Friend WithEvents Label_listed As Label
 End Class

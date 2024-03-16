@@ -133,10 +133,10 @@ Public Class Form1
         Dim xfolder As XmlNodeList
         Dim xnode As XmlNode
         'StringBuilder
-        Dim xname(100) As String
-        Dim xVersion(100) As String
-        Dim xRoms(100) As String
-        Dim xStep(100) As String
+        Dim xname(1000) As String
+        Dim xVersion(1000) As String
+        Dim xRoms(1000) As String
+        Dim xStep(1000) As String
 
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
         xmlDoc.Load(appPath & "\Config\Games.xml")
@@ -657,21 +657,16 @@ Public Class Form1
             If Integer.Parse(Label_wScreenRes.Text) < Integer.Parse(Label_xRes.Text) Or Integer.Parse(Label_hScreenRes.Text) < Integer.Parse(Label_yRes.Text) Then
                 Dim result As DialogResult = MessageBox.Show("It's bigger than the screen size.",
                                              "confirmation",
-                                             MessageBoxButtons.OKCancel,
+                                             MessageBoxButtons.OK,
                                              MessageBoxIcon.Exclamation,
-                                            MessageBoxDefaultButton.Button2)
+                                            MessageBoxDefaultButton.Button1)
                 If result = DialogResult.OK Then
-                    Dim f As PosResWindow = New PosResWindow()
-                    f.StartPosition = FormStartPosition.CenterScreen
-                    If (f.ShowDialog(Me) = DialogResult.OK) Then
-                    End If
-                    f.Dispose()
-                ElseIf result = DialogResult.Cancel Then
+                    Exit Sub
                 End If
             Else
                 Dim f As PosResWindow = New PosResWindow()
                 f.StartPosition = FormStartPosition.CenterScreen
-                If (f.ShowDialog(Me) = DialogResult.OK) Then
+                If f.ShowDialog(Me) = DialogResult.OK Then
                 End If
                 f.Dispose()
             End If
@@ -682,6 +677,7 @@ Public Class Form1
         Roms = DataGridView1.CurrentRow.Cells(2).Value
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Last_SelectedRow = DataGridView1.CurrentRow.Index
+        Label_listed.Text = DataGridView1.CurrentRow.Index + 1 & " / " & GameData.Rows.Count & " games listed."
     End Sub
 
     Private Sub DataGridView1_SelectCellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
@@ -703,7 +699,6 @@ Public Class Form1
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_resolution.SelectedIndexChanged
         Dim S_Select As String = ComboBox_resolution.SelectedItem
-        Debug(S_Select)
         Dim S_Split() As String = Split(S_Select, "x")
         Label_xRes.Text = S_Split(0)
         Label_yRes.Text = S_Split(1)
@@ -721,8 +716,10 @@ Public Class Form1
             startInfo.UseShellExecute = False
             Process.Start(startInfo)
             loading.Show()
-        Catch ex As System.Exception
-            Debug(ex.Message)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message.ToString, "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -1037,16 +1034,8 @@ Public Class Form1
         Header3.Width = DataGridView1.Columns(3).Width - wn
     End Sub
 
-    Private Sub ToolStripMenuItem8_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem8.Click
-        FontSize_bin = 8
-        GetAllControls(Me, Integer.Parse(FontSize_bin))
-    End Sub
-    Private Sub ToolStripMenuItem10_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem10.Click
-        FontSize_bin = 10
-        GetAllControls(Me, Integer.Parse(FontSize_bin))
-    End Sub
-    Private Sub ToolStripMenuItem6_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem6.Click
-        FontSize_bin = 6
+    Private Sub ToolStripMenuItem8_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem8.Click, ToolStripMenuItem10.Click
+        FontSize_bin = Integer.Parse(sender.tag.ToString)
         GetAllControls(Me, Integer.Parse(FontSize_bin))
     End Sub
 
