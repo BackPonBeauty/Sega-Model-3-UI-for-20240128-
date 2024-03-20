@@ -4,6 +4,7 @@ Imports System.Net
 Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices
 Imports System.Text
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Xml
 
 Public Class Form1
@@ -77,38 +78,44 @@ Public Class Form1
 
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Initialize DataTable
-        GameData.Columns.Add("Games", GetType(String))
-        GameData.Columns.Add("Version", GetType(String))
-        GameData.Columns.Add("Roms", GetType(String))
-        GameData.Columns.Add("Step", GetType(String))
-        GameData.Columns.Add("A-E", GetType(String))
-        DT_Roms.Columns.Add("name", GetType(String))
+        Dim appPath As String = System.Windows.Forms.Application.StartupPath
+        Dim fileName As String = appPath & "\Config"
+        If System.IO.Directory.Exists(fileName) Then
+            'Initialize DataTable
+            GameData.Columns.Add("Games", GetType(String))
+            GameData.Columns.Add("Version", GetType(String))
+            GameData.Columns.Add("Roms", GetType(String))
+            GameData.Columns.Add("Step", GetType(String))
+            GameData.Columns.Add("A-E", GetType(String))
+            DT_Roms.Columns.Add("name", GetType(String))
 
-        Load_gamexml()
-        Load_initialfile()
-        DataGridView_Setting()
-        Select Case Last_Sort
-            Case 0
-                C0_Sort_F = Not (C0_Sort_F)
-                Header0.PerformClick()
-            Case 1
-                C1_Sort_F = Not (C1_Sort_F)
-                Header1.PerformClick()
-            Case 2
-                C2_Sort_F = Not (C2_Sort_F)
-                Header2.PerformClick()
-            Case 3
-                C3_Sort_F = Not (C3_Sort_F)
-                Header3.PerformClick()
-            Case Else
-                C0_Sort_F = Not (C0_Sort_F)
-                Header0.PerformClick()
-        End Select
-        LoadResolution()
-        LastSelectRow()
-        GetAllControls(Me, FontSize_bin)
-        
+            Load_gamexml()
+            Load_initialfile()
+            DataGridView_Setting()
+            Select Case Last_Sort
+                Case 0
+                    C0_Sort_F = Not (C0_Sort_F)
+                    Header0.PerformClick()
+                Case 1
+                    C1_Sort_F = Not (C1_Sort_F)
+                    Header1.PerformClick()
+                Case 2
+                    C2_Sort_F = Not (C2_Sort_F)
+                    Header2.PerformClick()
+                Case 3
+                    C3_Sort_F = Not (C3_Sort_F)
+                    Header3.PerformClick()
+                Case Else
+                    C0_Sort_F = Not (C0_Sort_F)
+                    Header0.PerformClick()
+            End Select
+            LoadResolution()
+            LastSelectRow()
+            GetAllControls(Me, FontSize_bin)
+        Else
+            MessageBox.Show("Config folder not found.")
+            Me.Close()
+        End If
     End Sub
 
     Private Sub LoadResolution()
@@ -326,7 +333,7 @@ Public Class Form1
 
         GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
 
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns0Width", 250, Columns0Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns0Width", 200, Columns0Width, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns1Width", 150, Columns1Width, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns2Width", 120, Columns2Width, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns3Width", 50, Columns3Width, 15, iniFileName)
@@ -976,7 +983,11 @@ Public Class Form1
     End Sub
 
     Private Sub Me_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        WriteIni()
+        Try
+            WriteIni()
+        Catch
+
+        End Try
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
@@ -1128,6 +1139,18 @@ Public Class Form1
                 GetAllControls(childControl, size)
                 childControl.Font = New Font("Arial", size, FontStyle.Regular)
             Next childControl
+        End If
+    End Sub
+
+    Private Sub BGColorToolStripMenuItem_Click(sender As Object, e As EventArgs) ' Handles BackColorToolStripMenuItem.Click
+        Dim cd As New ColorDialog()
+        cd.Color = Me.BackColor
+        cd.AllowFullOpen = True
+        cd.SolidColorOnly = True
+        If cd.ShowDialog() = DialogResult.OK Then
+            Me.BackColor = cd.Color
+            Label_path.BackColor = cd.Color
+            Debug(cd.Color.ToString)
         End If
     End Sub
 
