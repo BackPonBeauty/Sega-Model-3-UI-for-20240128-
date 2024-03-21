@@ -54,6 +54,10 @@ Public Class Form1
     Dim Last_SelectedRow_bin As Integer = 0
     Public FontSize_bin As Integer = "10"
     Dim Resolution_index_bin As Integer = 0
+    Dim Bgcolor_R As Integer = 147
+    Dim Bgcolor_G As Integer = 0
+    Dim Bgcolor_B As Integer = 80
+    Dim Forecolor_s As String = "White"
 
     'DragMove
     Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
@@ -91,6 +95,13 @@ Public Class Form1
 
             Load_gamexml()
             Load_initialfile()
+            If Forecolor_s = "White" Then
+                WhiteToolStripMenuItem.PerformClick()
+            Else
+                BlackToolStripMenuItem.PerformClick()
+            End If
+            Me.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
+            Label_path.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
             DataGridView_Setting()
             Select Case Last_Sort
                 Case 0
@@ -273,6 +284,10 @@ Public Class Form1
 
         Dim FontSize As StringBuilder = New StringBuilder(300)
         Dim Resolution_index As StringBuilder = New StringBuilder(300)
+        Dim BgcolorR As StringBuilder = New StringBuilder(300)
+        Dim BgcolorG As StringBuilder = New StringBuilder(300)
+        Dim BgcolorB As StringBuilder = New StringBuilder(300)
+        Dim Forecolor As StringBuilder = New StringBuilder(300)
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -352,6 +367,18 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", 0, Last_Selected_s, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "FontSize", 10, FontSize, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Resolution_index", 10, Resolution_index, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "BackColor_R", "147", BgcolorR, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "BackColor_G", "0", BgcolorG, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
+
+        'BackColor
+        Bgcolor_R = BgcolorR.ToString
+        Bgcolor_G = BgcolorG.ToString
+        Bgcolor_B = BgcolorB.ToString
+
+        'ForeColor
+        Forecolor_s = Forecolor.ToString
 
         'Columuns Sort Flag
         If C0_F.ToString() = "True" Then
@@ -707,7 +734,7 @@ Public Class Form1
         Roms = DataGridView1.CurrentRow.Cells(2).Value
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Last_SelectedRow = DataGridView1.CurrentRow.Index
-        Label_listed.Text = GameData.Rows.Count & " games listed." 'DataGridView1.CurrentRow.Index + 1 & " / " &
+        Label_listed.Text = GameData.Rows.Count & " game(s) listed." 'DataGridView1.CurrentRow.Index + 1 & " / " &
     End Sub
 
     Private Sub DataGridView1_SelectCellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
@@ -838,7 +865,7 @@ Public Class Form1
                 Next
             End If
             DataGridView1.DataSource = GameData
-            Label_Roms.Text = Roms_count & " rom(s) Available."
+            Label_Roms.Text = Roms_count & " rom(s) available."
         Catch ex As Exception
 
         End Try
@@ -977,6 +1004,10 @@ Public Class Form1
         WritePrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", Last_SelectedRow, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "FontSize", FontSize_bin, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Resolution_index", ComboBox_resolution.SelectedIndex, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "BackColor_R", Bgcolor_R, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "BackColor_G", Bgcolor_G, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "BackColor_B", Bgcolor_B, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "ForeColor", Forecolor_s, iniFileName)
 
         WritePrivateProfileString(Section, "DirectInputConstForceLeftMax", DConstLeft.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputConstForceRightMax", DConstRight.Text, iniFileName)
@@ -1151,17 +1182,83 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub BGColorToolStripMenuItem_Click(sender As Object, e As EventArgs) ' Handles BackColorToolStripMenuItem.Click
+    Private Sub BGColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChooseToolStripMenuItem.Click
         Dim cd As New ColorDialog()
         cd.Color = Me.BackColor
         cd.AllowFullOpen = True
-        cd.SolidColorOnly = True
+        cd.SolidColorOnly = False
         If cd.ShowDialog() = DialogResult.OK Then
             Me.BackColor = cd.Color
             Label_path.BackColor = cd.Color
-            Debug(cd.Color.ToString)
+            Bgcolor_R = cd.Color.R.ToString
+            Bgcolor_G = cd.Color.G.ToString
+            Bgcolor_B = cd.Color.B.ToString
+            Debug(cd.Color.R.ToString)
+            Debug(cd.Color.G.ToString)
+            Debug(cd.Color.B.ToString)
         End If
     End Sub
 
+    Private Sub WhiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WhiteToolStripMenuItem.Click
+        Dim c As Object
+        For Each c In Controls
+            If TypeOf c Is IButtonControl Or TypeOf c Is MenuStrip Then
+                c.ForeColor = Color.Black
+            Else
+                c.ForeColor = Color.White
+            End If
+        Next
+        For Each c In Panel_Video.Controls
+            c.ForeColor = Color.White
+        Next
+        For Each c In Panel_Sound.Controls
+            c.ForeColor = Color.White
+        Next
+        For Each c In Panel_Input.Controls
+            c.ForeColor = Color.White
+        Next
+        For Each c In Panel_Network.Controls
+            c.ForeColor = Color.White
+            If TypeOf c Is TextBoxBase Then
+                c.ForeColor = Color.White
+            End If
+        Next
+        Forecolor_s = "White"
+    End Sub
 
+    Private Sub BlackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BlackToolStripMenuItem.Click
+        Dim c As Object
+        For Each c In Me.Controls
+            If TypeOf c Is DataGridView Then
+                c.ForeColor = Color.White
+            Else
+                c.ForeColor = Color.Black
+            End If
+        Next
+        For Each c In Panel_Video.Controls
+            c.ForeColor = Color.Black
+        Next
+        For Each c In Panel_Sound.Controls
+            c.ForeColor = Color.Black
+        Next
+        For Each c In Panel_Input.Controls
+            c.ForeColor = Color.Black
+        Next
+        For Each c In Panel_Network.Controls
+            c.ForeColor = Color.Black
+            If TypeOf c Is TextBoxBase Then
+                c.ForeColor = Color.White
+            End If
+        Next
+        Forecolor_s = "Balck"
+    End Sub
+
+    Private Sub DefoultToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DefoultToolStripMenuItem.Click
+        Bgcolor_R = 147
+        Bgcolor_G = 0
+        Bgcolor_B = 80
+        Me.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
+        Label_path.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
+        WhiteToolStripMenuItem.PerformClick()
+    End Sub
 End Class

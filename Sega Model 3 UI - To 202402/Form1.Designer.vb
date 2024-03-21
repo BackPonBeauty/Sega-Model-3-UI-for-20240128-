@@ -31,6 +31,12 @@ Partial Class Form1
         Me.FontSizeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChooseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DefoultToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FontColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WhiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Debugtext = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button_folder = New System.Windows.Forms.Button()
@@ -187,7 +193,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1010, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1014, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -207,7 +213,7 @@ Partial Class Form1
         '
         'OptionToolStripMenuItem
         '
-        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem})
+        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem, Me.BackColorToolStripMenuItem, Me.FontColorToolStripMenuItem})
         Me.OptionToolStripMenuItem.Name = "OptionToolStripMenuItem"
         Me.OptionToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
         Me.OptionToolStripMenuItem.Text = "Option"
@@ -216,7 +222,7 @@ Partial Class Form1
         '
         Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8})
         Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
-        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
+        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FontSizeToolStripMenuItem.Text = "Font size"
         '
         'ToolStripMenuItem10
@@ -232,6 +238,44 @@ Partial Class Form1
         Me.ToolStripMenuItem8.Size = New System.Drawing.Size(115, 22)
         Me.ToolStripMenuItem8.Tag = "8"
         Me.ToolStripMenuItem8.Text = "Small"
+        '
+        'BackColorToolStripMenuItem
+        '
+        Me.BackColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ChooseToolStripMenuItem, Me.DefoultToolStripMenuItem})
+        Me.BackColorToolStripMenuItem.Name = "BackColorToolStripMenuItem"
+        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.BackColorToolStripMenuItem.Text = "BackColor"
+        '
+        'ChooseToolStripMenuItem
+        '
+        Me.ChooseToolStripMenuItem.Name = "ChooseToolStripMenuItem"
+        Me.ChooseToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ChooseToolStripMenuItem.Text = "Choose"
+        '
+        'DefoultToolStripMenuItem
+        '
+        Me.DefoultToolStripMenuItem.Name = "DefoultToolStripMenuItem"
+        Me.DefoultToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DefoultToolStripMenuItem.Text = "Default"
+        '
+        'FontColorToolStripMenuItem
+        '
+        Me.FontColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.WhiteToolStripMenuItem, Me.BlackToolStripMenuItem})
+        Me.FontColorToolStripMenuItem.Name = "FontColorToolStripMenuItem"
+        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FontColorToolStripMenuItem.Text = "FontColor"
+        '
+        'WhiteToolStripMenuItem
+        '
+        Me.WhiteToolStripMenuItem.Name = "WhiteToolStripMenuItem"
+        Me.WhiteToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
+        Me.WhiteToolStripMenuItem.Text = "White"
+        '
+        'BlackToolStripMenuItem
+        '
+        Me.BlackToolStripMenuItem.Name = "BlackToolStripMenuItem"
+        Me.BlackToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
+        Me.BlackToolStripMenuItem.Text = "Black"
         '
         'Debugtext
         '
@@ -425,9 +469,9 @@ Partial Class Form1
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label5.Location = New System.Drawing.Point(14, 224)
+        Me.Label5.Location = New System.Drawing.Point(0, 224)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(125, 20)
+        Me.Label5.Size = New System.Drawing.Size(139, 20)
         Me.Label5.TabIndex = 65
         Me.Label5.Text = "PowerPCFrequency"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -624,7 +668,7 @@ Partial Class Form1
         'Button_loadrom
         '
         Me.Button_loadrom.ForeColor = System.Drawing.Color.Black
-        Me.Button_loadrom.Location = New System.Drawing.Point(256, 496)
+        Me.Button_loadrom.Location = New System.Drawing.Point(214, 495)
         Me.Button_loadrom.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_loadrom.Name = "Button_loadrom"
         Me.Button_loadrom.Size = New System.Drawing.Size(88, 25)
@@ -1688,11 +1732,11 @@ Partial Class Form1
         Me.Label_listed.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_listed.ForeColor = System.Drawing.Color.White
         Me.Label_listed.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_listed.Location = New System.Drawing.Point(233, 482)
+        Me.Label_listed.Location = New System.Drawing.Point(429, 482)
         Me.Label_listed.Name = "Label_listed"
-        Me.Label_listed.Size = New System.Drawing.Size(371, 20)
+        Me.Label_listed.Size = New System.Drawing.Size(175, 20)
         Me.Label_listed.TabIndex = 77
-        Me.Label_listed.Text = "games listed"
+        Me.Label_listed.Text = "game(s) listed"
         Me.Label_listed.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label_Roms
@@ -1700,11 +1744,11 @@ Partial Class Form1
         Me.Label_Roms.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Roms.ForeColor = System.Drawing.Color.White
         Me.Label_Roms.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_Roms.Location = New System.Drawing.Point(426, 502)
+        Me.Label_Roms.Location = New System.Drawing.Point(432, 502)
         Me.Label_Roms.Name = "Label_Roms"
-        Me.Label_Roms.Size = New System.Drawing.Size(178, 20)
+        Me.Label_Roms.Size = New System.Drawing.Size(172, 20)
         Me.Label_Roms.TabIndex = 78
-        Me.Label_Roms.Text = "0 rom(s) Available."
+        Me.Label_Roms.Text = "0 rom(s) available."
         Me.Label_Roms.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Header4
@@ -1729,7 +1773,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1010, 591)
+        Me.ClientSize = New System.Drawing.Size(1014, 591)
         Me.Controls.Add(Me.Header4)
         Me.Controls.Add(Me.Label_Roms)
         Me.Controls.Add(Me.Button_loadrom)
@@ -1762,7 +1806,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.0.7.3"
+        Me.Text = "Sega Model 3 UI - Ver 1.0.8.0"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -1917,4 +1961,10 @@ Partial Class Form1
     Friend WithEvents Label_listed As Label
     Friend WithEvents Label_Roms As Label
     Friend WithEvents Header4 As Button
+    Friend WithEvents BackColorToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FontColorToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents WhiteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BlackToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ChooseToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DefoultToolStripMenuItem As ToolStripMenuItem
 End Class
