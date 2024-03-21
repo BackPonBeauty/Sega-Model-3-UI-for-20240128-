@@ -105,9 +105,12 @@ Public Class Form1
                 Case 3
                     C3_Sort_F = Not (C3_Sort_F)
                     Header3.PerformClick()
+                Case 4
+                    C4_Sort_F = Not (C4_Sort_F)
+                    Header4.PerformClick()
                 Case Else
-                    C0_Sort_F = Not (C0_Sort_F)
-                    Header0.PerformClick()
+                    'C0_Sort_F = Not (C0_Sort_F)
+                    'Header0.PerformClick()
             End Select
             LoadResolution()
             LastSelectRow()
