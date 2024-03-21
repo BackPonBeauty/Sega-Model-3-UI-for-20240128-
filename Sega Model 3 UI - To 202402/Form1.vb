@@ -1113,11 +1113,11 @@ Public Class Form1
     Private Sub Header4_Click(sender As Object, e As EventArgs) Handles Header4.Click
         If C4_Sort_F = False Then
             DataGridView1.Sort(DataGridView1.Columns(4), System.ComponentModel.ListSortDirection.Ascending)
-            'GameData.DefaultView.Sort = "A-E ASC"
+            GameData.DefaultView.Sort = "A-E ASC"
             C4_Sort_F = True
         Else
             DataGridView1.Sort(DataGridView1.Columns(4), System.ComponentModel.ListSortDirection.Descending)
-            'GameData.DefaultView.Sort = "A-E DESC"
+            GameData.DefaultView.Sort = "A-E DESC"
             C4_Sort_F = False
         End If
         Last_Sort = 4
