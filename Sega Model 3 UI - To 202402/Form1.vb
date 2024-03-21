@@ -346,7 +346,7 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "Columns1Sort", "False", C1_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns2Sort", "False", C2_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns3Sort", "False", C3_F, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns4Sort", "False", C3_F, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns4Sort", "False", C4_F, 15, iniFileName)
 
         GetPrivateProfileString(" Supermodel3 UI ", "LastSort", 0, Last_Sort_s, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", 0, Last_Selected_s, 15, iniFileName)
@@ -373,6 +373,11 @@ Public Class Form1
             C3_Sort_F = True
         Else
             C3_Sort_F = False
+        End If
+        If C4_F.ToString() = "True" Then
+            C4_Sort_F = True
+        Else
+            C4_Sort_F = False
         End If
 
         'Last_Sort
@@ -966,6 +971,7 @@ Public Class Form1
         WritePrivateProfileString(" Supermodel3 UI ", "Columns1Sort", C1_Sort_F, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns2Sort", C2_Sort_F, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns3Sort", C3_Sort_F, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns4Sort", C4_Sort_F, iniFileName)
 
         WritePrivateProfileString(" Supermodel3 UI ", "LastSort", Last_Sort, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", Last_SelectedRow, iniFileName)
@@ -1107,11 +1113,11 @@ Public Class Form1
     Private Sub Header4_Click(sender As Object, e As EventArgs) Handles Header4.Click
         If C4_Sort_F = False Then
             DataGridView1.Sort(DataGridView1.Columns(4), System.ComponentModel.ListSortDirection.Ascending)
-            GameData.DefaultView.Sort = "A-E ASC"
+            'GameData.DefaultView.Sort = "A-E ASC"
             C4_Sort_F = True
         Else
             DataGridView1.Sort(DataGridView1.Columns(4), System.ComponentModel.ListSortDirection.Descending)
-            GameData.DefaultView.Sort = "A-E DESC"
+            'GameData.DefaultView.Sort = "A-E DESC"
             C4_Sort_F = False
         End If
         Last_Sort = 4
