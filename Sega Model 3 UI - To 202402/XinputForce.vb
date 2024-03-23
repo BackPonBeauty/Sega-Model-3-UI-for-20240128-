@@ -18,6 +18,10 @@
     End Sub
 
     Private Sub XinputForce_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.BackColor = Color.FromArgb(255, Form1.Bgcolor_R, Form1.Bgcolor_G, Form1.Bgcolor_B)
+        For Each c In Me.Controls
+            c.ForeColor = Form1.Pub_Forecolor_s
+        Next
         GetAllControls(Me, Integer.Parse(Form1.FontSize_bin))
     End Sub
     Private Sub GetAllControls(ByVal control As Control, size As Integer)

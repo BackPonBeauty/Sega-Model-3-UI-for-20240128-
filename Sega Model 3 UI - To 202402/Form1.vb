@@ -54,10 +54,11 @@ Public Class Form1
     Dim Last_SelectedRow_bin As Integer = 0
     Public FontSize_bin As Integer = "10"
     Dim Resolution_index_bin As Integer = 0
-    Dim Bgcolor_R As Integer = 147
-    Dim Bgcolor_G As Integer = 0
-    Dim Bgcolor_B As Integer = 80
-    Dim Forecolor_s As String = "White"
+    Public Bgcolor_R As Integer = 147
+    Public Bgcolor_G As Integer = 0
+    Public Bgcolor_B As Integer = 80
+    Public Pub_Forecolor_s As Color = Color.White
+    Public Forecolor_s As String = "White"
 
     'DragMove
     Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
@@ -1216,13 +1217,20 @@ Public Class Form1
         Next
         For Each c In Panel_Input.Controls
             c.ForeColor = Color.White
-        Next
-        For Each c In Panel_Network.Controls
-            c.ForeColor = Color.White
-            If TypeOf c Is TextBoxBase Then
+            If TypeOf c Is ButtonBase Then
+                c.ForeColor = Color.Black
+            End If
+            If c.name = "CheckBox18" Then
                 c.ForeColor = Color.White
             End If
         Next
+        For Each c In Panel_Network.Controls
+            c.ForeColor = Color.White
+            If c.name = "Button_GetIPAddress" Then
+                c.ForeColor = Color.Black
+            End If
+        Next
+        Pub_Forecolor_s = Color.White
         Forecolor_s = "White"
     End Sub
 
@@ -1250,6 +1258,7 @@ Public Class Form1
                 c.ForeColor = Color.White
             End If
         Next
+        Pub_Forecolor_s = Color.Black
         Forecolor_s = "Balck"
     End Sub
 

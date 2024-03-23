@@ -1,15 +1,16 @@
 ﻿Public Class loading
     Private Sub Form5_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.TopMost = True
+        Me.BackColor = Color.FromArgb(255, Form1.Bgcolor_R, Form1.Bgcolor_G, Form1.Bgcolor_B)
+        Me.ForeColor = Form1.Pub_Forecolor_s
         Timer1.Enabled = True
+        Button1.Visible = False
         GetAllControls(Me, Integer.Parse(Form1.FontSize_bin))
     End Sub
     Private Sub GetAllControls(ByVal control As Control, size As Integer)
         If control.HasChildren Then
             For Each childControl As Control In control.Controls
                 GetAllControls(childControl, size)
-                'テキストボックスだけにアクセスしたい場合
-                ' If TypeOf childControl Is TextBox Then
                 childControl.Font = New Font("Arial", size, FontStyle.Regular)
                 ' End If
             Next childControl
@@ -24,7 +25,7 @@
         Timer1.Enabled = False
         If Process.GetProcessesByName("Supermodel").Count = 0 Then
             Label1.Text = "Failed"
-            Button1.Left = 28
+            Button1.Visible = True
         Else
             Label1.Text = "Success!"
             timer2.enabled = True

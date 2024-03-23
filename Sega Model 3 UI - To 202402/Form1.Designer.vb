@@ -154,6 +154,7 @@ Partial Class Form1
         Me.Label_listed = New System.Windows.Forms.Label()
         Me.Label_Roms = New System.Windows.Forms.Label()
         Me.Header4 = New System.Windows.Forms.Button()
+        Me.Label8 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -193,7 +194,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1014, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1012, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -222,7 +223,7 @@ Partial Class Form1
         '
         Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8})
         Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
-        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.FontSizeToolStripMenuItem.Text = "Font size"
         '
         'ToolStripMenuItem10
@@ -243,26 +244,26 @@ Partial Class Form1
         '
         Me.BackColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ChooseToolStripMenuItem, Me.DefoultToolStripMenuItem})
         Me.BackColorToolStripMenuItem.Name = "BackColorToolStripMenuItem"
-        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.BackColorToolStripMenuItem.Text = "BackColor"
         '
         'ChooseToolStripMenuItem
         '
         Me.ChooseToolStripMenuItem.Name = "ChooseToolStripMenuItem"
-        Me.ChooseToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ChooseToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
         Me.ChooseToolStripMenuItem.Text = "Choose"
         '
         'DefoultToolStripMenuItem
         '
         Me.DefoultToolStripMenuItem.Name = "DefoultToolStripMenuItem"
-        Me.DefoultToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DefoultToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
         Me.DefoultToolStripMenuItem.Text = "Default"
         '
         'FontColorToolStripMenuItem
         '
         Me.FontColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.WhiteToolStripMenuItem, Me.BlackToolStripMenuItem})
         Me.FontColorToolStripMenuItem.Name = "FontColorToolStripMenuItem"
-        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.FontColorToolStripMenuItem.Text = "FontColor"
         '
         'WhiteToolStripMenuItem
@@ -1115,6 +1116,8 @@ Partial Class Form1
         '
         'Button4
         '
+        Me.Button4.BackColor = System.Drawing.Color.White
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button4.Image = CType(resources.GetObject("Button4.Image"), System.Drawing.Image)
         Me.Button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button4.Location = New System.Drawing.Point(612, 292)
@@ -1124,10 +1127,12 @@ Partial Class Form1
         Me.Button4.TabIndex = 65
         Me.Button4.Text = "Video"
         Me.Button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.Button4.UseVisualStyleBackColor = False
         '
         'Button5
         '
+        Me.Button5.BackColor = System.Drawing.Color.White
+        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button5.Image = CType(resources.GetObject("Button5.Image"), System.Drawing.Image)
         Me.Button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button5.Location = New System.Drawing.Point(712, 292)
@@ -1137,10 +1142,12 @@ Partial Class Form1
         Me.Button5.TabIndex = 66
         Me.Button5.Text = "Sound"
         Me.Button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.Button5.UseVisualStyleBackColor = False
         '
         'Button6
         '
+        Me.Button6.BackColor = System.Drawing.Color.White
+        Me.Button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button6.Image = CType(resources.GetObject("Button6.Image"), System.Drawing.Image)
         Me.Button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button6.Location = New System.Drawing.Point(812, 292)
@@ -1150,10 +1157,12 @@ Partial Class Form1
         Me.Button6.TabIndex = 67
         Me.Button6.Text = "Control"
         Me.Button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.Button6.UseVisualStyleBackColor = False
         '
         'Button7
         '
+        Me.Button7.BackColor = System.Drawing.Color.White
+        Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button7.Image = CType(resources.GetObject("Button7.Image"), System.Drawing.Image)
         Me.Button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button7.Location = New System.Drawing.Point(912, 292)
@@ -1163,7 +1172,7 @@ Partial Class Form1
         Me.Button7.TabIndex = 68
         Me.Button7.Text = "Network"
         Me.Button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button7.UseVisualStyleBackColor = True
+        Me.Button7.UseVisualStyleBackColor = False
         '
         'Panel_Sound
         '
@@ -1768,12 +1777,21 @@ Partial Class Form1
         Me.Header4.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Header4.UseVisualStyleBackColor = False
         '
+        'Label8
+        '
+        Me.Label8.Location = New System.Drawing.Point(604, 29)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(408, 39)
+        Me.Label8.TabIndex = 80
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1014, 591)
+        Me.ClientSize = New System.Drawing.Size(1012, 591)
+        Me.Controls.Add(Me.Panel3)
+        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Header4)
         Me.Controls.Add(Me.Label_Roms)
         Me.Controls.Add(Me.Button_loadrom)
@@ -1791,7 +1809,6 @@ Partial Class Form1
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.CheckBox_hidecmd)
-        Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel_Video)
         Me.Controls.Add(Me.GroupBox1)
@@ -1806,7 +1823,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.0.8.0"
+        Me.Text = "Sega Model 3 UI - Ver 1.0.8.1"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -1967,4 +1984,5 @@ Partial Class Form1
     Friend WithEvents BlackToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ChooseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DefoultToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Label8 As Label
 End Class

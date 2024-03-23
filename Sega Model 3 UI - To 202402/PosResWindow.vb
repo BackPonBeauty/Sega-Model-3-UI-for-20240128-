@@ -4,6 +4,10 @@ Imports System.Text
 Public Class PosResWindow
     Dim Last_index As Integer
     Private Sub Me_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        For i As Integer = 1 To 3
+            Me.Panel1.Controls("Button" & i).BackColor = Color.FromArgb(255, Form1.Bgcolor_R, Form1.Bgcolor_G, Form1.Bgcolor_B)
+            Me.Panel1.Controls("Button" & i).ForeColor = Form1.Pub_Forecolor_s
+        Next
         Me.Width = Integer.Parse(Form1.Label_xRes.Text)
         Me.Height = Integer.Parse(Form1.Label_yRes.Text)
         Dim s As System.Windows.Forms.Screen = System.Windows.Forms.Screen.FromControl(Me)
@@ -39,7 +43,7 @@ Public Class PosResWindow
         Me.BackgroundImageLayout = ImageLayout.Stretch
         Me.BackgroundImage = canvas
 
-        GetAllControls(Me, Integer.Parse(Form1.FontSize_bin))
+        GetAllControls(Me.Panel1, Integer.Parse(Form1.FontSize_bin))
         LoadResolution()
     End Sub
     Private Sub GetAllControls(ByVal control As Control, size As Integer)
@@ -68,7 +72,7 @@ Public Class PosResWindow
         End Using
     End Sub
 
-    Private Sub Button1_PreviewKeyDown(ByVal sender As Object, ByVal e As PreviewKeyDownEventArgs) Handles Button_Set.PreviewKeyDown, Button3.PreviewKeyDown
+    Private Sub Button1_PreviewKeyDown(ByVal sender As Object, ByVal e As PreviewKeyDownEventArgs) Handles Button1.PreviewKeyDown, Button3.PreviewKeyDown
         Dim n As Integer = 1
         Select Case e.KeyCode
             Case Keys.Up
@@ -82,7 +86,7 @@ Public Class PosResWindow
             Case Keys.Escape
                 Me.Close()
             Case Keys.Enter
-                Button_Set.PerformClick()
+                Button1.PerformClick()
             Case Keys.R
                 Me.Top = 0
                 Me.Left = 0
@@ -167,7 +171,7 @@ Public Class PosResWindow
         Label1.Text = "( " & Me.Left & " , " & Me.Top & " )"
     End Sub
 
-    Private Sub Button_Set_Click(sender As Object, e As EventArgs) Handles Button_Set.Click
+    Private Sub Button_Set_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Form1.Label_xPos.Text = Me.Left
         Form1.Label_yPos.Text = Me.Top
         Form1.Label_xRes.Text = Me.Width
