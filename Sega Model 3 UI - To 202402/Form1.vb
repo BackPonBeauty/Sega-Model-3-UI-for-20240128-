@@ -6,7 +6,7 @@ Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Xml
-
+Imports SharpDX.XInput
 Public Class Form1
 
     <DllImport("KERNEL32.DLL", CharSet:=CharSet.Auto)>
@@ -289,6 +289,7 @@ Public Class Form1
         Dim BgcolorG As StringBuilder = New StringBuilder(300)
         Dim BgcolorB As StringBuilder = New StringBuilder(300)
         Dim Forecolor As StringBuilder = New StringBuilder(300)
+        Dim Title_SB As StringBuilder = New StringBuilder(300)
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -349,6 +350,7 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "HideCMD", "False", HideCMD, 15, iniFileName)
 
         GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\天上天下唯我独尊\Roms", Dir, 150, iniFileName)
+        GetPrivateProfileString(" Global ", "Title", "Supermodel", Title_SB, 150, iniFileName)
 
         GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
 
@@ -602,6 +604,9 @@ Public Class Form1
         Label_path.Text = Dir.ToString
         Roms_count(Dir.ToString)
         Debug("Dir" & Dir.ToString)
+
+        'Title
+        TextBox_Title.Text = Title_SB.ToString
 
         'InputSystem
         ComboBox_input.Text = InputSystem.ToString
@@ -893,6 +898,8 @@ Public Class Form1
         Panel_Input.Top = 336
         Panel_Network.Left = 2000
         Panel_Network.Top = 336
+        Panel_ponmi.Left = 2000
+        Panel_ponmi.Top = 336
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
@@ -904,6 +911,8 @@ Public Class Form1
         Panel_Input.Top = 336
         Panel_Network.Left = 2000
         Panel_Network.Top = 336
+        Panel_ponmi.Left = 2000
+        Panel_ponmi.Top = 336
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
@@ -915,6 +924,8 @@ Public Class Form1
         Panel_Input.Top = 336
         Panel_Network.Left = 2000
         Panel_Network.Top = 336
+        Panel_ponmi.Left = 2000
+        Panel_ponmi.Top = 336
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
@@ -926,6 +937,8 @@ Public Class Form1
         Panel_Input.Top = 336
         Panel_Network.Left = 612
         Panel_Network.Top = 336
+        Panel_ponmi.Left = 2000
+        Panel_ponmi.Top = 336
     End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs)
@@ -988,6 +1001,10 @@ Public Class Form1
         WritePrivateProfileString(Section, "InputSystem", ComboBox_input.SelectedItem, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "HideCMD", CheckBox_hidecmd.Checked.ToString, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Dir", Label_path.Text, iniFileName)
+        If TextBox_Title.Text = "" Then
+            TextBox_Title.Text = "Supermodel - PonMi"
+        End If
+        WritePrivateProfileString(Section, "Title", TextBox_Title.Text, iniFileName)
 
         WritePrivateProfileString(" Supermodel3 UI ", "Columns0Width", DataGridView1.Columns(0).Width, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns1Width", DataGridView1.Columns(1).Width, iniFileName)
@@ -1230,6 +1247,9 @@ Public Class Form1
                 c.ForeColor = Color.Black
             End If
         Next
+        For Each c In Panel_ponmi.Controls
+            c.ForeColor = Color.White
+        Next
         Pub_Forecolor_s = Color.White
         Forecolor_s = "White"
     End Sub
@@ -1258,6 +1278,9 @@ Public Class Form1
                 c.ForeColor = Color.White
             End If
         Next
+        For Each c In Panel_ponmi.Controls
+            c.ForeColor = Color.Black
+        Next
         Pub_Forecolor_s = Color.Black
         Forecolor_s = "Balck"
     End Sub
@@ -1269,5 +1292,128 @@ Public Class Form1
         Me.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
         Label_path.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
         WhiteToolStripMenuItem.PerformClick()
+    End Sub
+
+    Private Sub OnlyWorksPonMiEditionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnlyWorksPonMiEditionToolStripMenuItem.Click
+        Panel_Video.Left = 2000
+        Panel_Video.Top = 336
+        Panel_Sound.Left = 2000
+        Panel_Sound.Top = 336
+        Panel_Input.Left = 2000
+        Panel_Input.Top = 336
+        Panel_Network.Left = 2000
+        Panel_Network.Top = 336
+        Panel_ponmi.Left = 612
+        Panel_ponmi.Top = 336
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        System.Diagnostics.Process.Start("https://github.com/BackPonBeauty/Supermodel3-PonMi?tab=readme-ov-file#ponmi")
+    End Sub
+
+    Private Sub Surround_Tick(sender As Object, e As EventArgs) Handles Surround.Tick
+        SurroundingSub1()
+    End Sub
+
+    Dim Center_i As Integer = 0
+    Private Sub SurroundingSub1()
+        Me.SuspendLayout()
+        Dim controller = New SharpDX.XInput.Controller(SharpDX.XInput.UserIndex.One)
+        If controller.IsConnected Then
+            Dim state = controller.GetState()
+            Dim a = state.Gamepad.Buttons
+
+            Dim n As String = TentoTwo(a).PadLeft(16, "0")
+            'TextBox1.Text = n
+            Dim lever As String = Strings.Right(n, 4)
+            Dim n1 = "0"
+            Dim n2 = "0"
+            Dim n3 = "0"
+            Dim n4 = "0"
+            Dim x = state.Gamepad.LeftThumbX
+            Dim y = state.Gamepad.LeftThumbY
+
+            If (y <> Center_i Or x <> Center_i) And lever = "0000" Then
+                If y > Center_i Then
+                    n1 = "1"
+                End If
+                If y < Center_i Then
+                    n2 = "1"
+                End If
+                If x < Center_i Then
+                    n3 = "1"
+                End If
+                If x > Center_i Then
+                    n4 = "1"
+                End If
+                lever = n4 & n3 & n2 & n1
+            End If
+
+            joybox1.Image = My.Resources.ResourceManager.GetObject("_" & lever.ToString)
+
+            'Shift
+            Dim ss As String = n.Substring(3, 1)
+            If ss = "0" Then
+                shiftbox1.Image = Nothing
+
+            Else
+                shiftbox1.Image = My.Resources.sd
+
+            End If
+
+
+            'Beat
+            Dim bb As String = n.Substring(1, 1)
+            If bb = "0" Then
+                beatbox1.Image = Nothing
+
+            Else
+                beatbox1.Image = My.Resources.bd
+
+            End If
+
+            'Charge
+            Dim cc As String = n.Substring(0, 1)
+            If cc = "0" Then
+                chargebox1.Image = Nothing
+
+            Else
+                chargebox1.Image = My.Resources.cd
+
+            End If
+
+
+            'Jump
+            Dim jj As String = n.Substring(6, 1)
+            If jj = "0" Then
+                jumpbox1.Image = Nothing
+
+            Else
+                jumpbox1.Image = My.Resources.jd
+
+            End If
+
+
+        Else
+            joybox1.Image = Nothing
+        End If
+        Me.ResumeLayout(True)
+    End Sub
+
+    Private Function TentoTwo(ByVal value As String) As String
+        If Math.Floor(value / 2) Then
+            Return TentoTwo(Math.Floor(value / 2)) + CStr(value Mod 2)
+        End If
+        Return CStr(value Mod 2)
+    End Function
+
+    Private Sub ControlerX4_Click(sender As Object, e As EventArgs) Handles ControlerX4.Click
+        If Surround.Enabled = True Then
+            Surround.Enabled = False
+            ControlerX4.Text = "Disabled"
+        Else
+            Surround.Enabled = True
+            ControlerX4.Text = "Enabled"
+        End If
     End Sub
 End Class

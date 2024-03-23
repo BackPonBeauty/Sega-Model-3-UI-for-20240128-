@@ -87,6 +87,12 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.XInput.4.2.0\lib\net45\SharpDX.XInput.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -213,6 +219,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Sega Model 3 UI - for 20240128_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +236,58 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <Content Include="icon2.ico" />
+    <None Include="Resource\video.png" />
+    <None Include="Resource\video.ico" />
+    <None Include="Resource\sound.png" />
+    <None Include="Resource\sound.ico" />
+    <None Include="Resource\sd.png" />
+    <None Include="Resource\network.png" />
+    <None Include="Resource\network.ico" />
+    <None Include="Resource\l1010.png" />
+    <None Include="Resource\l1001.png" />
+    <None Include="Resource\l1000.png" />
+    <None Include="Resource\l0110.png" />
+    <None Include="Resource\l0101.png" />
+    <None Include="Resource\l0100.png" />
+    <None Include="Resource\l0010.png" />
+    <None Include="Resource\l0001.png" />
+    <None Include="Resource\l0000.png" />
+    <None Include="Resource\jd.png" />
+    <None Include="Resource\icon.png" />
+    <None Include="Resource\icon.jpg" />
+    <None Include="Resource\icon.ico" />
+    <None Include="Resource\control.png" />
+    <None Include="Resource\control.ico" />
+    <None Include="Resource\cd.png" />
+    <None Include="Resource\bu.png" />
+    <None Include="Resource\border.jpg" />
+    <None Include="Resource\bd.png" />
+    <None Include="Resource\b1111.png" />
+    <None Include="Resource\b1110.png" />
+    <None Include="Resource\b1101.png" />
+    <None Include="Resource\b1100.png" />
+    <None Include="Resource\b1011.png" />
+    <None Include="Resource\b1010.png" />
+    <None Include="Resource\b1001.png" />
+    <None Include="Resource\b1000.png" />
+    <None Include="Resource\b0111.png" />
+    <None Include="Resource\b0110.png" />
+    <None Include="Resource\b0101.png" />
+    <None Include="Resource\b0100.png" />
+    <None Include="Resource\b0011.png" />
+    <None Include="Resource\b0010.png" />
+    <None Include="Resource\b0001.png" />
+    <None Include="Resource\b0000.png" />
+    <None Include="Resource\_1010.png" />
+    <None Include="Resource\_1001.png" />
+    <None Include="Resource\_1000.png" />
+    <None Include="Resource\_0110.png" />
+    <None Include="Resource\_0101.png" />
+    <None Include="Resource\_0100.png" />
+    <None Include="Resource\_0010.png" />
+    <None Include="Resource\_0001.png" />
+    <None Include="Resource\_0000.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

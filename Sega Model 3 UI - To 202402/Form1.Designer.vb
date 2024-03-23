@@ -22,6 +22,7 @@ Partial Class Form1
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -37,6 +38,8 @@ Partial Class Form1
         Me.FontColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.WhiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChangeTitleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OnlyWorksPonMiEditionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Debugtext = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button_folder = New System.Windows.Forms.Button()
@@ -124,16 +127,18 @@ Partial Class Form1
         Me.CheckBox_flipstereo = New System.Windows.Forms.CheckBox()
         Me.CheckBox_emulatesound = New System.Windows.Forms.CheckBox()
         Me.Panel_Input = New System.Windows.Forms.Panel()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.ComboBox_style = New System.Windows.Forms.ComboBox()
-        Me.Button10 = New System.Windows.Forms.Button()
+        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.ComboBox_crosshair = New System.Windows.Forms.ComboBox()
+        Me.ComboBox_style = New System.Windows.Forms.ComboBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ComboBox_input = New System.Windows.Forms.ComboBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Button10 = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Button9 = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.ComboBox_input = New System.Windows.Forms.ComboBox()
         Me.CheckBox18 = New System.Windows.Forms.CheckBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Panel_Network = New System.Windows.Forms.Panel()
@@ -155,6 +160,24 @@ Partial Class Form1
         Me.Label_Roms = New System.Windows.Forms.Label()
         Me.Header4 = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.TextBox_Title = New System.Windows.Forms.TextBox()
+        Me.Panel_ponmi = New System.Windows.Forms.Panel()
+        Me.ControlerX4 = New System.Windows.Forms.Label()
+        Me.joybox1 = New System.Windows.Forms.PictureBox()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.stb1 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.jumpbox1 = New System.Windows.Forms.PictureBox()
+        Me.beatbox1 = New System.Windows.Forms.PictureBox()
+        Me.chargebox1 = New System.Windows.Forms.PictureBox()
+        Me.shiftbox1 = New System.Windows.Forms.PictureBox()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.Surround = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.tt1 = New System.Windows.Forms.Timer(Me.components)
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -170,9 +193,21 @@ Partial Class Form1
         CType(Me.BalanceBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MusicBar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel_Input.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.Panel_Network.SuspendLayout()
+        Me.Panel_ponmi.SuspendLayout()
+        CType(Me.joybox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel6.SuspendLayout()
+        CType(Me.stb1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.jumpbox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.beatbox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chargebox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.shiftbox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'DataGridView1
@@ -194,7 +229,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1012, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1011, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -214,7 +249,7 @@ Partial Class Form1
         '
         'OptionToolStripMenuItem
         '
-        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem, Me.BackColorToolStripMenuItem, Me.FontColorToolStripMenuItem})
+        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem, Me.BackColorToolStripMenuItem, Me.FontColorToolStripMenuItem, Me.ChangeTitleToolStripMenuItem})
         Me.OptionToolStripMenuItem.Name = "OptionToolStripMenuItem"
         Me.OptionToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
         Me.OptionToolStripMenuItem.Text = "Option"
@@ -223,7 +258,7 @@ Partial Class Form1
         '
         Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8})
         Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
-        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
+        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.FontSizeToolStripMenuItem.Text = "Font size"
         '
         'ToolStripMenuItem10
@@ -244,7 +279,7 @@ Partial Class Form1
         '
         Me.BackColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ChooseToolStripMenuItem, Me.DefoultToolStripMenuItem})
         Me.BackColorToolStripMenuItem.Name = "BackColorToolStripMenuItem"
-        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
+        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.BackColorToolStripMenuItem.Text = "BackColor"
         '
         'ChooseToolStripMenuItem
@@ -263,7 +298,7 @@ Partial Class Form1
         '
         Me.FontColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.WhiteToolStripMenuItem, Me.BlackToolStripMenuItem})
         Me.FontColorToolStripMenuItem.Name = "FontColorToolStripMenuItem"
-        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
+        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.FontColorToolStripMenuItem.Text = "FontColor"
         '
         'WhiteToolStripMenuItem
@@ -277,6 +312,19 @@ Partial Class Form1
         Me.BlackToolStripMenuItem.Name = "BlackToolStripMenuItem"
         Me.BlackToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
         Me.BlackToolStripMenuItem.Text = "Black"
+        '
+        'ChangeTitleToolStripMenuItem
+        '
+        Me.ChangeTitleToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnlyWorksPonMiEditionToolStripMenuItem})
+        Me.ChangeTitleToolStripMenuItem.Name = "ChangeTitleToolStripMenuItem"
+        Me.ChangeTitleToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.ChangeTitleToolStripMenuItem.Text = "Change Title"
+        '
+        'OnlyWorksPonMiEditionToolStripMenuItem
+        '
+        Me.OnlyWorksPonMiEditionToolStripMenuItem.Name = "OnlyWorksPonMiEditionToolStripMenuItem"
+        Me.OnlyWorksPonMiEditionToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
+        Me.OnlyWorksPonMiEditionToolStripMenuItem.Text = "Only works PonMi Edition"
         '
         'Debugtext
         '
@@ -1359,14 +1407,13 @@ Partial Class Form1
         '
         'Panel_Input
         '
+        Me.Panel_Input.Controls.Add(Me.Panel4)
+        Me.Panel_Input.Controls.Add(Me.Panel1)
         Me.Panel_Input.Controls.Add(Me.Label29)
-        Me.Panel_Input.Controls.Add(Me.ComboBox_style)
         Me.Panel_Input.Controls.Add(Me.Button10)
-        Me.Panel_Input.Controls.Add(Me.ComboBox_crosshair)
         Me.Panel_Input.Controls.Add(Me.GroupBox4)
         Me.Panel_Input.Controls.Add(Me.GroupBox3)
         Me.Panel_Input.Controls.Add(Me.Label11)
-        Me.Panel_Input.Controls.Add(Me.ComboBox_input)
         Me.Panel_Input.Controls.Add(Me.CheckBox18)
         Me.Panel_Input.Controls.Add(Me.Label18)
         Me.Panel_Input.Location = New System.Drawing.Point(1428, 333)
@@ -1374,6 +1421,59 @@ Partial Class Form1
         Me.Panel_Input.Name = "Panel_Input"
         Me.Panel_Input.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Input.TabIndex = 70
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.ComboBox_crosshair)
+        Me.Panel4.Controls.Add(Me.ComboBox_style)
+        Me.Panel4.Location = New System.Drawing.Point(235, 182)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(115, 70)
+        Me.Panel4.TabIndex = 79
+        '
+        'ComboBox_crosshair
+        '
+        Me.ComboBox_crosshair.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox_crosshair.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox_crosshair.FormattingEnabled = True
+        Me.ComboBox_crosshair.Items.AddRange(New Object() {"Disable", "Player1", "Player2", "2Players"})
+        Me.ComboBox_crosshair.Location = New System.Drawing.Point(6, 7)
+        Me.ComboBox_crosshair.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboBox_crosshair.Name = "ComboBox_crosshair"
+        Me.ComboBox_crosshair.Size = New System.Drawing.Size(96, 24)
+        Me.ComboBox_crosshair.TabIndex = 74
+        '
+        'ComboBox_style
+        '
+        Me.ComboBox_style.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox_style.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox_style.FormattingEnabled = True
+        Me.ComboBox_style.Items.AddRange(New Object() {"vector", "bmp"})
+        Me.ComboBox_style.Location = New System.Drawing.Point(6, 37)
+        Me.ComboBox_style.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboBox_style.Name = "ComboBox_style"
+        Me.ComboBox_style.Size = New System.Drawing.Size(96, 24)
+        Me.ComboBox_style.TabIndex = 76
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.ComboBox_input)
+        Me.Panel1.Location = New System.Drawing.Point(192, 19)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(96, 24)
+        Me.Panel1.TabIndex = 78
+        '
+        'ComboBox_input
+        '
+        Me.ComboBox_input.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox_input.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox_input.FormattingEnabled = True
+        Me.ComboBox_input.Items.AddRange(New Object() {"xinput", "dinput"})
+        Me.ComboBox_input.Location = New System.Drawing.Point(0, 0)
+        Me.ComboBox_input.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboBox_input.Name = "ComboBox_input"
+        Me.ComboBox_input.Size = New System.Drawing.Size(96, 24)
+        Me.ComboBox_input.TabIndex = 1
         '
         'Label29
         '
@@ -1387,18 +1487,6 @@ Partial Class Form1
         Me.Label29.Text = "Style"
         Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'ComboBox_style
-        '
-        Me.ComboBox_style.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox_style.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox_style.FormattingEnabled = True
-        Me.ComboBox_style.Items.AddRange(New Object() {"vector", "bmp"})
-        Me.ComboBox_style.Location = New System.Drawing.Point(241, 219)
-        Me.ComboBox_style.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ComboBox_style.Name = "ComboBox_style"
-        Me.ComboBox_style.Size = New System.Drawing.Size(96, 24)
-        Me.ComboBox_style.TabIndex = 76
-        '
         'Button10
         '
         Me.Button10.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1410,18 +1498,6 @@ Partial Class Form1
         Me.Button10.TabIndex = 75
         Me.Button10.Text = "Config"
         Me.Button10.UseVisualStyleBackColor = True
-        '
-        'ComboBox_crosshair
-        '
-        Me.ComboBox_crosshair.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox_crosshair.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox_crosshair.FormattingEnabled = True
-        Me.ComboBox_crosshair.Items.AddRange(New Object() {"Disable", "Player1", "Player2", "2Players"})
-        Me.ComboBox_crosshair.Location = New System.Drawing.Point(241, 189)
-        Me.ComboBox_crosshair.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ComboBox_crosshair.Name = "ComboBox_crosshair"
-        Me.ComboBox_crosshair.Size = New System.Drawing.Size(96, 24)
-        Me.ComboBox_crosshair.TabIndex = 74
         '
         'GroupBox4
         '
@@ -1487,18 +1563,6 @@ Partial Class Form1
         Me.Label11.Text = "InputSystem"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'ComboBox_input
-        '
-        Me.ComboBox_input.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox_input.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox_input.FormattingEnabled = True
-        Me.ComboBox_input.Items.AddRange(New Object() {"xinput", "dinput"})
-        Me.ComboBox_input.Location = New System.Drawing.Point(182, 18)
-        Me.ComboBox_input.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ComboBox_input.Name = "ComboBox_input"
-        Me.ComboBox_input.Size = New System.Drawing.Size(96, 24)
-        Me.ComboBox_input.TabIndex = 1
-        '
         'CheckBox18
         '
         Me.CheckBox18.AutoSize = True
@@ -1546,7 +1610,7 @@ Partial Class Form1
         '
         Me.Button_GetIPAddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_GetIPAddress.ForeColor = System.Drawing.Color.Black
-        Me.Button_GetIPAddress.Location = New System.Drawing.Point(55, 93)
+        Me.Button_GetIPAddress.Location = New System.Drawing.Point(52, 120)
         Me.Button_GetIPAddress.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_GetIPAddress.Name = "Button_GetIPAddress"
         Me.Button_GetIPAddress.Size = New System.Drawing.Size(158, 24)
@@ -1560,7 +1624,7 @@ Partial Class Form1
         Me.Label_myaddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_myaddress.ForeColor = System.Drawing.Color.White
         Me.Label_myaddress.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_myaddress.Location = New System.Drawing.Point(175, 95)
+        Me.Label_myaddress.Location = New System.Drawing.Point(216, 122)
         Me.Label_myaddress.Name = "Label_myaddress"
         Me.Label_myaddress.Size = New System.Drawing.Size(131, 20)
         Me.Label_myaddress.TabIndex = 78
@@ -1585,7 +1649,7 @@ Partial Class Form1
         Me.TextBox_Addressout.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TextBox_Addressout.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox_Addressout.ForeColor = System.Drawing.Color.White
-        Me.TextBox_Addressout.Location = New System.Drawing.Point(235, 215)
+        Me.TextBox_Addressout.Location = New System.Drawing.Point(280, 216)
         Me.TextBox_Addressout.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox_Addressout.Name = "TextBox_Addressout"
         Me.TextBox_Addressout.Size = New System.Drawing.Size(70, 22)
@@ -1598,7 +1662,7 @@ Partial Class Form1
         Me.TextBox_Portout.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TextBox_Portout.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox_Portout.ForeColor = System.Drawing.Color.White
-        Me.TextBox_Portout.Location = New System.Drawing.Point(235, 171)
+        Me.TextBox_Portout.Location = New System.Drawing.Point(280, 190)
         Me.TextBox_Portout.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox_Portout.Name = "TextBox_Portout"
         Me.TextBox_Portout.Size = New System.Drawing.Size(70, 22)
@@ -1611,7 +1675,7 @@ Partial Class Form1
         Me.TextBox_Portin.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TextBox_Portin.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox_Portin.ForeColor = System.Drawing.Color.White
-        Me.TextBox_Portin.Location = New System.Drawing.Point(235, 132)
+        Me.TextBox_Portin.Location = New System.Drawing.Point(280, 164)
         Me.TextBox_Portin.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox_Portin.Name = "TextBox_Portin"
         Me.TextBox_Portin.Size = New System.Drawing.Size(70, 22)
@@ -1636,7 +1700,7 @@ Partial Class Form1
         Me.Label14.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.Color.White
         Me.Label14.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label14.Location = New System.Drawing.Point(52, 176)
+        Me.Label14.Location = New System.Drawing.Point(52, 194)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(112, 20)
         Me.Label14.TabIndex = 71
@@ -1661,7 +1725,7 @@ Partial Class Form1
         Me.Label19.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.ForeColor = System.Drawing.Color.White
         Me.Label19.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label19.Location = New System.Drawing.Point(52, 134)
+        Me.Label19.Location = New System.Drawing.Point(52, 165)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(109, 20)
         Me.Label19.TabIndex = 65
@@ -1784,12 +1848,199 @@ Partial Class Form1
         Me.Label8.Size = New System.Drawing.Size(408, 39)
         Me.Label8.TabIndex = 80
         '
+        'Label30
+        '
+        Me.Label30.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label30.ForeColor = System.Drawing.Color.White
+        Me.Label30.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label30.Location = New System.Drawing.Point(16, 12)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(37, 20)
+        Me.Label30.TabIndex = 79
+        Me.Label30.Text = "Title"
+        Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBox_Title
+        '
+        Me.TextBox_Title.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TextBox_Title.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox_Title.ForeColor = System.Drawing.Color.White
+        Me.TextBox_Title.Location = New System.Drawing.Point(3, 2)
+        Me.TextBox_Title.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TextBox_Title.Name = "TextBox_Title"
+        Me.TextBox_Title.Size = New System.Drawing.Size(317, 22)
+        Me.TextBox_Title.TabIndex = 80
+        Me.TextBox_Title.Text = "Supermodel"
+        '
+        'Panel_ponmi
+        '
+        Me.Panel_ponmi.Controls.Add(Me.joybox1)
+        Me.Panel_ponmi.Controls.Add(Me.ControlerX4)
+        Me.Panel_ponmi.Controls.Add(Me.Panel6)
+        Me.Panel_ponmi.Controls.Add(Me.Label31)
+        Me.Panel_ponmi.Controls.Add(Me.LinkLabel1)
+        Me.Panel_ponmi.Controls.Add(Me.Panel5)
+        Me.Panel_ponmi.Controls.Add(Me.Label30)
+        Me.Panel_ponmi.Location = New System.Drawing.Point(1841, 44)
+        Me.Panel_ponmi.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Panel_ponmi.Name = "Panel_ponmi"
+        Me.Panel_ponmi.Size = New System.Drawing.Size(394, 252)
+        Me.Panel_ponmi.TabIndex = 81
+        '
+        'ControlerX4
+        '
+        Me.ControlerX4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ControlerX4.ForeColor = System.Drawing.Color.White
+        Me.ControlerX4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ControlerX4.Location = New System.Drawing.Point(20, 139)
+        Me.ControlerX4.Name = "ControlerX4"
+        Me.ControlerX4.Size = New System.Drawing.Size(74, 20)
+        Me.ControlerX4.TabIndex = 86
+        Me.ControlerX4.Text = "Disabled"
+        Me.ControlerX4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'joybox1
+        '
+        Me.joybox1.BackColor = System.Drawing.Color.Transparent
+        Me.joybox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.joybox1.Location = New System.Drawing.Point(23, 167)
+        Me.joybox1.Name = "joybox1"
+        Me.joybox1.Size = New System.Drawing.Size(64, 64)
+        Me.joybox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.joybox1.TabIndex = 84
+        Me.joybox1.TabStop = False
+        '
+        'Panel6
+        '
+        Me.Panel6.Controls.Add(Me.stb1)
+        Me.Panel6.Controls.Add(Me.PictureBox2)
+        Me.Panel6.Controls.Add(Me.jumpbox1)
+        Me.Panel6.Controls.Add(Me.beatbox1)
+        Me.Panel6.Controls.Add(Me.chargebox1)
+        Me.Panel6.Controls.Add(Me.shiftbox1)
+        Me.Panel6.Location = New System.Drawing.Point(49, 173)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(110, 64)
+        Me.Panel6.TabIndex = 85
+        '
+        'stb1
+        '
+        Me.stb1.BackgroundImage = CType(resources.GetObject("stb1.BackgroundImage"), System.Drawing.Image)
+        Me.stb1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.stb1.ErrorImage = CType(resources.GetObject("stb1.ErrorImage"), System.Drawing.Image)
+        Me.stb1.InitialImage = Nothing
+        Me.stb1.Location = New System.Drawing.Point(120, 47)
+        Me.stb1.Name = "stb1"
+        Me.stb1.Size = New System.Drawing.Size(10, 10)
+        Me.stb1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.stb1.TabIndex = 55
+        Me.stb1.TabStop = False
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox2.Location = New System.Drawing.Point(5, -45)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(39, 39)
+        Me.PictureBox2.TabIndex = 36
+        Me.PictureBox2.TabStop = False
+        '
+        'jumpbox1
+        '
+        Me.jumpbox1.BackgroundImage = CType(resources.GetObject("jumpbox1.BackgroundImage"), System.Drawing.Image)
+        Me.jumpbox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.jumpbox1.ErrorImage = CType(resources.GetObject("jumpbox1.ErrorImage"), System.Drawing.Image)
+        Me.jumpbox1.InitialImage = Nothing
+        Me.jumpbox1.Location = New System.Drawing.Point(89, 21)
+        Me.jumpbox1.Name = "jumpbox1"
+        Me.jumpbox1.Size = New System.Drawing.Size(16, 16)
+        Me.jumpbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.jumpbox1.TabIndex = 35
+        Me.jumpbox1.TabStop = False
+        '
+        'beatbox1
+        '
+        Me.beatbox1.BackgroundImage = CType(resources.GetObject("beatbox1.BackgroundImage"), System.Drawing.Image)
+        Me.beatbox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.beatbox1.InitialImage = Nothing
+        Me.beatbox1.Location = New System.Drawing.Point(54, 24)
+        Me.beatbox1.Name = "beatbox1"
+        Me.beatbox1.Size = New System.Drawing.Size(16, 16)
+        Me.beatbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.beatbox1.TabIndex = 33
+        Me.beatbox1.TabStop = False
+        '
+        'chargebox1
+        '
+        Me.chargebox1.BackgroundImage = CType(resources.GetObject("chargebox1.BackgroundImage"), System.Drawing.Image)
+        Me.chargebox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.chargebox1.InitialImage = Nothing
+        Me.chargebox1.Location = New System.Drawing.Point(71, 16)
+        Me.chargebox1.Name = "chargebox1"
+        Me.chargebox1.Size = New System.Drawing.Size(16, 16)
+        Me.chargebox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.chargebox1.TabIndex = 34
+        Me.chargebox1.TabStop = False
+        '
+        'shiftbox1
+        '
+        Me.shiftbox1.BackgroundImage = CType(resources.GetObject("shiftbox1.BackgroundImage"), System.Drawing.Image)
+        Me.shiftbox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.shiftbox1.InitialImage = Nothing
+        Me.shiftbox1.Location = New System.Drawing.Point(49, 41)
+        Me.shiftbox1.Name = "shiftbox1"
+        Me.shiftbox1.Size = New System.Drawing.Size(16, 16)
+        Me.shiftbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.shiftbox1.TabIndex = 32
+        Me.shiftbox1.TabStop = False
+        '
+        'Label31
+        '
+        Me.Label31.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label31.ForeColor = System.Drawing.Color.White
+        Me.Label31.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label31.Location = New System.Drawing.Point(62, 44)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(56, 20)
+        Me.Label31.TabIndex = 83
+        Me.Label31.Text = "GitHub"
+        Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabel1.LinkColor = System.Drawing.Color.Gray
+        Me.LinkLabel1.Location = New System.Drawing.Point(138, 46)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(241, 16)
+        Me.LinkLabel1.TabIndex = 82
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Supermodel3 - PonMi Edition"
+        Me.LinkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.TextBox_Title)
+        Me.Panel5.Location = New System.Drawing.Point(59, 10)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(338, 33)
+        Me.Panel5.TabIndex = 81
+        '
+        'Surround
+        '
+        Me.Surround.Interval = 1
+        '
+        'tt1
+        '
+        Me.tt1.Interval = 1000
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1012, 591)
+        Me.ClientSize = New System.Drawing.Size(1011, 591)
+        Me.Controls.Add(Me.Panel_ponmi)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Header4)
@@ -1823,7 +2074,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.0.8.1"
+        Me.Text = "Sega Model 3 UI - Ver 1.0.9.0"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -1844,10 +2095,23 @@ Partial Class Form1
         CType(Me.MusicBar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel_Input.ResumeLayout(False)
         Me.Panel_Input.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.Panel_Network.ResumeLayout(False)
         Me.Panel_Network.PerformLayout()
+        Me.Panel_ponmi.ResumeLayout(False)
+        CType(Me.joybox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel6.ResumeLayout(False)
+        CType(Me.stb1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.jumpbox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.beatbox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chargebox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.shiftbox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1985,4 +2249,26 @@ Partial Class Form1
     Friend WithEvents ChooseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DefoultToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label8 As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents TextBox_Title As TextBox
+    Friend WithEvents Label30 As Label
+    Friend WithEvents ChangeTitleToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OnlyWorksPonMiEditionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Panel_ponmi As Panel
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents Label31 As Label
+    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents joybox1 As PictureBox
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents stb1 As PictureBox
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents jumpbox1 As PictureBox
+    Friend WithEvents beatbox1 As PictureBox
+    Friend WithEvents chargebox1 As PictureBox
+    Friend WithEvents shiftbox1 As PictureBox
+    Friend WithEvents Surround As Timer
+    Friend WithEvents Timer1 As Timer
+    Friend WithEvents tt1 As Timer
+    Friend WithEvents ControlerX4 As Label
 End Class
