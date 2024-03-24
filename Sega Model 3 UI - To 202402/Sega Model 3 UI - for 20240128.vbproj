@@ -137,6 +137,12 @@
     <Compile Include="FormSet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Key.Designer.vb">
+      <DependentUpon>Key.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Key.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PosResWindow.Designer.vb">
       <DependentUpon>PosResWindow.vb</DependentUpon>
     </Compile>
@@ -147,6 +153,12 @@
       <DependentUpon>DinputForce.vb</DependentUpon>
     </Compile>
     <Compile Include="DinputForce.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScanLine.Designer.vb">
+      <DependentUpon>ScanLine.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ScanLine.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="XinputForce.Designer.vb">
@@ -194,6 +206,9 @@
     <EmbeddedResource Include="DinputForce.resx">
       <DependentUpon>DinputForce.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ScanLine.resx">
+      <DependentUpon>ScanLine.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XinputForce.resx">
       <DependentUpon>XinputForce.vb</DependentUpon>
     </EmbeddedResource>
@@ -237,6 +252,8 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <Content Include="icon2.ico" />
+    <None Include="Resources\scanline2.png" />
+    <Content Include="Resource\scanline.png" />
     <None Include="Resource\video.png" />
     <None Include="Resource\video.ico" />
     <None Include="Resource\sound.png" />

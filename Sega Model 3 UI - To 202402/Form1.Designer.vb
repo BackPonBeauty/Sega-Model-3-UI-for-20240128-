@@ -163,7 +163,7 @@ Partial Class Form1
         Me.Label30 = New System.Windows.Forms.Label()
         Me.TextBox_Title = New System.Windows.Forms.TextBox()
         Me.Panel_ponmi = New System.Windows.Forms.Panel()
-        Me.ControlerX4 = New System.Windows.Forms.Label()
+        Me.Button_X = New System.Windows.Forms.Button()
         Me.joybox1 = New System.Windows.Forms.PictureBox()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.stb1 = New System.Windows.Forms.PictureBox()
@@ -178,6 +178,7 @@ Partial Class Form1
         Me.Surround = New System.Windows.Forms.Timer(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.tt1 = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -1874,8 +1875,8 @@ Partial Class Form1
         '
         'Panel_ponmi
         '
+        Me.Panel_ponmi.Controls.Add(Me.Button_X)
         Me.Panel_ponmi.Controls.Add(Me.joybox1)
-        Me.Panel_ponmi.Controls.Add(Me.ControlerX4)
         Me.Panel_ponmi.Controls.Add(Me.Panel6)
         Me.Panel_ponmi.Controls.Add(Me.Label31)
         Me.Panel_ponmi.Controls.Add(Me.LinkLabel1)
@@ -1887,17 +1888,16 @@ Partial Class Form1
         Me.Panel_ponmi.Size = New System.Drawing.Size(394, 252)
         Me.Panel_ponmi.TabIndex = 81
         '
-        'ControlerX4
+        'Button_X
         '
-        Me.ControlerX4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ControlerX4.ForeColor = System.Drawing.Color.White
-        Me.ControlerX4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ControlerX4.Location = New System.Drawing.Point(20, 139)
-        Me.ControlerX4.Name = "ControlerX4"
-        Me.ControlerX4.Size = New System.Drawing.Size(74, 20)
-        Me.ControlerX4.TabIndex = 86
-        Me.ControlerX4.Text = "Disabled"
-        Me.ControlerX4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button_X.ForeColor = System.Drawing.Color.Black
+        Me.Button_X.Location = New System.Drawing.Point(238, 192)
+        Me.Button_X.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button_X.Name = "Button_X"
+        Me.Button_X.Size = New System.Drawing.Size(88, 25)
+        Me.Button_X.TabIndex = 87
+        Me.Button_X.Text = "Enabled"
+        Me.Button_X.UseVisualStyleBackColor = True
         '
         'joybox1
         '
@@ -2030,9 +2030,17 @@ Partial Class Form1
         '
         Me.Surround.Interval = 1
         '
+        'Timer1
+        '
+        Me.Timer1.Interval = 1000
+        '
         'tt1
         '
         Me.tt1.Interval = 1000
+        '
+        'Timer2
+        '
+        Me.Timer2.Interval = 3000
         '
         'Form1
         '
@@ -2074,7 +2082,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.0.9.0"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.0.0"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -2270,5 +2278,6 @@ Partial Class Form1
     Friend WithEvents Surround As Timer
     Friend WithEvents Timer1 As Timer
     Friend WithEvents tt1 As Timer
-    Friend WithEvents ControlerX4 As Label
+    Friend WithEvents Timer2 As Timer
+    Friend WithEvents Button_X As Button
 End Class

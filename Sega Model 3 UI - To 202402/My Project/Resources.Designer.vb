@@ -523,6 +523,26 @@ Namespace My.Resources
         '''<summary>
         '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         '''</summary>
+        Friend ReadOnly Property scanline() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("scanline", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
+        Friend ReadOnly Property scanline2() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("scanline2", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
         Friend ReadOnly Property sd() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sd", resourceCulture)

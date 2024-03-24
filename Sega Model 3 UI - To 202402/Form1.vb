@@ -131,6 +131,12 @@ Public Class Form1
             MessageBox.Show("Config folder not found.")
             Me.Close()
         End If
+        If KeyboardHooker1.MouseHookStart() = True Then
+            Label2.Text = "Hook ON"
+            'If Skill1.IsDisposed Then
+            '    Skill1.Show()
+            'End If
+        End If
     End Sub
 
     Private Sub LoadResolution()
@@ -1249,6 +1255,11 @@ Public Class Form1
         Next
         For Each c In Panel_ponmi.Controls
             c.ForeColor = Color.White
+            If TypeOf c Is IButtonControl Then
+                c.ForeColor = Color.Black
+            Else
+                c.ForeColor = Color.White
+            End If
         Next
         Pub_Forecolor_s = Color.White
         Forecolor_s = "White"
@@ -1407,13 +1418,63 @@ Public Class Form1
         Return CStr(value Mod 2)
     End Function
 
-    Private Sub ControlerX4_Click(sender As Object, e As EventArgs) Handles ControlerX4.Click
+    Private Sub ControlerX4_Click(sender As Object, e As EventArgs) Handles Button_X.Click
         If Surround.Enabled = True Then
             Surround.Enabled = False
-            ControlerX4.Text = "Disabled"
+            Button_X.Text = "Disabled"
         Else
             Surround.Enabled = True
-            ControlerX4.Text = "Enabled"
+            Button_X.Text = "Enabled"
         End If
     End Sub
+
+    WithEvents KeyboardHooker1 As New Key
+    Dim ScanLine_F As Boolean = False
+    Dim Front_F As Boolean = False
+    Sub KeybordHooker1_KeyDown(sender As Object, e As KeyBoardHookerEventArgs) Handles KeyboardHooker1.KeyDown1
+        Dim Tabb As String = CStr(e.vkCode)
+        Label2.Text = Tabb
+        If Tabb = "73" Then 'Escape key
+            If Front_F = False Then
+                Front_F = True
+                Me.BringToFront()
+            Else
+                Front_F = False
+                Me.SendToBack()
+            End If
+
+        End If
+        If Tabb = "83" Then
+
+            If ScanLine_F = False Then
+
+                ScanLine_F = True
+
+                ScanLine.Width = Integer.Parse(Label_xRes.Text.ToString)
+                ScanLine.Height = Integer.Parse(Label_yRes.Text.ToString)
+                ScanLine.PictureBox1.Height = Integer.Parse(Label_yRes.Text.ToString)
+                ScanLine.PictureBox1.Width = Integer.Parse(Label_xRes.Text.ToString)
+
+                ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
+                ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
+
+                ScanLine.Show()
+                'ScanLine.TopMost = True
+                'Me.WindowState = FormWindowState.Minimized
+            Else
+                ScanLine_F = False
+                ScanLine.Close()
+                ScanLine.Dispose()
+            End If
+
+        End If
+        If Tabb = "79" And ScanLine_F = True Then
+            ScanLine.Opacity -= 0.1
+        End If
+        If Tabb = "80" And ScanLine_F = True Then
+            ScanLine.Opacity += 0.1
+        End If
+
+    End Sub
+
 End Class

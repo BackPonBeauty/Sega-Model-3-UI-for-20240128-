@@ -177,6 +177,7 @@ Public Class PosResWindow
         Form1.Label_xRes.Text = Me.Width
         Form1.Label_yRes.Text = Me.Height
         FormSet.Show()
+        FormSet.Label1.Text = "Set screen size and position."
     End Sub
 
     Private Sub ComboBox_resolution_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_resolution.SelectedIndexChanged
