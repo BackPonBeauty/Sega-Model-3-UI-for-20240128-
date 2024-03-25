@@ -131,12 +131,6 @@ Public Class Form1
             MessageBox.Show("Config folder not found.")
             Me.Close()
         End If
-        If KeyboardHooker1.MouseHookStart() = True Then
-            Label2.Text = "Hook ON"
-            'If Skill1.IsDisposed Then
-            '    Skill1.Show()
-            'End If
-        End If
     End Sub
 
     Private Sub LoadResolution()
@@ -1107,12 +1101,31 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub Get_IP_Address(sender As Object, e As EventArgs) Handles Button_GetIPAddress.Click
+    Private Sub Get_Local_IPAddress(sender As Object, e As EventArgs) Handles Button_Get_Local_IPAddress.Click
         Dim hostname As String = Dns.GetHostName()
         Dim adrList As IPAddress() = Dns.GetHostAddresses(hostname)
         Dim adrLength = adrList.Count - 1
-        Label_myaddress.Text = adrList(adrLength).ToString()
+        Label_Local_IPaddress.Text = adrList(adrLength).ToString()
     End Sub
+
+    Private Function Get_Global_IPaddress() As String
+        Try
+            Dim cmd As New System.Diagnostics.Process()
+            cmd.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec")
+            cmd.StartInfo.UseShellExecute = False
+            cmd.StartInfo.RedirectStandardOutput = True
+            cmd.StartInfo.RedirectStandardInput = False
+            cmd.StartInfo.CreateNoWindow = True
+            cmd.StartInfo.Arguments = "/c curl inet-ip.info/ip"
+            cmd.Start()
+            Dim results As String = cmd.StandardOutput.ReadToEnd()
+            cmd.WaitForExit()
+            cmd.Close()
+            Return results '.Trim() ※1
+        Catch ex As Exception
+            Return String.Empty
+        End Try
+    End Function
 
     Private Sub Header0_Click(sender As Object, e As EventArgs) Handles Header0.Click
         If C0_Sort_F = False Then
@@ -1249,8 +1262,10 @@ Public Class Form1
         Next
         For Each c In Panel_Network.Controls
             c.ForeColor = Color.White
-            If c.name = "Button_GetIPAddress" Then
+            If TypeOf c Is IButtonControl Then
                 c.ForeColor = Color.Black
+            Else
+                c.ForeColor = Color.White
             End If
         Next
         For Each c In Panel_ponmi.Controls
@@ -1430,7 +1445,7 @@ Public Class Form1
 
     WithEvents KeyboardHooker1 As New Key
     Dim ScanLine_F As Boolean = False
-    Dim Front_F As Boolean = False
+    Dim Front_F As Boolean = True
     Sub KeybordHooker1_KeyDown(sender As Object, e As KeyBoardHookerEventArgs) Handles KeyboardHooker1.KeyDown1
         Dim Tabb As String = CStr(e.vkCode)
         Label2.Text = Tabb
@@ -1477,4 +1492,20 @@ Public Class Form1
 
     End Sub
 
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button_hook.Click
+        If KeyboardHooker1.Hooked = False Then
+            If KeyboardHooker1.MouseHookStart() = True Then
+                Button_hook.Text = "Enabled"
+            End If
+        Else
+            If KeyboardHooker1.MouseHookEnd() = True Then
+                Button_hook.Text = "Disabled"
+
+            End If
+        End If
+    End Sub
+
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button_Get_Global_IPAddress.Click
+        Label_Global_IPaddress.Text = Get_Global_IPaddress()
+    End Sub
 End Class

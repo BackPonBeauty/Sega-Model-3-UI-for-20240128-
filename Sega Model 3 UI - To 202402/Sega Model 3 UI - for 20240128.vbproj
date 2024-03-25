@@ -252,7 +252,7 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <Content Include="icon2.ico" />
-    <None Include="Resources\scanline2.png" />
+    <None Include="Resource\scanline2.png" />
     <Content Include="Resource\scanline.png" />
     <None Include="Resource\video.png" />
     <None Include="Resource\video.ico" />
