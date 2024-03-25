@@ -142,6 +142,8 @@ Partial Class Form1
         Me.CheckBox18 = New System.Windows.Forms.CheckBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Panel_Network = New System.Windows.Forms.Panel()
+        Me.Label_Global_IPaddress = New System.Windows.Forms.Label()
+        Me.Button_Get_Global_IPAddress = New System.Windows.Forms.Button()
         Me.Button_Get_Local_IPAddress = New System.Windows.Forms.Button()
         Me.Label_Local_IPaddress = New System.Windows.Forms.Label()
         Me.CheckBox_simnetwork = New System.Windows.Forms.CheckBox()
@@ -183,8 +185,6 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.tt1 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.Button_Get_Global_IPAddress = New System.Windows.Forms.Button()
-        Me.Label_Global_IPaddress = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -236,7 +236,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1009, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1011, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -265,7 +265,7 @@ Partial Class Form1
         '
         Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8})
         Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
-        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FontSizeToolStripMenuItem.Text = "Font size"
         '
         'ToolStripMenuItem10
@@ -286,7 +286,7 @@ Partial Class Form1
         '
         Me.BackColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ChooseToolStripMenuItem, Me.DefoultToolStripMenuItem})
         Me.BackColorToolStripMenuItem.Name = "BackColorToolStripMenuItem"
-        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.BackColorToolStripMenuItem.Text = "BackColor"
         '
         'ChooseToolStripMenuItem
@@ -305,7 +305,7 @@ Partial Class Form1
         '
         Me.FontColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.WhiteToolStripMenuItem, Me.BlackToolStripMenuItem})
         Me.FontColorToolStripMenuItem.Name = "FontColorToolStripMenuItem"
-        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FontColorToolStripMenuItem.Text = "FontColor"
         '
         'WhiteToolStripMenuItem
@@ -1615,6 +1615,31 @@ Partial Class Form1
         Me.Panel_Network.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Network.TabIndex = 71
         '
+        'Label_Global_IPaddress
+        '
+        Me.Label_Global_IPaddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Global_IPaddress.ForeColor = System.Drawing.Color.White
+        Me.Label_Global_IPaddress.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label_Global_IPaddress.Location = New System.Drawing.Point(216, 94)
+        Me.Label_Global_IPaddress.Name = "Label_Global_IPaddress"
+        Me.Label_Global_IPaddress.Size = New System.Drawing.Size(131, 20)
+        Me.Label_Global_IPaddress.TabIndex = 80
+        Me.Label_Global_IPaddress.Text = "127.0.0.1"
+        Me.Label_Global_IPaddress.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Button_Get_Global_IPAddress
+        '
+        Me.Button_Get_Global_IPAddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_Get_Global_IPAddress.ForeColor = System.Drawing.Color.Black
+        Me.Button_Get_Global_IPAddress.Location = New System.Drawing.Point(52, 92)
+        Me.Button_Get_Global_IPAddress.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button_Get_Global_IPAddress.Name = "Button_Get_Global_IPAddress"
+        Me.Button_Get_Global_IPAddress.Size = New System.Drawing.Size(158, 24)
+        Me.Button_Get_Global_IPAddress.TabIndex = 79
+        Me.Button_Get_Global_IPAddress.Text = "Get Global IP Address"
+        Me.Button_Get_Global_IPAddress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button_Get_Global_IPAddress.UseVisualStyleBackColor = True
+        '
         'Button_Get_Local_IPAddress
         '
         Me.Button_Get_Local_IPAddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1955,7 +1980,7 @@ Partial Class Form1
         Me.Button_X.Name = "Button_X"
         Me.Button_X.Size = New System.Drawing.Size(71, 25)
         Me.Button_X.TabIndex = 87
-        Me.Button_X.Text = "Enabled"
+        Me.Button_X.Text = "Disabled"
         Me.Button_X.UseVisualStyleBackColor = True
         '
         'joybox1
@@ -2101,37 +2126,12 @@ Partial Class Form1
         '
         Me.Timer2.Interval = 3000
         '
-        'Button_Get_Global_IPAddress
-        '
-        Me.Button_Get_Global_IPAddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button_Get_Global_IPAddress.ForeColor = System.Drawing.Color.Black
-        Me.Button_Get_Global_IPAddress.Location = New System.Drawing.Point(52, 92)
-        Me.Button_Get_Global_IPAddress.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button_Get_Global_IPAddress.Name = "Button_Get_Global_IPAddress"
-        Me.Button_Get_Global_IPAddress.Size = New System.Drawing.Size(158, 24)
-        Me.Button_Get_Global_IPAddress.TabIndex = 79
-        Me.Button_Get_Global_IPAddress.Text = "Get Global IP Address"
-        Me.Button_Get_Global_IPAddress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button_Get_Global_IPAddress.UseVisualStyleBackColor = True
-        '
-        'Label_Global_IPaddress
-        '
-        Me.Label_Global_IPaddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Global_IPaddress.ForeColor = System.Drawing.Color.White
-        Me.Label_Global_IPaddress.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_Global_IPaddress.Location = New System.Drawing.Point(216, 94)
-        Me.Label_Global_IPaddress.Name = "Label_Global_IPaddress"
-        Me.Label_Global_IPaddress.Size = New System.Drawing.Size(131, 20)
-        Me.Label_Global_IPaddress.TabIndex = 80
-        Me.Label_Global_IPaddress.Text = "127.0.0.1"
-        Me.Label_Global_IPaddress.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1009, 591)
+        Me.ClientSize = New System.Drawing.Size(1011, 591)
         Me.Controls.Add(Me.Panel_ponmi)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Label8)
@@ -2166,7 +2166,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.0.0"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.0.1"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

@@ -1437,6 +1437,7 @@ Public Class Form1
         If Surround.Enabled = True Then
             Surround.Enabled = False
             Button_X.Text = "Disabled"
+            joybox1.Image = Nothing
         Else
             Surround.Enabled = True
             Button_X.Text = "Enabled"
