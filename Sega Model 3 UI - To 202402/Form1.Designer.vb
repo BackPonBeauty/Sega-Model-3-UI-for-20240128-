@@ -185,6 +185,7 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.tt1 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.CheckBox_outputs = New System.Windows.Forms.CheckBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -236,7 +237,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1011, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1012, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -1414,6 +1415,7 @@ Partial Class Form1
         '
         'Panel_Input
         '
+        Me.Panel_Input.Controls.Add(Me.CheckBox_outputs)
         Me.Panel_Input.Controls.Add(Me.Panel4)
         Me.Panel_Input.Controls.Add(Me.Panel1)
         Me.Panel_Input.Controls.Add(Me.Label29)
@@ -1575,7 +1577,7 @@ Partial Class Form1
         Me.CheckBox18.AutoSize = True
         Me.CheckBox18.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox18.ForeColor = System.Drawing.Color.White
-        Me.CheckBox18.Location = New System.Drawing.Point(198, 160)
+        Me.CheckBox18.Location = New System.Drawing.Point(221, 156)
         Me.CheckBox18.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox18.Name = "CheckBox18"
         Me.CheckBox18.Size = New System.Drawing.Size(116, 20)
@@ -2126,12 +2128,25 @@ Partial Class Form1
         '
         Me.Timer2.Interval = 3000
         '
+        'CheckBox_outputs
+        '
+        Me.CheckBox_outputs.AutoSize = True
+        Me.CheckBox_outputs.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_outputs.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_outputs.Location = New System.Drawing.Point(41, 156)
+        Me.CheckBox_outputs.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_outputs.Name = "CheckBox_outputs"
+        Me.CheckBox_outputs.Size = New System.Drawing.Size(96, 20)
+        Me.CheckBox_outputs.TabIndex = 80
+        Me.CheckBox_outputs.Text = "outputs=win"
+        Me.CheckBox_outputs.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1011, 591)
+        Me.ClientSize = New System.Drawing.Size(1012, 591)
         Me.Controls.Add(Me.Panel_ponmi)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Label8)
@@ -2370,4 +2385,5 @@ Partial Class Form1
     Friend WithEvents Label34 As Label
     Friend WithEvents Label_Global_IPaddress As Label
     Friend WithEvents Button_Get_Global_IPAddress As Button
+    Friend WithEvents CheckBox_outputs As CheckBox
 End Class

@@ -59,6 +59,7 @@ Public Class Form1
     Public Bgcolor_B As Integer = 80
     Public Pub_Forecolor_s As Color = Color.White
     Public Forecolor_s As String = "White"
+    Public Outputs_F As Boolean
 
     'DragMove
     Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
@@ -290,6 +291,7 @@ Public Class Form1
         Dim BgcolorB As StringBuilder = New StringBuilder(300)
         Dim Forecolor As StringBuilder = New StringBuilder(300)
         Dim Title_SB As StringBuilder = New StringBuilder(300)
+        Dim Outputs As StringBuilder = New StringBuilder(300)
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -325,6 +327,7 @@ Public Class Form1
         GetPrivateProfileString(" Global ", "Balance", "0", Balance, 15, iniFileName)
 
         GetPrivateProfileString(" Global ", "ForceFeedback", "True", ForceFeedback, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Outputs", "False", Outputs, 15, iniFileName)
 
         GetPrivateProfileString(" Global ", "Network", "True", Network, 15, iniFileName)
         GetPrivateProfileString(" Global ", "SimulateNet", "True", SimulateNet, 15, iniFileName)
@@ -632,6 +635,13 @@ Public Class Form1
             CheckBox18.Checked = False
         End If
 
+        'Outputs
+        If Outputs.ToString() = "True" Or Outputs.ToString() = "1" Then
+            CheckBox_outputs.Checked = True
+        Else
+            CheckBox_outputs.Checked = False
+        End If
+
         'Network
         If Network.ToString() = "True" Or Network.ToString() = "1" Then
             CheckBox_network.Checked = True
@@ -772,9 +782,13 @@ Public Class Form1
     End Sub
     Private Sub Load_Roms()
         WriteIni()
+        Dim outputs_s As String = ""
+        If CheckBox_outputs.Checked = True Then
+            outputs_s = " -outputs=win"
+        End If
         Try
             Dim appPath As String = System.Windows.Forms.Application.StartupPath
-            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""")
+            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip """ & outputs_s)
             startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
             startInfo.UseShellExecute = False
             Process.Start(startInfo)
@@ -991,7 +1005,10 @@ Public Class Form1
         WritePrivateProfileString(Section, "MusicVolume", Label_Music.Text, iniFileName)
         WritePrivateProfileString(Section, "SoundVolume", Label_Sound.Text, iniFileName)
         WritePrivateProfileString(Section, "Balance", Label_Balance.Text, iniFileName)
+
         WritePrivateProfileString(Section, "ForceFeedback", CheckBox18.Checked.ToString, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Outputs", CheckBox_outputs.Checked.ToString, iniFileName)
+
         WritePrivateProfileString(Section, "Network", CheckBox_network.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "SimulateNet", CheckBox_simnetwork.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "PortIn", TextBox_Portin.Text, iniFileName)
@@ -1256,7 +1273,7 @@ Public Class Form1
             If TypeOf c Is ButtonBase Then
                 c.ForeColor = Color.Black
             End If
-            If c.name = "CheckBox18" Then
+            If c.name = "CheckBox18" Or c.name = "CheckBox_outputs" Then
                 c.ForeColor = Color.White
             End If
         Next
