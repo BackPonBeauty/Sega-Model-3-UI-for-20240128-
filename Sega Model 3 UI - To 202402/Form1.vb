@@ -782,22 +782,36 @@ Public Class Form1
     End Sub
     Private Sub Load_Roms()
         WriteIni()
-        Dim outputs_s As String = ""
-        If CheckBox_outputs.Checked = True Then
-            outputs_s = " -outputs=win"
-        End If
+
+        'Dim outputs_s As String = " -outputs=win"
+        'If CheckBox_outputs.Checked = True Then
+        '    Try
+        '        Dim appPath As String = System.Windows.Forms.Application.StartupPath
+        '        Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""" & " -outputs=win")
+        '        startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
+        '        startInfo.UseShellExecute = False
+        '        Process.Start(startInfo)
+        '        loading.Show()
+        '    Catch ex As Exception
+        '        MessageBox.Show(ex.Message.ToString, "Error",
+        '            MessageBoxButtons.OK,
+        '            MessageBoxIcon.Error)
+        '    End Try
+        'Else
         Try
-            Dim appPath As String = System.Windows.Forms.Application.StartupPath
-            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip """ & outputs_s)
+                Dim appPath As String = System.Windows.Forms.Application.StartupPath
+            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""")
             startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
-            startInfo.UseShellExecute = False
-            Process.Start(startInfo)
-            loading.Show()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message.ToString, "Error",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error)
-        End Try
+                startInfo.UseShellExecute = False
+                Process.Start(startInfo)
+                loading.Show()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message.ToString, "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error)
+            End Try
+        'End If
+
     End Sub
 
 

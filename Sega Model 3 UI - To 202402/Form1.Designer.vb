@@ -127,6 +127,7 @@ Partial Class Form1
         Me.CheckBox_flipstereo = New System.Windows.Forms.CheckBox()
         Me.CheckBox_emulatesound = New System.Windows.Forms.CheckBox()
         Me.Panel_Input = New System.Windows.Forms.Panel()
+        Me.CheckBox_outputs = New System.Windows.Forms.CheckBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.ComboBox_crosshair = New System.Windows.Forms.ComboBox()
         Me.ComboBox_style = New System.Windows.Forms.ComboBox()
@@ -185,7 +186,6 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.tt1 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.CheckBox_outputs = New System.Windows.Forms.CheckBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -237,7 +237,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1012, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1009, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -266,7 +266,7 @@ Partial Class Form1
         '
         Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8})
         Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
-        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.FontSizeToolStripMenuItem.Text = "Font size"
         '
         'ToolStripMenuItem10
@@ -287,7 +287,7 @@ Partial Class Form1
         '
         Me.BackColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ChooseToolStripMenuItem, Me.DefoultToolStripMenuItem})
         Me.BackColorToolStripMenuItem.Name = "BackColorToolStripMenuItem"
-        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.BackColorToolStripMenuItem.Text = "BackColor"
         '
         'ChooseToolStripMenuItem
@@ -306,7 +306,7 @@ Partial Class Form1
         '
         Me.FontColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.WhiteToolStripMenuItem, Me.BlackToolStripMenuItem})
         Me.FontColorToolStripMenuItem.Name = "FontColorToolStripMenuItem"
-        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.FontColorToolStripMenuItem.Text = "FontColor"
         '
         'WhiteToolStripMenuItem
@@ -325,7 +325,7 @@ Partial Class Form1
         '
         Me.ChangeTitleToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnlyWorksPonMiEditionToolStripMenuItem})
         Me.ChangeTitleToolStripMenuItem.Name = "ChangeTitleToolStripMenuItem"
-        Me.ChangeTitleToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ChangeTitleToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.ChangeTitleToolStripMenuItem.Text = "Change Title"
         '
         'OnlyWorksPonMiEditionToolStripMenuItem
@@ -1415,7 +1415,6 @@ Partial Class Form1
         '
         'Panel_Input
         '
-        Me.Panel_Input.Controls.Add(Me.CheckBox_outputs)
         Me.Panel_Input.Controls.Add(Me.Panel4)
         Me.Panel_Input.Controls.Add(Me.Panel1)
         Me.Panel_Input.Controls.Add(Me.Label29)
@@ -1430,6 +1429,19 @@ Partial Class Form1
         Me.Panel_Input.Name = "Panel_Input"
         Me.Panel_Input.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Input.TabIndex = 70
+        '
+        'CheckBox_outputs
+        '
+        Me.CheckBox_outputs.AutoSize = True
+        Me.CheckBox_outputs.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_outputs.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_outputs.Location = New System.Drawing.Point(1087, 522)
+        Me.CheckBox_outputs.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_outputs.Name = "CheckBox_outputs"
+        Me.CheckBox_outputs.Size = New System.Drawing.Size(96, 20)
+        Me.CheckBox_outputs.TabIndex = 80
+        Me.CheckBox_outputs.Text = "outputs=win"
+        Me.CheckBox_outputs.UseVisualStyleBackColor = True
         '
         'Panel4
         '
@@ -2128,25 +2140,13 @@ Partial Class Form1
         '
         Me.Timer2.Interval = 3000
         '
-        'CheckBox_outputs
-        '
-        Me.CheckBox_outputs.AutoSize = True
-        Me.CheckBox_outputs.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBox_outputs.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_outputs.Location = New System.Drawing.Point(41, 156)
-        Me.CheckBox_outputs.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox_outputs.Name = "CheckBox_outputs"
-        Me.CheckBox_outputs.Size = New System.Drawing.Size(96, 20)
-        Me.CheckBox_outputs.TabIndex = 80
-        Me.CheckBox_outputs.Text = "outputs=win"
-        Me.CheckBox_outputs.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1012, 591)
+        Me.ClientSize = New System.Drawing.Size(1009, 591)
+        Me.Controls.Add(Me.CheckBox_outputs)
         Me.Controls.Add(Me.Panel_ponmi)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Label8)
@@ -2181,7 +2181,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.0.1"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.0.2"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
