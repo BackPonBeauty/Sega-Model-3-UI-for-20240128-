@@ -127,7 +127,6 @@ Partial Class Form1
         Me.CheckBox_flipstereo = New System.Windows.Forms.CheckBox()
         Me.CheckBox_emulatesound = New System.Windows.Forms.CheckBox()
         Me.Panel_Input = New System.Windows.Forms.Panel()
-        Me.CheckBox_outputs = New System.Windows.Forms.CheckBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.ComboBox_crosshair = New System.Windows.Forms.ComboBox()
         Me.ComboBox_style = New System.Windows.Forms.ComboBox()
@@ -142,6 +141,7 @@ Partial Class Form1
         Me.Label11 = New System.Windows.Forms.Label()
         Me.CheckBox18 = New System.Windows.Forms.CheckBox()
         Me.Label18 = New System.Windows.Forms.Label()
+        Me.CheckBox_outputs = New System.Windows.Forms.CheckBox()
         Me.Panel_Network = New System.Windows.Forms.Panel()
         Me.Label_Global_IPaddress = New System.Windows.Forms.Label()
         Me.Button_Get_Global_IPAddress = New System.Windows.Forms.Button()
@@ -237,7 +237,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1009, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1011, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -1430,19 +1430,6 @@ Partial Class Form1
         Me.Panel_Input.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Input.TabIndex = 70
         '
-        'CheckBox_outputs
-        '
-        Me.CheckBox_outputs.AutoSize = True
-        Me.CheckBox_outputs.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBox_outputs.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_outputs.Location = New System.Drawing.Point(1087, 522)
-        Me.CheckBox_outputs.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox_outputs.Name = "CheckBox_outputs"
-        Me.CheckBox_outputs.Size = New System.Drawing.Size(96, 20)
-        Me.CheckBox_outputs.TabIndex = 80
-        Me.CheckBox_outputs.Text = "outputs=win"
-        Me.CheckBox_outputs.UseVisualStyleBackColor = True
-        '
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.ComboBox_crosshair)
@@ -1608,6 +1595,19 @@ Partial Class Form1
         Me.Label18.TabIndex = 65
         Me.Label18.Text = "Crosshairs"
         Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'CheckBox_outputs
+        '
+        Me.CheckBox_outputs.AutoSize = True
+        Me.CheckBox_outputs.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_outputs.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_outputs.Location = New System.Drawing.Point(1087, 522)
+        Me.CheckBox_outputs.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_outputs.Name = "CheckBox_outputs"
+        Me.CheckBox_outputs.Size = New System.Drawing.Size(96, 20)
+        Me.CheckBox_outputs.TabIndex = 80
+        Me.CheckBox_outputs.Text = "outputs=win"
+        Me.CheckBox_outputs.UseVisualStyleBackColor = True
         '
         'Panel_Network
         '
@@ -2145,7 +2145,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1009, 591)
+        Me.ClientSize = New System.Drawing.Size(1011, 591)
         Me.Controls.Add(Me.CheckBox_outputs)
         Me.Controls.Add(Me.Panel_ponmi)
         Me.Controls.Add(Me.Panel3)
@@ -2181,7 +2181,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.0.2"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.0.3"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

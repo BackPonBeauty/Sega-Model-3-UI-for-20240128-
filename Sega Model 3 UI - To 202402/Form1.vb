@@ -132,6 +132,9 @@ Public Class Form1
             MessageBox.Show("Config folder not found.")
             Me.Close()
         End If
+        'If KeyboardHooker1.MouseHookStart() = True Then
+        '    Button_hook.Text = "Enabled"
+        'End If
     End Sub
 
     Private Sub LoadResolution()
@@ -800,7 +803,7 @@ Public Class Form1
         'Else
         Try
                 Dim appPath As String = System.Windows.Forms.Application.StartupPath
-            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""")
+            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""") ')
             startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
                 startInfo.UseShellExecute = False
                 Process.Start(startInfo)
@@ -1270,7 +1273,7 @@ Public Class Form1
     Private Sub WhiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WhiteToolStripMenuItem.Click
         Dim c As Object
         For Each c In Controls
-            If TypeOf c Is IButtonControl Or TypeOf c Is MenuStrip Then
+            If TypeOf c Is IButtonControl Or TypeOf c Is MenuStrip Or TypeOf c Is TextBoxBase Then
                 c.ForeColor = Color.Black
             Else
                 c.ForeColor = Color.White
@@ -1499,8 +1502,12 @@ Public Class Form1
 
                 ScanLine.Width = Integer.Parse(Label_xRes.Text.ToString)
                 ScanLine.Height = Integer.Parse(Label_yRes.Text.ToString)
-                ScanLine.PictureBox1.Height = Integer.Parse(Label_yRes.Text.ToString)
+                ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
+                ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
+                ScanLine.PictureBox1.Top = 0
+                ScanLine.PictureBox1.Left = 0
                 ScanLine.PictureBox1.Width = Integer.Parse(Label_xRes.Text.ToString)
+                ScanLine.PictureBox1.Height = Integer.Parse(Label_yRes.Text.ToString)
 
                 ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
                 ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)

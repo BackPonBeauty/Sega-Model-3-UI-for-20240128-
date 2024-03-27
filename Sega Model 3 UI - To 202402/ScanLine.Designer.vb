@@ -28,10 +28,10 @@ Partial Class ScanLine
         '
         'PictureBox1
         '
-        Me.PictureBox1.BackgroundImage = Global.Sega_Model_3_UI_for_20240128.My.Resources.Resources.scanline
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(1280, 720)
+        Me.PictureBox1.Size = New System.Drawing.Size(640, 480)
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
@@ -39,7 +39,7 @@ Partial Class ScanLine
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
+        Me.BackColor = System.Drawing.Color.Gray
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1280, 720)
         Me.Controls.Add(Me.PictureBox1)
@@ -52,7 +52,7 @@ Partial Class ScanLine
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ScanLine"
         Me.TopMost = True
-        Me.TransparencyKey = System.Drawing.Color.White
+        Me.TransparencyKey = System.Drawing.Color.Gray
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
