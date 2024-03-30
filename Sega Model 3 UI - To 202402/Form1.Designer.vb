@@ -38,8 +38,6 @@ Partial Class Form1
         Me.FontColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.WhiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ChangeTitleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OnlyWorksPonMiEditionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Debugtext = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button_folder = New System.Windows.Forms.Button()
@@ -186,6 +184,7 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.tt1 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.Button_Ponmi = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -257,7 +256,7 @@ Partial Class Form1
         '
         'OptionToolStripMenuItem
         '
-        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem, Me.BackColorToolStripMenuItem, Me.FontColorToolStripMenuItem, Me.ChangeTitleToolStripMenuItem})
+        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem, Me.BackColorToolStripMenuItem, Me.FontColorToolStripMenuItem})
         Me.OptionToolStripMenuItem.Name = "OptionToolStripMenuItem"
         Me.OptionToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
         Me.OptionToolStripMenuItem.Text = "Option"
@@ -266,7 +265,7 @@ Partial Class Form1
         '
         Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8})
         Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
-        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.FontSizeToolStripMenuItem.Text = "Font size"
         '
         'ToolStripMenuItem10
@@ -287,7 +286,7 @@ Partial Class Form1
         '
         Me.BackColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ChooseToolStripMenuItem, Me.DefoultToolStripMenuItem})
         Me.BackColorToolStripMenuItem.Name = "BackColorToolStripMenuItem"
-        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.BackColorToolStripMenuItem.Text = "BackColor"
         '
         'ChooseToolStripMenuItem
@@ -306,7 +305,7 @@ Partial Class Form1
         '
         Me.FontColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.WhiteToolStripMenuItem, Me.BlackToolStripMenuItem})
         Me.FontColorToolStripMenuItem.Name = "FontColorToolStripMenuItem"
-        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.FontColorToolStripMenuItem.Text = "FontColor"
         '
         'WhiteToolStripMenuItem
@@ -320,19 +319,6 @@ Partial Class Form1
         Me.BlackToolStripMenuItem.Name = "BlackToolStripMenuItem"
         Me.BlackToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
         Me.BlackToolStripMenuItem.Text = "Black"
-        '
-        'ChangeTitleToolStripMenuItem
-        '
-        Me.ChangeTitleToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnlyWorksPonMiEditionToolStripMenuItem})
-        Me.ChangeTitleToolStripMenuItem.Name = "ChangeTitleToolStripMenuItem"
-        Me.ChangeTitleToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
-        Me.ChangeTitleToolStripMenuItem.Text = "Change Title"
-        '
-        'OnlyWorksPonMiEditionToolStripMenuItem
-        '
-        Me.OnlyWorksPonMiEditionToolStripMenuItem.Name = "OnlyWorksPonMiEditionToolStripMenuItem"
-        Me.OnlyWorksPonMiEditionToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
-        Me.OnlyWorksPonMiEditionToolStripMenuItem.Text = "Only works PonMi Edition"
         '
         'Debugtext
         '
@@ -1179,7 +1165,7 @@ Partial Class Form1
         Me.Button4.Location = New System.Drawing.Point(612, 292)
         Me.Button4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(92, 36)
+        Me.Button4.Size = New System.Drawing.Size(82, 36)
         Me.Button4.TabIndex = 65
         Me.Button4.Text = "Video"
         Me.Button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1191,10 +1177,10 @@ Partial Class Form1
         Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button5.Image = CType(resources.GetObject("Button5.Image"), System.Drawing.Image)
         Me.Button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button5.Location = New System.Drawing.Point(712, 292)
+        Me.Button5.Location = New System.Drawing.Point(700, 292)
         Me.Button5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(92, 36)
+        Me.Button5.Size = New System.Drawing.Size(85, 36)
         Me.Button5.TabIndex = 66
         Me.Button5.Text = "Sound"
         Me.Button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1206,10 +1192,10 @@ Partial Class Form1
         Me.Button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button6.Image = CType(resources.GetObject("Button6.Image"), System.Drawing.Image)
         Me.Button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button6.Location = New System.Drawing.Point(812, 292)
+        Me.Button6.Location = New System.Drawing.Point(791, 292)
         Me.Button6.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(92, 36)
+        Me.Button6.Size = New System.Drawing.Size(93, 36)
         Me.Button6.TabIndex = 67
         Me.Button6.Text = "Control"
         Me.Button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1221,7 +1207,7 @@ Partial Class Form1
         Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button7.Image = CType(resources.GetObject("Button7.Image"), System.Drawing.Image)
         Me.Button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button7.Location = New System.Drawing.Point(912, 292)
+        Me.Button7.Location = New System.Drawing.Point(890, 292)
         Me.Button7.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(92, 36)
@@ -1697,10 +1683,10 @@ Partial Class Form1
         Me.TextBox_Addressout.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TextBox_Addressout.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox_Addressout.ForeColor = System.Drawing.Color.White
-        Me.TextBox_Addressout.Location = New System.Drawing.Point(280, 216)
+        Me.TextBox_Addressout.Location = New System.Drawing.Point(223, 216)
         Me.TextBox_Addressout.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox_Addressout.Name = "TextBox_Addressout"
-        Me.TextBox_Addressout.Size = New System.Drawing.Size(70, 22)
+        Me.TextBox_Addressout.Size = New System.Drawing.Size(127, 22)
         Me.TextBox_Addressout.TabIndex = 75
         Me.TextBox_Addressout.Text = "127.0.0.1"
         Me.TextBox_Addressout.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1967,24 +1953,24 @@ Partial Class Form1
         Me.Label33.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label33.ForeColor = System.Drawing.Color.White
         Me.Label33.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label33.Location = New System.Drawing.Point(191, 120)
+        Me.Label33.Location = New System.Drawing.Point(169, 120)
         Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(99, 20)
+        Me.Label33.Size = New System.Drawing.Size(121, 20)
         Me.Label33.TabIndex = 89
         Me.Label33.Text = "FakeScanLine"
-        Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label32
         '
         Me.Label32.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label32.ForeColor = System.Drawing.Color.White
         Me.Label32.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label32.Location = New System.Drawing.Point(191, 85)
+        Me.Label32.Location = New System.Drawing.Point(169, 85)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(99, 20)
+        Me.Label32.Size = New System.Drawing.Size(121, 20)
         Me.Label32.TabIndex = 88
         Me.Label32.Text = "GamepadViwer"
-        Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Button_X
         '
@@ -2140,12 +2126,26 @@ Partial Class Form1
         '
         Me.Timer2.Interval = 3000
         '
+        'Button_Ponmi
+        '
+        Me.Button_Ponmi.BackColor = System.Drawing.Color.White
+        Me.Button_Ponmi.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button_Ponmi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button_Ponmi.Location = New System.Drawing.Point(988, 292)
+        Me.Button_Ponmi.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button_Ponmi.Name = "Button_Ponmi"
+        Me.Button_Ponmi.Size = New System.Drawing.Size(14, 36)
+        Me.Button_Ponmi.TabIndex = 82
+        Me.Button_Ponmi.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Button_Ponmi.UseVisualStyleBackColor = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1011, 591)
+        Me.Controls.Add(Me.Button_Ponmi)
         Me.Controls.Add(Me.CheckBox_outputs)
         Me.Controls.Add(Me.Panel_ponmi)
         Me.Controls.Add(Me.Panel3)
@@ -2181,7 +2181,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.0.3"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.0.5"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -2360,8 +2360,6 @@ Partial Class Form1
     Friend WithEvents Panel4 As Panel
     Friend WithEvents TextBox_Title As TextBox
     Friend WithEvents Label30 As Label
-    Friend WithEvents ChangeTitleToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OnlyWorksPonMiEditionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Panel_ponmi As Panel
     Friend WithEvents Panel5 As Panel
     Friend WithEvents Label31 As Label
@@ -2386,4 +2384,5 @@ Partial Class Form1
     Friend WithEvents Label_Global_IPaddress As Label
     Friend WithEvents Button_Get_Global_IPAddress As Button
     Friend WithEvents CheckBox_outputs As CheckBox
+    Friend WithEvents Button_Ponmi As Button
 End Class

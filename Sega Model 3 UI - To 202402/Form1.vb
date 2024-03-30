@@ -18,7 +18,6 @@ Public Class Form1
                               nSize As Integer,
                               lpFileName As String) As Integer
     End Function
-
     <DllImport("KERNEL32.DLL", CharSet:=CharSet.Auto)>
     Public Shared Function WritePrivateProfileString(
                               ByVal lpApplicationName As String,
@@ -60,6 +59,11 @@ Public Class Form1
     Public Pub_Forecolor_s As Color = Color.White
     Public Forecolor_s As String = "White"
     Public Outputs_F As Boolean
+    Public ScanLine_F As Boolean = False
+    Dim Front_F As Boolean = True
+    Dim Scanline_Enabled As Boolean = False
+
+    WithEvents KeyboardHooker1 As New Key
 
     'DragMove
     Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
@@ -295,6 +299,8 @@ Public Class Form1
         Dim Forecolor As StringBuilder = New StringBuilder(300)
         Dim Title_SB As StringBuilder = New StringBuilder(300)
         Dim Outputs As StringBuilder = New StringBuilder(300)
+        Dim Scanline As StringBuilder = New StringBuilder(300)
+        Dim Gamepad As StringBuilder = New StringBuilder(300)
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -380,6 +386,20 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "BackColor_G", "0", BgcolorG, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Scanline", "False", Scanline, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Gamepad", "False", Gamepad, 15, iniFileName)
+
+        'Scanline
+        If Scanline.ToString() = "True" Or VSync.ToString() = "1" Then
+            Button_hook.PerformClick()
+        End If
+
+        'Gamepad
+        If Gamepad.ToString() = "True" Or VSync.ToString() = "1" Then
+            Button_X.PerformClick()
+        End If
 
         'BackColor
         Bgcolor_R = BgcolorR.ToString
@@ -709,7 +729,7 @@ Public Class Form1
             Label_wScreenRes.Text = s.Bounds.Width
             Bh(i) = s.Bounds.Height
             Label_hScreenRes.Text = s.Bounds.Height
-            Debug(i & "::" & ScreenN(i))
+            'Debug(i & "::" & ScreenN(i))
             i += 1
         Next
 
@@ -753,12 +773,13 @@ Public Class Form1
         Roms = DataGridView1.CurrentRow.Cells(2).Value
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Last_SelectedRow = DataGridView1.CurrentRow.Index
-        Label_listed.Text = GameData.Rows.Count & " game(s) listed." 'DataGridView1.CurrentRow.Index + 1 & " / " &
+
     End Sub
 
     Private Sub DataGridView1_SelectCellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         Last_SelectedItem = DataGridView1.CurrentCell.Value
-        Debug(Last_SelectedItem)
+        Last_SelectedRow = DataGridView1.CurrentRow.Index
+        Debug(Last_SelectedRow)
     End Sub
 
     Private Sub PPC_Bar_Scroll(sender As Object, e As EventArgs) Handles PPC_Bar.Scroll
@@ -903,6 +924,7 @@ Public Class Form1
             End If
             DataGridView1.DataSource = GameData
             Label_Roms.Text = Roms_count & " rom(s) available."
+            Label_listed.Text = GameData.Rows.Count & " game(s) listed." 'DataGridView1.CurrentRow.Index + 1 & " / " &
         Catch ex As Exception
 
         End Try
@@ -1060,6 +1082,8 @@ Public Class Form1
         WritePrivateProfileString(" Supermodel3 UI ", "BackColor_G", Bgcolor_G, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "BackColor_B", Bgcolor_B, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "ForeColor", Forecolor_s, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Scanline", Scanline_Enabled, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Gamepad", Surround.Enabled, iniFileName)
 
         WritePrivateProfileString(Section, "DirectInputConstForceLeftMax", DConstLeft.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputConstForceRightMax", DConstRight.Text, iniFileName)
@@ -1281,6 +1305,11 @@ Public Class Form1
         Next
         For Each c In Panel_Video.Controls
             c.ForeColor = Color.White
+            If TypeOf c Is IButtonControl Then
+                c.ForeColor = Color.Black
+            Else
+                c.ForeColor = Color.White
+            End If
         Next
         For Each c In Panel_Sound.Controls
             c.ForeColor = Color.White
@@ -1354,7 +1383,7 @@ Public Class Form1
         WhiteToolStripMenuItem.PerformClick()
     End Sub
 
-    Private Sub OnlyWorksPonMiEditionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnlyWorksPonMiEditionToolStripMenuItem.Click
+    Private Sub Button_Ponmi_Click(sender As Object, e As EventArgs) Handles Button_Ponmi.Click
         Panel_Video.Left = 2000
         Panel_Video.Top = 336
         Panel_Sound.Left = 2000
@@ -1478,10 +1507,9 @@ Public Class Form1
         End If
     End Sub
 
-    WithEvents KeyboardHooker1 As New Key
-    Dim ScanLine_F As Boolean = False
-    Dim Front_F As Boolean = True
-    Sub KeybordHooker1_KeyDown(sender As Object, e As KeyBoardHookerEventArgs) Handles KeyboardHooker1.KeyDown1
+
+
+    Sub KeybordHooker1_KeyDown(sender As Object, e As KeyBoardHookerEventArgs) Handles KeyboardHooker1.KeyUp1
         Dim Tabb As String = CStr(e.vkCode)
         Label2.Text = Tabb
         If Tabb = "73" Then 'Escape key
@@ -1495,32 +1523,35 @@ Public Class Form1
 
         End If
         If Tabb = "83" Then
+            'Debug(Process.GetProcessesByName("Supermodel").Count)
+            If Process.GetProcessesByName("Supermodel").Count <> 0 Then
+                If ScanLine_F = False Then
 
-            If ScanLine_F = False Then
+                    ScanLine_F = True
 
-                ScanLine_F = True
+                    ScanLine.Width = Integer.Parse(Label_xRes.Text.ToString)
+                    ScanLine.Height = Integer.Parse(Label_yRes.Text.ToString)
+                    ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
+                    ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
+                    ScanLine.PictureBox1.Top = 0
+                    ScanLine.PictureBox1.Left = 0
+                    ScanLine.PictureBox1.Width = Integer.Parse(Label_xRes.Text.ToString)
+                    ScanLine.PictureBox1.Height = Integer.Parse(Label_yRes.Text.ToString)
 
-                ScanLine.Width = Integer.Parse(Label_xRes.Text.ToString)
-                ScanLine.Height = Integer.Parse(Label_yRes.Text.ToString)
-                ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
-                ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
-                ScanLine.PictureBox1.Top = 0
-                ScanLine.PictureBox1.Left = 0
-                ScanLine.PictureBox1.Width = Integer.Parse(Label_xRes.Text.ToString)
-                ScanLine.PictureBox1.Height = Integer.Parse(Label_yRes.Text.ToString)
+                    ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
+                    ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
 
-                ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
-                ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
-
-                ScanLine.Show()
-                'ScanLine.TopMost = True
-                'Me.WindowState = FormWindowState.Minimized
+                    ScanLine.Show()
+                Else
+                    ScanLine_F = False
+                    ScanLine.Close()
+                    ScanLine.Dispose()
+                End If
             Else
                 ScanLine_F = False
                 ScanLine.Close()
                 ScanLine.Dispose()
             End If
-
         End If
         If Tabb = "79" And ScanLine_F = True Then
             ScanLine.Opacity -= 0.1
@@ -1535,11 +1566,12 @@ Public Class Form1
         If KeyboardHooker1.Hooked = False Then
             If KeyboardHooker1.MouseHookStart() = True Then
                 Button_hook.Text = "Enabled"
+                Scanline_Enabled = True
             End If
         Else
             If KeyboardHooker1.MouseHookEnd() = True Then
                 Button_hook.Text = "Disabled"
-
+                Scanline_Enabled = False
             End If
         End If
     End Sub
@@ -1547,4 +1579,6 @@ Public Class Form1
     Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button_Get_Global_IPAddress.Click
         Label_Global_IPaddress.Text = Get_Global_IPaddress()
     End Sub
+
+
 End Class

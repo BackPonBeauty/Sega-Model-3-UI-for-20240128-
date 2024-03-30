@@ -143,6 +143,12 @@
     <Compile Include="Key.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ponmi.Designer.vb">
+      <DependentUpon>ponmi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ponmi.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PosResWindow.Designer.vb">
       <DependentUpon>PosResWindow.vb</DependentUpon>
     </Compile>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSet.resx">
       <DependentUpon>FormSet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ponmi.resx">
+      <DependentUpon>ponmi.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PosResWindow.resx">
       <DependentUpon>PosResWindow.vb</DependentUpon>

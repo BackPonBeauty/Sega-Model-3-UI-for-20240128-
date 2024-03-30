@@ -1,15 +1,4 @@
 ﻿Public Class About
-    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
-        System.Diagnostics.Process.Start("https://www.supermodel3.com/Forum/viewtopic.php?t=15")
-    End Sub
-
-    Private Sub LinkLabel2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
-        System.Diagnostics.Process.Start("https://insertmorecoins.es/foro/supermodel/(hilo-oficial)-sega-model-3ui/")
-    End Sub
-
-    Private Sub LinkLabel3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel3.LinkClicked
-        System.Diagnostics.Process.Start("https://www.youtube.com/channel/UClAD0SfYiBMRdK_IieDXfaA")
-    End Sub
 
     Private Sub About_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.BackColor = Color.FromArgb(255, Form1.Bgcolor_R, Form1.Bgcolor_G, Form1.Bgcolor_B)
@@ -26,5 +15,44 @@
                 ' End If
             Next childControl
         End If
+    End Sub
+
+    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
+        System.Diagnostics.Process.Start("https://discord.gg/TH6VHSXBUy")
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        System.Diagnostics.Process.Start("https://discord.gg/ajvbpQSs5g")
+    End Sub
+
+    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
+        System.Diagnostics.Process.Start("https://twitter.com/back_pon_beauty")
+    End Sub
+
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        System.Diagnostics.Process.Start("https://www.youtube.com/@backponbeauty")
+    End Sub
+
+    Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles PictureBox4.Click
+        System.Diagnostics.Process.Start("https://www.twitch.tv/back_pon_beauty")
+    End Sub
+
+    Private Sub PictureBox6_Click(sender As Object, e As EventArgs) Handles PictureBox6.Click
+        System.Diagnostics.Process.Start("https://github.com/BackPonBeauty")
+    End Sub
+
+    Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles PictureBox7.Click
+        System.Diagnostics.Process.Start("https://github.com/trzy/Supermodel")
+    End Sub
+
+    Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
+        If My.Application.OpenForms("ponmi") IsNot Nothing Then
+        Else
+            ponmi.Show()
+        End If
+    End Sub
+
+    Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
+        System.Diagnostics.Process.Start("https://supermodel3.com")
     End Sub
 End Class

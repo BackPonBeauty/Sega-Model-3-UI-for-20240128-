@@ -22,7 +22,9 @@ Partial Class ScanLine
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -34,6 +36,9 @@ Partial Class ScanLine
         Me.PictureBox1.Size = New System.Drawing.Size(640, 480)
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
+        '
+        'Timer1
+        '
         '
         'ScanLine
         '
@@ -59,4 +64,5 @@ Partial Class ScanLine
     End Sub
 
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents Timer1 As Timer
 End Class
