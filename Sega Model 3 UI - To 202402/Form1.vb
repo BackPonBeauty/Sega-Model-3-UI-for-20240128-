@@ -6,6 +6,7 @@ Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Xml
+Imports SharpDX
 Imports SharpDX.XInput
 Public Class Form1
 
@@ -302,7 +303,7 @@ Public Class Form1
         Dim Outputs As StringBuilder = New StringBuilder(300)
         Dim Scanline As StringBuilder = New StringBuilder(300)
         Dim Gamepad As StringBuilder = New StringBuilder(300)
-        Dim Opacity As StringBuilder = New StringBuilder(300)
+        Dim Opacity As StringBuilder = New StringBuilder(30000)
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -392,10 +393,14 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Scanline", "False", Scanline, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Gamepad", "False", Gamepad, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "0.5", Opacity, 15, iniFileName)
-
+        GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "5", Opacity, 15, iniFileName)
         'Opacity
-        Opacity_D = Double.Parse(Opacity.ToString())
+        Dim result As Integer
+        If Integer.TryParse(Opacity.ToString, result) = False Then
+            Opacity_D = 5
+        Else
+            Opacity_D = Integer.Parse(Opacity.ToString())
+        End If
 
         'Scanline
         If Scanline.ToString() = "True" Or VSync.ToString() = "1" Then
@@ -829,17 +834,17 @@ Public Class Form1
         '    End Try
         'Else
         Try
-                Dim appPath As String = System.Windows.Forms.Application.StartupPath
+            Dim appPath As String = System.Windows.Forms.Application.StartupPath
             Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""") ')
             startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
-                startInfo.UseShellExecute = False
-                Process.Start(startInfo)
-                loading.Show()
-            Catch ex As Exception
-                MessageBox.Show(ex.Message.ToString, "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error)
-            End Try
+            startInfo.UseShellExecute = False
+            Process.Start(startInfo)
+            loading.Show()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message.ToString, "Error",
+MessageBoxButtons.OK,
+MessageBoxIcon.Error)
+        End Try
         'End If
 
     End Sub
@@ -1572,14 +1577,18 @@ Public Class Form1
                 End If
             End If
             If Tabb = "79" Then
-                Opacity_D -= 0.1
-                ScanLine.Opacity -= 0.1
+                If Opacity_D > 1 Then
+                    Opacity_D -= 1
+                    ScanLine.Opacity -= 0.1
+                End If
             End If
             If Tabb = "80" Then
-                Opacity_D += 0.1
-                ScanLine.Opacity += 0.1
+                If Opacity_D < 10 Then
+                    Opacity_D += 1
+                    ScanLine.Opacity += 0.1
+                End If
             End If
-        End If
+            End If
     End Sub
 
     Sub KeybordHooker1_Keyup(sender As Object, e As KeyBoardHookerEventArgs) Handles KeyboardHooker1.KeyUp1

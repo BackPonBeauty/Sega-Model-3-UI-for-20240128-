@@ -62,7 +62,7 @@ Public Class ScanLine
             PictureBox1.BackgroundImage = My.Resources.scanline
             PictureBox1.BackgroundImageLayout = ImageLayout.Tile
         End If
-        Me.Opacity = Form1.Opacity_D
+        Me.Opacity = Form1.Opacity_D / 10
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
