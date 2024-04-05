@@ -44,7 +44,7 @@ Partial Class ScanLine
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Gray
+        Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1280, 720)
         Me.Controls.Add(Me.PictureBox1)
@@ -57,7 +57,7 @@ Partial Class ScanLine
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ScanLine"
         Me.TopMost = True
-        Me.TransparencyKey = System.Drawing.Color.Gray
+        Me.TransparencyKey = System.Drawing.Color.White
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

@@ -62,6 +62,7 @@ Public Class Form1
     Public ScanLine_F As Boolean = False
     Dim Front_F As Boolean = True
     Dim Scanline_Enabled As Boolean = False
+    Public Opacity_D As Double = 0.5
 
     WithEvents KeyboardHooker1 As New Key
 
@@ -301,6 +302,7 @@ Public Class Form1
         Dim Outputs As StringBuilder = New StringBuilder(300)
         Dim Scanline As StringBuilder = New StringBuilder(300)
         Dim Gamepad As StringBuilder = New StringBuilder(300)
+        Dim Opacity As StringBuilder = New StringBuilder(300)
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -390,6 +392,10 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Scanline", "False", Scanline, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Gamepad", "False", Gamepad, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "0.5", Opacity, 15, iniFileName)
+
+        'Opacity
+        Opacity_D = Double.Parse(Opacity.ToString())
 
         'Scanline
         If Scanline.ToString() = "True" Or VSync.ToString() = "1" Then
@@ -1084,6 +1090,7 @@ Public Class Form1
         WritePrivateProfileString(" Supermodel3 UI ", "ForeColor", Forecolor_s, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Scanline", Scanline_Enabled, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Gamepad", Surround.Enabled, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Opacity", Opacity_D, iniFileName)
 
         WritePrivateProfileString(Section, "DirectInputConstForceLeftMax", DConstLeft.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputConstForceRightMax", DConstRight.Text, iniFileName)
@@ -1508,58 +1515,79 @@ Public Class Form1
     End Sub
 
 
-
-    Sub KeybordHooker1_KeyDown(sender As Object, e As KeyBoardHookerEventArgs) Handles KeyboardHooker1.KeyUp1
+    Public scanline_type As String = "PICTURE" 'Or "PICTURE"
+    Dim control_F As Boolean = False
+    Sub KeybordHooker1_KeyDown(sender As Object, e As KeyBoardHookerEventArgs) Handles KeyboardHooker1.KeyDown1
         Dim Tabb As String = CStr(e.vkCode)
         Label2.Text = Tabb
-        If Tabb = "73" Then 'Escape key
-            If Front_F = False Then
-                Front_F = True
-                Me.BringToFront()
-            Else
-                Front_F = False
-                Me.SendToBack()
-            End If
-
+        If Tabb = "162" Then
+            control_F = True
         End If
-        If Tabb = "83" Then
-            'Debug(Process.GetProcessesByName("Supermodel").Count)
-            If Process.GetProcessesByName("Supermodel").Count <> 0 Then
-                If ScanLine_F = False Then
 
-                    ScanLine_F = True
+        If control_F Then
+            If Tabb = "73" Then 'Escape key
+                If Front_F = False Then
+                    Front_F = True
+                    Me.BringToFront()
+                Else
+                    Front_F = False
+                    Me.SendToBack()
+                End If
 
-                    ScanLine.Width = Integer.Parse(Label_xRes.Text.ToString)
-                    ScanLine.Height = Integer.Parse(Label_yRes.Text.ToString)
-                    ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
-                    ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
-                    ScanLine.PictureBox1.Top = 0
-                    ScanLine.PictureBox1.Left = 0
-                    ScanLine.PictureBox1.Width = Integer.Parse(Label_xRes.Text.ToString)
-                    ScanLine.PictureBox1.Height = Integer.Parse(Label_yRes.Text.ToString)
+            End If
+            If Tabb = "83" Then
+                'Debug(Process.GetProcessesByName("Supermodel").Count)
+                If Process.GetProcessesByName("Supermodel").Count <> 0 Then
+                    If ScanLine_F = False Then
+                        If scanline_type = "PICTURE" Then
+                            scanline_type = "LINE1"
+                        ElseIf scanline_type = "LINE1" Then
+                            scanline_type = "LINE2"
+                        ElseIf scanline_type = "LINE2" Then
+                            scanline_type = "PICTURE"
+                            ScanLine_F = True
+                        End If
+                        ScanLine.Width = Integer.Parse(Label_xRes.Text.ToString)
+                        ScanLine.Height = Integer.Parse(Label_yRes.Text.ToString)
+                        ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
+                        ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
+                        ScanLine.PictureBox1.Top = 0
+                        ScanLine.PictureBox1.Left = 0
+                        ScanLine.PictureBox1.Width = Integer.Parse(Label_xRes.Text.ToString)
+                        ScanLine.PictureBox1.Height = Integer.Parse(Label_yRes.Text.ToString)
 
-                    ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
-                    ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
-
-                    ScanLine.Show()
+                        ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
+                        ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
+                        ScanLine.Draw_Scanline(scanline_type)
+                        ScanLine.Show()
+                    Else
+                        ScanLine_F = False
+                        ScanLine.Close()
+                        ScanLine.Dispose()
+                    End If
                 Else
                     ScanLine_F = False
                     ScanLine.Close()
                     ScanLine.Dispose()
                 End If
-            Else
-                ScanLine_F = False
-                ScanLine.Close()
-                ScanLine.Dispose()
+            End If
+            If Tabb = "79" Then
+                Opacity_D -= 0.1
+                ScanLine.Opacity -= 0.1
+            End If
+            If Tabb = "80" Then
+                Opacity_D += 0.1
+                ScanLine.Opacity += 0.1
             End If
         End If
-        If Tabb = "79" And ScanLine_F = True Then
-            ScanLine.Opacity -= 0.1
-        End If
-        If Tabb = "80" And ScanLine_F = True Then
-            ScanLine.Opacity += 0.1
-        End If
+    End Sub
 
+    Sub KeybordHooker1_Keyup(sender As Object, e As KeyBoardHookerEventArgs) Handles KeyboardHooker1.KeyUp1
+        Dim Tabb As String = CStr(e.vkCode)
+        Label2.Text = Tabb
+        If Tabb = "162" Then
+            control_F = False
+        End If
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button_hook.Click
