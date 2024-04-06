@@ -164,6 +164,7 @@ Partial Class Form1
         Me.Label30 = New System.Windows.Forms.Label()
         Me.TextBox_Title = New System.Windows.Forms.TextBox()
         Me.Panel_ponmi = New System.Windows.Forms.Panel()
+        Me.Label35 = New System.Windows.Forms.Label()
         Me.Label34 = New System.Windows.Forms.Label()
         Me.Button_hook = New System.Windows.Forms.Button()
         Me.Label33 = New System.Windows.Forms.Label()
@@ -322,12 +323,12 @@ Partial Class Form1
         '
         'Debugtext
         '
-        Me.Debugtext.Location = New System.Drawing.Point(1240, 27)
+        Me.Debugtext.Location = New System.Drawing.Point(1240, 57)
         Me.Debugtext.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Debugtext.Multiline = True
         Me.Debugtext.Name = "Debugtext"
         Me.Debugtext.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Debugtext.Size = New System.Drawing.Size(172, 561)
+        Me.Debugtext.Size = New System.Drawing.Size(172, 531)
         Me.Debugtext.TabIndex = 41
         '
         'GroupBox1
@@ -1908,6 +1909,7 @@ Partial Class Form1
         '
         'Panel_ponmi
         '
+        Me.Panel_ponmi.Controls.Add(Me.Label35)
         Me.Panel_ponmi.Controls.Add(Me.Label34)
         Me.Panel_ponmi.Controls.Add(Me.Button_hook)
         Me.Panel_ponmi.Controls.Add(Me.Label33)
@@ -1925,17 +1927,28 @@ Partial Class Form1
         Me.Panel_ponmi.Size = New System.Drawing.Size(394, 252)
         Me.Panel_ponmi.TabIndex = 81
         '
+        'Label35
+        '
+        Me.Label35.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label35.ForeColor = System.Drawing.Color.White
+        Me.Label35.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label35.Location = New System.Drawing.Point(37, 183)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(107, 55)
+        Me.Label35.TabIndex = 92
+        Me.Label35.Text = "CTRL+[S] " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "CTRL+[P]/[O] " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "CTRL+[I] "
+        '
         'Label34
         '
         Me.Label34.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label34.ForeColor = System.Drawing.Color.White
         Me.Label34.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label34.Location = New System.Drawing.Point(191, 153)
+        Me.Label34.Location = New System.Drawing.Point(145, 183)
         Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(200, 78)
+        Me.Label34.Size = New System.Drawing.Size(234, 55)
         Me.Label34.TabIndex = 91
-        Me.Label34.Text = "   'S'       Toggle FakeScanLine" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "'P'/'O'                   Opacity +/-" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    'I' " &
-    "         Form bring to front"
+        Me.Label34.Text = "...... Toggle FakeScanLine" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "...... Opacity +/-" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "...... Form bring to front"
+        Me.Label34.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Button_hook
         '
@@ -1969,7 +1982,7 @@ Partial Class Form1
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(121, 20)
         Me.Label32.TabIndex = 88
-        Me.Label32.Text = "GamepadViwer"
+        Me.Label32.Text = "XinputViwer"
         Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Button_X
@@ -1987,7 +2000,7 @@ Partial Class Form1
         '
         Me.joybox1.BackColor = System.Drawing.Color.Transparent
         Me.joybox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.joybox1.Location = New System.Drawing.Point(23, 167)
+        Me.joybox1.Location = New System.Drawing.Point(27, 74)
         Me.joybox1.Name = "joybox1"
         Me.joybox1.Size = New System.Drawing.Size(64, 64)
         Me.joybox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -2002,7 +2015,7 @@ Partial Class Form1
         Me.Panel6.Controls.Add(Me.beatbox1)
         Me.Panel6.Controls.Add(Me.chargebox1)
         Me.Panel6.Controls.Add(Me.shiftbox1)
-        Me.Panel6.Location = New System.Drawing.Point(49, 173)
+        Me.Panel6.Location = New System.Drawing.Point(53, 80)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(110, 64)
         Me.Panel6.TabIndex = 85
@@ -2181,7 +2194,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.0.6.1"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.0.7"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -2385,4 +2398,5 @@ Partial Class Form1
     Friend WithEvents Button_Get_Global_IPAddress As Button
     Friend WithEvents CheckBox_outputs As CheckBox
     Friend WithEvents Button_Ponmi As Button
+    Friend WithEvents Label35 As Label
 End Class

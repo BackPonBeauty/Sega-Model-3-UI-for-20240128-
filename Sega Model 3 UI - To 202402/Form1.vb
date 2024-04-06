@@ -401,7 +401,6 @@ Public Class Form1
         Else
             Opacity_D = Integer.Parse(Opacity.ToString())
         End If
-
         'Scanline
         If Scanline.ToString() = "True" Or VSync.ToString() = "1" Then
             Button_hook.PerformClick()
