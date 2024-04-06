@@ -13,7 +13,7 @@ Windows builds are available on [Release](https://github.com/BackPonBeauty/Sega-
 
 ### Windows
 * 1 Install Visual Studio: First, download and install Visual Studio Community 2022.
-* 2 Obtain the Source Code: Get the source code for Supermodel3UI. You can clone it from a repository like GitHub or download it directly.
+* 2 Obtain the Source Code: Get the source code for [Supermodel3UIfor20240128+](https://github.com/BackPonBeauty/Sega-Model-3-UI-for-20240128-). You can clone it from a repository like GitHub or download it directly.
 * 3 Open Solution File: Launch Visual Studio and open the Supermodel3UI solution file (.sln).
 * 4 Add SharpDX and SharpDXInput via NuGet: Right-click on your solution in Solution Explorer, select "Manage NuGet Packages for Solution," search for "SharpDX" and "SharpDXInput," and install them for your project.
 * 5 Select Build Configuration: Choose the build configuration (Debug or Release) you want to build.
