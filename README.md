@@ -7,7 +7,7 @@ Segamodel3UIfor20240128+ is (Runs on Windows operating systems 10 or 11)　a lau
 
 ## How to get it
 
-Windows builds are available on [Release](https://github.com/BackPonBeauty/Sega-Model-3-UI-for-20240128-/releases) page.
+Windows Latest builds are available on [Release](https://github.com/BackPonBeauty/Sega-Model-3-UI-for-20240128-/releases) page.
 
 ## Build Instructions
 
