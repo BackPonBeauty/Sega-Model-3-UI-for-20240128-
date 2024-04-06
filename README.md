@@ -23,6 +23,8 @@ Windows builds are available on [Release](https://github.com/BackPonBeauty/Sega-
 ### Additional Future
 Sega Model3 UI for 20240128+ includes additional features not found in the original version. 
 Pressing a small button on the right reveals hidden options where you can enable/disable FakeScanLine settings. 
+This feature does not work in fullscreen mode.
+
 * CTRL+[S] ...... Toggle FakeScanLine
 * CTRL+[P]/[O] ...... Opacity +/-
 * CTRL+[I] ...... Form bring to front
