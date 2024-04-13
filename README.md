@@ -2,7 +2,7 @@
 *Copyright 2024 PonMI The man eat shark*
 
 ## Acknowledgment
-The original was created by [Mr.Nuexzz](https://supermodel3.com/index.html). I would like to express my sincere gratitude to Mr. Nuexzz, the original creator, for their work.
+The original was created by [Nuexzz](https://supermodel3.com/index.html). I would like to express my sincere gratitude to Nuexzz, the original creator, for their work.
 
 ## Overview
 
