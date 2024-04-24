@@ -1,9 +1,6 @@
 # Sega Model3 UI for 20240128+
 *Copyright 2024 PonMI The man eat shark*
 
-## Acknowledgment
-The original was created by [Nuexzz](https://supermodel3.com/index.html). I would like to express my sincere gratitude to Nuexzz, the original creator, for their work.
-
 ## Overview
 
 Segamodel3UIfor20240128+ is (Runs on Windows operating systems 10 or 11)　a launcher for [Supermodel](https://github.com/trzy/Supermodel), an emulator for Sega Model 3. Supermodel is a program that emulates the hardware of Sega Model 3, allowing users to run Sega Model 3 games on their computers. Segamodel3UIfor20240128+ provides an interface to make Supermodel more user-friendly, enabling users to easily configure settings and launch and manage games.
