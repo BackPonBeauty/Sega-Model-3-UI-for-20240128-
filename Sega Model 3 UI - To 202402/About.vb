@@ -22,7 +22,7 @@
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        System.Diagnostics.Process.Start("https://discord.gg/ajvbpQSs5g")
+        System.Diagnostics.Process.Start("https://discord.gg/f7Wc6DwUDG")
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
