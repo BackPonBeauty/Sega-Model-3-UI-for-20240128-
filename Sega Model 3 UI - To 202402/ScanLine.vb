@@ -14,7 +14,7 @@ Public Class ScanLine
     End Sub
 
     Private Sub ScanLine_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Timer1.Enabled = True
+        'Timer1.Enabled = True
     End Sub
 
     Public Sub Draw_Scanline(scanline_type As String)

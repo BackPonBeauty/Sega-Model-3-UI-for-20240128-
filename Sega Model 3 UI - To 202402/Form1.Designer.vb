@@ -43,10 +43,10 @@ Partial Class Form1
         Me.Button_folder = New System.Windows.Forms.Button()
         Me.Label_path = New System.Windows.Forms.Label()
         Me.Panel_Video = New System.Windows.Forms.Panel()
+        Me.CheckBox_ss = New System.Windows.Forms.CheckBox()
         Me.CheckBox_TrueHz = New System.Windows.Forms.CheckBox()
         Me.SS_Bar = New System.Windows.Forms.TrackBar()
         Me.Label_SS = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.CheckBox_throttle = New System.Windows.Forms.CheckBox()
         Me.CheckBox_showfrmerate = New System.Windows.Forms.CheckBox()
         Me.Label_refreshrate = New System.Windows.Forms.Label()
@@ -164,28 +164,57 @@ Partial Class Form1
         Me.Label30 = New System.Windows.Forms.Label()
         Me.TextBox_Title = New System.Windows.Forms.TextBox()
         Me.Panel_ponmi = New System.Windows.Forms.Panel()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.Lbox2 = New System.Windows.Forms.PictureBox()
+        Me.Rbox2 = New System.Windows.Forms.PictureBox()
+        Me.Startbox2 = New System.Windows.Forms.PictureBox()
+        Me.Homebox2 = New System.Windows.Forms.PictureBox()
+        Me.LSbox2 = New System.Windows.Forms.PictureBox()
+        Me.Bbox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox9 = New System.Windows.Forms.PictureBox()
+        Me.jumpbox2 = New System.Windows.Forms.PictureBox()
+        Me.joybox2 = New System.Windows.Forms.PictureBox()
+        Me.beatbox2 = New System.Windows.Forms.PictureBox()
+        Me.chargebox2 = New System.Windows.Forms.PictureBox()
+        Me.shiftbox2 = New System.Windows.Forms.PictureBox()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.Label34 = New System.Windows.Forms.Label()
         Me.Button_hook = New System.Windows.Forms.Button()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Button_X = New System.Windows.Forms.Button()
-        Me.joybox1 = New System.Windows.Forms.PictureBox()
         Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.stb1 = New System.Windows.Forms.PictureBox()
+        Me.Lbox1 = New System.Windows.Forms.PictureBox()
+        Me.Rbox1 = New System.Windows.Forms.PictureBox()
+        Me.Startbox1 = New System.Windows.Forms.PictureBox()
+        Me.Homebox1 = New System.Windows.Forms.PictureBox()
+        Me.LSbox1 = New System.Windows.Forms.PictureBox()
+        Me.Bbox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.jumpbox1 = New System.Windows.Forms.PictureBox()
+        Me.joybox1 = New System.Windows.Forms.PictureBox()
         Me.beatbox1 = New System.Windows.Forms.PictureBox()
         Me.chargebox1 = New System.Windows.Forms.PictureBox()
         Me.shiftbox1 = New System.Windows.Forms.PictureBox()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Surround = New System.Windows.Forms.Timer(Me.components)
+        Me.pad_log = New System.Windows.Forms.Label()
+        Me.Button13 = New System.Windows.Forms.Button()
+        Me.Surround1 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.tt1 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.Button_Ponmi = New System.Windows.Forms.Button()
+        Me.Button11 = New System.Windows.Forms.Button()
+        Me.Button12 = New System.Windows.Forms.Button()
+        Me.DemoTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.Surround2 = New System.Windows.Forms.Timer(Me.components)
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.Label37 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -207,11 +236,29 @@ Partial Class Form1
         Me.GroupBox3.SuspendLayout()
         Me.Panel_Network.SuspendLayout()
         Me.Panel_ponmi.SuspendLayout()
-        CType(Me.joybox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel7.SuspendLayout()
+        CType(Me.Lbox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Rbox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Startbox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Homebox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LSbox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Bbox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.jumpbox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.joybox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.beatbox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chargebox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.shiftbox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
-        CType(Me.stb1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Lbox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Rbox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Startbox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Homebox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LSbox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Bbox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.jumpbox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.joybox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.beatbox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chargebox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.shiftbox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -237,7 +284,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1012, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1013, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -323,7 +370,7 @@ Partial Class Form1
         '
         'Debugtext
         '
-        Me.Debugtext.Location = New System.Drawing.Point(1240, 57)
+        Me.Debugtext.Location = New System.Drawing.Point(1018, 34)
         Me.Debugtext.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Debugtext.Multiline = True
         Me.Debugtext.Name = "Debugtext"
@@ -358,7 +405,7 @@ Partial Class Form1
         '
         'Label_path
         '
-        Me.Label_path.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.Label_path.BackColor = System.Drawing.Color.Navy
         Me.Label_path.Location = New System.Drawing.Point(100, 15)
         Me.Label_path.Name = "Label_path"
         Me.Label_path.Size = New System.Drawing.Size(494, 32)
@@ -368,10 +415,10 @@ Partial Class Form1
         '
         'Panel_Video
         '
+        Me.Panel_Video.Controls.Add(Me.CheckBox_ss)
         Me.Panel_Video.Controls.Add(Me.CheckBox_TrueHz)
         Me.Panel_Video.Controls.Add(Me.SS_Bar)
         Me.Panel_Video.Controls.Add(Me.Label_SS)
-        Me.Panel_Video.Controls.Add(Me.Label1)
         Me.Panel_Video.Controls.Add(Me.CheckBox_throttle)
         Me.Panel_Video.Controls.Add(Me.CheckBox_showfrmerate)
         Me.Panel_Video.Controls.Add(Me.Label_refreshrate)
@@ -395,6 +442,19 @@ Partial Class Form1
         Me.Panel_Video.Name = "Panel_Video"
         Me.Panel_Video.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Video.TabIndex = 48
+        '
+        'CheckBox_ss
+        '
+        Me.CheckBox_ss.AutoSize = True
+        Me.CheckBox_ss.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_ss.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_ss.Location = New System.Drawing.Point(24, 198)
+        Me.CheckBox_ss.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_ss.Name = "CheckBox_ss"
+        Me.CheckBox_ss.Size = New System.Drawing.Size(114, 20)
+        Me.CheckBox_ss.TabIndex = 75
+        Me.CheckBox_ss.Text = "SuperSampling"
+        Me.CheckBox_ss.UseVisualStyleBackColor = True
         '
         'CheckBox_TrueHz
         '
@@ -433,18 +493,6 @@ Partial Class Form1
         Me.Label_SS.TabIndex = 73
         Me.Label_SS.Text = "888"
         Me.Label_SS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label1
-        '
-        Me.Label1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label1.Location = New System.Drawing.Point(11, 199)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(128, 20)
-        Me.Label1.TabIndex = 71
-        Me.Label1.Text = "SuperSampling"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'CheckBox_throttle
         '
@@ -712,10 +760,10 @@ Partial Class Form1
         'Button_loadrom
         '
         Me.Button_loadrom.ForeColor = System.Drawing.Color.Black
-        Me.Button_loadrom.Location = New System.Drawing.Point(214, 495)
+        Me.Button_loadrom.Location = New System.Drawing.Point(107, 497)
         Me.Button_loadrom.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_loadrom.Name = "Button_loadrom"
-        Me.Button_loadrom.Size = New System.Drawing.Size(88, 25)
+        Me.Button_loadrom.Size = New System.Drawing.Size(82, 25)
         Me.Button_loadrom.TabIndex = 49
         Me.Button_loadrom.Text = "Load Rom"
         Me.Button_loadrom.UseVisualStyleBackColor = True
@@ -887,7 +935,7 @@ Partial Class Form1
         Me.Panel2.Controls.Add(Me.Label_yRes)
         Me.Panel2.Controls.Add(Me.Label6)
         Me.Panel2.Controls.Add(Me.Label_xRes)
-        Me.Panel2.Location = New System.Drawing.Point(1026, 27)
+        Me.Panel2.Location = New System.Drawing.Point(1205, 37)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(208, 472)
@@ -1149,7 +1197,7 @@ Partial Class Form1
         Me.CheckBox_hidecmd.AutoSize = True
         Me.CheckBox_hidecmd.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_hidecmd.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_hidecmd.Location = New System.Drawing.Point(4, 500)
+        Me.CheckBox_hidecmd.Location = New System.Drawing.Point(4, 482)
         Me.CheckBox_hidecmd.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_hidecmd.Name = "CheckBox_hidecmd"
         Me.CheckBox_hidecmd.Size = New System.Drawing.Size(81, 20)
@@ -1463,7 +1511,7 @@ Partial Class Form1
         Me.ComboBox_input.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox_input.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox_input.FormattingEnabled = True
-        Me.ComboBox_input.Items.AddRange(New Object() {"xinput", "dinput"})
+        Me.ComboBox_input.Items.AddRange(New Object() {"xinput", "dinput", "rawinput"})
         Me.ComboBox_input.Location = New System.Drawing.Point(0, 0)
         Me.ComboBox_input.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboBox_input.Name = "ComboBox_input"
@@ -1588,7 +1636,7 @@ Partial Class Form1
         Me.CheckBox_outputs.AutoSize = True
         Me.CheckBox_outputs.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_outputs.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_outputs.Location = New System.Drawing.Point(1087, 522)
+        Me.CheckBox_outputs.Location = New System.Drawing.Point(1578, 301)
         Me.CheckBox_outputs.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_outputs.Name = "CheckBox_outputs"
         Me.CheckBox_outputs.Size = New System.Drawing.Size(96, 20)
@@ -1909,13 +1957,13 @@ Partial Class Form1
         '
         'Panel_ponmi
         '
+        Me.Panel_ponmi.Controls.Add(Me.Panel7)
         Me.Panel_ponmi.Controls.Add(Me.Label35)
         Me.Panel_ponmi.Controls.Add(Me.Label34)
         Me.Panel_ponmi.Controls.Add(Me.Button_hook)
         Me.Panel_ponmi.Controls.Add(Me.Label33)
         Me.Panel_ponmi.Controls.Add(Me.Label32)
         Me.Panel_ponmi.Controls.Add(Me.Button_X)
-        Me.Panel_ponmi.Controls.Add(Me.joybox1)
         Me.Panel_ponmi.Controls.Add(Me.Panel6)
         Me.Panel_ponmi.Controls.Add(Me.Label31)
         Me.Panel_ponmi.Controls.Add(Me.LinkLabel1)
@@ -1926,6 +1974,166 @@ Partial Class Form1
         Me.Panel_ponmi.Name = "Panel_ponmi"
         Me.Panel_ponmi.Size = New System.Drawing.Size(394, 252)
         Me.Panel_ponmi.TabIndex = 81
+        '
+        'Panel7
+        '
+        Me.Panel7.Controls.Add(Me.Lbox2)
+        Me.Panel7.Controls.Add(Me.Rbox2)
+        Me.Panel7.Controls.Add(Me.Startbox2)
+        Me.Panel7.Controls.Add(Me.Homebox2)
+        Me.Panel7.Controls.Add(Me.LSbox2)
+        Me.Panel7.Controls.Add(Me.Bbox2)
+        Me.Panel7.Controls.Add(Me.PictureBox9)
+        Me.Panel7.Controls.Add(Me.jumpbox2)
+        Me.Panel7.Controls.Add(Me.joybox2)
+        Me.Panel7.Controls.Add(Me.beatbox2)
+        Me.Panel7.Controls.Add(Me.chargebox2)
+        Me.Panel7.Controls.Add(Me.shiftbox2)
+        Me.Panel7.Location = New System.Drawing.Point(-260, 80)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(132, 81)
+        Me.Panel7.TabIndex = 88
+        '
+        'Lbox2
+        '
+        Me.Lbox2.BackgroundImage = CType(resources.GetObject("Lbox2.BackgroundImage"), System.Drawing.Image)
+        Me.Lbox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Lbox2.InitialImage = Nothing
+        Me.Lbox2.Location = New System.Drawing.Point(109, 70)
+        Me.Lbox2.Name = "Lbox2"
+        Me.Lbox2.Size = New System.Drawing.Size(8, 8)
+        Me.Lbox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Lbox2.TabIndex = 61
+        Me.Lbox2.TabStop = False
+        '
+        'Rbox2
+        '
+        Me.Rbox2.BackgroundImage = CType(resources.GetObject("Rbox2.BackgroundImage"), System.Drawing.Image)
+        Me.Rbox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Rbox2.InitialImage = Nothing
+        Me.Rbox2.Location = New System.Drawing.Point(119, 70)
+        Me.Rbox2.Name = "Rbox2"
+        Me.Rbox2.Size = New System.Drawing.Size(8, 8)
+        Me.Rbox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Rbox2.TabIndex = 60
+        Me.Rbox2.TabStop = False
+        '
+        'Startbox2
+        '
+        Me.Startbox2.BackgroundImage = CType(resources.GetObject("Startbox2.BackgroundImage"), System.Drawing.Image)
+        Me.Startbox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Startbox2.InitialImage = Nothing
+        Me.Startbox2.Location = New System.Drawing.Point(54, 70)
+        Me.Startbox2.Name = "Startbox2"
+        Me.Startbox2.Size = New System.Drawing.Size(8, 8)
+        Me.Startbox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Startbox2.TabIndex = 59
+        Me.Startbox2.TabStop = False
+        '
+        'Homebox2
+        '
+        Me.Homebox2.BackgroundImage = CType(resources.GetObject("Homebox2.BackgroundImage"), System.Drawing.Image)
+        Me.Homebox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Homebox2.InitialImage = Nothing
+        Me.Homebox2.Location = New System.Drawing.Point(40, 70)
+        Me.Homebox2.Name = "Homebox2"
+        Me.Homebox2.Size = New System.Drawing.Size(8, 8)
+        Me.Homebox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Homebox2.TabIndex = 58
+        Me.Homebox2.TabStop = False
+        '
+        'LSbox2
+        '
+        Me.LSbox2.BackgroundImage = CType(resources.GetObject("LSbox2.BackgroundImage"), System.Drawing.Image)
+        Me.LSbox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.LSbox2.InitialImage = Nothing
+        Me.LSbox2.Location = New System.Drawing.Point(88, 40)
+        Me.LSbox2.Name = "LSbox2"
+        Me.LSbox2.Size = New System.Drawing.Size(16, 16)
+        Me.LSbox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.LSbox2.TabIndex = 57
+        Me.LSbox2.TabStop = False
+        '
+        'Bbox2
+        '
+        Me.Bbox2.BackgroundImage = CType(resources.GetObject("Bbox2.BackgroundImage"), System.Drawing.Image)
+        Me.Bbox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Bbox2.InitialImage = Nothing
+        Me.Bbox2.Location = New System.Drawing.Point(70, 37)
+        Me.Bbox2.Name = "Bbox2"
+        Me.Bbox2.Size = New System.Drawing.Size(16, 16)
+        Me.Bbox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Bbox2.TabIndex = 56
+        Me.Bbox2.TabStop = False
+        '
+        'PictureBox9
+        '
+        Me.PictureBox9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox9.Location = New System.Drawing.Point(5, -45)
+        Me.PictureBox9.Name = "PictureBox9"
+        Me.PictureBox9.Size = New System.Drawing.Size(39, 39)
+        Me.PictureBox9.TabIndex = 36
+        Me.PictureBox9.TabStop = False
+        '
+        'jumpbox2
+        '
+        Me.jumpbox2.BackgroundImage = CType(resources.GetObject("jumpbox2.BackgroundImage"), System.Drawing.Image)
+        Me.jumpbox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.jumpbox2.ErrorImage = CType(resources.GetObject("jumpbox2.ErrorImage"), System.Drawing.Image)
+        Me.jumpbox2.InitialImage = Nothing
+        Me.jumpbox2.Location = New System.Drawing.Point(89, 21)
+        Me.jumpbox2.Name = "jumpbox2"
+        Me.jumpbox2.Size = New System.Drawing.Size(16, 16)
+        Me.jumpbox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.jumpbox2.TabIndex = 35
+        Me.jumpbox2.TabStop = False
+        '
+        'joybox2
+        '
+        Me.joybox2.BackColor = System.Drawing.Color.Transparent
+        Me.joybox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.joybox2.Location = New System.Drawing.Point(6, 8)
+        Me.joybox2.Name = "joybox2"
+        Me.joybox2.Size = New System.Drawing.Size(32, 32)
+        Me.joybox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.joybox2.TabIndex = 84
+        Me.joybox2.TabStop = False
+        '
+        'beatbox2
+        '
+        Me.beatbox2.BackgroundImage = CType(resources.GetObject("beatbox2.BackgroundImage"), System.Drawing.Image)
+        Me.beatbox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.beatbox2.InitialImage = Nothing
+        Me.beatbox2.Location = New System.Drawing.Point(54, 24)
+        Me.beatbox2.Name = "beatbox2"
+        Me.beatbox2.Size = New System.Drawing.Size(16, 16)
+        Me.beatbox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.beatbox2.TabIndex = 33
+        Me.beatbox2.TabStop = False
+        '
+        'chargebox2
+        '
+        Me.chargebox2.BackgroundImage = CType(resources.GetObject("chargebox2.BackgroundImage"), System.Drawing.Image)
+        Me.chargebox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.chargebox2.InitialImage = Nothing
+        Me.chargebox2.Location = New System.Drawing.Point(71, 16)
+        Me.chargebox2.Name = "chargebox2"
+        Me.chargebox2.Size = New System.Drawing.Size(16, 16)
+        Me.chargebox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.chargebox2.TabIndex = 34
+        Me.chargebox2.TabStop = False
+        '
+        'shiftbox2
+        '
+        Me.shiftbox2.BackgroundImage = CType(resources.GetObject("shiftbox2.BackgroundImage"), System.Drawing.Image)
+        Me.shiftbox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.shiftbox2.InitialImage = Nothing
+        Me.shiftbox2.Location = New System.Drawing.Point(50, 41)
+        Me.shiftbox2.Name = "shiftbox2"
+        Me.shiftbox2.Size = New System.Drawing.Size(16, 16)
+        Me.shiftbox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.shiftbox2.TabIndex = 32
+        Me.shiftbox2.TabStop = False
         '
         'Label35
         '
@@ -1966,9 +2174,9 @@ Partial Class Form1
         Me.Label33.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label33.ForeColor = System.Drawing.Color.White
         Me.Label33.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label33.Location = New System.Drawing.Point(169, 120)
+        Me.Label33.Location = New System.Drawing.Point(189, 120)
         Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(121, 20)
+        Me.Label33.Size = New System.Drawing.Size(101, 20)
         Me.Label33.TabIndex = 89
         Me.Label33.Text = "FakeScanLine"
         Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1996,42 +2204,96 @@ Partial Class Form1
         Me.Button_X.Text = "Disabled"
         Me.Button_X.UseVisualStyleBackColor = True
         '
-        'joybox1
-        '
-        Me.joybox1.BackColor = System.Drawing.Color.Transparent
-        Me.joybox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.joybox1.Location = New System.Drawing.Point(27, 74)
-        Me.joybox1.Name = "joybox1"
-        Me.joybox1.Size = New System.Drawing.Size(64, 64)
-        Me.joybox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.joybox1.TabIndex = 84
-        Me.joybox1.TabStop = False
-        '
         'Panel6
         '
-        Me.Panel6.Controls.Add(Me.stb1)
+        Me.Panel6.Controls.Add(Me.Lbox1)
+        Me.Panel6.Controls.Add(Me.Rbox1)
+        Me.Panel6.Controls.Add(Me.Startbox1)
+        Me.Panel6.Controls.Add(Me.Homebox1)
+        Me.Panel6.Controls.Add(Me.LSbox1)
+        Me.Panel6.Controls.Add(Me.Bbox1)
         Me.Panel6.Controls.Add(Me.PictureBox2)
         Me.Panel6.Controls.Add(Me.jumpbox1)
+        Me.Panel6.Controls.Add(Me.joybox1)
         Me.Panel6.Controls.Add(Me.beatbox1)
         Me.Panel6.Controls.Add(Me.chargebox1)
         Me.Panel6.Controls.Add(Me.shiftbox1)
         Me.Panel6.Location = New System.Drawing.Point(53, 80)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(110, 64)
+        Me.Panel6.Size = New System.Drawing.Size(132, 81)
         Me.Panel6.TabIndex = 85
         '
-        'stb1
+        'Lbox1
         '
-        Me.stb1.BackgroundImage = CType(resources.GetObject("stb1.BackgroundImage"), System.Drawing.Image)
-        Me.stb1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.stb1.ErrorImage = CType(resources.GetObject("stb1.ErrorImage"), System.Drawing.Image)
-        Me.stb1.InitialImage = Nothing
-        Me.stb1.Location = New System.Drawing.Point(120, 47)
-        Me.stb1.Name = "stb1"
-        Me.stb1.Size = New System.Drawing.Size(10, 10)
-        Me.stb1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.stb1.TabIndex = 55
-        Me.stb1.TabStop = False
+        Me.Lbox1.BackgroundImage = CType(resources.GetObject("Lbox1.BackgroundImage"), System.Drawing.Image)
+        Me.Lbox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Lbox1.InitialImage = Nothing
+        Me.Lbox1.Location = New System.Drawing.Point(109, 70)
+        Me.Lbox1.Name = "Lbox1"
+        Me.Lbox1.Size = New System.Drawing.Size(8, 8)
+        Me.Lbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Lbox1.TabIndex = 61
+        Me.Lbox1.TabStop = False
+        '
+        'Rbox1
+        '
+        Me.Rbox1.BackgroundImage = CType(resources.GetObject("Rbox1.BackgroundImage"), System.Drawing.Image)
+        Me.Rbox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Rbox1.InitialImage = Nothing
+        Me.Rbox1.Location = New System.Drawing.Point(119, 70)
+        Me.Rbox1.Name = "Rbox1"
+        Me.Rbox1.Size = New System.Drawing.Size(8, 8)
+        Me.Rbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Rbox1.TabIndex = 60
+        Me.Rbox1.TabStop = False
+        '
+        'Startbox1
+        '
+        Me.Startbox1.BackgroundImage = CType(resources.GetObject("Startbox1.BackgroundImage"), System.Drawing.Image)
+        Me.Startbox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Startbox1.InitialImage = Nothing
+        Me.Startbox1.Location = New System.Drawing.Point(54, 70)
+        Me.Startbox1.Name = "Startbox1"
+        Me.Startbox1.Size = New System.Drawing.Size(8, 8)
+        Me.Startbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Startbox1.TabIndex = 59
+        Me.Startbox1.TabStop = False
+        '
+        'Homebox1
+        '
+        Me.Homebox1.BackgroundImage = CType(resources.GetObject("Homebox1.BackgroundImage"), System.Drawing.Image)
+        Me.Homebox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Homebox1.InitialImage = Nothing
+        Me.Homebox1.Location = New System.Drawing.Point(40, 70)
+        Me.Homebox1.Name = "Homebox1"
+        Me.Homebox1.Size = New System.Drawing.Size(8, 8)
+        Me.Homebox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Homebox1.TabIndex = 58
+        Me.Homebox1.TabStop = False
+        '
+        'LSbox1
+        '
+        Me.LSbox1.BackgroundImage = CType(resources.GetObject("LSbox1.BackgroundImage"), System.Drawing.Image)
+        Me.LSbox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.LSbox1.InitialImage = Nothing
+        Me.LSbox1.Location = New System.Drawing.Point(88, 40)
+        Me.LSbox1.Name = "LSbox1"
+        Me.LSbox1.Size = New System.Drawing.Size(16, 16)
+        Me.LSbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.LSbox1.TabIndex = 57
+        Me.LSbox1.TabStop = False
+        '
+        'Bbox1
+        '
+        Me.Bbox1.BackgroundImage = CType(resources.GetObject("Bbox1.BackgroundImage"), System.Drawing.Image)
+        Me.Bbox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Bbox1.InitialImage = Nothing
+        Me.Bbox1.Location = New System.Drawing.Point(70, 37)
+        Me.Bbox1.Name = "Bbox1"
+        Me.Bbox1.Size = New System.Drawing.Size(16, 16)
+        Me.Bbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Bbox1.TabIndex = 56
+        Me.Bbox1.TabStop = False
         '
         'PictureBox2
         '
@@ -2054,6 +2316,17 @@ Partial Class Form1
         Me.jumpbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.jumpbox1.TabIndex = 35
         Me.jumpbox1.TabStop = False
+        '
+        'joybox1
+        '
+        Me.joybox1.BackColor = System.Drawing.Color.Transparent
+        Me.joybox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.joybox1.Location = New System.Drawing.Point(6, 8)
+        Me.joybox1.Name = "joybox1"
+        Me.joybox1.Size = New System.Drawing.Size(32, 32)
+        Me.joybox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.joybox1.TabIndex = 84
+        Me.joybox1.TabStop = False
         '
         'beatbox1
         '
@@ -2084,7 +2357,7 @@ Partial Class Form1
         Me.shiftbox1.BackgroundImage = CType(resources.GetObject("shiftbox1.BackgroundImage"), System.Drawing.Image)
         Me.shiftbox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.shiftbox1.InitialImage = Nothing
-        Me.shiftbox1.Location = New System.Drawing.Point(49, 41)
+        Me.shiftbox1.Location = New System.Drawing.Point(50, 41)
         Me.shiftbox1.Name = "shiftbox1"
         Me.shiftbox1.Size = New System.Drawing.Size(16, 16)
         Me.shiftbox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -2123,9 +2396,31 @@ Partial Class Form1
         Me.Panel5.Size = New System.Drawing.Size(338, 33)
         Me.Panel5.TabIndex = 81
         '
-        'Surround
+        'pad_log
         '
-        Me.Surround.Interval = 1
+        Me.pad_log.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.pad_log.ForeColor = System.Drawing.Color.White
+        Me.pad_log.Location = New System.Drawing.Point(2289, 255)
+        Me.pad_log.Name = "pad_log"
+        Me.pad_log.Size = New System.Drawing.Size(185, 20)
+        Me.pad_log.TabIndex = 94
+        Me.pad_log.Text = "0000000000000000"
+        Me.pad_log.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Button13
+        '
+        Me.Button13.ForeColor = System.Drawing.Color.Black
+        Me.Button13.Location = New System.Drawing.Point(2307, 351)
+        Me.Button13.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button13.Name = "Button13"
+        Me.Button13.Size = New System.Drawing.Size(71, 25)
+        Me.Button13.TabIndex = 93
+        Me.Button13.Text = "Record"
+        Me.Button13.UseVisualStyleBackColor = True
+        '
+        'Surround1
+        '
+        Me.Surround1.Interval = 8
         '
         'Timer1
         '
@@ -2152,12 +2447,108 @@ Partial Class Form1
         Me.Button_Ponmi.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Button_Ponmi.UseVisualStyleBackColor = False
         '
+        'Button11
+        '
+        Me.Button11.ForeColor = System.Drawing.Color.Black
+        Me.Button11.Location = New System.Drawing.Point(217, 613)
+        Me.Button11.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button11.Name = "Button11"
+        Me.Button11.Size = New System.Drawing.Size(104, 25)
+        Me.Button11.TabIndex = 86
+        Me.Button11.Text = "Rep Start"
+        Me.Button11.UseVisualStyleBackColor = True
+        '
+        'Button12
+        '
+        Me.Button12.ForeColor = System.Drawing.Color.Black
+        Me.Button12.Location = New System.Drawing.Point(327, 613)
+        Me.Button12.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button12.Name = "Button12"
+        Me.Button12.Size = New System.Drawing.Size(85, 25)
+        Me.Button12.TabIndex = 87
+        Me.Button12.Text = "Rep End"
+        Me.Button12.UseVisualStyleBackColor = True
+        '
+        'DemoTimer
+        '
+        Me.DemoTimer.Interval = 8
+        '
+        'Surround2
+        '
+        Me.Surround2.Interval = 8
+        '
+        'Button1
+        '
+        Me.Button1.ForeColor = System.Drawing.Color.Black
+        Me.Button1.Location = New System.Drawing.Point(98, 613)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(63, 25)
+        Me.Button1.TabIndex = 83
+        Me.Button1.Text = "Open"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.ForeColor = System.Drawing.Color.Black
+        Me.Button2.Location = New System.Drawing.Point(167, 613)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(44, 25)
+        Me.Button2.TabIndex = 84
+        Me.Button2.Text = "Add"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.ForeColor = System.Drawing.Color.Black
+        Me.Button3.Location = New System.Drawing.Point(418, 613)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(70, 25)
+        Me.Button3.TabIndex = 85
+        Me.Button3.Text = "Save"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Label36
+        '
+        Me.Label36.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label36.ForeColor = System.Drawing.Color.White
+        Me.Label36.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label36.Location = New System.Drawing.Point(265, 482)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(158, 20)
+        Me.Label36.TabIndex = 95
+        Me.Label36.Text = "Supermodel Lastwrite "
+        Me.Label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label37
+        '
+        Me.Label37.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label37.ForeColor = System.Drawing.Color.White
+        Me.Label37.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label37.Location = New System.Drawing.Point(265, 502)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(128, 20)
+        Me.Label37.TabIndex = 96
+        Me.Label37.Text = "SuperSampling"
+        Me.Label37.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1012, 591)
+        Me.BackColor = System.Drawing.Color.Navy
+        Me.ClientSize = New System.Drawing.Size(1013, 591)
+        Me.Controls.Add(Me.Label37)
+        Me.Controls.Add(Me.Label36)
+        Me.Controls.Add(Me.Button12)
+        Me.Controls.Add(Me.pad_log)
+        Me.Controls.Add(Me.Button11)
+        Me.Controls.Add(Me.Button13)
+        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Button_Ponmi)
         Me.Controls.Add(Me.CheckBox_outputs)
         Me.Controls.Add(Me.Panel_ponmi)
@@ -2194,7 +2585,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.0.7"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.0.9"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -2222,11 +2613,29 @@ Partial Class Form1
         Me.Panel_Network.ResumeLayout(False)
         Me.Panel_Network.PerformLayout()
         Me.Panel_ponmi.ResumeLayout(False)
-        CType(Me.joybox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel7.ResumeLayout(False)
+        CType(Me.Lbox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Rbox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Startbox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Homebox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LSbox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Bbox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.jumpbox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.joybox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.beatbox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chargebox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.shiftbox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
-        CType(Me.stb1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Lbox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Rbox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Startbox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Homebox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LSbox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Bbox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.jumpbox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.joybox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.beatbox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chargebox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.shiftbox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2346,7 +2755,6 @@ Partial Class Form1
     Friend WithEvents Label29 As Label
     Friend WithEvents Label_SS As Label
     Friend WithEvents SS_Bar As TrackBar
-    Friend WithEvents Label1 As Label
     Friend WithEvents CheckBox_TrueHz As CheckBox
     Friend WithEvents Button_Get_Local_IPAddress As Button
     Friend WithEvents Label_Local_IPaddress As Label
@@ -2379,13 +2787,12 @@ Partial Class Form1
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents joybox1 As PictureBox
     Friend WithEvents Panel6 As Panel
-    Friend WithEvents stb1 As PictureBox
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents jumpbox1 As PictureBox
     Friend WithEvents beatbox1 As PictureBox
     Friend WithEvents chargebox1 As PictureBox
     Friend WithEvents shiftbox1 As PictureBox
-    Friend WithEvents Surround As Timer
+    Friend WithEvents Surround1 As Timer
     Friend WithEvents Timer1 As Timer
     Friend WithEvents tt1 As Timer
     Friend WithEvents Timer2 As Timer
@@ -2399,4 +2806,35 @@ Partial Class Form1
     Friend WithEvents CheckBox_outputs As CheckBox
     Friend WithEvents Button_Ponmi As Button
     Friend WithEvents Label35 As Label
+    Friend WithEvents Button11 As Button
+    Friend WithEvents Button12 As Button
+    Friend WithEvents DemoTimer As Timer
+    Friend WithEvents Button13 As Button
+    Friend WithEvents pad_log As Label
+    Friend WithEvents Lbox1 As PictureBox
+    Friend WithEvents Rbox1 As PictureBox
+    Friend WithEvents Startbox1 As PictureBox
+    Friend WithEvents Homebox1 As PictureBox
+    Friend WithEvents LSbox1 As PictureBox
+    Friend WithEvents Bbox1 As PictureBox
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents Lbox2 As PictureBox
+    Friend WithEvents Rbox2 As PictureBox
+    Friend WithEvents Startbox2 As PictureBox
+    Friend WithEvents Homebox2 As PictureBox
+    Friend WithEvents LSbox2 As PictureBox
+    Friend WithEvents Bbox2 As PictureBox
+    Friend WithEvents PictureBox9 As PictureBox
+    Friend WithEvents jumpbox2 As PictureBox
+    Friend WithEvents joybox2 As PictureBox
+    Friend WithEvents beatbox2 As PictureBox
+    Friend WithEvents chargebox2 As PictureBox
+    Friend WithEvents shiftbox2 As PictureBox
+    Friend WithEvents Surround2 As Timer
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Label36 As Label
+    Friend WithEvents Label37 As Label
+    Friend WithEvents CheckBox_ss As CheckBox
 End Class

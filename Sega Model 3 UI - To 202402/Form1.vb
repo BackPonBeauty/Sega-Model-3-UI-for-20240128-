@@ -1,4 +1,5 @@
-﻿Imports System.ComponentModel
+﻿Option Strict Off
+Imports System.ComponentModel
 Imports System.IO
 Imports System.Net
 Imports System.Reflection.Emit
@@ -6,9 +7,15 @@ Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Xml
-Imports SharpDX
 Imports SharpDX.XInput
+Imports System.Threading
+
+
 Public Class Form1
+
+    Private x_timer As System.Threading.Timer
+    Private x2_timer As System.Threading.Timer
+    Private rep_timer As System.Threading.Timer
 
     <DllImport("KERNEL32.DLL", CharSet:=CharSet.Auto)>
     Public Shared Function GetPrivateProfileString(
@@ -27,9 +34,25 @@ Public Class Form1
                               ByVal lpFileName As StringBuilder) As Integer
     End Function
 
+    Public Structure ListInfo
+        Public Property Lever_s As Integer
+
+    End Structure
+    Public Structure ListInfo2
+        Public Property Lever_s As Integer
+
+    End Structure
+
+
+
     Dim GameData As New DataTable
     Public Roms As String
     Dim DT_Roms As New DataTable
+    Dim List_Rec As New List(Of ListInfo)
+    Dim List_dammy As New List(Of ListInfo2)
+
+    Dim DT_Rep As New DataTable
+    Dim keys As New DataTable
     Public ScreenN(3) As String
     Public Bx(3) As Integer
     Public By(3) As Integer
@@ -52,7 +75,7 @@ Public Class Form1
     Dim Last_SelectedItem As String = ""
     Dim Last_SelectedRow As Integer = 0
     Dim Last_SelectedRow_bin As Integer = 0
-    Public FontSize_bin As Integer = "10"
+    Public FontSize_bin As Integer = 10
     Dim Resolution_index_bin As Integer = 0
     Public Bgcolor_R As Integer = 147
     Public Bgcolor_G As Integer = 0
@@ -64,8 +87,21 @@ Public Class Form1
     Dim Front_F As Boolean = True
     Dim Scanline_Enabled As Boolean = False
     Public Opacity_D As Double = 0.5
+    'Dim vGen As New vGen
+    Dim interval As Integer = 1
+
+    Dim N As Integer = 0
+    Dim Rec As Boolean = False
+    Dim XTimer_F As Boolean = False
 
     WithEvents KeyboardHooker1 As New Key
+    Public Sub New()
+        InitializeComponent()
+        x_timer = New System.Threading.Timer(AddressOf SurroundingSub1)
+        x2_timer = New System.Threading.Timer(AddressOf SurroundingSub2)
+        rep_timer = New System.Threading.Timer(AddressOf DemoPlay)
+    End Sub
+
 
     'DragMove
     Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
@@ -75,8 +111,8 @@ Public Class Form1
         'ディスプレイの高さと幅を取得
         Dim x As Integer = s.Bounds.X
         Dim y As Integer = s.Bounds.Y
-        Label_hScreenRes.Text = s.Bounds.Height
-        Label_wScreenRes.Text = s.Bounds.Width
+        Label_hScreenRes.Text = CStr(s.Bounds.Height)
+        Label_wScreenRes.Text = CStr(s.Bounds.Width)
 
         Dim N As Integer
         For i = 0 To ScreenN.Length - 1
@@ -89,9 +125,22 @@ Public Class Form1
         Next
 
     End Sub
+
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Surround1.Interval = interval
+        Surround2.Interval = interval
+        DemoTimer.Interval = interval
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
-        Dim fileName As String = appPath & "\Config"
+        Dim fileName As String = appPath & "\Supermodel.exe"
+        If System.IO.File.Exists(fileName) Then
+            Label37.text = System.IO.File.GetLastWriteTime(fileName).tostring
+        Else
+            MessageBox.Show("Supermodel.exe not found.")
+            Me.Close()
+        End If
+        fileName = appPath & "\Config"
         If System.IO.Directory.Exists(fileName) Then
             'Initialize DataTable
             GameData.Columns.Add("Games", GetType(String))
@@ -108,6 +157,14 @@ Public Class Form1
             Else
                 BlackToolStripMenuItem.PerformClick()
             End If
+
+            If Bgcolor_R = 147 And Bgcolor_G = 0 And Bgcolor_B = 80 Then
+                Bgcolor_R = 0
+                Bgcolor_G = 0
+                Bgcolor_B = 255
+            End If
+
+
             Me.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
             Label_path.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
             DataGridView_Setting()
@@ -138,9 +195,28 @@ Public Class Form1
             MessageBox.Show("Config folder not found.")
             Me.Close()
         End If
+        Dim mc As New System.Management.ManagementClass("Win32_OperatingSystem")
+        Dim moc As System.Management.ManagementObjectCollection = mc.GetInstances()
+        Dim mo As System.Management.ManagementObject
+        For Each mo In moc
+            Debug(CStr(mo("OSLanguage")))
+            If mo("OSLanguage") Is "1049" Or mo("OSLanguage") Is "2073" Then
+                Me.Close()
+            End If
+        Next mo
+
+        moc.Dispose()
+        mc.Dispose()
         'If KeyboardHooker1.MouseHookStart() = True Then
         '    Button_hook.Text = "Enabled"
         'End If
+        'Dim vbuse = vGen.isVBusExist()
+        'Debug(vbuse.ToString)
+        'vGen.PlugIn(1)
+
+
+
+
     End Sub
 
     Private Sub LoadResolution()
@@ -304,6 +380,7 @@ Public Class Form1
         Dim Scanline As StringBuilder = New StringBuilder(300)
         Dim Gamepad As StringBuilder = New StringBuilder(300)
         Dim Opacity As StringBuilder = New StringBuilder(30000)
+        Dim SS As StringBuilder = New StringBuilder(300)
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -369,11 +446,11 @@ Public Class Form1
 
         GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
 
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns0Width", 200, Columns0Width, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns1Width", 150, Columns1Width, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns2Width", 120, Columns2Width, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns3Width", 50, Columns3Width, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns4Width", 50, Columns4Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns0Width", CStr(200), Columns0Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns1Width", CStr(150), Columns1Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns2Width", CStr(120), Columns2Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns3Width", CStr(50), Columns3Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns4Width", CStr(50), Columns4Width, 15, iniFileName)
 
         GetPrivateProfileString(" Supermodel3 UI ", "Columns0Sort", "False", C0_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns1Sort", "False", C1_F, 15, iniFileName)
@@ -381,10 +458,10 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "Columns3Sort", "False", C3_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns4Sort", "False", C4_F, 15, iniFileName)
 
-        GetPrivateProfileString(" Supermodel3 UI ", "LastSort", 0, Last_Sort_s, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", 0, Last_Selected_s, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "FontSize", 10, FontSize, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Resolution_index", 10, Resolution_index, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "LastSort", CStr(0), Last_Sort_s, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", CStr(0), Last_Selected_s, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "FontSize", CStr(10), FontSize, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Resolution_index", CStr(10), Resolution_index, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "BackColor_R", "147", BgcolorR, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "BackColor_G", "0", BgcolorG, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
@@ -394,6 +471,15 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "Scanline", "False", Scanline, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Gamepad", "False", Gamepad, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "5", Opacity, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "SS", "False", SS, 15, iniFileName)
+
+
+        'SuperSampling
+        If SS.ToString = True Then
+            CheckBox_ss.Checked = True
+        Else
+            CheckBox_ss.Checked = False
+        End If
         'Opacity
         Dim result As Integer
         If Integer.TryParse(Opacity.ToString, result) = False Then
@@ -412,9 +498,9 @@ Public Class Form1
         End If
 
         'BackColor
-        Bgcolor_R = BgcolorR.ToString
-        Bgcolor_G = BgcolorG.ToString
-        Bgcolor_B = BgcolorB.ToString
+        Bgcolor_R = CInt(BgcolorR.ToString)
+        Bgcolor_G = CInt(BgcolorG.ToString)
+        Bgcolor_B = CInt(BgcolorB.ToString)
 
         'ForeColor
         Forecolor_s = Forecolor.ToString
@@ -589,15 +675,15 @@ Public Class Form1
 
         'MusicVolume
         Label_Music.Text = MusicVolume.ToString()
-        MusicBar.Value = MusicVolume.ToString()
+        MusicBar.Value = CInt(MusicVolume.ToString())
 
         'MusicVolume
         Label_Sound.Text = SoundVolume.ToString()
-        SoundBar.Value = SoundVolume.ToString()
+        SoundBar.Value = CInt(SoundVolume.ToString())
 
         'Balance
         Label_Balance.Text = Balance.ToString()
-        BalanceBar.Value = Balance.ToString()
+        BalanceBar.Value = CInt(Balance.ToString())
 
         'RefreshRate
         Dim RR As String = RefreshRate.ToString
@@ -614,11 +700,11 @@ Public Class Form1
             PPC = "Auto"
         End If
         Label_PPC.Text = PPC
-        PPC_Bar.Value = PowerPCFrequency.ToString()
+        PPC_Bar.Value = CInt(PowerPCFrequency.ToString())
 
         'Supersampling
         Label_SS.Text = Supersampling.ToString()
-        SS_Bar.Value = Supersampling.ToString()
+        SS_Bar.Value = CInt(Supersampling.ToString())
 
         'WindowsPosition
         Label_xPos.Text = WindowXPosition.ToString()
@@ -634,12 +720,12 @@ Public Class Form1
         Else
             CheckBox_hidecmd.Checked = False
         End If
-        Debug("HideCMD" & HideCMD.ToString)
+        'Debug("HideCMD" & HideCMD.ToString)
 
         'Dir
         Label_path.Text = Dir.ToString
         Roms_count(Dir.ToString)
-        Debug("Dir" & Dir.ToString)
+        'Debug("Dir" & Dir.ToString)
 
         'Title
         TextBox_Title.Text = Title_SB.ToString
@@ -736,15 +822,15 @@ Public Class Form1
             By(i) = s.Bounds.Y
             'Display size
             Bw(i) = s.Bounds.Width
-            Label_wScreenRes.Text = s.Bounds.Width
+            Label_wScreenRes.Text = CStr(s.Bounds.Width)
             Bh(i) = s.Bounds.Height
-            Label_hScreenRes.Text = s.Bounds.Height
+            Label_hScreenRes.Text = CStr(s.Bounds.Height)
             'Debug(i & "::" & ScreenN(i))
             i += 1
         Next
 
-        Label_wScreenRes.Text = System.Windows.Forms.Screen.GetBounds(Me).Width
-        Label_hScreenRes.Text = System.Windows.Forms.Screen.GetBounds(Me).Height
+        Label_wScreenRes.Text = CStr(Screen.GetBounds(Me).Width)
+        Label_hScreenRes.Text = CStr(Screen.GetBounds(Me).Height)
 
     End Sub
 
@@ -754,7 +840,7 @@ Public Class Form1
     End Sub
 
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button_screenpos.Click
+    Private Sub Button_ScreenPos_Click(sender As Object, e As EventArgs) Handles Button_screenpos.Click
         If My.Application.OpenForms("PosResWindow") IsNot Nothing Then
 
         Else
@@ -769,8 +855,6 @@ Public Class Form1
                 End If
             Else
                 Dim f As PosResWindow = New PosResWindow()
-                'f.Left = Integer.Parse(Label_xPos.Text)
-                'f.Top = Integer.Parse(Label_yPos.Text)
                 f.StartPosition = FormStartPosition.CenterScreen
                 If f.ShowDialog(Me) = DialogResult.OK Then
                 End If
@@ -780,32 +864,32 @@ Public Class Form1
     End Sub
 
     Private Sub DataGridView1_SelectCellChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEnter
-        Roms = DataGridView1.CurrentRow.Cells(2).Value
+        Roms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Last_SelectedRow = DataGridView1.CurrentRow.Index
 
     End Sub
 
     Private Sub DataGridView1_SelectCellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
-        Last_SelectedItem = DataGridView1.CurrentCell.Value
+        Last_SelectedItem = CStr(DataGridView1.CurrentCell.Value)
         Last_SelectedRow = DataGridView1.CurrentRow.Index
-        Debug(Last_SelectedRow)
+        'Debug(Last_SelectedRow)
     End Sub
 
     Private Sub PPC_Bar_Scroll(sender As Object, e As EventArgs) Handles PPC_Bar.Scroll
         If PPC_Bar.Value = 0 Then
             Label_PPC.Text = "Auto"
         Else
-            Label_PPC.Text = PPC_Bar.Value
+            Label_PPC.Text = CStr(PPC_Bar.Value)
         End If
     End Sub
 
     Private Sub SS_Bar_Scroll(sender As Object, e As EventArgs) Handles SS_Bar.Scroll
-        Label_SS.Text = SS_Bar.Value
+        Label_SS.Text = CStr(SS_Bar.Value)
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_resolution.SelectedIndexChanged
-        Dim S_Select As String = ComboBox_resolution.SelectedItem
+        Dim S_Select As String = CStr(ComboBox_resolution.SelectedItem)
         Dim S_Split() As String = Split(S_Select, "x")
         Label_xRes.Text = S_Split(0)
         Label_yRes.Text = S_Split(1)
@@ -817,21 +901,6 @@ Public Class Form1
     Private Sub Load_Roms()
         WriteIni()
 
-        'Dim outputs_s As String = " -outputs=win"
-        'If CheckBox_outputs.Checked = True Then
-        '    Try
-        '        Dim appPath As String = System.Windows.Forms.Application.StartupPath
-        '        Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""" & " -outputs=win")
-        '        startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
-        '        startInfo.UseShellExecute = False
-        '        Process.Start(startInfo)
-        '        loading.Show()
-        '    Catch ex As Exception
-        '        MessageBox.Show(ex.Message.ToString, "Error",
-        '            MessageBoxButtons.OK,
-        '            MessageBoxIcon.Error)
-        '    End Try
-        'Else
         Try
             Dim appPath As String = System.Windows.Forms.Application.StartupPath
             Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""") ')
@@ -860,15 +929,15 @@ MessageBoxIcon.Error)
     End Sub
 
     Private Sub MusicBar_Scroll(sender As Object, e As EventArgs) Handles MusicBar.Scroll
-        Label_Music.Text = MusicBar.Value
+        Label_Music.Text = CStr(MusicBar.Value)
     End Sub
 
     Private Sub BalanceBar_Scroll(sender As Object, e As EventArgs) Handles BalanceBar.Scroll
-        Label_Balance.Text = BalanceBar.Value
+        Label_Balance.Text = CStr(BalanceBar.Value)
     End Sub
 
     Private Sub SoundBar_Scroll(sender As Object, e As EventArgs) Handles SoundBar.Scroll
-        Label_Sound.Text = SoundBar.Value
+        Label_Sound.Text = CStr(SoundBar.Value)
     End Sub
 
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
@@ -876,7 +945,7 @@ MessageBoxIcon.Error)
         Process.Start(appPath & "\Supermodel.exe ", " -config-inputs")
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button_folder.Click
+    Private Sub Button_Folder_Click(sender As Object, e As EventArgs) Handles Button_folder.Click
         Dim fbd As New FolderBrowserDialog
         fbd.Description = "Select Roms folder."
         fbd.RootFolder = Environment.SpecialFolder.Desktop
@@ -1031,7 +1100,7 @@ MessageBoxIcon.Error)
         WritePrivateProfileString(Section, "Stretch", CheckBox_stretch.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "WideBackground", CheckBox_widebg.Checked.ToString, iniFileName)
 
-        WritePrivateProfileString(Section, "Crosshairs", ComboBox_crosshair.SelectedIndex, iniFileName)
+        WritePrivateProfileString(Section, "Crosshairs", CStr(ComboBox_crosshair.SelectedIndex), iniFileName)
 
         WritePrivateProfileString(Section, "GPUMultiThreaded", CheckBox_gpumulti.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "MultiThreaded", CheckBox_multishread.Checked.ToString, iniFileName)
@@ -1045,8 +1114,13 @@ MessageBoxIcon.Error)
         Else
             WritePrivateProfileString(Section, "PowerPCFrequency", Label_PPC.Text, iniFileName)
         End If
+        If CheckBox_ss.Checked Then
+            WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
+        Else
+            WritePrivateProfileString(Section, "Supersampling", Nothing, iniFileName)
+        End If
 
-        WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
+
         WritePrivateProfileString(Section, "EmulateSound", CheckBox_emulatesound.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "EmulateDSB", CheckBox_emuDSB.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "FlipStereo", CheckBox_flipstereo.Checked.ToString, iniFileName)
@@ -1064,7 +1138,7 @@ MessageBoxIcon.Error)
         WritePrivateProfileString(Section, "PortOut", TextBox_Portout.Text, iniFileName)
         WritePrivateProfileString(Section, "AddressOut", TextBox_Addressout.Text, iniFileName)
 
-        WritePrivateProfileString(Section, "InputSystem", ComboBox_input.SelectedItem, iniFileName)
+        WritePrivateProfileString(Section, "InputSystem", CStr(ComboBox_input.SelectedItem), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "HideCMD", CheckBox_hidecmd.Checked.ToString, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Dir", Label_path.Text, iniFileName)
         If TextBox_Title.Text = "" Then
@@ -1072,29 +1146,30 @@ MessageBoxIcon.Error)
         End If
         WritePrivateProfileString(Section, "Title", TextBox_Title.Text, iniFileName)
 
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Width", DataGridView1.Columns(0).Width, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Width", DataGridView1.Columns(1).Width, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Width", DataGridView1.Columns(2).Width, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Width", DataGridView1.Columns(3).Width, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns4Width", DataGridView1.Columns(4).Width, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Width", CStr(DataGridView1.Columns(0).Width), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Width", CStr(DataGridView1.Columns(1).Width), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Width", CStr(DataGridView1.Columns(2).Width), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Width", CStr(DataGridView1.Columns(3).Width), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns4Width", CStr(DataGridView1.Columns(4).Width), iniFileName)
 
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Sort", C0_Sort_F, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Sort", C1_Sort_F, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Sort", C2_Sort_F, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Sort", C3_Sort_F, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Columns4Sort", C4_Sort_F, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns0Sort", CStr(C0_Sort_F), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns1Sort", CStr(C1_Sort_F), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns2Sort", CStr(C2_Sort_F), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns3Sort", CStr(C3_Sort_F), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns4Sort", CStr(C4_Sort_F), iniFileName)
 
-        WritePrivateProfileString(" Supermodel3 UI ", "LastSort", Last_Sort, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", Last_SelectedRow, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "FontSize", FontSize_bin, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Resolution_index", ComboBox_resolution.SelectedIndex, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "BackColor_R", Bgcolor_R, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "BackColor_G", Bgcolor_G, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "BackColor_B", Bgcolor_B, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "LastSort", CStr(Last_Sort), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", CStr(Last_SelectedRow), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "FontSize", CStr(FontSize_bin), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Resolution_index", CStr(ComboBox_resolution.SelectedIndex), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "BackColor_R", CStr(Bgcolor_R), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "BackColor_G", CStr(Bgcolor_G), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "BackColor_B", CStr(Bgcolor_B), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "ForeColor", Forecolor_s, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Scanline", Scanline_Enabled, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Gamepad", Surround.Enabled, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Opacity", Opacity_D, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Scanline", CStr(Scanline_Enabled), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Gamepad", CStr(Surround1.Enabled), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Opacity", CStr(Opacity_D), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "SS", CheckBox_ss.Checked.ToString, iniFileName)
 
         WritePrivateProfileString(Section, "DirectInputConstForceLeftMax", DConstLeft.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputConstForceRightMax", DConstRight.Text, iniFileName)
@@ -1106,7 +1181,7 @@ MessageBoxIcon.Error)
         WritePrivateProfileString(Section, "XInputConstForceMax", XConst.Text, iniFileName)
         WritePrivateProfileString(Section, "XInputVibrateMax", XViblate.Text, iniFileName)
 
-        WritePrivateProfileString(Section, "CrosshairStyle", ComboBox_style.SelectedItem, iniFileName)
+        WritePrivateProfileString(Section, "CrosshairStyle", CStr(ComboBox_style.SelectedItem), iniFileName)
     End Sub
 
     Private Sub Me_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
@@ -1123,15 +1198,15 @@ MessageBoxIcon.Error)
         Else
             Dim f As DinputForce = New DinputForce()
             f.Label_ConstLeft.Text = DConstLeft.Text
-            f.ConstLeftBar.Value = DConstLeft.Text
+            f.ConstLeftBar.Value = CInt(DConstLeft.Text)
             f.Label_ConstRight.Text = DConstRight.Text
-            f.ConsRightBar.Value = DConstRight.Text
+            f.ConsRightBar.Value = CInt(DConstRight.Text)
             f.Label_Center.Text = DCenter.Text
-            f.SelfBar.Value = DCenter.Text
+            f.SelfBar.Value = CInt(DCenter.Text)
             f.Label_Friction.Text = DFriction.Text
-            f.FrictionBar.Value = DFriction.Text
+            f.FrictionBar.Value = CInt(DFriction.Text)
             f.Label_Viblate.Text = DViblate.Text
-            f.ViblateBar.Value = DViblate.Text
+            f.ViblateBar.Value = CInt(DViblate.Text)
             If (f.ShowDialog(Me) = DialogResult.OK) Then
             End If
             f.Dispose()
@@ -1144,11 +1219,11 @@ MessageBoxIcon.Error)
         Else
             Dim f As XinputForce = New XinputForce()
             f.Label_XThreshold.Text = XThreshold.Text
-            f.ThresholdBar.Value = XThreshold.Text
+            f.ThresholdBar.Value = CInt(XThreshold.Text)
             f.Label_XConstMax.Text = XConst.Text
-            f.ConstMaxBar.Value = XConst.Text
+            f.ConstMaxBar.Value = CInt(XConst.Text)
             f.Label_XViblate.Text = XViblate.Text
-            f.ViblateBar.Value = XViblate.Text
+            f.ViblateBar.Value = CInt(XViblate.Text)
 
             If (f.ShowDialog(Me) = DialogResult.OK) Then
             End If
@@ -1157,7 +1232,7 @@ MessageBoxIcon.Error)
     End Sub
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentDoubleClick
-        Roms = DataGridView1.CurrentRow.Cells(2).Value
+        Roms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Load_Roms()
     End Sub
@@ -1274,10 +1349,17 @@ MessageBoxIcon.Error)
         Header4.Width = DataGridView1.Columns(4).Width - wn
     End Sub
 
-    Private Sub ToolStripMenuItem8_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem8.Click, ToolStripMenuItem10.Click
-        FontSize_bin = Integer.Parse(sender.tag.ToString)
-        GetAllControls(Me, Integer.Parse(FontSize_bin))
+    Private Sub ToolStripMenuItem8_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem8.Click
+        FontSize_bin = 8
+        GetAllControls(Me, Integer.Parse(CStr(FontSize_bin)))
     End Sub
+
+    Private Sub ToolStripMenuItem10_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem10.Click
+        FontSize_bin = 10
+        GetAllControls(Me, Integer.Parse(CStr(FontSize_bin)))
+    End Sub
+
+
 
     Private Sub GetAllControls(ByVal control As Control, size As Integer)
         If control.HasChildren Then
@@ -1296,12 +1378,12 @@ MessageBoxIcon.Error)
         If cd.ShowDialog() = DialogResult.OK Then
             Me.BackColor = cd.Color
             Label_path.BackColor = cd.Color
-            Bgcolor_R = cd.Color.R.ToString
-            Bgcolor_G = cd.Color.G.ToString
-            Bgcolor_B = cd.Color.B.ToString
-            Debug(cd.Color.R.ToString)
-            Debug(cd.Color.G.ToString)
-            Debug(cd.Color.B.ToString)
+            Bgcolor_R = CInt(cd.Color.R.ToString)
+            Bgcolor_G = CInt(cd.Color.G.ToString)
+            Bgcolor_B = CInt(cd.Color.B.ToString)
+            'Debug(cd.Color.R.ToString)
+            'Debug(cd.Color.G.ToString)
+            'Debug(cd.Color.B.ToString)
         End If
     End Sub
 
@@ -1411,20 +1493,37 @@ MessageBoxIcon.Error)
         System.Diagnostics.Process.Start("https://github.com/BackPonBeauty/Supermodel3-PonMi?tab=readme-ov-file#ponmi")
     End Sub
 
-    Private Sub Surround_Tick(sender As Object, e As EventArgs) Handles Surround.Tick
-        SurroundingSub1()
+    Private Sub Surround1_Tick(sender As Object, e As EventArgs) Handles Surround1.Tick
+        'SurroundingSub1()
+    End Sub
+    Private Sub Surround2_Tick(sender As Object, e As EventArgs) Handles Surround2.Tick
+        SurroundingSub2()
     End Sub
 
+
     Dim Center_i As Integer = 0
-    Private Sub SurroundingSub1()
-        Me.SuspendLayout()
+    Dim lever32 As Integer
+    Dim Button32_1 As Integer
+    Dim Button32_2 As Integer
+    Dim Button32_3 As Integer
+    Dim rec_i As Integer = 0
+    Public Sub SurroundingSub1()
+        'Me.SuspendLayout()
+        'rec_i += 1
         Dim controller = New SharpDX.XInput.Controller(SharpDX.XInput.UserIndex.One)
         If controller.IsConnected Then
             Dim state = controller.GetState()
             Dim a = state.Gamepad.Buttons
+            If Rec Then
+                Dim OneItem As New ListInfo
+                OneItem.Lever_s = a
 
-            Dim n As String = TentoTwo(a).PadLeft(16, "0")
-            'TextBox1.Text = n
+                List_Rec.Add(OneItem)
+                Exit Sub
+            End If
+
+            Dim n As String = Convert.ToString((a), 2).PadLeft(16, CChar("0"))
+
             Dim lever As String = Strings.Right(n, 4)
             Dim n1 = "0"
             Dim n2 = "0"
@@ -1449,7 +1548,7 @@ MessageBoxIcon.Error)
                 lever = n4 & n3 & n2 & n1
             End If
 
-            joybox1.Image = My.Resources.ResourceManager.GetObject("_" & lever.ToString)
+            joybox1.Image = CType(My.Resources.ResourceManager.GetObject("_" & lever.ToString), Image)
 
             'Shift
             Dim ss As String = n.Substring(3, 1)
@@ -1494,27 +1593,245 @@ MessageBoxIcon.Error)
             End If
 
 
+            'Start
+            Dim st As String = n.Substring(11, 1)
+            If st = "0" Then
+                Startbox1.Image = Nothing
+
+            Else
+                Startbox1.Image = My.Resources.cd
+
+            End If
+
+            'Home
+            Dim hm As String = n.Substring(10, 1)
+            If hm = "0" Then
+                Homebox1.Image = Nothing
+
+            Else
+                Homebox1.Image = My.Resources.cd
+
+            End If
+
+            'B
+            Dim b As String = n.Substring(2, 1)
+            If b = "0" Then
+                Bbox1.Image = Nothing
+
+            Else
+                Bbox1.Image = My.Resources.cd
+
+            End If
+
+            'L_Sholder
+            Dim ls As String = n.Substring(7, 1)
+            If ls = "0" Then
+                LSbox1.Image = Nothing
+
+            Else
+                LSbox1.Image = My.Resources.cd
+
+            End If
+
+            'RSB
+            Dim rsb As String = n.Substring(8, 1)
+            If rsb = "0" Then
+                Rbox1.Image = Nothing
+
+            Else
+                Rbox1.Image = My.Resources.cd
+            End If
+
+            'LSB
+            Dim lsb As String = n.Substring(9, 1)
+            If lsb = "0" Then
+                Lbox1.Image = Nothing
+
+            Else
+                Lbox1.Image = My.Resources.cd
+            End If
+            'Dim rrr As String = n.Substring(9, 1)
+            'If rrr = "1" And Rec = False Then
+            '    Me.WindowState = FormWindowState.Minimized
+            '    List_Rec.Clear()
+            '    Button13.Text = "REC"
+            '    Button13.ForeColor = Color.Red
+            'End If
+            'Dim sss As String = n.Substring(8, 1)
+            'If sss = "1" And Rec = True Then
+            '    Rec = False
+            '    Button13.Text = "STOP"
+            '    Button13.ForeColor = Color.Blue
+            '    Me.WindowState = FormWindowState.Normal
+
+            'End If
+
         Else
             joybox1.Image = Nothing
+        End If
+        'Me.ResumeLayout(True)
+    End Sub
+
+    Private Sub SurroundingSub2()
+        Me.SuspendLayout()
+        Dim controller = New SharpDX.XInput.Controller(SharpDX.XInput.UserIndex.Two)
+        If controller.IsConnected Then
+            Dim state = controller.GetState()
+            Dim a = state.Gamepad.Buttons
+
+            Dim n As String = Convert.ToString((a), 2).PadLeft(16, CChar("0"))
+
+            Dim lever As String = Strings.Right(n, 4)
+            Dim n1 = "0"
+            Dim n2 = "0"
+            Dim n3 = "0"
+            Dim n4 = "0"
+            Dim x = state.Gamepad.LeftThumbX
+            Dim y = state.Gamepad.LeftThumbY
+
+            If (y <> Center_i Or x <> Center_i) And lever = "0000" Then
+                If y > Center_i Then
+                    n1 = "1"
+                End If
+                If y < Center_i Then
+                    n2 = "1"
+                End If
+                If x < Center_i Then
+                    n3 = "1"
+                End If
+                If x > Center_i Then
+                    n4 = "1"
+                End If
+                lever = n4 & n3 & n2 & n1
+            End If
+
+            joybox2.Image = CType(My.Resources.ResourceManager.GetObject("_" & lever.ToString), Image)
+
+            'Shift
+            Dim ss As String = n.Substring(3, 1)
+            If ss = "0" Then
+                shiftbox2.Image = Nothing
+
+            Else
+                shiftbox2.Image = My.Resources.sd
+
+            End If
+
+
+            'Beat
+            Dim bb As String = n.Substring(1, 1)
+            If bb = "0" Then
+                beatbox2.Image = Nothing
+
+            Else
+                beatbox2.Image = My.Resources.bd
+
+            End If
+
+            'Charge
+            Dim cc As String = n.Substring(0, 1)
+            If cc = "0" Then
+                chargebox2.Image = Nothing
+
+            Else
+                chargebox2.Image = My.Resources.cd
+
+            End If
+
+
+            'Jump
+            Dim jj As String = n.Substring(6, 1)
+            If jj = "0" Then
+                jumpbox2.Image = Nothing
+
+            Else
+                jumpbox2.Image = My.Resources.jd
+
+            End If
+
+
+            'Start
+            Dim st As String = n.Substring(11, 1)
+            If st = "0" Then
+                Startbox2.Image = Nothing
+
+            Else
+                Startbox2.Image = My.Resources.cd
+
+            End If
+
+            'Home
+            Dim hm As String = n.Substring(10, 1)
+            If hm = "0" Then
+                Homebox2.Image = Nothing
+
+            Else
+                Homebox2.Image = My.Resources.cd
+
+            End If
+
+            'B
+            Dim b As String = n.Substring(2, 1)
+            If b = "0" Then
+                Bbox2.Image = Nothing
+
+            Else
+                Bbox2.Image = My.Resources.cd
+
+            End If
+
+            'L_Sholder
+            Dim ls As String = n.Substring(7, 1)
+            If ls = "0" Then
+                LSbox2.Image = Nothing
+
+            Else
+                LSbox2.Image = My.Resources.cd
+
+            End If
+
+            'RSB
+            Dim rsb As String = n.Substring(8, 1)
+            If rsb = "0" Then
+                Rbox2.Image = Nothing
+
+            Else
+                Rbox2.Image = My.Resources.cd
+            End If
+
+            'LSB
+            Dim lsb As String = n.Substring(9, 1)
+            If lsb = "0" Then
+                Lbox2.Image = Nothing
+
+            Else
+                Lbox2.Image = My.Resources.cd
+            End If
+
+        Else
+            joybox2.Image = Nothing
         End If
         Me.ResumeLayout(True)
     End Sub
 
-    Private Function TentoTwo(ByVal value As String) As String
-        If Math.Floor(value / 2) Then
-            Return TentoTwo(Math.Floor(value / 2)) + CStr(value Mod 2)
-        End If
-        Return CStr(value Mod 2)
-    End Function
+    'Private Function TentoTwo(ByVal value As String) As String
+    '    If CBool(Math.Floor(CInt(value) / 2)) Then
+    '        Return (CStr(Math.Floor(CInt(value) / 2))) + CStr(CInt(value) Mod 2)
+    '    End If
+    '    Return CStr(CInt(value) Mod 2)
+    'End Function
 
     Private Sub ControlerX4_Click(sender As Object, e As EventArgs) Handles Button_X.Click
-        If Surround.Enabled = True Then
-            Surround.Enabled = False
+        If XTimer_F = False Then
+            x_timer.Change(0, interval)
+            Button_X.Text = "Enabled"
+            XTimer_F = True
+            Panel7.Left = -240
+        Else
+            x_timer.Change(Timeout.Infinite, Timeout.Infinite)
             Button_X.Text = "Disabled"
             joybox1.Image = Nothing
-        Else
-            Surround.Enabled = True
-            Button_X.Text = "Enabled"
+            XTimer_F = False
         End If
     End Sub
 
@@ -1529,7 +1846,7 @@ MessageBoxIcon.Error)
         End If
 
         If control_F Then
-            If Tabb = "73" Then 'Escape key
+            If Tabb = "73" Then
                 If Front_F = False Then
                     Front_F = True
                     Me.BringToFront()
@@ -1541,40 +1858,37 @@ MessageBoxIcon.Error)
             End If
             If Tabb = "83" Then
                 'Debug(Process.GetProcessesByName("Supermodel").Count)
-                If Process.GetProcessesByName("Supermodel").Count <> 0 Then
-                    If ScanLine_F = False Then
-                        If scanline_type = "PICTURE" Then
-                            scanline_type = "LINE1"
-                        ElseIf scanline_type = "LINE1" Then
-                            scanline_type = "LINE2"
-                        ElseIf scanline_type = "LINE2" Then
-                            scanline_type = "PICTURE"
-                            ScanLine_F = True
-                        End If
-                        ScanLine.Width = Integer.Parse(Label_xRes.Text.ToString)
-                        ScanLine.Height = Integer.Parse(Label_yRes.Text.ToString)
-                        ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
-                        ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
-                        ScanLine.PictureBox1.Top = 0
-                        ScanLine.PictureBox1.Left = 0
-                        ScanLine.PictureBox1.Width = Integer.Parse(Label_xRes.Text.ToString)
-                        ScanLine.PictureBox1.Height = Integer.Parse(Label_yRes.Text.ToString)
-
-                        ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
-                        ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
-                        ScanLine.Draw_Scanline(scanline_type)
-                        ScanLine.Show()
-                    Else
-                        ScanLine_F = False
-                        ScanLine.Close()
-                        ScanLine.Dispose()
+                'If Process.GetProcessesByName("Supermodel").Count <> 0 Then
+                If ScanLine_F = False Then
+                    If scanline_type = "PICTURE" Then
+                        scanline_type = "LINE1"
+                    ElseIf scanline_type = "LINE1" Then
+                        scanline_type = "LINE2"
+                    ElseIf scanline_type = "LINE2" Then
+                        scanline_type = "PICTURE"
+                        ScanLine_F = True
                     End If
+                    ScanLine.Width = Integer.Parse(Label_xRes.Text.ToString)
+                    ScanLine.Height = Integer.Parse(Label_yRes.Text.ToString)
+                    ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
+                    ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
+                    ScanLine.PictureBox1.Top = 0
+                    ScanLine.PictureBox1.Left = 0
+                    ScanLine.PictureBox1.Width = Integer.Parse(Label_xRes.Text.ToString)
+                    ScanLine.PictureBox1.Height = Integer.Parse(Label_yRes.Text.ToString)
+
+                    ScanLine.Top = Integer.Parse(Label_yPos.Text.ToString)
+                    ScanLine.Left = Integer.Parse(Label_xPos.Text.ToString)
+                    ScanLine.Draw_Scanline(scanline_type)
+                    ScanLine.Show()
                 Else
                     ScanLine_F = False
                     ScanLine.Close()
                     ScanLine.Dispose()
                 End If
+
             End If
+
             If Tabb = "79" Then
                 If Opacity_D > 1 Then
                     Opacity_D -= 1
@@ -1587,7 +1901,7 @@ MessageBoxIcon.Error)
                     ScanLine.Opacity += 0.1
                 End If
             End If
-            End If
+        End If
     End Sub
 
     Sub KeybordHooker1_Keyup(sender As Object, e As KeyBoardHookerEventArgs) Handles KeyboardHooker1.KeyUp1
@@ -1616,5 +1930,162 @@ MessageBoxIcon.Error)
         Label_Global_IPaddress.Text = Get_Global_IPaddress()
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim ofd As New OpenFileDialog()
+
+        'はじめのファイル名を指定する
+        'はじめに「ファイル名」で表示される文字列を指定する
+        ofd.FileName = ".rep"
+        'はじめに表示されるフォルダを指定する
+        '指定しない（空の文字列）の時は、現在のディレクトリが表示される
+        Dim appPath As String = System.Reflection.Assembly.GetExecutingAssembly().Location
+        ofd.InitialDirectory = appPath
+        '[ファイルの種類]に表示される選択肢を指定する
+        '指定しないとすべてのファイルが表示される
+        ofd.Filter = "replayfile(*.rep)|*.rep*|すべてのファイル(*.*)|*.*"
+        '[ファイルの種類]ではじめに選択されるものを指定する
+        '2番目の「すべてのファイル」が選択されているようにする
+        ofd.FilterIndex = 1
+        'タイトルを設定する
+        ofd.Title = "select file"
+        'ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+        ofd.RestoreDirectory = True
+        '存在しないファイルの名前が指定されたとき警告を表示する
+        'デフォルトでTrueなので指定する必要はない
+        ofd.CheckFileExists = True
+        '存在しないパスが指定されたとき警告を表示する
+        'デフォルトでTrueなので指定する必要はない
+        ofd.CheckPathExists = True
+
+        'ダイアログを表示する
+        If ofd.ShowDialog() = DialogResult.OK Then
+            'OKボタンがクリックされたとき、選択されたファイル名を表示する
+            Console.WriteLine(ofd.FileName)
+            Dim line As String
+
+            Dim al As New ArrayList
+
+            Using sr As StreamReader = New StreamReader(ofd.FileName, Encoding.GetEncoding("UTF-8"))
+
+                line = sr.ReadLine()
+                Do Until line Is Nothing
+                    Dim OneItem As New ListInfo
+                    OneItem.Lever_s = line
+                    List_Rec.Add(OneItem)
+                    line = sr.ReadLine()
+                Loop
+            End Using
+        End If
+    End Sub
+
+    Dim Cn As Integer = 2
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'Dim P1 = vGen.PlugIn(CUInt(Cn))
+
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Dim enc As Encoding = Encoding.GetEncoding("UTF-8")
+        Dim Fname As String = DateTime.Now.ToString("yy_MM_dd_HHmmss") & ".rep"
+        Using writer As StreamWriter = New StreamWriter(Fname, False, enc)
+            For i As Integer = 0 To List_Rec.Count - 1
+                writer.WriteLine(List_Rec(i).Lever_s)
+            Next
+        End Using
+
+    End Sub
+
+    Private Sub Button11_Click_1(sender As Object, e As EventArgs) Handles Button11.Click
+        'Dim U1 = vGen.UnPlugForce(CUInt(Cn))
+        If List_Rec.Count > 0 Then
+            N = 0
+
+            XTimer_F = False
+            x_timer.Change(Timeout.Infinite, Timeout.Infinite)
+            'x2_timer.Change(0, interval)
+            rep_timer.Change(0, interval)
+
+            Panel7.Left = 53
+            Button_X.Text = "Disabled"
+
+        End If
+
+
+
+    End Sub
+
+    Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
+        rep_timer.Change(Timeout.Infinite, Timeout.Infinite)
+        x2_timer.Change(Timeout.Infinite, Timeout.Infinite)
+        'Dim U1 = vGen.UnPlugForce(CUInt(Cn))
+    End Sub
+
+    Public Sub DemoPlay()
+
+        Dim Len As Integer = List_Rec.Count - 1
+        If N < Len Then
+            N += 1
+        Else
+            N = 0
+            List_dammy.Clear()
+        End If
+        Keys_Demo_Play()
+
+    End Sub
+
+    Dim nn As Integer = 0
+    Private Sub Keys_Demo_Play()
+        Dim lever As Integer = CUShort(CInt(List_Rec(N).Lever_s)) Mod 16
+        Dim button As Integer = CUShort(CInt(List_Rec(N).Lever_s)) - lever
+
+        'vGen.SetDpad(CUInt(Cn), CByte(lever))
+        'vGen.SetButton(CUInt(Cn), CUShort(button), True)
+        'vGen.SetButton(CUInt(Cn), CUShort(62448 - button), False)
+        'Dim OneItem As New ListInfo2
+        'OneItem.Lever_s = lever
+        'List_dammy.Add(OneItem)
+
+    End Sub
+
+    Private Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click
+        If Rec = False Then
+            If XTimer_F = False Then
+                Exit Sub
+            End If
+            List_Rec.Clear()
+            Button13.Text = "REC"
+            Button13.ForeColor = Color.Red
+            Rec = True
+        Else
+
+            Button13.Text = "STOP"
+            Button13.ForeColor = Color.Gray
+            Rec = False
+        End If
+    End Sub
+
+    Private Sub CheckBox_ss_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox_ss.CheckedChanged
+        If CheckBox_ss.Checked = True Then
+            Write_ss_Ini()
+        Else
+            Delete_ss_Ini()
+        End If
+    End Sub
+
+    Private Sub Write_ss_Ini()
+        Dim iniFileName As New StringBuilder(300)
+        iniFileName.Append("Config\Supermodel.ini")
+        Dim Section As String = " Global "
+        WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
+    End Sub
+
+    Private Sub Delete_ss_Ini()
+        Dim iniFileName As New StringBuilder(300)
+        iniFileName.Append("Config\Supermodel.ini")
+        Dim Section As String = " Global "
+        WritePrivateProfileString(Section, "Supersampling", Nothing, iniFileName)
+    End Sub
 
 End Class
+
+

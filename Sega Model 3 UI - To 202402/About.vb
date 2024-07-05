@@ -17,7 +17,7 @@
         End If
     End Sub
 
-    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
+    Private Sub PictureBox5_Click(sender As Object, e As EventArgs)
         System.Diagnostics.Process.Start("https://discord.gg/TH6VHSXBUy")
     End Sub
 
@@ -41,7 +41,7 @@
         System.Diagnostics.Process.Start("https://github.com/BackPonBeauty")
     End Sub
 
-    Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles PictureBox7.Click
+    Private Sub PictureBox7_Click(sender As Object, e As EventArgs)
         System.Diagnostics.Process.Start("https://github.com/trzy/Supermodel")
     End Sub
 
@@ -52,7 +52,7 @@
         End If
     End Sub
 
-    Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
+    Private Sub PictureBox9_Click(sender As Object, e As EventArgs)
         System.Diagnostics.Process.Start("https://supermodel3.com")
     End Sub
 End Class
