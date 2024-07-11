@@ -33,6 +33,7 @@ Partial Class Gun
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.themetimer = New System.Windows.Forms.Timer(Me.components)
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Player1
@@ -107,7 +108,7 @@ Partial Class Gun
         Me.Button2.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(295, 132)
+        Me.Button2.Location = New System.Drawing.Point(295, 216)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 6
@@ -138,12 +139,25 @@ Partial Class Gun
         '
         Me.themetimer.Interval = 1000
         '
+        'Button3
+        '
+        Me.Button3.DialogResult = System.Windows.Forms.DialogResult.Ignore
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.ForeColor = System.Drawing.Color.White
+        Me.Button3.Location = New System.Drawing.Point(295, 113)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 30)
+        Me.Button3.TabIndex = 9
+        Me.Button3.Text = "ignore"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'Gun
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.CornflowerBlue
         Me.ClientSize = New System.Drawing.Size(382, 251)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button2)
@@ -174,4 +188,5 @@ Partial Class Gun
     Friend WithEvents Label1 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents themetimer As Timer
+    Friend WithEvents Button3 As Button
 End Class

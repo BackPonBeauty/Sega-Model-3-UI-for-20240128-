@@ -29,6 +29,42 @@ Module RawInput
         'Public mouse As RAWMOUSE
     End Structure
 
+    Public Structure RID_DEVICE_INFO
+        <FieldOffset(0)>
+        Public cbSize As UInteger
+        <FieldOffset(4)>
+        Public dwType As UInteger
+        <FieldOffset(8)>
+        Public mouse As RID_DEVICE_INFO_MOUSE
+        <FieldOffset(8)>
+        Public keyboard As RID_DEVICE_INFO_KEYBOARD
+        <FieldOffset(8)>
+        Public hid As RID_DEVICE_INFO_HID
+    End Structure
+    <StructLayout(LayoutKind.Sequential)>
+    Public Structure RID_DEVICE_INFO_MOUSE
+        Public dwId As UInteger
+        Public dwNumberOfButtons As UInteger
+        Public dwSampleRate As UInteger
+    End Structure
+    <StructLayout(LayoutKind.Sequential)>
+    Public Structure RID_DEVICE_INFO_KEYBOARD
+        Public dwType As UInteger
+        Public dwSubType As UInteger
+        Public dwKeyboardMode As UInteger
+        Public dwNumberOfFunctionKeys As UInteger
+        Public dwNumberOfIndicators As UInteger
+        Public dwNumberOfKeysTotal As UInteger
+    End Structure
+
+    <StructLayout(LayoutKind.Sequential)>
+    Public Structure RID_DEVICE_INFO_HID
+        Public dwVendorId As UInteger
+        Public dwProductId As UInteger
+        Public dwVersionNumber As UInteger
+        Public usUsagePage As UShort
+        Public usUsage As UShort
+    End Structure
     <StructLayout(LayoutKind.Sequential)>
     Public Structure RAWINPUTDEVICELIST
         Public hDevice As IntPtr
@@ -53,6 +89,7 @@ Module RawInput
 
     Public Const RIM_TYPEMOUSE As UInteger = 0
     Public Const RIDI_DEVICENAME As UInteger = &H20000007
+
     Public Const RID_INPUT As UInteger = &H10000003
     Public Const RIDEV_INPUTSINK As UInteger = &H100 ' This is the missing constant
 

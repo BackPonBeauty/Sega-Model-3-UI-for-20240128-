@@ -1119,6 +1119,8 @@ Public Class Form1
                     WriteGunIni()
                 ElseIf (f.DialogResult = DialogResult.Cancel) Then
                     flag = True
+                ElseIf (f.DialogResult = DialogResult.ignore) Then
+                    flag = False
                 End If
                 f.Dispose()
             End If
