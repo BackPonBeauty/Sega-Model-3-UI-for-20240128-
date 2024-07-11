@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -87,6 +87,12 @@
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
@@ -139,6 +145,12 @@
     <Compile Include="FormSet.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Gun.Designer.vb">
+      <DependentUpon>Gun.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Gun.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Key.Designer.vb">
       <DependentUpon>Key.vb</DependentUpon>
     </Compile>
@@ -163,6 +175,7 @@
     <Compile Include="DinputForce.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="rawinput.vb" />
     <Compile Include="ScanLine.Designer.vb">
       <DependentUpon>ScanLine.vb</DependentUpon>
     </Compile>
@@ -207,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSet.resx">
       <DependentUpon>FormSet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gun.resx">
+      <DependentUpon>Gun.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ponmi.resx">
       <DependentUpon>ponmi.vb</DependentUpon>
@@ -261,6 +277,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="sound\bang.mp3" />
+    <Content Include="sound\bang2.mp3" />
+    <None Include="bin\Release\sound\bang.mp3" />
+    <None Include="bin\Release\sound\bang2.mp3" />
     <Content Include="icon.ico" />
     <Content Include="icon2.ico" />
     <None Include="Resource\scanline2.png" />

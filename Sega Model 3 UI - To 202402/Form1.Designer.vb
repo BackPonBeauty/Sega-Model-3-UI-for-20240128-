@@ -82,6 +82,8 @@ Partial Class Form1
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.Label39 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.XViblate = New System.Windows.Forms.Label()
         Me.XConst = New System.Windows.Forms.Label()
@@ -125,11 +127,11 @@ Partial Class Form1
         Me.CheckBox_flipstereo = New System.Windows.Forms.CheckBox()
         Me.CheckBox_emulatesound = New System.Windows.Forms.CheckBox()
         Me.Panel_Input = New System.Windows.Forms.Panel()
+        Me.ComboBox_input = New System.Windows.Forms.ComboBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.ComboBox_crosshair = New System.Windows.Forms.ComboBox()
         Me.ComboBox_style = New System.Windows.Forms.ComboBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.ComboBox_input = New System.Windows.Forms.ComboBox()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Button10 = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -139,6 +141,7 @@ Partial Class Form1
         Me.Label11 = New System.Windows.Forms.Label()
         Me.CheckBox18 = New System.Windows.Forms.CheckBox()
         Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.CheckBox_outputs = New System.Windows.Forms.CheckBox()
         Me.Panel_Network = New System.Windows.Forms.Panel()
         Me.Label_Global_IPaddress = New System.Windows.Forms.Label()
@@ -164,6 +167,8 @@ Partial Class Form1
         Me.Label30 = New System.Windows.Forms.Label()
         Me.TextBox_Title = New System.Windows.Forms.TextBox()
         Me.Panel_ponmi = New System.Windows.Forms.Panel()
+        Me.RawInput_hook = New System.Windows.Forms.Button()
+        Me.Label38 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.Lbox2 = New System.Windows.Forms.PictureBox()
         Me.Rbox2 = New System.Windows.Forms.PictureBox()
@@ -215,6 +220,7 @@ Partial Class Form1
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label36 = New System.Windows.Forms.Label()
         Me.Label37 = New System.Windows.Forms.Label()
+        Me.Header5 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -231,7 +237,6 @@ Partial Class Form1
         CType(Me.MusicBar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel_Input.SuspendLayout()
         Me.Panel4.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.Panel_Network.SuspendLayout()
@@ -284,7 +289,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1013, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1017, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -370,12 +375,13 @@ Partial Class Form1
         '
         'Debugtext
         '
+        Me.Debugtext.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Debugtext.Location = New System.Drawing.Point(1018, 34)
         Me.Debugtext.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Debugtext.Multiline = True
         Me.Debugtext.Name = "Debugtext"
         Me.Debugtext.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Debugtext.Size = New System.Drawing.Size(172, 531)
+        Me.Debugtext.Size = New System.Drawing.Size(181, 531)
         Me.Debugtext.TabIndex = 41
         '
         'GroupBox1
@@ -776,7 +782,7 @@ Partial Class Form1
         Me.Label_Width.Name = "Label_Width"
         Me.Label_Width.Size = New System.Drawing.Size(64, 20)
         Me.Label_Width.TabIndex = 50
-        Me.Label_Width.Text = "8888"
+        Me.Label_Width.Text = "100"
         Me.Label_Width.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label3
@@ -809,7 +815,7 @@ Partial Class Form1
         Me.Label_Height.Name = "Label_Height"
         Me.Label_Height.Size = New System.Drawing.Size(64, 20)
         Me.Label_Height.TabIndex = 52
-        Me.Label_Height.Text = "8888"
+        Me.Label_Height.Text = "100"
         Me.Label_Height.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label6
@@ -842,7 +848,7 @@ Partial Class Form1
         Me.Label_yRes.Name = "Label_yRes"
         Me.Label_yRes.Size = New System.Drawing.Size(64, 20)
         Me.Label_yRes.TabIndex = 57
-        Me.Label_yRes.Text = "8888"
+        Me.Label_yRes.Text = "100"
         Me.Label_yRes.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label_xRes
@@ -853,7 +859,7 @@ Partial Class Form1
         Me.Label_xRes.Name = "Label_xRes"
         Me.Label_xRes.Size = New System.Drawing.Size(64, 20)
         Me.Label_xRes.TabIndex = 56
-        Me.Label_xRes.Text = "8888"
+        Me.Label_xRes.Text = "100"
         Me.Label_xRes.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label_yPos
@@ -864,7 +870,7 @@ Partial Class Form1
         Me.Label_yPos.Name = "Label_yPos"
         Me.Label_yPos.Size = New System.Drawing.Size(64, 20)
         Me.Label_yPos.TabIndex = 61
-        Me.Label_yPos.Text = "8888"
+        Me.Label_yPos.Text = "100"
         Me.Label_yPos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label_xPos
@@ -875,7 +881,7 @@ Partial Class Form1
         Me.Label_xPos.Name = "Label_xPos"
         Me.Label_xPos.Size = New System.Drawing.Size(64, 20)
         Me.Label_xPos.TabIndex = 60
-        Me.Label_xPos.Text = "8888"
+        Me.Label_xPos.Text = "100"
         Me.Label_xPos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label12
@@ -902,6 +908,8 @@ Partial Class Form1
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.Label40)
+        Me.Panel2.Controls.Add(Me.Label39)
         Me.Panel2.Controls.Add(Me.Label2)
         Me.Panel2.Controls.Add(Me.XViblate)
         Me.Panel2.Controls.Add(Me.XConst)
@@ -938,8 +946,30 @@ Partial Class Form1
         Me.Panel2.Location = New System.Drawing.Point(1205, 37)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(208, 472)
+        Me.Panel2.Size = New System.Drawing.Size(208, 517)
         Me.Panel2.TabIndex = 62
+        '
+        'Label40
+        '
+        Me.Label40.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label40.ForeColor = System.Drawing.Color.White
+        Me.Label40.Location = New System.Drawing.Point(78, 487)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(124, 20)
+        Me.Label40.TabIndex = 83
+        Me.Label40.Text = "2"
+        Me.Label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label39
+        '
+        Me.Label39.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label39.ForeColor = System.Drawing.Color.White
+        Me.Label39.Location = New System.Drawing.Point(78, 463)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(124, 20)
+        Me.Label39.TabIndex = 82
+        Me.Label39.Text = "1"
+        Me.Label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label2
         '
@@ -959,7 +989,7 @@ Partial Class Form1
         Me.XViblate.Name = "XViblate"
         Me.XViblate.Size = New System.Drawing.Size(64, 20)
         Me.XViblate.TabIndex = 81
-        Me.XViblate.Text = "8888"
+        Me.XViblate.Text = "100"
         Me.XViblate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'XConst
@@ -970,7 +1000,7 @@ Partial Class Form1
         Me.XConst.Name = "XConst"
         Me.XConst.Size = New System.Drawing.Size(64, 20)
         Me.XConst.TabIndex = 80
-        Me.XConst.Text = "8888"
+        Me.XConst.Text = "100"
         Me.XConst.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'XThreshold
@@ -981,7 +1011,7 @@ Partial Class Form1
         Me.XThreshold.Name = "XThreshold"
         Me.XThreshold.Size = New System.Drawing.Size(64, 20)
         Me.XThreshold.TabIndex = 79
-        Me.XThreshold.Text = "8888"
+        Me.XThreshold.Text = "100"
         Me.XThreshold.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'DViblate
@@ -992,7 +1022,7 @@ Partial Class Form1
         Me.DViblate.Name = "DViblate"
         Me.DViblate.Size = New System.Drawing.Size(64, 20)
         Me.DViblate.TabIndex = 78
-        Me.DViblate.Text = "8888"
+        Me.DViblate.Text = "100"
         Me.DViblate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'DFriction
@@ -1003,7 +1033,7 @@ Partial Class Form1
         Me.DFriction.Name = "DFriction"
         Me.DFriction.Size = New System.Drawing.Size(64, 20)
         Me.DFriction.TabIndex = 77
-        Me.DFriction.Text = "8888"
+        Me.DFriction.Text = "100"
         Me.DFriction.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'DConstRight
@@ -1014,7 +1044,7 @@ Partial Class Form1
         Me.DConstRight.Name = "DConstRight"
         Me.DConstRight.Size = New System.Drawing.Size(64, 20)
         Me.DConstRight.TabIndex = 74
-        Me.DConstRight.Text = "8888"
+        Me.DConstRight.Text = "100"
         Me.DConstRight.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'DCenter
@@ -1025,7 +1055,7 @@ Partial Class Form1
         Me.DCenter.Name = "DCenter"
         Me.DCenter.Size = New System.Drawing.Size(64, 20)
         Me.DCenter.TabIndex = 76
-        Me.DCenter.Text = "8888"
+        Me.DCenter.Text = "100"
         Me.DCenter.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'DConstLeft
@@ -1036,7 +1066,7 @@ Partial Class Form1
         Me.DConstLeft.Name = "DConstLeft"
         Me.DConstLeft.Size = New System.Drawing.Size(64, 20)
         Me.DConstLeft.TabIndex = 75
-        Me.DConstLeft.Text = "8888"
+        Me.DConstLeft.Text = "100"
         Me.DConstLeft.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label28
@@ -1135,7 +1165,7 @@ Partial Class Form1
         Me.Label_hScreenRes.Name = "Label_hScreenRes"
         Me.Label_hScreenRes.Size = New System.Drawing.Size(64, 20)
         Me.Label_hScreenRes.TabIndex = 65
-        Me.Label_hScreenRes.Text = "8888"
+        Me.Label_hScreenRes.Text = "100"
         Me.Label_hScreenRes.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label_wScreenRes
@@ -1146,7 +1176,7 @@ Partial Class Form1
         Me.Label_wScreenRes.Name = "Label_wScreenRes"
         Me.Label_wScreenRes.Size = New System.Drawing.Size(64, 20)
         Me.Label_wScreenRes.TabIndex = 64
-        Me.Label_wScreenRes.Text = "8888"
+        Me.Label_wScreenRes.Text = "100"
         Me.Label_wScreenRes.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label10
@@ -1450,6 +1480,7 @@ Partial Class Form1
         '
         'Panel_Input
         '
+        Me.Panel_Input.Controls.Add(Me.ComboBox_input)
         Me.Panel_Input.Controls.Add(Me.Panel4)
         Me.Panel_Input.Controls.Add(Me.Panel1)
         Me.Panel_Input.Controls.Add(Me.Label29)
@@ -1464,6 +1495,20 @@ Partial Class Form1
         Me.Panel_Input.Name = "Panel_Input"
         Me.Panel_Input.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Input.TabIndex = 70
+        '
+        'ComboBox_input
+        '
+        Me.ComboBox_input.BackColor = System.Drawing.Color.White
+        Me.ComboBox_input.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox_input.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox_input.ForeColor = System.Drawing.Color.Black
+        Me.ComboBox_input.FormattingEnabled = True
+        Me.ComboBox_input.Items.AddRange(New Object() {"xinput", "dinput", "rawinput"})
+        Me.ComboBox_input.Location = New System.Drawing.Point(143, 21)
+        Me.ComboBox_input.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboBox_input.Name = "ComboBox_input"
+        Me.ComboBox_input.Size = New System.Drawing.Size(96, 24)
+        Me.ComboBox_input.TabIndex = 1
         '
         'Panel4
         '
@@ -1500,23 +1545,10 @@ Partial Class Form1
         '
         'Panel1
         '
-        Me.Panel1.Controls.Add(Me.ComboBox_input)
-        Me.Panel1.Location = New System.Drawing.Point(192, 19)
+        Me.Panel1.Location = New System.Drawing.Point(262, 21)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(96, 24)
         Me.Panel1.TabIndex = 78
-        '
-        'ComboBox_input
-        '
-        Me.ComboBox_input.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox_input.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox_input.FormattingEnabled = True
-        Me.ComboBox_input.Items.AddRange(New Object() {"xinput", "dinput", "rawinput"})
-        Me.ComboBox_input.Location = New System.Drawing.Point(0, 0)
-        Me.ComboBox_input.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ComboBox_input.Name = "ComboBox_input"
-        Me.ComboBox_input.Size = New System.Drawing.Size(96, 24)
-        Me.ComboBox_input.TabIndex = 1
         '
         'Label29
         '
@@ -1599,7 +1631,7 @@ Partial Class Form1
         Me.Label11.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.White
         Me.Label11.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label11.Location = New System.Drawing.Point(49, 21)
+        Me.Label11.Location = New System.Drawing.Point(25, 25)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(112, 20)
         Me.Label11.TabIndex = 71
@@ -1630,6 +1662,18 @@ Partial Class Form1
         Me.Label18.TabIndex = 65
         Me.Label18.Text = "Crosshairs"
         Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label1
+        '
+        Me.Label1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(23, 165)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(350, 20)
+        Me.Label1.TabIndex = 80
+        Me.Label1.Text = "Mouse"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'CheckBox_outputs
         '
@@ -1957,6 +2001,9 @@ Partial Class Form1
         '
         'Panel_ponmi
         '
+        Me.Panel_ponmi.Controls.Add(Me.Label1)
+        Me.Panel_ponmi.Controls.Add(Me.RawInput_hook)
+        Me.Panel_ponmi.Controls.Add(Me.Label38)
         Me.Panel_ponmi.Controls.Add(Me.Panel7)
         Me.Panel_ponmi.Controls.Add(Me.Label35)
         Me.Panel_ponmi.Controls.Add(Me.Label34)
@@ -1974,6 +2021,29 @@ Partial Class Form1
         Me.Panel_ponmi.Name = "Panel_ponmi"
         Me.Panel_ponmi.Size = New System.Drawing.Size(394, 252)
         Me.Panel_ponmi.TabIndex = 81
+        '
+        'RawInput_hook
+        '
+        Me.RawInput_hook.ForeColor = System.Drawing.Color.Black
+        Me.RawInput_hook.Location = New System.Drawing.Point(308, 137)
+        Me.RawInput_hook.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.RawInput_hook.Name = "RawInput_hook"
+        Me.RawInput_hook.Size = New System.Drawing.Size(71, 25)
+        Me.RawInput_hook.TabIndex = 94
+        Me.RawInput_hook.Text = "Disabled"
+        Me.RawInput_hook.UseVisualStyleBackColor = True
+        '
+        'Label38
+        '
+        Me.Label38.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label38.ForeColor = System.Drawing.Color.White
+        Me.Label38.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label38.Location = New System.Drawing.Point(189, 140)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(101, 20)
+        Me.Label38.TabIndex = 93
+        Me.Label38.Text = "RawInputHook"
+        Me.Label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Panel7
         '
@@ -2140,7 +2210,7 @@ Partial Class Form1
         Me.Label35.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label35.ForeColor = System.Drawing.Color.White
         Me.Label35.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label35.Location = New System.Drawing.Point(37, 183)
+        Me.Label35.Location = New System.Drawing.Point(37, 190)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(107, 55)
         Me.Label35.TabIndex = 92
@@ -2151,7 +2221,7 @@ Partial Class Form1
         Me.Label34.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label34.ForeColor = System.Drawing.Color.White
         Me.Label34.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label34.Location = New System.Drawing.Point(145, 183)
+        Me.Label34.Location = New System.Drawing.Point(145, 190)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(234, 55)
         Me.Label34.TabIndex = 91
@@ -2161,7 +2231,7 @@ Partial Class Form1
         'Button_hook
         '
         Me.Button_hook.ForeColor = System.Drawing.Color.Black
-        Me.Button_hook.Location = New System.Drawing.Point(308, 117)
+        Me.Button_hook.Location = New System.Drawing.Point(308, 110)
         Me.Button_hook.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_hook.Name = "Button_hook"
         Me.Button_hook.Size = New System.Drawing.Size(71, 25)
@@ -2174,7 +2244,7 @@ Partial Class Form1
         Me.Label33.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label33.ForeColor = System.Drawing.Color.White
         Me.Label33.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label33.Location = New System.Drawing.Point(189, 120)
+        Me.Label33.Location = New System.Drawing.Point(189, 113)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(101, 20)
         Me.Label33.TabIndex = 89
@@ -2534,12 +2604,30 @@ Partial Class Form1
         Me.Label37.Text = "SuperSampling"
         Me.Label37.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'Header5
+        '
+        Me.Header5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Header5.BackColor = System.Drawing.Color.White
+        Me.Header5.FlatAppearance.BorderSize = 0
+        Me.Header5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Header5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header5.ForeColor = System.Drawing.Color.Black
+        Me.Header5.Location = New System.Drawing.Point(477, 32)
+        Me.Header5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Header5.Name = "Header5"
+        Me.Header5.Size = New System.Drawing.Size(88, 22)
+        Me.Header5.TabIndex = 97
+        Me.Header5.Text = "Inputs"
+        Me.Header5.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Header5.UseVisualStyleBackColor = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(1013, 591)
+        Me.ClientSize = New System.Drawing.Size(1017, 591)
+        Me.Controls.Add(Me.Header5)
         Me.Controls.Add(Me.Label37)
         Me.Controls.Add(Me.Label36)
         Me.Controls.Add(Me.Button12)
@@ -2585,7 +2673,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.1.0"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.1.2"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -2607,7 +2695,6 @@ Partial Class Form1
         Me.Panel_Input.ResumeLayout(False)
         Me.Panel_Input.PerformLayout()
         Me.Panel4.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.Panel_Network.ResumeLayout(False)
@@ -2837,4 +2924,10 @@ Partial Class Form1
     Friend WithEvents Label36 As Label
     Friend WithEvents Label37 As Label
     Friend WithEvents CheckBox_ss As CheckBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents RawInput_hook As Button
+    Friend WithEvents Label38 As Label
+    Friend WithEvents Label40 As Label
+    Friend WithEvents Label39 As Label
+    Friend WithEvents Header5 As Button
 End Class

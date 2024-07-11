@@ -12,120 +12,12 @@ Imports System.Threading
 
 
 Public Class Form1
-
+    Inherits Form
     Private x_timer As System.Threading.Timer
     Private x2_timer As System.Threading.Timer
     Private rep_timer As System.Threading.Timer
 
-    <DllImport("KERNEL32.DLL", CharSet:=CharSet.Auto)>
-    Public Shared Function GetPrivateProfileString(
-                              lpAppName As String,
-                              lpKeyName As String,
-                              lpDefault As String,
-                              lpReturnedString As StringBuilder,
-                              nSize As Integer,
-                              lpFileName As String) As Integer
-    End Function
-    <DllImport("KERNEL32.DLL", CharSet:=CharSet.Auto)>
-    Public Shared Function WritePrivateProfileString(
-                              ByVal lpApplicationName As String,
-                              ByVal lpKeyName As String,
-                              ByVal lpString As String,
-                              ByVal lpFileName As StringBuilder) As Integer
-    End Function
-
-    Public Structure ListInfo
-        Public Property Lever_s As Integer
-
-    End Structure
-    Public Structure ListInfo2
-        Public Property Lever_s As Integer
-
-    End Structure
-
-
-
-    Dim GameData As New DataTable
-    Public Roms As String
-    Dim DT_Roms As New DataTable
-    Dim List_Rec As New List(Of ListInfo)
-    Dim List_dammy As New List(Of ListInfo2)
-
-    Dim DT_Rep As New DataTable
-    Dim keys As New DataTable
-    Public ScreenN(3) As String
-    Public Bx(3) As Integer
-    Public By(3) As Integer
-    Public Bw(3) As Integer
-    Public Bh(3) As Integer
-
-    Dim Columns0Width As StringBuilder = New StringBuilder(300)
-    Dim Columns1Width As StringBuilder = New StringBuilder(300)
-    Dim Columns2Width As StringBuilder = New StringBuilder(300)
-    Dim Columns3Width As StringBuilder = New StringBuilder(300)
-    Dim Columns4Width As StringBuilder = New StringBuilder(300)
-    Dim C0_Sort_F As Boolean = False
-    Dim C1_Sort_F As Boolean = False
-    Dim C2_Sort_F As Boolean = False
-    Dim C3_Sort_F As Boolean = False
-    Dim C4_Sort_F As Boolean = False
-
-    Dim Last_Sort As Integer = 0
-    Dim Onece As Boolean = False
-    Dim Last_SelectedItem As String = ""
-    Dim Last_SelectedRow As Integer = 0
-    Dim Last_SelectedRow_bin As Integer = 0
-    Public FontSize_bin As Integer = 10
-    Dim Resolution_index_bin As Integer = 0
-    Public Bgcolor_R As Integer = 147
-    Public Bgcolor_G As Integer = 0
-    Public Bgcolor_B As Integer = 80
-    Public Pub_Forecolor_s As Color = Color.White
-    Public Forecolor_s As String = "White"
-    Public Outputs_F As Boolean
-    Public ScanLine_F As Boolean = False
-    Dim Front_F As Boolean = True
-    Dim Scanline_Enabled As Boolean = False
-    Public Opacity_D As Double = 0.5
-    'Dim vGen As New vGen
-    Dim interval As Integer = 1
-
-    Dim N As Integer = 0
-    Dim Rec As Boolean = False
-    Dim XTimer_F As Boolean = False
-
-    WithEvents KeyboardHooker1 As New Key
-    Public Sub New()
-        InitializeComponent()
-        x_timer = New System.Threading.Timer(AddressOf SurroundingSub1)
-        x2_timer = New System.Threading.Timer(AddressOf SurroundingSub2)
-        rep_timer = New System.Threading.Timer(AddressOf DemoPlay)
-    End Sub
-
-
-    'DragMove
-    Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
-
-        'Label1.Text = "( " & Me.Left & " , " & Me.Top & " )"
-        Dim s As System.Windows.Forms.Screen = System.Windows.Forms.Screen.FromControl(Me)
-        'ディスプレイの高さと幅を取得
-        Dim x As Integer = s.Bounds.X
-        Dim y As Integer = s.Bounds.Y
-        Label_hScreenRes.Text = CStr(s.Bounds.Height)
-        Label_wScreenRes.Text = CStr(s.Bounds.Width)
-
-        Dim N As Integer
-        For i = 0 To ScreenN.Length - 1
-            If Me.Top >= By(i) And Me.Top <= (By(i) + Bh(i)) And Me.Left >= Bx(i) And Me.Left <= (Bx(i) + Bw(i)) Then
-                Label2.Text = ScreenN(i).ToString
-                N = i
-                Exit For
-
-            End If
-        Next
-
-    End Sub
-
+    Private mouseDevices As New Dictionary(Of IntPtr, String)
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -135,7 +27,7 @@ Public Class Form1
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
         Dim fileName As String = appPath & "\Supermodel.exe"
         If System.IO.File.Exists(fileName) Then
-            Label37.text = System.IO.File.GetLastWriteTime(fileName).tostring
+            Label37.Text = System.IO.File.GetLastWriteTime(fileName).ToString
         Else
             MessageBox.Show("Supermodel.exe not found.")
             Me.Close()
@@ -148,6 +40,7 @@ Public Class Form1
             GameData.Columns.Add("Roms", GetType(String))
             GameData.Columns.Add("Step", GetType(String))
             GameData.Columns.Add("A-E", GetType(String))
+            GameData.Columns.Add("Inputs", GetType(String))
             DT_Roms.Columns.Add("name", GetType(String))
 
             Load_gamexml()
@@ -184,6 +77,9 @@ Public Class Form1
                 Case 4
                     C4_Sort_F = Not (C4_Sort_F)
                     Header4.PerformClick()
+                Case 5
+                    C5_Sort_F = Not (C5_Sort_F)
+                    Header5.PerformClick()
                 Case Else
                     'C0_Sort_F = Not (C0_Sort_F)
                     'Header0.PerformClick()
@@ -213,11 +109,299 @@ Public Class Form1
         'Dim vbuse = vGen.isVBusExist()
         'Debug(vbuse.ToString)
         'vGen.PlugIn(1)
+        RegisterRawInputDevices()
+        InitializeMouseDevices()
 
 
 
 
     End Sub
+
+    Private Sub InitializeMouseDevices()
+        Dim deviceCount As UInteger = 0
+        Dim deviceListSize As UInteger = CUInt(Marshal.SizeOf(GetType(RawInput.RAWINPUTDEVICELIST)))
+
+        ' 最初にデバイスの数を取得
+        RawInput.GetRawInputDeviceList(IntPtr.Zero, deviceCount, deviceListSize)
+        Console.WriteLine($"Number of devices: {deviceCount}")
+        ' デバイスリストのバッファを作成
+        Dim pRawInputDeviceList As IntPtr = Marshal.AllocHGlobal(CInt(deviceCount) * CInt(deviceListSize))
+
+        ' デバイスリストを取得
+        RawInput.GetRawInputDeviceList(pRawInputDeviceList, deviceCount, deviceListSize)
+
+        Dim mouseIndex As Integer = 1
+
+        For i = deviceCount - 1 To 1 Step -1
+            Dim rid As RawInput.RAWINPUTDEVICELIST = CType(Marshal.PtrToStructure(New IntPtr(pRawInputDeviceList.ToInt64() + (i * deviceListSize)), GetType(RawInput.RAWINPUTDEVICELIST)), RawInput.RAWINPUTDEVICELIST)
+
+            ' マウスデバイスのみ処理
+            If rid.dwType = RawInput.RIM_TYPEMOUSE Then
+                Dim size As UInteger = 0
+                RawInput.GetRawInputDeviceInfo(rid.hDevice, RawInput.RIDI_DEVICENAME, IntPtr.Zero, size)
+                If size > 0 Then
+                    Dim nameBuilder As New StringBuilder(CInt(size))
+                    RawInput.GetRawInputDeviceInfo(rid.hDevice, RawInput.RIDI_DEVICENAME, nameBuilder, size)
+                    Dim deviceName As String = nameBuilder.ToString()
+                    mouseDevices(rid.hDevice) = $"MOUSE{mouseIndex}" '{deviceName}
+                    Console.WriteLine(deviceName)
+                    mouseIndex += 1
+                End If
+            End If
+        Next
+
+        Marshal.FreeHGlobal(pRawInputDeviceList)
+    End Sub
+
+    Protected Overrides Sub WndProc(ByRef m As Message)
+        Const WM_INPUT As Integer = &HFF
+
+        If m.Msg = WM_INPUT Then
+            Dim dwSize As UInteger = 0
+            RawInput.GetRawInputData(m.LParam, RawInput.RID_INPUT, IntPtr.Zero, dwSize, CUInt(Marshal.SizeOf(GetType(RawInput.RAWINPUTHEADER))))
+
+            If dwSize > 0 Then
+                Dim buffer As IntPtr = Marshal.AllocHGlobal(CInt(dwSize))
+                Try
+                    If RawInput.GetRawInputData(m.LParam, RawInput.RID_INPUT, buffer, dwSize, CUInt(Marshal.SizeOf(GetType(RawInput.RAWINPUTHEADER)))) = dwSize Then
+                        Dim raw As RawInput.RAWINPUT = Marshal.PtrToStructure(Of RawInput.RAWINPUT)(buffer)
+
+                        If raw.header.dwType = RawInput.RIM_TYPEMOUSE Then
+                            Dim mouse As RawInput.RAWMOUSE = raw.mouse
+                            Dim deviceName As String = If(mouseDevices.ContainsKey(raw.header.hDevice), mouseDevices(raw.header.hDevice), "Unknown Mouse")
+                            'Dim wheelDelta As Short = CType(mouse.usButtonData, Short)
+                            'Console.WriteLine($"Device Name: {deviceName}")
+                            'Console.WriteLine($"Button Flags: {mouse.usButtonFlags}")
+                            'Console.WriteLine($"Button Data: {mouse.usButtonData}")
+                            ' ボタンの状態をチェック
+                            Dim data1 As String = ""
+                            If mouse.usButtonData = 1 Or mouse.usButtonData = 2 Then
+                                data1 = "LEFT_BUTTON"
+                            End If
+                            If mouse.usButtonData = 4 Or mouse.usButtonData = 8 Then
+                                data1 = "RIGHT_BUTTON"
+                            End If
+                            If mouse.usButtonData = 16 Or mouse.usButtonData = 32 Then
+                                data1 = "MIDDLE_BUTTON"
+                            End If
+                            If mouse.usButtonData = 7865344 Then
+                                data1 = "ZAXIS_POS"
+                            End If
+                            If mouse.usButtonData = -7863296 Then
+                                data1 = "ZAXIS_NEG"
+                            End If
+                            Dim deltaX As Integer = mouse.lLastX
+                            Dim deltaY As Integer = mouse.lLastY
+
+                            If deltaY > 0 Then
+                                data1 = "YAXIS_POS"
+                            End If
+                            If deltaY < 0 Then
+                                data1 = "YAXIS_NEG"
+                            End If
+                            If deltaX > 0 Then
+                                data1 = "XAXIS_POS"
+                            End If
+                            If deltaX < 0 Then
+                                data1 = "XAXIS_NEG"
+                            End If
+
+
+                            'If (mouse.usButtonFlags And RawInput.RI_MOUSE_LEFT_BUTTON_UP) <> 0 Then
+                            '    Console.WriteLine($"{deviceName}: Left button up")
+                            'End If
+                            'If (mouse.usButtonFlags And RawInput.RI_MOUSE_RIGHT_BUTTON_DOWN) <> 0 Then
+                            '    Console.WriteLine($"{deviceName}: Right button down")
+                            'End If
+                            'If (mouse.usButtonFlags And RawInput.RI_MOUSE_RIGHT_BUTTON_UP) <> 0 Then
+                            '    Console.WriteLine($"{deviceName}: Right button up")
+                            'End If
+                            'If (mouse.usButtonFlags And RawInput.RI_MOUSE_MIDDLE_BUTTON_DOWN) <> 0 Then
+                            '    Console.WriteLine($"{deviceName}: Middle button down")
+                            'End If
+                            'If (mouse.usButtonFlags And RawInput.RI_MOUSE_MIDDLE_BUTTON_UP) <> 0 Then
+                            '    Console.WriteLine($"{deviceName}: Middle button up")
+                            'End If
+                            'If (mouse.usButtonFlags And RawInput.RI_MOUSE_BUTTON_4_DOWN) <> 0 Then
+                            '    Console.WriteLine($"{deviceName}: Button 4 down")
+                            'End If
+                            'If (mouse.usButtonFlags And RawInput.RI_MOUSE_BUTTON_4_UP) <> 0 Then
+                            '    Console.WriteLine($"{deviceName}: Button 4 up")
+                            'End If
+                            'If (mouse.usButtonFlags And RawInput.RI_MOUSE_BUTTON_5_DOWN) <> 0 Then
+                            '    Console.WriteLine($"{deviceName}: Button 5 down")
+                            'End If
+                            'If (mouse.usButtonFlags And RawInput.RI_MOUSE_BUTTON_5_UP) <> 0 Then
+                            '    Console.WriteLine($"{deviceName}: Button 5 up")
+                            'End If
+
+                            ' マウスの移動量を取得する場合
+
+                            'Dim wheelDelta As Short = BitConverter.ToInt16(BitConverter.GetBytes(mouse.usButtonData), 0)
+
+                            'If wheelDelta > 0 Then
+                            'Console.WriteLine($"{deviceName}: Wheel  {wheelDelta}")
+                            'ElseIf wheelDelta < 0 Then
+                            '    Console.WriteLine($"{deviceName}: Wheel down {wheelDelta}")
+                            'End If
+                            If RawInput_Enabled = True Then
+                                Label1.Text = ($"{deviceName}_{data1}")
+                            End If
+
+                            'Console.WriteLine($"{deviceName} ButtonsState : {mouse.usButtonData} ,Delta X: {deltaX}, Delta Y: {deltaY}" & vbCrLf)
+                        End If
+                    End If
+                Finally
+                    Marshal.FreeHGlobal(buffer)
+                End Try
+            End If
+        End If
+        MyBase.WndProc(m)
+    End Sub
+
+    Private Sub RegisterRawInputDevices()
+        Dim rid As New RawInputDevice()
+        rid.usUsagePage = &H1
+        rid.usUsage = &H2
+        rid.dwFlags = RawInput.RIDEV_INPUTSINK
+        rid.hwndTarget = Me.Handle
+
+        If Not RegisterRawInputDevices(New RawInputDevice() {rid}, 1, CUInt(Marshal.SizeOf(rid))) Then
+            Throw New ApplicationException("Failed to register raw input devices.")
+            Console.WriteLine("Failed to register raw input devices.")
+        Else
+            Console.WriteLine("Success to register raw input devices.")
+        End If
+    End Sub
+
+    <DllImport("user32.dll", SetLastError:=True)>
+    Public Shared Function RegisterRawInputDevices(ByVal pRawInputDevices() As RawInputDevice, ByVal uiNumDevices As UInteger, ByVal cbSize As UInteger) As Boolean
+    End Function
+
+    <StructLayout(LayoutKind.Sequential)>
+    Public Structure RawInputDevice
+        Public usUsagePage As UShort
+        Public usUsage As UShort
+        Public dwFlags As UInteger
+        Public hwndTarget As IntPtr
+    End Structure
+
+    <DllImport("KERNEL32.DLL", CharSet:=CharSet.Auto)>
+    Public Shared Function GetPrivateProfileString(
+                              lpAppName As String,
+                              lpKeyName As String,
+                              lpDefault As String,
+                              lpReturnedString As StringBuilder,
+                              nSize As Integer,
+                              lpFileName As String) As Integer
+    End Function
+    <DllImport("KERNEL32.DLL", CharSet:=CharSet.Auto)>
+    Public Shared Function WritePrivateProfileString(
+                              ByVal lpApplicationName As String,
+                              ByVal lpKeyName As String,
+                              ByVal lpString As String,
+                              ByVal lpFileName As StringBuilder) As Integer
+    End Function
+
+    Public Structure ListInfo
+        Public Property Lever_s As Integer
+
+    End Structure
+    Public Structure ListInfo2
+        Public Property Lever_s As Integer
+
+    End Structure
+
+
+
+    Dim GameData As New DataTable
+    Public Roms As String
+    Dim Inputs As String
+    Dim DT_Roms As New DataTable
+    Dim List_Rec As New List(Of ListInfo)
+    Dim List_dammy As New List(Of ListInfo2)
+
+    Dim DT_Rep As New DataTable
+    Dim keys As New DataTable
+    Public ScreenN(3) As String
+    Public Bx(3) As Integer
+    Public By(3) As Integer
+    Public Bw(3) As Integer
+    Public Bh(3) As Integer
+
+    Dim Columns0Width As StringBuilder = New StringBuilder(300)
+    Dim Columns1Width As StringBuilder = New StringBuilder(300)
+    Dim Columns2Width As StringBuilder = New StringBuilder(300)
+    Dim Columns3Width As StringBuilder = New StringBuilder(300)
+    Dim Columns4Width As StringBuilder = New StringBuilder(300)
+    Dim C0_Sort_F As Boolean = False
+    Dim C1_Sort_F As Boolean = False
+    Dim C2_Sort_F As Boolean = False
+    Dim C3_Sort_F As Boolean = False
+    Dim C4_Sort_F As Boolean = False
+    Dim C5_Sort_F As Boolean = False
+
+    Dim Last_Sort As Integer = 0
+    Dim Onece As Boolean = False
+    Dim Last_SelectedItem As String = ""
+    Dim Last_SelectedRow As Integer = 0
+    Dim Last_SelectedRow_bin As Integer = 0
+    Public FontSize_bin As Integer = 10
+    Dim Resolution_index_bin As Integer = 0
+    Public Bgcolor_R As Integer = 147
+    Public Bgcolor_G As Integer = 0
+    Public Bgcolor_B As Integer = 80
+    Public Pub_Forecolor_s As Color = Color.White
+    Public Forecolor_s As String = "White"
+    Public Outputs_F As Boolean
+    Public ScanLine_F As Boolean = False
+    Dim Front_F As Boolean = True
+    Dim Scanline_Enabled As Boolean = False
+    Dim RawInput_Enabled As Boolean = False
+    Public Opacity_D As Double = 0.5
+    'Dim vGen As New vGen
+    Dim interval As Integer = 1
+
+    Dim N As Integer = 0
+    Dim Rec As Boolean = False
+    Dim XTimer_F As Boolean = False
+
+    WithEvents KeyboardHooker1 As New Key
+    Public Sub New()
+        InitializeComponent()
+        x_timer = New System.Threading.Timer(AddressOf SurroundingSub1)
+        x2_timer = New System.Threading.Timer(AddressOf SurroundingSub2)
+        rep_timer = New System.Threading.Timer(AddressOf DemoPlay)
+
+    End Sub
+
+
+
+    'DragMove
+    Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
+
+        'Label1.Text = "( " & Me.Left & " , " & Me.Top & " )"
+        Dim s As System.Windows.Forms.Screen = System.Windows.Forms.Screen.FromControl(Me)
+        'ディスプレイの高さと幅を取得
+        Dim x As Integer = s.Bounds.X
+        Dim y As Integer = s.Bounds.Y
+        Label_hScreenRes.Text = CStr(s.Bounds.Height)
+        Label_wScreenRes.Text = CStr(s.Bounds.Width)
+
+        Dim N As Integer
+        For i = 0 To ScreenN.Length - 1
+            If Me.Top >= By(i) And Me.Top <= (By(i) + Bh(i)) And Me.Left >= Bx(i) And Me.Left <= (Bx(i) + Bw(i)) Then
+                Label2.Text = ScreenN(i).ToString
+                N = i
+                Exit For
+
+            End If
+        Next
+
+    End Sub
+
+
+
 
     Private Sub LoadResolution()
         Dim line As String = ""
@@ -251,6 +435,7 @@ Public Class Form1
         Dim xVersion(1000) As String
         Dim xRoms(1000) As String
         Dim xStep(1000) As String
+        Dim xInputType(1000) As String
 
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
         xmlDoc.Load(appPath & "\Config\Games.xml")
@@ -263,7 +448,10 @@ Public Class Form1
             xVersion(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/version").InnerText
             xRoms(i) = xnode.SelectSingleNode("//game[" & i & "]/@name").Value
             xStep(i) = xnode.SelectSingleNode("//game[" & i & "]/hardware/stepping").InnerText
-            GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i), " ")
+            Dim j As Integer = 2
+            Dim InputNodes = xnode.SelectNodes("//game[" & i & "]/hardware/inputs/input[" & j & "]")
+            xInputType(i) = String.Join(", ", inputNodes.Cast(Of XmlNode).Select(Function(inputNode) inputNode.Attributes("type").Value))
+            GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i), " ", xInputType(i))
             i += 1
         Next
 
@@ -365,6 +553,7 @@ Public Class Form1
         Dim C2_F As StringBuilder = New StringBuilder(300)
         Dim C3_F As StringBuilder = New StringBuilder(300)
         Dim C4_F As StringBuilder = New StringBuilder(300)
+        Dim C5_F As StringBuilder = New StringBuilder(300)
 
         Dim Last_Sort_s As StringBuilder = New StringBuilder(300)
         Dim Last_Selected_s As StringBuilder = New StringBuilder(300)
@@ -457,6 +646,7 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "Columns2Sort", "False", C2_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns3Sort", "False", C3_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns4Sort", "False", C4_F, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns5Sort", "False", C5_F, 15, iniFileName)
 
         GetPrivateProfileString(" Supermodel3 UI ", "LastSort", CStr(0), Last_Sort_s, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", CStr(0), Last_Selected_s, 15, iniFileName)
@@ -530,6 +720,11 @@ Public Class Form1
             C4_Sort_F = True
         Else
             C4_Sort_F = False
+        End If
+        If C5_F.ToString() = "True" Then
+            C5_Sort_F = True
+        Else
+            C5_Sort_F = False
         End If
 
         'Last_Sort
@@ -865,6 +1060,7 @@ Public Class Form1
 
     Private Sub DataGridView1_SelectCellChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEnter
         Roms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
+        Inputs = CStr(DataGridView1.CurrentRow.Cells(5).Value)
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Last_SelectedRow = DataGridView1.CurrentRow.Index
 
@@ -899,6 +1095,42 @@ Public Class Form1
         Load_Roms()
     End Sub
     Private Sub Load_Roms()
+        Dim flag As Boolean = False
+        If ComboBox_input.SelectedItem = "rawinput" And Inputs = "analog_gun1" Then
+            If My.Application.OpenForms("Gun") IsNot Nothing Then
+
+            Else
+                Dim f As Gun = New Gun()
+                'f.Label_ConstLeft.Text = DConstLeft.Text
+                'f.ConstLeftBar.Value = CInt(DConstLeft.Text)
+                'f.Label_ConstRight.Text = DConstRight.Text
+                'f.ConsRightBar.Value = CInt(DConstRight.Text)
+                'f.Label_Center.Text = DCenter.Text
+                'f.SelfBar.Value = CInt(DCenter.Text)
+                'f.Label_Friction.Text = DFriction.Text
+                'f.FrictionBar.Value = CInt(DFriction.Text)
+                'f.Label_Viblate.Text = DViblate.Text
+                'f.ViblateBar.Value = CInt(DViblate.Text)
+                RawInput_hook.Text = "Disabled"
+                RawInput_Enabled = False
+                If (f.ShowDialog(Me) = DialogResult.OK) Then
+                End If
+                If (f.DialogResult = DialogResult.OK) Then
+                    WriteGunIni()
+                ElseIf (f.DialogResult = DialogResult.Cancel) Then
+                    flag = True
+                End If
+                f.Dispose()
+            End If
+
+        End If
+
+        If flag = True Then
+            Exit Sub
+        End If
+
+
+
         WriteIni()
 
         Try
@@ -1084,6 +1316,30 @@ MessageBoxIcon.Error)
         End If
     End Sub
 
+    Private Sub WriteGunIni()
+        Dim iniFileName As New StringBuilder(300)
+        iniFileName.Append("Config\Supermodel.ini")
+        Dim Section As String = " Global "
+        WritePrivateProfileString(Section, "InputGunX", Label39.Text & "_XAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputGunY", Label39.Text & "_YAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputTrigger", Label39.Text & "_LEFT_BUTTON", iniFileName)
+        WritePrivateProfileString(Section, "InputOffscreen", Label39.Text & "_RIGHT_BUTTON", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogGunX", Label39.Text & "_XAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogGunY", Label39.Text & "_YAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogTriggerLeft", Label39.Text & "_LEFT_BUTTON", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogTriggerRight", Label39.Text & "_RIGHT_BUTTON", iniFileName)
+
+        WritePrivateProfileString(Section, "InputGunX2", Label40.Text & "_XAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputGunY2", Label40.Text & "_YAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputTrigger2", Label40.Text & "_LEFT_BUTTON", iniFileName)
+        WritePrivateProfileString(Section, "InputOffscreen2", Label40.Text & "_RIGHT_BUTTON", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogGunX2", Label40.Text & "_XAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogGunY2", Label40.Text & "_YAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogTriggerLeft2", Label40.Text & "_LEFT_BUTTON", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogTriggerRight2", Label40.Text & "_RIGHT_BUTTON", iniFileName)
+    End Sub
+
+
     Private Sub WriteIni()
         Dim iniFileName As New StringBuilder(300)
         iniFileName.Append("Config\Supermodel.ini")
@@ -1151,12 +1407,14 @@ MessageBoxIcon.Error)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns2Width", CStr(DataGridView1.Columns(2).Width), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns3Width", CStr(DataGridView1.Columns(3).Width), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns4Width", CStr(DataGridView1.Columns(4).Width), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns5Width", CStr(DataGridView1.Columns(5).Width), iniFileName)
 
         WritePrivateProfileString(" Supermodel3 UI ", "Columns0Sort", CStr(C0_Sort_F), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns1Sort", CStr(C1_Sort_F), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns2Sort", CStr(C2_Sort_F), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns3Sort", CStr(C3_Sort_F), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns4Sort", CStr(C4_Sort_F), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Columns5Sort", CStr(C5_Sort_F), iniFileName)
 
         WritePrivateProfileString(" Supermodel3 UI ", "LastSort", CStr(Last_Sort), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", CStr(Last_SelectedRow), iniFileName)
@@ -1233,6 +1491,8 @@ MessageBoxIcon.Error)
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentDoubleClick
         Roms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
+        Inputs = CStr(DataGridView1.CurrentRow.Cells(5).Value)
+
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Load_Roms()
     End Sub
@@ -1335,6 +1595,19 @@ MessageBoxIcon.Error)
         Last_Sort = 4
     End Sub
 
+    Private Sub Header5_Click(sender As Object, e As EventArgs) Handles Header5.Click
+        If C5_Sort_F = False Then
+            DataGridView1.Sort(DataGridView1.Columns(5), System.ComponentModel.ListSortDirection.Ascending)
+            GameData.DefaultView.Sort = "Inputs ASC"
+            C5_Sort_F = True
+        Else
+            DataGridView1.Sort(DataGridView1.Columns(5), System.ComponentModel.ListSortDirection.Descending)
+            GameData.DefaultView.Sort = "Inputs DESC"
+            C5_Sort_F = False
+        End If
+        Last_Sort = 5
+    End Sub
+
     Private Sub DataGridView1_ColumnWidthChanged(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
         Dim wn As Integer = 2
         Dim wp As Integer = 7
@@ -1347,6 +1620,8 @@ MessageBoxIcon.Error)
         Header3.Width = DataGridView1.Columns(3).Width - wn
         Header4.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + DataGridView1.Columns(2).Width + DataGridView1.Columns(3).Width + wp
         Header4.Width = DataGridView1.Columns(4).Width - wn
+        Header5.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + DataGridView1.Columns(2).Width + DataGridView1.Columns(3).Width + DataGridView1.Columns(4).Width + wp
+        Header5.Width = DataGridView1.Columns(5).Width - wn
     End Sub
 
     Private Sub ToolStripMenuItem8_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem8.Click
@@ -1415,6 +1690,10 @@ MessageBoxIcon.Error)
             If c.name = "CheckBox18" Or c.name = "CheckBox_outputs" Then
                 c.ForeColor = Color.White
             End If
+
+            If c.name = "ComboBox_input" Then
+                c.Forecolor = Color.Black
+            End If
         Next
         For Each c In Panel_Network.Controls
             c.ForeColor = Color.White
@@ -1464,7 +1743,7 @@ MessageBoxIcon.Error)
             c.ForeColor = Color.Black
         Next
         Pub_Forecolor_s = Color.Black
-        Forecolor_s = "Balck"
+        Forecolor_s = "Black"
     End Sub
 
     Private Sub DefoultToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DefoultToolStripMenuItem.Click
@@ -2086,6 +2365,25 @@ MessageBoxIcon.Error)
         WritePrivateProfileString(Section, "Supersampling", Nothing, iniFileName)
     End Sub
 
+    Private Sub ComboBox_input_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_input.SelectedIndexChanged
+        Dim N As String = ComboBox_input.SelectedItem
+        Console.WriteLine(N)
+        Dim iniFileName As New StringBuilder(300)
+        iniFileName.Append("Config\Supermodel.ini")
+        Dim Section As String = " Global "
+        WritePrivateProfileString(Section, "InputSystem", N, iniFileName)
+    End Sub
+
+    Private Sub RawInput_hook_Click(sender As Object, e As EventArgs) Handles RawInput_hook.Click
+        RawInput_Enabled = Not RawInput_Enabled
+        If RawInput_Enabled = True Then
+            RegisterRawInputDevices()
+            InitializeMouseDevices()
+            RawInput_hook.Text = "Enabled"
+        Else
+            RawInput_hook.Text = "Disabled"
+        End If
+    End Sub
 End Class
 
 
