@@ -95,7 +95,7 @@ Public Class Form1
         Dim moc As System.Management.ManagementObjectCollection = mc.GetInstances()
         Dim mo As System.Management.ManagementObject
         For Each mo In moc
-            Debug(CStr(mo("OSLanguage")))
+            'Debug(CStr(mo("OSLanguage")))
             If mo("OSLanguage") Is "1049" Or mo("OSLanguage") Is "2073" Then
                 Me.Close()
             End If
@@ -132,10 +132,11 @@ Public Class Form1
 
         Dim mouseIndex As Integer = 1
 
-        For i = deviceCount - 1 To 1 Step -1
-            Dim rid As RawInput.RAWINPUTDEVICELIST = CType(Marshal.PtrToStructure(New IntPtr(pRawInputDeviceList.ToInt64() + (i * deviceListSize)), GetType(RawInput.RAWINPUTDEVICELIST)), RawInput.RAWINPUTDEVICELIST)
+        For i = deviceCount - 1 To 0 Step -1
 
-            ' マウスデバイスのみ処理
+            Dim rid As RawInput.RAWINPUTDEVICELIST = CType(Marshal.PtrToStructure(New IntPtr(pRawInputDeviceList.ToInt64() + (i * deviceListSize)), GetType(RawInput.RAWINPUTDEVICELIST)), RawInput.RAWINPUTDEVICELIST)
+            'Console.WriteLine(rid.hDevice)
+            ' マウスデバイスのみ処理Or deviceName = "\\?\Microsoft HID RID\000D_0002\1"
             If rid.dwType = RawInput.RIM_TYPEMOUSE Then
                 Dim size As UInteger = 0
                 RawInput.GetRawInputDeviceInfo(rid.hDevice, RawInput.RIDI_DEVICENAME, IntPtr.Zero, size)
@@ -143,8 +144,10 @@ Public Class Form1
                     Dim nameBuilder As New StringBuilder(CInt(size))
                     RawInput.GetRawInputDeviceInfo(rid.hDevice, RawInput.RIDI_DEVICENAME, nameBuilder, size)
                     Dim deviceName As String = nameBuilder.ToString()
-                    mouseDevices(rid.hDevice) = $"MOUSE{mouseIndex}" '{deviceName}
                     Console.WriteLine(deviceName)
+
+                    mouseDevices(rid.hDevice) = $"MOUSE{mouseIndex}" '{deviceName}
+                    Console.WriteLine($"{mouseIndex}{rid.hDevice}")
                     mouseIndex += 1
                 End If
             End If
@@ -170,7 +173,7 @@ Public Class Form1
                             Dim mouse As RawInput.RAWMOUSE = raw.mouse
                             Dim deviceName As String = If(mouseDevices.ContainsKey(raw.header.hDevice), mouseDevices(raw.header.hDevice), "Unknown Mouse")
                             'Dim wheelDelta As Short = CType(mouse.usButtonData, Short)
-                            'Console.WriteLine($"Device Name: {deviceName}")
+                            'Console.WriteLine($"Device Name: {raw.header.hDevice}")
                             'Console.WriteLine($"Button Flags: {mouse.usButtonFlags}")
                             'Console.WriteLine($"Button Data: {mouse.usButtonData}")
                             ' ボタンの状態をチェック

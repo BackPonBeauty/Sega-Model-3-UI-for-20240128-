@@ -14,7 +14,7 @@ Module RawInput
     Public Structure RAWMOUSE
         <FieldOffset(0)> Public usFlags As UShort
         <FieldOffset(2)> Public usButtonFlags As UShort
-        <FieldOffset(4)> Public usButtonData As Integer
+        <FieldOffset(4)> Public usButtonData As UShort
         <FieldOffset(6)> Public ulRawButtons As UInteger
         <FieldOffset(10)> Public lLastX As Integer
         <FieldOffset(14)> Public lLastY As Integer
@@ -23,48 +23,10 @@ Module RawInput
 
     <StructLayout(LayoutKind.Sequential)>
     Public Structure RAWINPUT
-        <FieldOffset(0)> Public header As RAWINPUTHEADER
-        <FieldOffset(16)> Public mouse As RAWMOUSE
-        'Public header As RAWINPUTHEADER
-        'Public mouse As RAWMOUSE
+        Public header As RAWINPUTHEADER
+        Public mouse As RAWMOUSE
     End Structure
 
-    Public Structure RID_DEVICE_INFO
-        <FieldOffset(0)>
-        Public cbSize As UInteger
-        <FieldOffset(4)>
-        Public dwType As UInteger
-        <FieldOffset(8)>
-        Public mouse As RID_DEVICE_INFO_MOUSE
-        <FieldOffset(8)>
-        Public keyboard As RID_DEVICE_INFO_KEYBOARD
-        <FieldOffset(8)>
-        Public hid As RID_DEVICE_INFO_HID
-    End Structure
-    <StructLayout(LayoutKind.Sequential)>
-    Public Structure RID_DEVICE_INFO_MOUSE
-        Public dwId As UInteger
-        Public dwNumberOfButtons As UInteger
-        Public dwSampleRate As UInteger
-    End Structure
-    <StructLayout(LayoutKind.Sequential)>
-    Public Structure RID_DEVICE_INFO_KEYBOARD
-        Public dwType As UInteger
-        Public dwSubType As UInteger
-        Public dwKeyboardMode As UInteger
-        Public dwNumberOfFunctionKeys As UInteger
-        Public dwNumberOfIndicators As UInteger
-        Public dwNumberOfKeysTotal As UInteger
-    End Structure
-
-    <StructLayout(LayoutKind.Sequential)>
-    Public Structure RID_DEVICE_INFO_HID
-        Public dwVendorId As UInteger
-        Public dwProductId As UInteger
-        Public dwVersionNumber As UInteger
-        Public usUsagePage As UShort
-        Public usUsage As UShort
-    End Structure
     <StructLayout(LayoutKind.Sequential)>
     Public Structure RAWINPUTDEVICELIST
         Public hDevice As IntPtr
@@ -89,7 +51,6 @@ Module RawInput
 
     Public Const RIM_TYPEMOUSE As UInteger = 0
     Public Const RIDI_DEVICENAME As UInteger = &H20000007
-
     Public Const RID_INPUT As UInteger = &H10000003
     Public Const RIDEV_INPUTSINK As UInteger = &H100 ' This is the missing constant
 
@@ -103,6 +64,4 @@ Module RawInput
     Public Const RI_MOUSE_BUTTON_4_UP As UShort = &H80
     Public Const RI_MOUSE_BUTTON_5_DOWN As UShort = &H100
     Public Const RI_MOUSE_BUTTON_5_UP As UShort = &H200
-    Public Const RI_MOUSE_WHEEL As UShort = &H400
-
 End Module

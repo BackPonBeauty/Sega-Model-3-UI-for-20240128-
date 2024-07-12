@@ -289,7 +289,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1017, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1009, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -381,7 +381,7 @@ Partial Class Form1
         Me.Debugtext.Multiline = True
         Me.Debugtext.Name = "Debugtext"
         Me.Debugtext.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Debugtext.Size = New System.Drawing.Size(181, 531)
+        Me.Debugtext.Size = New System.Drawing.Size(187, 531)
         Me.Debugtext.TabIndex = 41
         '
         'GroupBox1
@@ -2626,7 +2626,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(1017, 591)
+        Me.ClientSize = New System.Drawing.Size(1009, 591)
         Me.Controls.Add(Me.Header5)
         Me.Controls.Add(Me.Label37)
         Me.Controls.Add(Me.Label36)

@@ -69,7 +69,7 @@ Public Class Gun
 
         Dim mouseIndex As Integer = 1
 
-        For i = deviceCount - 1 To 1 Step -1
+        For i = deviceCount - 1 To 0 Step -1
             Dim rid As RawInput.RAWINPUTDEVICELIST = CType(Marshal.PtrToStructure(New IntPtr(pRawInputDeviceList.ToInt64() + (i * deviceListSize)), GetType(RawInput.RAWINPUTDEVICELIST)), RawInput.RAWINPUTDEVICELIST)
 
             ' マウスデバイスのみ処理
