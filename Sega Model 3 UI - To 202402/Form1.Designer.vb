@@ -38,6 +38,7 @@ Partial Class Form1
         Me.FontColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.WhiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ShowFavoriteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Debugtext = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button_folder = New System.Windows.Forms.Button()
@@ -223,7 +224,6 @@ Partial Class Form1
         Me.Header5 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ShowFavoriteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -376,6 +376,12 @@ Partial Class Form1
         Me.BlackToolStripMenuItem.Name = "BlackToolStripMenuItem"
         Me.BlackToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
         Me.BlackToolStripMenuItem.Text = "Black"
+        '
+        'ShowFavoriteToolStripMenuItem
+        '
+        Me.ShowFavoriteToolStripMenuItem.Name = "ShowFavoriteToolStripMenuItem"
+        Me.ShowFavoriteToolStripMenuItem.Size = New System.Drawing.Size(107, 20)
+        Me.ShowFavoriteToolStripMenuItem.Text = "Show Favorites"
         '
         'Debugtext
         '
@@ -2634,14 +2640,8 @@ Partial Class Form1
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(192, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(158, 22)
         Me.ToolStripMenuItem1.Text = "Add to favorites"
-        '
-        'ShowFavoriteToolStripMenuItem
-        '
-        Me.ShowFavoriteToolStripMenuItem.Name = "ShowFavoriteToolStripMenuItem"
-        Me.ShowFavoriteToolStripMenuItem.Size = New System.Drawing.Size(107, 20)
-        Me.ShowFavoriteToolStripMenuItem.Text = "Show Favorites"
         '
         'Form1
         '
@@ -2695,7 +2695,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.1.3"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.1.4"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
