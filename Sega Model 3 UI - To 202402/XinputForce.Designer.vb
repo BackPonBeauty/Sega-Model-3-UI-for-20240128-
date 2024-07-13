@@ -46,7 +46,7 @@ Partial Class XinputForce
         Me.Label_XViblate.Name = "Label_XViblate"
         Me.Label_XViblate.Size = New System.Drawing.Size(40, 20)
         Me.Label_XViblate.TabIndex = 83
-        Me.Label_XViblate.Text = "888"
+        Me.Label_XViblate.Text = "100"
         Me.Label_XViblate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'ViblateBar
@@ -80,7 +80,7 @@ Partial Class XinputForce
         Me.Label_XConstMax.Name = "Label_XConstMax"
         Me.Label_XConstMax.Size = New System.Drawing.Size(40, 20)
         Me.Label_XConstMax.TabIndex = 80
-        Me.Label_XConstMax.Text = "888"
+        Me.Label_XConstMax.Text = "100"
         Me.Label_XConstMax.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'ConstMaxBar
@@ -114,7 +114,7 @@ Partial Class XinputForce
         Me.Label_XThreshold.Name = "Label_XThreshold"
         Me.Label_XThreshold.Size = New System.Drawing.Size(40, 20)
         Me.Label_XThreshold.TabIndex = 77
-        Me.Label_XThreshold.Text = "888"
+        Me.Label_XThreshold.Text = "100"
         Me.Label_XThreshold.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'ThresholdBar

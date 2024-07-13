@@ -9,6 +9,8 @@ Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Xml
 Imports SharpDX.XInput
 Imports System.Threading
+Imports System.Net.Http
+Imports System.Threading.Tasks
 
 
 Public Class Form1
@@ -29,9 +31,23 @@ Public Class Form1
         If System.IO.File.Exists(fileName) Then
             Label37.Text = System.IO.File.GetLastWriteTime(fileName).ToString
         Else
-            MessageBox.Show("Supermodel.exe not found.")
-            Me.Close()
+            Dim result As DialogResult = MessageBox.Show("Supermodel.exe not found." & vbCrLf & "Want you download PonMi version of Supermodel3?",
+                                             "質問",
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Exclamation,
+                                             MessageBoxDefaultButton.Button2)
+            '何が選択されたか調べる 
+            If result = DialogResult.Yes Then
+                download()
+                Me.Close()
+            ElseIf result = DialogResult.No Then
+                Me.Close()
+            End If
+
         End If
+
+
+
         fileName = appPath & "\Config"
         If System.IO.Directory.Exists(fileName) Then
             'Initialize DataTable
@@ -111,11 +127,75 @@ Public Class Form1
         'vGen.PlugIn(1)
         RegisterRawInputDevices()
         InitializeMouseDevices()
-
-
-
-
+        If Favorite.ToString = "Show All" Then
+            ShowFavoriteToolStripMenuItem.PerformClick()
+        End If
+        UpdateDataGridView()
     End Sub
+
+    Private Sub download()
+        System.Diagnostics.Process.Start("https://github.com/BackPonBeauty/Supermodel3-PonMi/releases")
+    End Sub
+
+    Private Sub DataGridView1_MouseDown(sender As Object, e As MouseEventArgs) Handles DataGridView1.MouseDown
+        If e.Button = MouseButtons.Right Then
+            ' 右クリック時のコンテキストメニューを表示
+            Dim hit As DataGridView.HitTestInfo = DataGridView1.HitTest(e.X, e.Y)
+            If hit.Type = DataGridViewHitTestType.Cell Then
+                DataGridView1.CurrentCell = DataGridView1.Rows(hit.RowIndex).Cells(hit.ColumnIndex)
+                Dim selectedCellValue As String = DataGridView1.CurrentRow.Cells(2).Value.ToString()
+                Dim filePath As String = "favorite.txt"
+                Dim isFavorite As Boolean = File.ReadAllLines(filePath).Contains(selectedCellValue)
+                If isFavorite Then
+                    ContextMenuStrip1.Items(0).Text = "Remove from Favorite"
+                Else
+                    ContextMenuStrip1.Items(0).Text = "Add Favorite"
+                End If
+                ContextMenuStrip1.Show(DataGridView1, e.Location)
+            End If
+        End If
+    End Sub
+
+    ' コンテキストメニューのアイテムクリックイベントハンドラ
+    Private Sub contextMenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ContextMenuStrip1.ItemClicked
+        Dim selectedCellValue As String = DataGridView1.CurrentRow.Cells(2).Value.ToString()
+        ' ファイルパスを設定
+        Dim filePath As String = "favorite.txt"
+        If ContextMenuStrip1.Items(0).Text = "Add Favorite" Then
+            File.AppendAllText(filePath, selectedCellValue & Environment.NewLine)
+
+            'MessageBox.Show("Added to favorite: " & selectedCellValue)
+        Else
+            Dim lines As List(Of String) = File.ReadAllLines(filePath).ToList()
+            lines.Remove(selectedCellValue)
+            File.WriteAllLines(filePath, lines)
+            'MessageBox.Show("Removed from favorite: " & selectedCellValue)
+        End If
+        If ShowFavoriteToolStripMenuItem.Text = "Show All" Then
+            ShowFavoriteToolStripMenuItem.Text = "Show Favorites"
+            ShowFavoriteToolStripMenuItem.PerformClick()
+        Else
+            UpdateDataGridView()
+        End If
+        Console.WriteLine(Favorite_n)
+    End Sub
+
+    Private Sub UpdateDataGridView()
+        Dim filePath As String = "favorite.txt"
+        Dim favoriteItems As New HashSet(Of String)(File.ReadAllLines(filePath))
+        Favorite_n = 0
+        For Each row As DataGridViewRow In DataGridView1.Rows
+            Dim cellValue As String = row.Cells(2).Value.ToString()
+            If favoriteItems.Contains(cellValue) Then
+                row.DefaultCellStyle.ForeColor = Color.Pink ' 任意の色を設定
+                Favorite_n += 1
+                'Console.WriteLine(Favorite_n)
+            Else
+                row.DefaultCellStyle.ForeColor = Color.White ' 元の色を設定
+            End If
+        Next
+    End Sub
+
 
     Private Sub InitializeMouseDevices()
         Dim deviceCount As UInteger = 0
@@ -364,6 +444,7 @@ Public Class Form1
     Public Opacity_D As Double = 0.5
     'Dim vGen As New vGen
     Dim interval As Integer = 1
+    Dim Favorite_n As Integer = 0
 
     Dim N As Integer = 0
     Dim Rec As Boolean = False
@@ -453,7 +534,7 @@ Public Class Form1
             xStep(i) = xnode.SelectSingleNode("//game[" & i & "]/hardware/stepping").InnerText
             Dim j As Integer = 2
             Dim InputNodes = xnode.SelectNodes("//game[" & i & "]/hardware/inputs/input[" & j & "]")
-            xInputType(i) = String.Join(", ", inputNodes.Cast(Of XmlNode).Select(Function(inputNode) inputNode.Attributes("type").Value))
+            xInputType(i) = String.Join(", ", InputNodes.Cast(Of XmlNode).Select(Function(inputNode) inputNode.Attributes("type").Value))
             GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i), " ", xInputType(i))
             i += 1
         Next
@@ -488,8 +569,10 @@ Public Class Form1
             DataGridView1.CurrentCell = DataGridView1.Rows(0).Cells(0)
         Catch ex As Exception
         End Try
+
     End Sub
 
+    Dim Favorite As StringBuilder = New StringBuilder(300)
     Private Sub Load_initialfile()
 
         Dim iniFileName = "Config\Supermodel.ini"
@@ -573,6 +656,7 @@ Public Class Form1
         Dim Gamepad As StringBuilder = New StringBuilder(300)
         Dim Opacity As StringBuilder = New StringBuilder(30000)
         Dim SS As StringBuilder = New StringBuilder(300)
+
 
         GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
         GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -665,6 +749,8 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "Gamepad", "False", Gamepad, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "5", Opacity, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "SS", "False", SS, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Favorite", "False", Favorite, 15, iniFileName)
+
 
 
         'SuperSampling
@@ -1098,6 +1184,10 @@ Public Class Form1
         Load_Roms()
     End Sub
     Private Sub Load_Roms()
+        If ShowFavoriteToolStripMenuItem.Text = "Show All" And Favorite_n = 0 Then
+            MessageBox.Show("Boo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
         Dim flag As Boolean = False
         If ComboBox_input.SelectedItem = "rawinput" And Inputs = "analog_gun1" Then
             If My.Application.OpenForms("Gun") IsNot Nothing Then
@@ -1122,7 +1212,7 @@ Public Class Form1
                     WriteGunIni()
                 ElseIf (f.DialogResult = DialogResult.Cancel) Then
                     flag = True
-                ElseIf (f.DialogResult = DialogResult.ignore) Then
+                ElseIf (f.DialogResult = DialogResult.Ignore) Then
                     flag = False
                 End If
                 f.Dispose()
@@ -1433,6 +1523,7 @@ MessageBoxIcon.Error)
         WritePrivateProfileString(" Supermodel3 UI ", "Gamepad", CStr(Surround1.Enabled), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Opacity", CStr(Opacity_D), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "SS", CheckBox_ss.Checked.ToString, iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Favorite", ShowFavoriteToolStripMenuItem.Text.ToString, iniFileName)
 
         WritePrivateProfileString(Section, "DirectInputConstForceLeftMax", DConstLeft.Text, iniFileName)
         WritePrivateProfileString(Section, "DirectInputConstForceRightMax", DConstRight.Text, iniFileName)
@@ -2388,6 +2479,40 @@ MessageBoxIcon.Error)
         Else
             RawInput_hook.Text = "Disabled"
         End If
+    End Sub
+
+    Private Sub ShowFavoriteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowFavoriteToolStripMenuItem.Click
+        If ShowFavoriteToolStripMenuItem.Text = "Show Favorites" Then
+            ShowFavoriteToolStripMenuItem.Text = "Show All"
+            ' favorite.txtの内容を読み込む
+            Dim filePath As String = "favorite.txt"
+            Dim favoriteItems As New HashSet(Of String)(File.ReadAllLines(filePath))
+            Favorite_n = 0
+            ' DataGridView1の現在のデータソースを取得
+            Dim originalData As DataTable = CType(DataGridView1.DataSource, DataTable)
+
+            ' フィルタリングされたデータを格納するための新しいDataTableを作成
+            Dim filteredData As New DataTable
+            For Each column As DataColumn In originalData.Columns
+                filteredData.Columns.Add(column.ColumnName, column.DataType)
+            Next
+
+            ' favorite.txtに含まれるカラム1の値を持つ行を追加
+            For Each row As DataRow In originalData.Rows
+                If favoriteItems.Contains(row(2).ToString()) Then
+                    Favorite_n += 1
+                    filteredData.ImportRow(row)
+                End If
+            Next
+
+            ' DataGridView1のデータソースをフィルタリングされたデータに更新
+            DataGridView1.DataSource = filteredData
+        Else
+            ShowFavoriteToolStripMenuItem.Text = "Show Favorites"
+            DataGridView_Setting()
+            UpdateDataGridView()
+        End If
+
     End Sub
 End Class
 

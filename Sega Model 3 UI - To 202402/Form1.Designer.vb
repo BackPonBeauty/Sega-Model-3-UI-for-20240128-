@@ -221,6 +221,9 @@ Partial Class Form1
         Me.Label36 = New System.Windows.Forms.Label()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.Header5 = New System.Windows.Forms.Button()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ShowFavoriteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -268,6 +271,7 @@ Partial Class Form1
         CType(Me.chargebox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.shiftbox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'DataGridView1
@@ -286,10 +290,10 @@ Partial Class Form1
         '
         Me.MenuStrip1.Font = New System.Drawing.Font("Arial", 9.75!)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem, Me.ShowFavoriteToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1009, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1011, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -497,7 +501,7 @@ Partial Class Form1
         Me.Label_SS.Name = "Label_SS"
         Me.Label_SS.Size = New System.Drawing.Size(37, 20)
         Me.Label_SS.TabIndex = 73
-        Me.Label_SS.Text = "888"
+        Me.Label_SS.Text = "1"
         Me.Label_SS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'CheckBox_throttle
@@ -547,7 +551,7 @@ Partial Class Form1
         Me.Label_PPC.Name = "Label_PPC"
         Me.Label_PPC.Size = New System.Drawing.Size(40, 20)
         Me.Label_PPC.TabIndex = 67
-        Me.Label_PPC.Text = "888"
+        Me.Label_PPC.Text = "66"
         Me.Label_PPC.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'PPC_Bar
@@ -1325,7 +1329,7 @@ Partial Class Form1
         Me.Label_Sound.Name = "Label_Sound"
         Me.Label_Sound.Size = New System.Drawing.Size(40, 20)
         Me.Label_Sound.TabIndex = 73
-        Me.Label_Sound.Text = "888"
+        Me.Label_Sound.Text = "100"
         Me.Label_Sound.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label17
@@ -1361,7 +1365,7 @@ Partial Class Form1
         Me.Label_Balance.Name = "Label_Balance"
         Me.Label_Balance.Size = New System.Drawing.Size(40, 20)
         Me.Label_Balance.TabIndex = 70
-        Me.Label_Balance.Text = "888"
+        Me.Label_Balance.Text = "50"
         Me.Label_Balance.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'SoundBar
@@ -1398,7 +1402,7 @@ Partial Class Form1
         Me.Label_Music.Name = "Label_Music"
         Me.Label_Music.Size = New System.Drawing.Size(40, 20)
         Me.Label_Music.TabIndex = 67
-        Me.Label_Music.Text = "888"
+        Me.Label_Music.Text = "100"
         Me.Label_Music.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'MusicBar
@@ -2621,12 +2625,30 @@ Partial Class Form1
         Me.Header5.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Header5.UseVisualStyleBackColor = False
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(159, 26)
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(192, 22)
+        Me.ToolStripMenuItem1.Text = "Add to favorites"
+        '
+        'ShowFavoriteToolStripMenuItem
+        '
+        Me.ShowFavoriteToolStripMenuItem.Name = "ShowFavoriteToolStripMenuItem"
+        Me.ShowFavoriteToolStripMenuItem.Size = New System.Drawing.Size(107, 20)
+        Me.ShowFavoriteToolStripMenuItem.Text = "Show Favorites"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(1009, 591)
+        Me.ClientSize = New System.Drawing.Size(1011, 591)
         Me.Controls.Add(Me.Header5)
         Me.Controls.Add(Me.Label37)
         Me.Controls.Add(Me.Label36)
@@ -2673,7 +2695,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.1.2"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.1.3"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -2728,6 +2750,7 @@ Partial Class Form1
         CType(Me.shiftbox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2930,4 +2953,7 @@ Partial Class Form1
     Friend WithEvents Label40 As Label
     Friend WithEvents Label39 As Label
     Friend WithEvents Header5 As Button
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ShowFavoriteToolStripMenuItem As ToolStripMenuItem
 End Class

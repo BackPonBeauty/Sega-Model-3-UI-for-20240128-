@@ -9,6 +9,7 @@ Public Class Gun
     Dim P1 As Boolean = False
     Dim P2 As Boolean = False
     Private mysound As String = "mysound"
+    Private mysound2 As String = "mysound2"
     Private theme As String = "theme"
 
     <System.Runtime.InteropServices.DllImport("winmm.dll", CharSet:=System.Runtime.InteropServices.CharSet.Auto)>
@@ -208,6 +209,7 @@ Public Class Gun
     End Sub
 
     Private Sub Player1_Click(sender As Object, e As EventArgs) Handles Player1.Click
+        themetimer.Enabled = False
         Label2.Text = Label4.Text
         Form1.Label39.Text = Label4.Text
         P1 = True
@@ -217,6 +219,10 @@ Public Class Gun
         Dim leng As Integer = 800
 
         Dim cmd As String
+        cmd = "stop " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        cmd = "close " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
         Dim sond As String = "sound\" & Rnd & ".mp3"
         Dim fileName As String = sond
         cmd = "open """ + fileName + """ type mpegvideo alias " + mysound
@@ -231,6 +237,7 @@ Public Class Gun
     End Sub
 
     Private Sub Player2_Click(sender As Object, e As EventArgs) Handles Player2.Click
+        themetimer.Enabled = False
         Label3.Text = Label4.Text
         Form1.Label40.Text = Label4.Text
         P2 = True
@@ -240,13 +247,17 @@ Public Class Gun
         Dim leng As Integer = 800
 
         Dim cmd As String
+        cmd = "stop " + mysound2
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        cmd = "close " + mysound2
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
         Dim sond As String = "sound\" & Rnd & ".mp3"
         Dim fileName As String = sond
-        cmd = "open """ + fileName + """ type mpegvideo alias " + mysound
+        cmd = "open """ + fileName + """ type mpegvideo alias " + mysound2
         If mciSendString(cmd, Nothing, 0, IntPtr.Zero) <> 0 Then
             Return
         End If
-        cmd = "play " + mysound
+        cmd = "play " + mysound2
         mciSendString(cmd, Nothing, 0, IntPtr.Zero)
         themetimer.Interval = leng
         themetimer.Enabled = True
@@ -277,6 +288,11 @@ Public Class Gun
         mciSendString(cmd, Nothing, 0, IntPtr.Zero)
         '  閉じる
         cmd = "close " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        cmd = "stop " + mysound2
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        '  閉じる
+        cmd = "close " + mysound2
         mciSendString(cmd, Nothing, 0, IntPtr.Zero)
         Player1.BackColor = Color.Silver
         Player2.BackColor = Color.Silver

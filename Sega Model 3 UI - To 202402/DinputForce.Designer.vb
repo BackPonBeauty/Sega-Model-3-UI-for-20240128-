@@ -76,7 +76,7 @@ Partial Class DinputForce
         Me.Label_ConstLeft.Name = "Label_ConstLeft"
         Me.Label_ConstLeft.Size = New System.Drawing.Size(40, 20)
         Me.Label_ConstLeft.TabIndex = 68
-        Me.Label_ConstLeft.Text = "888"
+        Me.Label_ConstLeft.Text = "100"
         Me.Label_ConstLeft.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label_ConstRight
@@ -88,7 +88,7 @@ Partial Class DinputForce
         Me.Label_ConstRight.Name = "Label_ConstRight"
         Me.Label_ConstRight.Size = New System.Drawing.Size(40, 20)
         Me.Label_ConstRight.TabIndex = 71
-        Me.Label_ConstRight.Text = "888"
+        Me.Label_ConstRight.Text = "100"
         Me.Label_ConstRight.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'ConsRightBar
@@ -122,7 +122,7 @@ Partial Class DinputForce
         Me.Label_Center.Name = "Label_Center"
         Me.Label_Center.Size = New System.Drawing.Size(40, 20)
         Me.Label_Center.TabIndex = 74
-        Me.Label_Center.Text = "888"
+        Me.Label_Center.Text = "100"
         Me.Label_Center.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'SelfBar
@@ -156,7 +156,7 @@ Partial Class DinputForce
         Me.Label_Friction.Name = "Label_Friction"
         Me.Label_Friction.Size = New System.Drawing.Size(40, 20)
         Me.Label_Friction.TabIndex = 77
-        Me.Label_Friction.Text = "888"
+        Me.Label_Friction.Text = "100"
         Me.Label_Friction.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'FrictionBar
@@ -190,7 +190,7 @@ Partial Class DinputForce
         Me.Label_Viblate.Name = "Label_Viblate"
         Me.Label_Viblate.Size = New System.Drawing.Size(40, 20)
         Me.Label_Viblate.TabIndex = 80
-        Me.Label_Viblate.Text = "888"
+        Me.Label_Viblate.Text = "100"
         Me.Label_Viblate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'ViblateBar
