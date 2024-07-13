@@ -210,18 +210,15 @@ Public Class Gun
 
     Private Sub Player1_Click(sender As Object, e As EventArgs) Handles Player1.Click
         themetimer.Enabled = False
-        Label2.Text = Label4.Text
-        Form1.Label39.Text = Label4.Text
-        P1 = True
-        Check_Select()
-
-        Dim Rnd As String = "bang"
-        Dim leng As Integer = 800
-
         Dim cmd As String
         cmd = "stop " + mysound
         mciSendString(cmd, Nothing, 0, IntPtr.Zero)
         cmd = "close " + mysound
+
+        Dim Rnd As String = "bang2"
+        Dim leng As Integer = 2000
+
+
         mciSendString(cmd, Nothing, 0, IntPtr.Zero)
         Dim sond As String = "sound\" & Rnd & ".mp3"
         Dim fileName As String = sond
@@ -234,23 +231,24 @@ Public Class Gun
         themetimer.Interval = leng
         themetimer.Enabled = True
         Player1.BackColor = Color.Red
+        Label2.Text = Label4.Text
+        Form1.Label39.Text = Label4.Text
+        P1 = True
+        Check_Select()
     End Sub
 
     Private Sub Player2_Click(sender As Object, e As EventArgs) Handles Player2.Click
         themetimer.Enabled = False
-        Label3.Text = Label4.Text
-        Form1.Label40.Text = Label4.Text
-        P2 = True
-        Check_Select()
-
-        Dim Rnd As String = "bang2"
-        Dim leng As Integer = 800
-
         Dim cmd As String
         cmd = "stop " + mysound2
         mciSendString(cmd, Nothing, 0, IntPtr.Zero)
         cmd = "close " + mysound2
         mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+
+        Dim Rnd As String = "bang2"
+        Dim leng As Integer = 2000
+
+
         Dim sond As String = "sound\" & Rnd & ".mp3"
         Dim fileName As String = sond
         cmd = "open """ + fileName + """ type mpegvideo alias " + mysound2
@@ -262,6 +260,10 @@ Public Class Gun
         themetimer.Interval = leng
         themetimer.Enabled = True
         Player2.BackColor = Color.Red
+        Label3.Text = Label4.Text
+        Form1.Label40.Text = Label4.Text
+        P2 = True
+        Check_Select()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
