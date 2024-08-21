@@ -13,14 +13,18 @@ Imports System.Net.Http
 Imports System.Threading.Tasks
 
 
+
 Public Class Form1
     Inherits Form
     Private x_timer As System.Threading.Timer
     Private x2_timer As System.Threading.Timer
     Private rep_timer As System.Threading.Timer
 
-    Private mouseDevices As New Dictionary(Of IntPtr, String)
+    Dim IgnoreClose As Boolean = False
+    Dim Load_comp_F As Boolean = False
 
+    Private mouseDevices As New Dictionary(Of IntPtr, String)
+    'Private WithEvents wm As New Wiimote()
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Surround1.Interval = interval
@@ -36,17 +40,15 @@ Public Class Form1
                                              MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Exclamation,
                                              MessageBoxDefaultButton.Button2)
-            '何が選択されたか調べる 
             If result = DialogResult.Yes Then
                 download()
+                IgnoreClose = True
                 Me.Close()
             ElseIf result = DialogResult.No Then
                 Me.Close()
             End If
 
         End If
-
-
 
         fileName = appPath & "\Config"
         If System.IO.Directory.Exists(fileName) Then
@@ -97,8 +99,6 @@ Public Class Form1
                     C5_Sort_F = Not (C5_Sort_F)
                     Header5.PerformClick()
                 Case Else
-                    'C0_Sort_F = Not (C0_Sort_F)
-                    'Header0.PerformClick()
             End Select
             LoadResolution()
             LastSelectRow()
@@ -107,35 +107,20 @@ Public Class Form1
             MessageBox.Show("Config folder not found.")
             Me.Close()
         End If
-        Dim mc As New System.Management.ManagementClass("Win32_OperatingSystem")
-        Dim moc As System.Management.ManagementObjectCollection = mc.GetInstances()
-        Dim mo As System.Management.ManagementObject
-        For Each mo In moc
-            'Debug(CStr(mo("OSLanguage")))
-            If mo("OSLanguage") Is "1049" Or mo("OSLanguage") Is "2073" Then
-                Me.Close()
-            End If
-        Next mo
-
-        moc.Dispose()
-        mc.Dispose()
-        'If KeyboardHooker1.MouseHookStart() = True Then
-        '    Button_hook.Text = "Enabled"
-        'End If
-        'Dim vbuse = vGen.isVBusExist()
-        'Debug(vbuse.ToString)
-        'vGen.PlugIn(1)
         RegisterRawInputDevices()
         InitializeMouseDevices()
         If Favorite.ToString = "Show All" Then
             ShowFavoriteToolStripMenuItem.PerformClick()
         End If
         UpdateDataGridView()
+        Load_comp_F = True
     End Sub
+
 
     Private Sub download()
         System.Diagnostics.Process.Start("https://github.com/BackPonBeauty/Supermodel3-PonMi/releases")
     End Sub
+
 
     Private Sub DataGridView1_MouseDown(sender As Object, e As MouseEventArgs) Handles DataGridView1.MouseDown
         If e.Button = MouseButtons.Right Then
@@ -163,13 +148,10 @@ Public Class Form1
         Dim filePath As String = "favorite.txt"
         If ContextMenuStrip1.Items(0).Text = "Add Favorite" Then
             File.AppendAllText(filePath, selectedCellValue & Environment.NewLine)
-
-            'MessageBox.Show("Added to favorite: " & selectedCellValue)
         Else
             Dim lines As List(Of String) = File.ReadAllLines(filePath).ToList()
             lines.Remove(selectedCellValue)
             File.WriteAllLines(filePath, lines)
-            'MessageBox.Show("Removed from favorite: " & selectedCellValue)
         End If
         If ShowFavoriteToolStripMenuItem.Text = "Show All" Then
             ShowFavoriteToolStripMenuItem.Text = "Show Favorites"
@@ -189,7 +171,6 @@ Public Class Form1
             If favoriteItems.Contains(cellValue) Then
                 row.DefaultCellStyle.ForeColor = Color.Pink ' 任意の色を設定
                 Favorite_n += 1
-                'Console.WriteLine(Favorite_n)
             Else
                 row.DefaultCellStyle.ForeColor = Color.White ' 元の色を設定
             End If
@@ -330,7 +311,6 @@ Public Class Form1
                             If RawInput_Enabled = True Then
                                 Label1.Text = ($"{deviceName}_{data1}")
                             End If
-
                             'Console.WriteLine($"{deviceName} ButtonsState : {mouse.usButtonData} ,Delta X: {deltaX}, Delta Y: {deltaY}" & vbCrLf)
                         End If
                     End If
@@ -417,6 +397,15 @@ Public Class Form1
     Dim Columns2Width As StringBuilder = New StringBuilder(300)
     Dim Columns3Width As StringBuilder = New StringBuilder(300)
     Dim Columns4Width As StringBuilder = New StringBuilder(300)
+    Dim Columns5Width As StringBuilder = New StringBuilder(300)
+
+    Dim Columns0_i As Integer
+    Dim Columns1_i As Integer
+    Dim Columns2_i As Integer
+    Dim Columns3_i As Integer
+    Dim Columns4_i As Integer
+    Dim Columns5_i As Integer
+
     Dim C0_Sort_F As Boolean = False
     Dim C1_Sort_F As Boolean = False
     Dim C2_Sort_F As Boolean = False
@@ -554,21 +543,36 @@ Public Class Form1
         DataGridView1.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         DataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(54, 57, 63)
         DataGridView1.DefaultCellStyle.ForeColor = Color.White
-        DataGridView1.Columns(0).Width = Integer.Parse(Columns0Width.ToString)
-        DataGridView1.Columns(1).Width = Integer.Parse(Columns1Width.ToString)
-        DataGridView1.Columns(2).Width = Integer.Parse(Columns2Width.ToString)
-        DataGridView1.Columns(3).Width = Integer.Parse(Columns3Width.ToString)
-        DataGridView1.Columns(4).Width = Integer.Parse(Columns4Width.ToString)
+        Console.WriteLine(Columns0_i)
+        DataGridView1.Columns(0).Width = Columns0_i
+        DataGridView1.Columns(1).Width = Columns1_i
+        DataGridView1.Columns(2).Width = Columns2_i
+        DataGridView1.Columns(3).Width = Columns3_i
+        DataGridView1.Columns(4).Width = Columns4_i
+        DataGridView1.Columns(5).Width = Columns5_i
         DataGridView1.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
         DataGridView1.Columns(4).HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-        'For Each c As DataGridViewColumn In DataGridView1.Columns
-        '    c.SortMode = DataGridViewColumnSortMode.Programmatic
-        'Next c
+        For Each c As DataGridViewColumn In DataGridView1.Columns
+            c.SortMode = DataGridViewColumnSortMode.Programmatic
+        Next c
 
         Try
             DataGridView1.CurrentCell = DataGridView1.Rows(0).Cells(0)
         Catch ex As Exception
         End Try
+
+    End Sub
+
+
+    Private Sub DataGridView1_ColumnWidthChanged(ByVal sender As Object, ByVal e As DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
+        If Load_comp_F = True Then
+            Columns0_i = DataGridView1.Columns(0).Width
+            Columns1_i = DataGridView1.Columns(1).Width
+            Columns2_i = DataGridView1.Columns(2).Width
+            Columns3_i = DataGridView1.Columns(3).Width
+            Columns4_i = DataGridView1.Columns(4).Width
+            Columns5_i = DataGridView1.Columns(5).Width
+        End If
 
     End Sub
 
@@ -727,6 +731,7 @@ Public Class Form1
         GetPrivateProfileString(" Supermodel3 UI ", "Columns2Width", CStr(120), Columns2Width, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns3Width", CStr(50), Columns3Width, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns4Width", CStr(50), Columns4Width, 15, iniFileName)
+        GetPrivateProfileString(" Supermodel3 UI ", "Columns5Width", CStr(120), Columns5Width, 15, iniFileName)
 
         GetPrivateProfileString(" Supermodel3 UI ", "Columns0Sort", "False", C0_F, 15, iniFileName)
         GetPrivateProfileString(" Supermodel3 UI ", "Columns1Sort", "False", C1_F, 15, iniFileName)
@@ -783,6 +788,14 @@ Public Class Form1
 
         'ForeColor
         Forecolor_s = Forecolor.ToString
+
+        'Columuns
+        Columns0_i = Integer.Parse(Columns0Width.ToString)
+        Columns1_i = Integer.Parse(Columns1Width.ToString)
+        Columns2_i = Integer.Parse(Columns2Width.ToString)
+        Columns3_i = Integer.Parse(Columns3Width.ToString)
+        Columns4_i = Integer.Parse(Columns4Width.ToString)
+        Columns5_i = Integer.Parse(Columns5Width.ToString)
 
         'Columuns Sort Flag
         If C0_F.ToString() = "True" Then
@@ -1189,7 +1202,7 @@ Public Class Form1
             Exit Sub
         End If
         Dim flag As Boolean = False
-        If ComboBox_input.SelectedItem = "rawinput" And Inputs = "analog_gun1" Then
+        If ComboBox_input.SelectedItem = "rawinput" And Inputs = "analog_gun1" Or Inputs = "analog_joystick" Then
             If My.Application.OpenForms("Gun") IsNot Nothing Then
 
             Else
@@ -1303,7 +1316,6 @@ MessageBoxIcon.Error)
                     Dim f_replace As String = f_split(fl).Replace(".zip", "")
                     DT_Roms.Rows.Add(f_replace)
                 Next
-                'DataGridView2.DataSource = DT_Roms
 
                 For i As Integer = 0 To GameData.Rows.Count - 1
                     GameData.Rows(i).Item("A-E") = " "
@@ -1415,6 +1427,11 @@ MessageBoxIcon.Error)
         Dim iniFileName As New StringBuilder(300)
         iniFileName.Append("Config\Supermodel.ini")
         Dim Section As String = " Global "
+        WritePrivateProfileString(Section, "InputAnalogJoyX", Label39.Text & "_XAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogJoyY", Label39.Text & "_YAXIS", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogJoyTrigger", Label39.Text & "_LEFT_BUTTON", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogJoyEvent", Label39.Text & "_RIGHT_BUTTON", iniFileName)
+        WritePrivateProfileString(Section, "InputAnalogJoyEvent2", Label39.Text & "_MIDDLE_BUTTON", iniFileName)
         WritePrivateProfileString(Section, "InputGunX", Label39.Text & "_XAXIS", iniFileName)
         WritePrivateProfileString(Section, "InputGunY", Label39.Text & "_YAXIS", iniFileName)
         WritePrivateProfileString(Section, "InputTrigger", Label39.Text & "_LEFT_BUTTON", iniFileName)
@@ -1539,11 +1556,13 @@ MessageBoxIcon.Error)
     End Sub
 
     Private Sub Me_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            WriteIni()
-        Catch
+        If IgnoreClose = False Then
+            Try
+                WriteIni()
+            Catch
 
-        End Try
+            End Try
+        End If
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
@@ -1584,13 +1603,86 @@ MessageBoxIcon.Error)
             f.Dispose()
         End If
     End Sub
+    Private Sub DataGridView1_HeaderClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataGridView1.CellMouseClick
+        If e.RowIndex < 0 Then
+            Dim N As Integer = e.ColumnIndex
+            Last_Sort = N
+            Select Case N
+                Case 0
+                    If C0_Sort_F = False Then
+                        DataGridView1.Sort(DataGridView1.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
+                        GameData.DefaultView.Sort = "Games ASC"
+                    Else
+                        DataGridView1.Sort(DataGridView1.Columns(0), System.ComponentModel.ListSortDirection.Descending)
+                        GameData.DefaultView.Sort = "Games DESC"
+                    End If
+                    C0_Sort_F = Not C0_Sort_F
+                    Last_Sort = 0
+                Case 1
+                    If C1_Sort_F = False Then
+                        DataGridView1.Sort(DataGridView1.Columns(1), System.ComponentModel.ListSortDirection.Ascending)
+                        GameData.DefaultView.Sort = "Version ASC"
+                    Else
+                        DataGridView1.Sort(DataGridView1.Columns(1), System.ComponentModel.ListSortDirection.Descending)
+                        GameData.DefaultView.Sort = "Version DESC"
+                    End If
+                    C1_Sort_F = Not C1_Sort_F
+                    Last_Sort = 1
+                Case 2
+                    If C2_Sort_F = False Then
+                        DataGridView1.Sort(DataGridView1.Columns(2), System.ComponentModel.ListSortDirection.Ascending)
+                        GameData.DefaultView.Sort = "Roms ASC"
+                    Else
+                        DataGridView1.Sort(DataGridView1.Columns(2), System.ComponentModel.ListSortDirection.Descending)
+                        GameData.DefaultView.Sort = "Roms DESC"
+                    End If
+                    C2_Sort_F = Not C2_Sort_F
+                    Last_Sort = 2
+                Case 3
+                    If C3_Sort_F = False Then
+                        DataGridView1.Sort(DataGridView1.Columns(3), System.ComponentModel.ListSortDirection.Ascending)
+                        GameData.DefaultView.Sort = "Step ASC"
+                    Else
+                        DataGridView1.Sort(DataGridView1.Columns(3), System.ComponentModel.ListSortDirection.Descending)
+                        GameData.DefaultView.Sort = "Step DESC"
+                    End If
+                    Last_Sort = 3
+                    C3_Sort_F = Not C3_Sort_F
+                Case 4
+                    If C4_Sort_F = False Then
+                        DataGridView1.Sort(DataGridView1.Columns(4), System.ComponentModel.ListSortDirection.Ascending)
+                        GameData.DefaultView.Sort = "A-E ASC"
+                    Else
+                        DataGridView1.Sort(DataGridView1.Columns(4), System.ComponentModel.ListSortDirection.Descending)
+                        GameData.DefaultView.Sort = "A-E DESC"
+                    End If
+                    Last_Sort = 4
+                    C4_Sort_F = Not C4_Sort_F
+                Case 5
+                    If C5_Sort_F = False Then
+                        DataGridView1.Sort(DataGridView1.Columns(5), System.ComponentModel.ListSortDirection.Ascending)
+                        GameData.DefaultView.Sort = "Inputs ASC"
+                    Else
+                        DataGridView1.Sort(DataGridView1.Columns(5), System.ComponentModel.ListSortDirection.Descending)
+                        GameData.DefaultView.Sort = "Inputs DESC"
+                    End If
+                    Last_Sort = 5
+                    C5_Sort_F = Not C5_Sort_F
+                Case Else
+            End Select
+            UpdateDataGridView()
+        End If
+
+    End Sub
+
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentDoubleClick
-        Roms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
-        Inputs = CStr(DataGridView1.CurrentRow.Cells(5).Value)
-
-        PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
-        Load_Roms()
+        If e.RowIndex > 0 Then
+            Roms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
+            Inputs = CStr(DataGridView1.CurrentRow.Cells(5).Value)
+            PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
+            Load_Roms()
+        End If
     End Sub
 
     Private Sub CheckBox_TrueHz_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox_TrueHz.CheckedChanged
@@ -1704,22 +1796,6 @@ MessageBoxIcon.Error)
         Last_Sort = 5
     End Sub
 
-    Private Sub DataGridView1_ColumnWidthChanged(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
-        Dim wn As Integer = 2
-        Dim wp As Integer = 7
-        Header0.Width = DataGridView1.Columns(0).Width - wn
-        Header1.Left = DataGridView1.Columns(0).Width + wp
-        Header1.Width = DataGridView1.Columns(1).Width - wn
-        Header2.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + wp
-        Header2.Width = DataGridView1.Columns(2).Width - wn
-        Header3.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + DataGridView1.Columns(2).Width + wp
-        Header3.Width = DataGridView1.Columns(3).Width - wn
-        Header4.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + DataGridView1.Columns(2).Width + DataGridView1.Columns(3).Width + wp
-        Header4.Width = DataGridView1.Columns(4).Width - wn
-        Header5.Left = DataGridView1.Columns(0).Width + DataGridView1.Columns(1).Width + DataGridView1.Columns(2).Width + DataGridView1.Columns(3).Width + DataGridView1.Columns(4).Width + wp
-        Header5.Width = DataGridView1.Columns(5).Width - wn
-    End Sub
-
     Private Sub ToolStripMenuItem8_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem8.Click
         FontSize_bin = 8
         GetAllControls(Me, Integer.Parse(CStr(FontSize_bin)))
@@ -1752,9 +1828,6 @@ MessageBoxIcon.Error)
             Bgcolor_R = CInt(cd.Color.R.ToString)
             Bgcolor_G = CInt(cd.Color.G.ToString)
             Bgcolor_B = CInt(cd.Color.B.ToString)
-            'Debug(cd.Color.R.ToString)
-            'Debug(cd.Color.G.ToString)
-            'Debug(cd.Color.B.ToString)
         End If
     End Sub
 

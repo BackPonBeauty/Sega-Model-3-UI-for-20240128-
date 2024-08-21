@@ -283,6 +283,7 @@ Partial Class Form1
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowTemplate.Height = 21
+        Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DataGridView1.Size = New System.Drawing.Size(600, 450)
         Me.DataGridView1.TabIndex = 0
         '
@@ -293,7 +294,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem, Me.ShowFavoriteToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1011, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1008, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -1877,7 +1878,7 @@ Partial Class Form1
         Me.Header0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Header0.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header0.ForeColor = System.Drawing.Color.Black
-        Me.Header0.Location = New System.Drawing.Point(7, 32)
+        Me.Header0.Location = New System.Drawing.Point(510, 616)
         Me.Header0.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header0.Name = "Header0"
         Me.Header0.Size = New System.Drawing.Size(88, 22)
@@ -1894,7 +1895,7 @@ Partial Class Form1
         Me.Header1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Header1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header1.ForeColor = System.Drawing.Color.Black
-        Me.Header1.Location = New System.Drawing.Point(101, 32)
+        Me.Header1.Location = New System.Drawing.Point(604, 616)
         Me.Header1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header1.Name = "Header1"
         Me.Header1.Size = New System.Drawing.Size(88, 22)
@@ -1911,7 +1912,7 @@ Partial Class Form1
         Me.Header2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Header2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header2.ForeColor = System.Drawing.Color.Black
-        Me.Header2.Location = New System.Drawing.Point(195, 32)
+        Me.Header2.Location = New System.Drawing.Point(698, 616)
         Me.Header2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header2.Name = "Header2"
         Me.Header2.Size = New System.Drawing.Size(88, 22)
@@ -1928,7 +1929,7 @@ Partial Class Form1
         Me.Header3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Header3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header3.ForeColor = System.Drawing.Color.Black
-        Me.Header3.Location = New System.Drawing.Point(289, 32)
+        Me.Header3.Location = New System.Drawing.Point(792, 616)
         Me.Header3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header3.Name = "Header3"
         Me.Header3.Size = New System.Drawing.Size(88, 22)
@@ -1969,7 +1970,7 @@ Partial Class Form1
         Me.Header4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Header4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header4.ForeColor = System.Drawing.Color.Black
-        Me.Header4.Location = New System.Drawing.Point(383, 32)
+        Me.Header4.Location = New System.Drawing.Point(886, 616)
         Me.Header4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header4.Name = "Header4"
         Me.Header4.Size = New System.Drawing.Size(88, 22)
@@ -1980,7 +1981,7 @@ Partial Class Form1
         '
         'Label8
         '
-        Me.Label8.Location = New System.Drawing.Point(604, 29)
+        Me.Label8.Location = New System.Drawing.Point(603, 29)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(408, 39)
         Me.Label8.TabIndex = 80
@@ -2622,7 +2623,7 @@ Partial Class Form1
         Me.Header5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Header5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header5.ForeColor = System.Drawing.Color.Black
-        Me.Header5.Location = New System.Drawing.Point(477, 32)
+        Me.Header5.Location = New System.Drawing.Point(980, 616)
         Me.Header5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header5.Name = "Header5"
         Me.Header5.Size = New System.Drawing.Size(88, 22)
@@ -2648,7 +2649,9 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(1011, 591)
+        Me.ClientSize = New System.Drawing.Size(1008, 592)
+        Me.Controls.Add(Me.Panel3)
+        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Header5)
         Me.Controls.Add(Me.Label37)
         Me.Controls.Add(Me.Label36)
@@ -2662,8 +2665,6 @@ Partial Class Form1
         Me.Controls.Add(Me.Button_Ponmi)
         Me.Controls.Add(Me.CheckBox_outputs)
         Me.Controls.Add(Me.Panel_ponmi)
-        Me.Controls.Add(Me.Panel3)
-        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Header4)
         Me.Controls.Add(Me.Label_Roms)
         Me.Controls.Add(Me.Button_loadrom)
@@ -2684,8 +2685,8 @@ Partial Class Form1
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel_Video)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.DataGridView1)
         Me.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -2695,7 +2696,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.1.4"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.1.5"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

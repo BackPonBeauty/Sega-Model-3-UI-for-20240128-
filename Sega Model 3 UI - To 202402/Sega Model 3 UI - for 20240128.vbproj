@@ -79,7 +79,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Sega Model 3 UI - for 20240128_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <DelaySign>false</DelaySign>
@@ -111,6 +112,9 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="WiimoteLib, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WiimoteLib.1.7\lib\WiimoteLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -182,6 +186,12 @@
     <Compile Include="ScanLine.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="warning.Designer.vb">
+      <DependentUpon>warning.vb</DependentUpon>
+    </Compile>
+    <Compile Include="warning.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="XinputForce.Designer.vb">
       <DependentUpon>XinputForce.vb</DependentUpon>
     </Compile>
@@ -236,6 +246,9 @@
     <EmbeddedResource Include="ScanLine.resx">
       <DependentUpon>ScanLine.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="warning.resx">
+      <DependentUpon>warning.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XinputForce.resx">
       <DependentUpon>XinputForce.vb</DependentUpon>
     </EmbeddedResource>
@@ -262,7 +275,6 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Sega Model 3 UI - for 20240128_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -277,7 +289,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sound\bang.mp3" />
     <Content Include="sound\bang2.mp3" />
     <None Include="bin\Release\sound\bang.mp3" />
     <None Include="bin\Release\sound\bang2.mp3" />
