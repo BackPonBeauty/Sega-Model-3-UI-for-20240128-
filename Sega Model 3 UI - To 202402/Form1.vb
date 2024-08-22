@@ -1169,8 +1169,12 @@ Public Class Form1
     End Sub
 
     Private Sub DataGridView1_SelectCellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
-        Last_SelectedItem = CStr(DataGridView1.CurrentCell.Value)
-        Last_SelectedRow = DataGridView1.CurrentRow.Index
+        Console.WriteLine(e.RowIndex)
+        If e.RowIndex <> -1 Then
+            Last_SelectedItem = CStr(DataGridView1.CurrentCell.Value)
+            Last_SelectedRow = DataGridView1.CurrentRow.Index
+        End If
+
         'Debug(Last_SelectedRow)
     End Sub
 
@@ -1202,7 +1206,7 @@ Public Class Form1
             Exit Sub
         End If
         Dim flag As Boolean = False
-        If ComboBox_input.SelectedItem = "rawinput" And Inputs = "analog_gun1" Or Inputs = "analog_joystick" Then
+        If ComboBox_input.SelectedItem = "rawinput" And Inputs = "analog_gun1" Then
             If My.Application.OpenForms("Gun") IsNot Nothing Then
 
             Else
@@ -1677,7 +1681,8 @@ MessageBoxIcon.Error)
 
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentDoubleClick
-        If e.RowIndex > 0 Then
+        'Console.WriteLine(e.RowIndex)
+        If e.RowIndex >= 0 Then
             Roms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
             Inputs = CStr(DataGridView1.CurrentRow.Cells(5).Value)
             PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
@@ -2587,6 +2592,8 @@ MessageBoxIcon.Error)
         End If
 
     End Sub
+
+
 End Class
 
 
