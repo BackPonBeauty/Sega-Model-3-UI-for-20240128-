@@ -40,6 +40,15 @@ This feature is aimed at enabling correct capture through capture software like 
 
 ![aaasasdasd](https://github.com/BackPonBeauty/Sega-Model-3-UI-for-20240128-/assets/107375174/b1da9c62-546a-4251-ac6f-2bd510381054)
 
+### PonMi
+
+You can assign keys for "Pause", "Save State", "Load State", "Change Save Slot".
+![image](https://github.com/BackPonBeauty/Supermodel3-PonMi/assets/107375174/129fbecd-1610-4f01-a115-437aaf04e108)
+
+You can freely set the title.
+Please set it in Supermodel.ini.
+![image](https://github.com/BackPonBeauty/Supermodel3-PonMi/assets/107375174/d9f6fd19-e293-4201-b951-9c8577e94924)
+
 
 
 
