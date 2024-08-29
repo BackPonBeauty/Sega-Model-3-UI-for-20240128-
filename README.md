@@ -31,9 +31,8 @@ This feature does not work in fullscreen mode.
 ![319844574-a0fb75c5-8d02-4108-8bea-0d940ead7b5f](https://github.com/BackPonBeauty/Sega-Model-3-UI-for-20240128-/assets/107375174/9c5e86b2-b16a-438b-baf4-3c5723f0eb6a)
 
 
-Additionally, there is a simple controller viewer that displays input status in Xinput format.
-
-![image](https://github.com/BackPonBeauty/Sega-Model-3-UI-for-20240128-/assets/107375174/5f4bd9e6-6819-4a2e-8e53-a4b93fd90469)
+Additionally, there is a simple controller viewer that displays input status in Xinput format. and RawInput(MouseIndex)
+![image](https://github.com/user-attachments/assets/52192ca0-ad4b-4b1e-962b-f1b151a59beb)
 
 Additionally, when used in conjunction with [Supermodel3 PonMi Edition](https://github.com/BackPonBeauty/Supermodel3-PonMi), you can change the titles. 
 This feature is aimed at enabling correct capture through capture software like OBS when running multiple instances of Supermodel on a single PC (e.g., for link play).
