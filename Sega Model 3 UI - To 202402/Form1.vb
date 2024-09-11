@@ -11,6 +11,7 @@ Imports SharpDX.XInput
 Imports System.Threading
 Imports System.Net.Http
 Imports System.Threading.Tasks
+Imports System.Runtime.InteropServices.ComTypes
 
 
 
@@ -509,24 +510,29 @@ Public Class Form1
         Dim xRoms(1000) As String
         Dim xStep(1000) As String
         Dim xInputType(1000) As String
-
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
-        xmlDoc.Load(appPath & "\Config\Games.xml")
-        xroot = xmlDoc.DocumentElement
-        xfolder = xroot.SelectNodes("//game")
+        Dim fileName As String = appPath & "\Config\Games.xml"
+        If System.IO.File.Exists(fileName) Then
+            xmlDoc.Load(appPath & "\Config\Games.xml")
+            xroot = xmlDoc.DocumentElement
+            xfolder = xroot.SelectNodes("//game")
+            Dim i As Integer = 1
+            For Each xnode In xfolder
+                xname(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/title").InnerText
+                xVersion(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/version").InnerText
+                xRoms(i) = xnode.SelectSingleNode("//game[" & i & "]/@name").Value
+                xStep(i) = xnode.SelectSingleNode("//game[" & i & "]/hardware/stepping").InnerText
+                Dim j As Integer = 2
+                Dim InputNodes = xnode.SelectNodes("//game[" & i & "]/hardware/inputs/input[" & j & "]")
+                xInputType(i) = String.Join(", ", InputNodes.Cast(Of XmlNode).Select(Function(inputNode) inputNode.Attributes("type").Value))
+                GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i), " ", xInputType(i))
+                i += 1
+            Next
+        Else
+            MessageBox.Show("Games.xml not found.")
+            Me.Close()
+        End If
 
-        Dim i As Integer = 1
-        For Each xnode In xfolder
-            xname(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/title").InnerText
-            xVersion(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/version").InnerText
-            xRoms(i) = xnode.SelectSingleNode("//game[" & i & "]/@name").Value
-            xStep(i) = xnode.SelectSingleNode("//game[" & i & "]/hardware/stepping").InnerText
-            Dim j As Integer = 2
-            Dim InputNodes = xnode.SelectNodes("//game[" & i & "]/hardware/inputs/input[" & j & "]")
-            xInputType(i) = String.Join(", ", InputNodes.Cast(Of XmlNode).Select(Function(inputNode) inputNode.Attributes("type").Value))
-            GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i), " ", xInputType(i))
-            i += 1
-        Next
 
     End Sub
 
@@ -578,557 +584,564 @@ Public Class Form1
 
     Dim Favorite As StringBuilder = New StringBuilder(300)
     Private Sub Load_initialfile()
-
-        Dim iniFileName = "Config\Supermodel.ini"
-        Dim RefreshRate As StringBuilder = New StringBuilder(300)
-        Dim XResolution As StringBuilder = New StringBuilder(300)
-        Dim YResolution As StringBuilder = New StringBuilder(300)
-        Dim WindowXPosition As StringBuilder = New StringBuilder(300)
-        Dim WindowYPosition As StringBuilder = New StringBuilder(300)
-        Dim BorderlessWindow As StringBuilder = New StringBuilder(300)
-
-        Dim New3DEngine As StringBuilder = New StringBuilder(300)
-        Dim QuadRendering As StringBuilder = New StringBuilder(300)
-        Dim WideScreen As StringBuilder = New StringBuilder(300)
-        Dim Stretch As StringBuilder = New StringBuilder(300)
-        Dim WideBackground As StringBuilder = New StringBuilder(300)
-        Dim Crosshairs As StringBuilder = New StringBuilder(300)
-        Dim GPUMultiThreaded As StringBuilder = New StringBuilder(300)
-        Dim MultiThreaded As StringBuilder = New StringBuilder(300)
-        Dim MultiTexture As StringBuilder = New StringBuilder(300)
-        Dim VSync As StringBuilder = New StringBuilder(300)
-        Dim FullScreen As StringBuilder = New StringBuilder(300)
-        Dim Throttle As StringBuilder = New StringBuilder(300)
-        Dim ShowFrameRate As StringBuilder = New StringBuilder(300)
-
-        Dim PowerPCFrequency As StringBuilder = New StringBuilder(300)
-        Dim Supersampling As StringBuilder = New StringBuilder(300)
-
-        Dim EmulateSound As StringBuilder = New StringBuilder(300)
-        Dim EmulateDSB As StringBuilder = New StringBuilder(300)
-        Dim FlipStereo As StringBuilder = New StringBuilder(300)
-        Dim LegacySoundDSP As StringBuilder = New StringBuilder(300)
-        Dim MusicVolume As StringBuilder = New StringBuilder(300)
-        Dim SoundVolume As StringBuilder = New StringBuilder(300)
-        Dim Balance As StringBuilder = New StringBuilder(300)
-
-        Dim ForceFeedback As StringBuilder = New StringBuilder(300)
-
-        Dim Network As StringBuilder = New StringBuilder(300)
-        Dim SimulateNet As StringBuilder = New StringBuilder(300)
-        Dim PortIn As StringBuilder = New StringBuilder(300)
-        Dim PortOut As StringBuilder = New StringBuilder(300)
-        Dim AddressOut As StringBuilder = New StringBuilder(300)
-
-        Dim DirectInputConstForceLeftMax As StringBuilder = New StringBuilder(300)
-        Dim DirectInputConstForceRightMax As StringBuilder = New StringBuilder(300)
-        Dim DirectInputSelfCenterMax As StringBuilder = New StringBuilder(300)
-        Dim DirectInputFrictionMax As StringBuilder = New StringBuilder(300)
-        Dim DirectInputVibrateMax As StringBuilder = New StringBuilder(300)
-
-        Dim XInputConstForceThreshold As StringBuilder = New StringBuilder(300)
-        Dim XInputConstForceMax As StringBuilder = New StringBuilder(300)
-        Dim XInputVibrateMax As StringBuilder = New StringBuilder(300)
-
-        Dim InputSystem As StringBuilder = New StringBuilder(300)
-
-        Dim InputAutoTrigger As StringBuilder = New StringBuilder(300)
-        Dim InputAutoTrigger2 As StringBuilder = New StringBuilder(300)
-        Dim HideCMD As StringBuilder = New StringBuilder(300)
-        Dim Dir As StringBuilder = New StringBuilder(300)
-        Dim CrosshairStyle As StringBuilder = New StringBuilder(300)
-
-        Dim C0_F As StringBuilder = New StringBuilder(300)
-        Dim C1_F As StringBuilder = New StringBuilder(300)
-        Dim C2_F As StringBuilder = New StringBuilder(300)
-        Dim C3_F As StringBuilder = New StringBuilder(300)
-        Dim C4_F As StringBuilder = New StringBuilder(300)
-        Dim C5_F As StringBuilder = New StringBuilder(300)
-
-        Dim Last_Sort_s As StringBuilder = New StringBuilder(300)
-        Dim Last_Selected_s As StringBuilder = New StringBuilder(300)
-
-        Dim FontSize As StringBuilder = New StringBuilder(300)
-        Dim Resolution_index As StringBuilder = New StringBuilder(300)
-        Dim BgcolorR As StringBuilder = New StringBuilder(300)
-        Dim BgcolorG As StringBuilder = New StringBuilder(300)
-        Dim BgcolorB As StringBuilder = New StringBuilder(300)
-        Dim Forecolor As StringBuilder = New StringBuilder(300)
-        Dim Title_SB As StringBuilder = New StringBuilder(300)
-        Dim Outputs As StringBuilder = New StringBuilder(300)
-        Dim Scanline As StringBuilder = New StringBuilder(300)
-        Dim Gamepad As StringBuilder = New StringBuilder(300)
-        Dim Opacity As StringBuilder = New StringBuilder(30000)
-        Dim SS As StringBuilder = New StringBuilder(300)
+        Dim appPath As String = System.Windows.Forms.Application.StartupPath
+        Dim fileName As String = appPath & "\Config\Supermodel.ini"
+        If System.IO.File.Exists(fileName) Then
 
 
-        GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "XResolution", "496", XResolution, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "YResolution", "384", YResolution, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "WindowXPosition", "50", WindowXPosition, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "WindowYPosition", "50", WindowYPosition, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "BorderlessWindow", "False", BorderlessWindow, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "New3DEngine", "True", New3DEngine, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "QuadRendering", "True", QuadRendering, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "WideScreen", "True", WideScreen, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "Stretch", "False", Stretch, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "WideBackground", "False", WideBackground, 15, iniFileName)
+            Dim iniFileName = "Config\Supermodel.ini"
+            Dim RefreshRate As StringBuilder = New StringBuilder(300)
+            Dim XResolution As StringBuilder = New StringBuilder(300)
+            Dim YResolution As StringBuilder = New StringBuilder(300)
+            Dim WindowXPosition As StringBuilder = New StringBuilder(300)
+            Dim WindowYPosition As StringBuilder = New StringBuilder(300)
+            Dim BorderlessWindow As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Global ", "Crosshairs", "3", Crosshairs, 15, iniFileName)
+            Dim New3DEngine As StringBuilder = New StringBuilder(300)
+            Dim QuadRendering As StringBuilder = New StringBuilder(300)
+            Dim WideScreen As StringBuilder = New StringBuilder(300)
+            Dim Stretch As StringBuilder = New StringBuilder(300)
+            Dim WideBackground As StringBuilder = New StringBuilder(300)
+            Dim Crosshairs As StringBuilder = New StringBuilder(300)
+            Dim GPUMultiThreaded As StringBuilder = New StringBuilder(300)
+            Dim MultiThreaded As StringBuilder = New StringBuilder(300)
+            Dim MultiTexture As StringBuilder = New StringBuilder(300)
+            Dim VSync As StringBuilder = New StringBuilder(300)
+            Dim FullScreen As StringBuilder = New StringBuilder(300)
+            Dim Throttle As StringBuilder = New StringBuilder(300)
+            Dim ShowFrameRate As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Global ", "GPUMultiThreaded", "True", GPUMultiThreaded, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "MultiThreaded", "True", MultiThreaded, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "MultiTexture", "True", MultiTexture, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "VSync", "False", VSync, 15, iniFileName)
+            Dim PowerPCFrequency As StringBuilder = New StringBuilder(300)
+            Dim Supersampling As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Global ", "FullScreen", "False", FullScreen, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "Throttle", "True", Throttle, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "ShowFrameRate", "False", ShowFrameRate, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "PowerPCFrequency", "58", PowerPCFrequency, 15, iniFileName)
+            Dim EmulateSound As StringBuilder = New StringBuilder(300)
+            Dim EmulateDSB As StringBuilder = New StringBuilder(300)
+            Dim FlipStereo As StringBuilder = New StringBuilder(300)
+            Dim LegacySoundDSP As StringBuilder = New StringBuilder(300)
+            Dim MusicVolume As StringBuilder = New StringBuilder(300)
+            Dim SoundVolume As StringBuilder = New StringBuilder(300)
+            Dim Balance As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Global ", "EmulateSound", "True", EmulateSound, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "EmulateDSB", "True", EmulateDSB, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "FlipStereo", "False", FlipStereo, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "LegacySoundDSP", "False", LegacySoundDSP, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "MusicVolume", "100", MusicVolume, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "SoundVolume", "100", SoundVolume, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "Balance", "0", Balance, 15, iniFileName)
+            Dim ForceFeedback As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Global ", "ForceFeedback", "True", ForceFeedback, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Outputs", "False", Outputs, 15, iniFileName)
+            Dim Network As StringBuilder = New StringBuilder(300)
+            Dim SimulateNet As StringBuilder = New StringBuilder(300)
+            Dim PortIn As StringBuilder = New StringBuilder(300)
+            Dim PortOut As StringBuilder = New StringBuilder(300)
+            Dim AddressOut As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Global ", "Network", "True", Network, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "SimulateNet", "True", SimulateNet, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "PortIn", "1971", PortIn, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "PortOut", "1972", PortOut, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "AddressOut", "127.0.0.1", AddressOut, 15, iniFileName)
+            Dim DirectInputConstForceLeftMax As StringBuilder = New StringBuilder(300)
+            Dim DirectInputConstForceRightMax As StringBuilder = New StringBuilder(300)
+            Dim DirectInputSelfCenterMax As StringBuilder = New StringBuilder(300)
+            Dim DirectInputFrictionMax As StringBuilder = New StringBuilder(300)
+            Dim DirectInputVibrateMax As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Global ", "DirectInputConstForceLeftMax", "100", DirectInputConstForceLeftMax, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "DirectInputConstForceRightMax", "100", DirectInputConstForceRightMax, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "DirectInputSelfCenterMax", "100", DirectInputSelfCenterMax, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "DirectInputFrictionMax", "100", DirectInputFrictionMax, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "DirectInputVibrateMax", "100", DirectInputVibrateMax, 15, iniFileName)
+            Dim XInputConstForceThreshold As StringBuilder = New StringBuilder(300)
+            Dim XInputConstForceMax As StringBuilder = New StringBuilder(300)
+            Dim XInputVibrateMax As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Global ", "XInputConstForceThreshold", "100", XInputConstForceThreshold, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "XInputConstForceMax", "100", XInputConstForceMax, 15, iniFileName)
-        GetPrivateProfileString(" Global ", "XInputVibrateMax", "100", XInputVibrateMax, 15, iniFileName)
+            Dim InputSystem As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Global ", "InputSystem", "xinput", InputSystem, 15, iniFileName)
+            Dim InputAutoTrigger As StringBuilder = New StringBuilder(300)
+            Dim InputAutoTrigger2 As StringBuilder = New StringBuilder(300)
+            Dim HideCMD As StringBuilder = New StringBuilder(300)
+            Dim Dir As StringBuilder = New StringBuilder(300)
+            Dim CrosshairStyle As StringBuilder = New StringBuilder(300)
 
-        'GetPrivateProfileString(" Global ", "InputAutoTrigger", "Error", InputAutoTrigger, 15, iniFileName)
-        'GetPrivateProfileString(" Global ", "InputAutoTrigger2", "Error", InputAutoTrigger2, 15, iniFileName)
+            Dim C0_F As StringBuilder = New StringBuilder(300)
+            Dim C1_F As StringBuilder = New StringBuilder(300)
+            Dim C2_F As StringBuilder = New StringBuilder(300)
+            Dim C3_F As StringBuilder = New StringBuilder(300)
+            Dim C4_F As StringBuilder = New StringBuilder(300)
+            Dim C5_F As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Supermodel3 UI ", "HideCMD", "False", HideCMD, 15, iniFileName)
+            Dim Last_Sort_s As StringBuilder = New StringBuilder(300)
+            Dim Last_Selected_s As StringBuilder = New StringBuilder(300)
 
-        GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\天上天下唯我独尊\Roms", Dir, 150, iniFileName)
-        GetPrivateProfileString(" Global ", "Title", "Supermodel", Title_SB, 150, iniFileName)
-
-        GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
-
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns0Width", CStr(200), Columns0Width, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns1Width", CStr(150), Columns1Width, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns2Width", CStr(120), Columns2Width, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns3Width", CStr(50), Columns3Width, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns4Width", CStr(50), Columns4Width, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns5Width", CStr(120), Columns5Width, 15, iniFileName)
-
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns0Sort", "False", C0_F, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns1Sort", "False", C1_F, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns2Sort", "False", C2_F, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns3Sort", "False", C3_F, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns4Sort", "False", C4_F, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Columns5Sort", "False", C5_F, 15, iniFileName)
-
-        GetPrivateProfileString(" Supermodel3 UI ", "LastSort", CStr(0), Last_Sort_s, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", CStr(0), Last_Selected_s, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "FontSize", CStr(10), FontSize, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Resolution_index", CStr(10), Resolution_index, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "BackColor_R", "147", BgcolorR, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "BackColor_G", "0", BgcolorG, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Scanline", "False", Scanline, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Gamepad", "False", Gamepad, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "5", Opacity, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "SS", "False", SS, 15, iniFileName)
-        GetPrivateProfileString(" Supermodel3 UI ", "Favorite", "False", Favorite, 15, iniFileName)
+            Dim FontSize As StringBuilder = New StringBuilder(300)
+            Dim Resolution_index As StringBuilder = New StringBuilder(300)
+            Dim BgcolorR As StringBuilder = New StringBuilder(300)
+            Dim BgcolorG As StringBuilder = New StringBuilder(300)
+            Dim BgcolorB As StringBuilder = New StringBuilder(300)
+            Dim Forecolor As StringBuilder = New StringBuilder(300)
+            Dim Title_SB As StringBuilder = New StringBuilder(300)
+            Dim Outputs As StringBuilder = New StringBuilder(300)
+            Dim Scanline As StringBuilder = New StringBuilder(300)
+            Dim Gamepad As StringBuilder = New StringBuilder(300)
+            Dim Opacity As StringBuilder = New StringBuilder(30000)
+            Dim SS As StringBuilder = New StringBuilder(300)
 
 
+            GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "XResolution", "496", XResolution, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "YResolution", "384", YResolution, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "WindowXPosition", "50", WindowXPosition, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "WindowYPosition", "50", WindowYPosition, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "BorderlessWindow", "False", BorderlessWindow, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "New3DEngine", "True", New3DEngine, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "QuadRendering", "True", QuadRendering, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "WideScreen", "True", WideScreen, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "Stretch", "False", Stretch, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "WideBackground", "False", WideBackground, 15, iniFileName)
 
-        'SuperSampling
-        If SS.ToString = True Then
-            CheckBox_ss.Checked = True
+            GetPrivateProfileString(" Global ", "Crosshairs", "3", Crosshairs, 15, iniFileName)
+
+            GetPrivateProfileString(" Global ", "GPUMultiThreaded", "True", GPUMultiThreaded, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "MultiThreaded", "True", MultiThreaded, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "MultiTexture", "True", MultiTexture, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "VSync", "False", VSync, 15, iniFileName)
+
+            GetPrivateProfileString(" Global ", "FullScreen", "False", FullScreen, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "Throttle", "True", Throttle, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "ShowFrameRate", "False", ShowFrameRate, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "PowerPCFrequency", "58", PowerPCFrequency, 15, iniFileName)
+
+            GetPrivateProfileString(" Global ", "EmulateSound", "True", EmulateSound, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "EmulateDSB", "True", EmulateDSB, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "FlipStereo", "False", FlipStereo, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "LegacySoundDSP", "False", LegacySoundDSP, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "MusicVolume", "100", MusicVolume, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "SoundVolume", "100", SoundVolume, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "Balance", "0", Balance, 15, iniFileName)
+
+            GetPrivateProfileString(" Global ", "ForceFeedback", "True", ForceFeedback, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Outputs", "False", Outputs, 15, iniFileName)
+
+            GetPrivateProfileString(" Global ", "Network", "True", Network, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "SimulateNet", "True", SimulateNet, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "PortIn", "1971", PortIn, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "PortOut", "1972", PortOut, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "AddressOut", "127.0.0.1", AddressOut, 15, iniFileName)
+
+            GetPrivateProfileString(" Global ", "DirectInputConstForceLeftMax", "100", DirectInputConstForceLeftMax, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "DirectInputConstForceRightMax", "100", DirectInputConstForceRightMax, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "DirectInputSelfCenterMax", "100", DirectInputSelfCenterMax, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "DirectInputFrictionMax", "100", DirectInputFrictionMax, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "DirectInputVibrateMax", "100", DirectInputVibrateMax, 15, iniFileName)
+
+            GetPrivateProfileString(" Global ", "XInputConstForceThreshold", "100", XInputConstForceThreshold, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "XInputConstForceMax", "100", XInputConstForceMax, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "XInputVibrateMax", "100", XInputVibrateMax, 15, iniFileName)
+
+            GetPrivateProfileString(" Global ", "InputSystem", "xinput", InputSystem, 15, iniFileName)
+
+            'GetPrivateProfileString(" Global ", "InputAutoTrigger", "Error", InputAutoTrigger, 15, iniFileName)
+            'GetPrivateProfileString(" Global ", "InputAutoTrigger2", "Error", InputAutoTrigger2, 15, iniFileName)
+
+            GetPrivateProfileString(" Supermodel3 UI ", "HideCMD", "False", HideCMD, 15, iniFileName)
+
+            GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\天上天下唯我独尊\Roms", Dir, 150, iniFileName)
+            GetPrivateProfileString(" Global ", "Title", "Supermodel", Title_SB, 150, iniFileName)
+
+            GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
+
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns0Width", CStr(200), Columns0Width, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns1Width", CStr(150), Columns1Width, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns2Width", CStr(120), Columns2Width, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns3Width", CStr(50), Columns3Width, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns4Width", CStr(50), Columns4Width, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns5Width", CStr(120), Columns5Width, 15, iniFileName)
+
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns0Sort", "False", C0_F, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns1Sort", "False", C1_F, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns2Sort", "False", C2_F, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns3Sort", "False", C3_F, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns4Sort", "False", C4_F, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Columns5Sort", "False", C5_F, 15, iniFileName)
+
+            GetPrivateProfileString(" Supermodel3 UI ", "LastSort", CStr(0), Last_Sort_s, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "LastSelectedRow", CStr(0), Last_Selected_s, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "FontSize", CStr(10), FontSize, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Resolution_index", CStr(10), Resolution_index, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "BackColor_R", "147", BgcolorR, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "BackColor_G", "0", BgcolorG, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Scanline", "False", Scanline, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Gamepad", "False", Gamepad, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "5", Opacity, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "SS", "False", SS, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Favorite", "False", Favorite, 15, iniFileName)
+
+
+
+            'SuperSampling
+            If SS.ToString = True Then
+                CheckBox_ss.Checked = True
+            Else
+                CheckBox_ss.Checked = False
+            End If
+            'Opacity
+            Dim result As Integer
+            If Integer.TryParse(Opacity.ToString, result) = False Then
+                Opacity_D = 5
+            Else
+                Opacity_D = Integer.Parse(Opacity.ToString())
+            End If
+            'Scanline
+            If Scanline.ToString() = "True" Or VSync.ToString() = "1" Then
+                Button_hook.PerformClick()
+            End If
+
+            'Gamepad
+            If Gamepad.ToString() = "True" Or VSync.ToString() = "1" Then
+                Button_X.PerformClick()
+            End If
+
+            'BackColor
+            Bgcolor_R = CInt(BgcolorR.ToString)
+            Bgcolor_G = CInt(BgcolorG.ToString)
+            Bgcolor_B = CInt(BgcolorB.ToString)
+
+            'ForeColor
+            Forecolor_s = Forecolor.ToString
+
+            'Columuns
+            Columns0_i = Integer.Parse(Columns0Width.ToString)
+            Columns1_i = Integer.Parse(Columns1Width.ToString)
+            Columns2_i = Integer.Parse(Columns2Width.ToString)
+            Columns3_i = Integer.Parse(Columns3Width.ToString)
+            Columns4_i = Integer.Parse(Columns4Width.ToString)
+            Columns5_i = Integer.Parse(Columns5Width.ToString)
+
+            'Columuns Sort Flag
+            If C0_F.ToString() = "True" Then
+                C0_Sort_F = True
+            Else
+                C0_Sort_F = False
+            End If
+            If C1_F.ToString() = "True" Then
+                C1_Sort_F = True
+            Else
+                C1_Sort_F = False
+            End If
+            If C2_F.ToString() = "True" Then
+                C2_Sort_F = True
+            Else
+                C2_Sort_F = False
+            End If
+            If C3_F.ToString() = "True" Then
+                C3_Sort_F = True
+            Else
+                C3_Sort_F = False
+            End If
+            If C4_F.ToString() = "True" Then
+                C4_Sort_F = True
+            Else
+                C4_Sort_F = False
+            End If
+            If C5_F.ToString() = "True" Then
+                C5_Sort_F = True
+            Else
+                C5_Sort_F = False
+            End If
+
+            'Last_Sort
+            Last_Sort = Integer.Parse(Last_Sort_s.ToString)
+
+            'Last_Selected
+            Last_SelectedRow = Integer.Parse(Last_Selected_s.ToString)
+            Last_SelectedRow_bin = Integer.Parse(Last_Selected_s.ToString)
+
+            'FontSize
+            FontSize_bin = Integer.Parse(FontSize.ToString)
+
+            'Resolution_index
+            Resolution_index_bin = Integer.Parse(Resolution_index.ToString)
+
+            'New3DEngine
+            If New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
+                RadioButton_new3d.Checked = True
+                RadioButton_legacy.Checked = False
+            Else
+                RadioButton_new3d.Checked = False
+                RadioButton_legacy.Checked = True
+            End If
+
+            'VSync
+            If VSync.ToString() = "True" Or VSync.ToString() = "1" Then
+                CheckBox_vsync.Checked = True
+            Else
+                CheckBox_vsync.Checked = False
+            End If
+
+            'QuadRendering
+            If QuadRendering.ToString() = "True" Or QuadRendering.ToString() = "1" Then
+                CheckBox_quadrender.Checked = True
+            Else
+                CheckBox_quadrender.Checked = False
+            End If
+
+            'GPUMultiThreaded
+            If GPUMultiThreaded.ToString() = "True" Or GPUMultiThreaded.ToString() = "1" Then
+                CheckBox_gpumulti.Checked = True
+            Else
+                CheckBox_gpumulti.Checked = False
+            End If
+
+            'MultiThreaded
+            If MultiThreaded.ToString() = "True" Or MultiThreaded.ToString() = "1" Then
+                CheckBox_multishread.Checked = True
+            Else
+                CheckBox_multishread.Checked = False
+            End If
+
+            'MultiTexture
+            If MultiTexture.ToString() = "True" Or MultiTexture.ToString() = "1" Then
+                CheckBox_multitexture.Checked = True
+            Else
+                CheckBox_multitexture.Checked = False
+            End If
+
+            'Borderless
+            If BorderlessWindow.ToString() = "True" Or BorderlessWindow.ToString() = "1" Then
+                CheckBox_borderless.Checked = True
+            Else
+                CheckBox_borderless.Checked = False
+            End If
+
+            'Borderless
+            If BorderlessWindow.ToString() = "True" Or BorderlessWindow.ToString() = "1" Then
+                CheckBox_borderless.Checked = True
+            Else
+                CheckBox_borderless.Checked = False
+            End If
+
+            'FullScreen
+            If FullScreen.ToString() = "True" Or FullScreen.ToString() = "1" Then
+                CheckBox_fullscreen.Checked = True
+            Else
+                CheckBox_fullscreen.Checked = False
+            End If
+
+            'WideScreen
+            If WideScreen.ToString() = "True" Or WideScreen.ToString() = "1" Then
+                CheckBox_widescreen.Checked = True
+            Else
+                CheckBox_widescreen.Checked = False
+            End If
+
+            'WideBackground
+            If WideBackground.ToString() = "True" Or WideBackground.ToString() = "1" Then
+                CheckBox_widebg.Checked = True
+            Else
+                CheckBox_widebg.Checked = False
+            End If
+
+            'Stretch
+            If Stretch.ToString() = "True" Or Stretch.ToString() = "1" Then
+                CheckBox_stretch.Checked = True
+            Else
+                CheckBox_stretch.Checked = False
+            End If
+
+            'ShowFrameRate
+            If ShowFrameRate.ToString() = "True" Or ShowFrameRate.ToString() = "1" Then
+                CheckBox_showfrmerate.Checked = True
+            Else
+                CheckBox_showfrmerate.Checked = False
+            End If
+
+            'Throttle
+            If Throttle.ToString() = "True" Or Throttle.ToString() = "1" Then
+                CheckBox_throttle.Checked = True
+            Else
+                CheckBox_throttle.Checked = False
+            End If
+
+            'EmulateSound
+            If EmulateSound.ToString() = "True" Or EmulateSound.ToString() = "1" Then
+                CheckBox_emulatesound.Checked = True
+            Else
+                CheckBox_emulatesound.Checked = False
+            End If
+
+            'FlipStereo
+            If FlipStereo.ToString() = "True" Or FlipStereo.ToString() = "1" Then
+                CheckBox_flipstereo.Checked = True
+            Else
+                CheckBox_flipstereo.Checked = False
+            End If
+
+            'EmulateDSB
+            If EmulateDSB.ToString() = "True" Or EmulateDSB.ToString() = "1" Then
+                CheckBox_emuDSB.Checked = True
+            Else
+                CheckBox_emuDSB.Checked = False
+            End If
+
+            'LegacySoundDSP
+            If LegacySoundDSP.ToString() = "True" Or LegacySoundDSP.ToString() = "1" Then
+                CheckBox_legacyDSP.Checked = True
+            Else
+                CheckBox_legacyDSP.Checked = False
+            End If
+
+            'MusicVolume
+            Label_Music.Text = MusicVolume.ToString()
+            MusicBar.Value = CInt(MusicVolume.ToString())
+
+            'MusicVolume
+            Label_Sound.Text = SoundVolume.ToString()
+            SoundBar.Value = CInt(SoundVolume.ToString())
+
+            'Balance
+            Label_Balance.Text = Balance.ToString()
+            BalanceBar.Value = CInt(Balance.ToString())
+
+            'RefreshRate
+            Dim RR As String = RefreshRate.ToString
+            If RR = "57.524160" Then
+                CheckBox_TrueHz.Checked = True
+            Else
+                CheckBox_TrueHz.Checked = False
+            End If
+            Label_refreshrate.Text = RefreshRate.ToString()
+
+            'PowerPCFrequency
+            Dim PPC As String = PowerPCFrequency.ToString()
+            If PPC = "0" Then
+                PPC = "Auto"
+            End If
+            Label_PPC.Text = PPC
+            PPC_Bar.Value = CInt(PowerPCFrequency.ToString())
+
+            'Supersampling
+            Label_SS.Text = Supersampling.ToString()
+            SS_Bar.Value = CInt(Supersampling.ToString())
+
+            'WindowsPosition
+            Label_xPos.Text = WindowXPosition.ToString()
+            Label_yPos.Text = WindowYPosition.ToString()
+
+            'Resolution
+            Label_xRes.Text = XResolution.ToString
+            Label_yRes.Text = YResolution.ToString
+
+            'HideCMD
+            If HideCMD.ToString() = "True" Or HideCMD.ToString() = "1" Then
+                CheckBox_hidecmd.Checked = True
+            Else
+                CheckBox_hidecmd.Checked = False
+            End If
+            'Debug("HideCMD" & HideCMD.ToString)
+
+            'Dir
+            Label_path.Text = Dir.ToString
+            Roms_count(Dir.ToString)
+            'Debug("Dir" & Dir.ToString)
+
+            'Title
+            TextBox_Title.Text = Title_SB.ToString
+
+            'InputSystem
+            ComboBox_input.Text = InputSystem.ToString
+            'Crosshairs
+            Select Case Crosshairs.ToString
+                Case "0"
+                    ComboBox_crosshair.Text = "Disable"
+                Case "1"
+                    ComboBox_crosshair.Text = "Player1"
+                Case "2"
+                    ComboBox_crosshair.Text = "Player2"
+                Case "3"
+                    ComboBox_crosshair.Text = "2Players"
+            End Select
+
+            'CrosshairStyle
+            ComboBox_style.Text = CrosshairStyle.ToString
+
+            'ForceFeedback
+            If ForceFeedback.ToString() = "True" Or ForceFeedback.ToString() = "1" Then
+                CheckBox18.Checked = True
+            Else
+                CheckBox18.Checked = False
+            End If
+
+            'Outputs
+            If Outputs.ToString() = "True" Or Outputs.ToString() = "1" Then
+                CheckBox_outputs.Checked = True
+            Else
+                CheckBox_outputs.Checked = False
+            End If
+
+            'Network
+            If Network.ToString() = "True" Or Network.ToString() = "1" Then
+                CheckBox_network.Checked = True
+            Else
+                CheckBox_network.Checked = False
+            End If
+
+            'SimulateNet
+            If SimulateNet.ToString() = "True" Or SimulateNet.ToString() = "1" Then
+                CheckBox_simnetwork.Checked = True
+            Else
+                CheckBox_simnetwork.Checked = False
+            End If
+
+            'PortIn
+            TextBox_Portin.Text = PortIn.ToString
+
+            'PortOut
+            TextBox_Portout.Text = PortOut.ToString
+
+            'AddressOut
+            TextBox_Addressout.Text = AddressOut.ToString
+
+            'DirectInputConstForceLeftMax
+            DConstLeft.Text = DirectInputConstForceLeftMax.ToString
+
+            'DirectInputConstForceRightMax
+            DConstRight.Text = DirectInputConstForceRightMax.ToString
+
+            'DirectInputSelfCenterMax
+            DCenter.Text = DirectInputSelfCenterMax.ToString
+
+            'DirectInputFrictionMax
+            DFriction.Text = DirectInputFrictionMax.ToString
+
+            'DirectInputVibrateMax
+            DViblate.Text = DirectInputVibrateMax.ToString
+
+            'XInputConstForceThreshold
+            XThreshold.Text = XInputConstForceThreshold.ToString
+
+            'XInputConstForceMax
+            XConst.Text = XInputConstForceMax.ToString
+
+            'XInputVibrateMax
+            XViblate.Text = XInputVibrateMax.ToString
+
+            'Resolution
+            ComboBox_resolution.Text = XResolution.ToString & "x" & YResolution.ToString
+
+            'Get Display Size 
+            Dim i As Integer = 0
+
+            For Each s In System.Windows.Forms.Screen.AllScreens
+                'display device name
+                ScreenN(i) = s.DeviceName
+                'top left of display
+                Bx(i) = s.Bounds.X
+                By(i) = s.Bounds.Y
+                'Display size
+                Bw(i) = s.Bounds.Width
+                Label_wScreenRes.Text = CStr(s.Bounds.Width)
+                Bh(i) = s.Bounds.Height
+                Label_hScreenRes.Text = CStr(s.Bounds.Height)
+                'Debug(i & "::" & ScreenN(i))
+                i += 1
+            Next
+
+            Label_wScreenRes.Text = CStr(Screen.GetBounds(Me).Width)
+            Label_hScreenRes.Text = CStr(Screen.GetBounds(Me).Height)
         Else
-            CheckBox_ss.Checked = False
+            MessageBox.Show("supermodel.ini not found.")
+            Me.Close()
         End If
-        'Opacity
-        Dim result As Integer
-        If Integer.TryParse(Opacity.ToString, result) = False Then
-            Opacity_D = 5
-        Else
-            Opacity_D = Integer.Parse(Opacity.ToString())
-        End If
-        'Scanline
-        If Scanline.ToString() = "True" Or VSync.ToString() = "1" Then
-            Button_hook.PerformClick()
-        End If
-
-        'Gamepad
-        If Gamepad.ToString() = "True" Or VSync.ToString() = "1" Then
-            Button_X.PerformClick()
-        End If
-
-        'BackColor
-        Bgcolor_R = CInt(BgcolorR.ToString)
-        Bgcolor_G = CInt(BgcolorG.ToString)
-        Bgcolor_B = CInt(BgcolorB.ToString)
-
-        'ForeColor
-        Forecolor_s = Forecolor.ToString
-
-        'Columuns
-        Columns0_i = Integer.Parse(Columns0Width.ToString)
-        Columns1_i = Integer.Parse(Columns1Width.ToString)
-        Columns2_i = Integer.Parse(Columns2Width.ToString)
-        Columns3_i = Integer.Parse(Columns3Width.ToString)
-        Columns4_i = Integer.Parse(Columns4Width.ToString)
-        Columns5_i = Integer.Parse(Columns5Width.ToString)
-
-        'Columuns Sort Flag
-        If C0_F.ToString() = "True" Then
-            C0_Sort_F = True
-        Else
-            C0_Sort_F = False
-        End If
-        If C1_F.ToString() = "True" Then
-            C1_Sort_F = True
-        Else
-            C1_Sort_F = False
-        End If
-        If C2_F.ToString() = "True" Then
-            C2_Sort_F = True
-        Else
-            C2_Sort_F = False
-        End If
-        If C3_F.ToString() = "True" Then
-            C3_Sort_F = True
-        Else
-            C3_Sort_F = False
-        End If
-        If C4_F.ToString() = "True" Then
-            C4_Sort_F = True
-        Else
-            C4_Sort_F = False
-        End If
-        If C5_F.ToString() = "True" Then
-            C5_Sort_F = True
-        Else
-            C5_Sort_F = False
-        End If
-
-        'Last_Sort
-        Last_Sort = Integer.Parse(Last_Sort_s.ToString)
-
-        'Last_Selected
-        Last_SelectedRow = Integer.Parse(Last_Selected_s.ToString)
-        Last_SelectedRow_bin = Integer.Parse(Last_Selected_s.ToString)
-
-        'FontSize
-        FontSize_bin = Integer.Parse(FontSize.ToString)
-
-        'Resolution_index
-        Resolution_index_bin = Integer.Parse(Resolution_index.ToString)
-
-        'New3DEngine
-        If New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
-            RadioButton_new3d.Checked = True
-            RadioButton_legacy.Checked = False
-        Else
-            RadioButton_new3d.Checked = False
-            RadioButton_legacy.Checked = True
-        End If
-
-        'VSync
-        If VSync.ToString() = "True" Or VSync.ToString() = "1" Then
-            CheckBox_vsync.Checked = True
-        Else
-            CheckBox_vsync.Checked = False
-        End If
-
-        'QuadRendering
-        If QuadRendering.ToString() = "True" Or QuadRendering.ToString() = "1" Then
-            CheckBox_quadrender.Checked = True
-        Else
-            CheckBox_quadrender.Checked = False
-        End If
-
-        'GPUMultiThreaded
-        If GPUMultiThreaded.ToString() = "True" Or GPUMultiThreaded.ToString() = "1" Then
-            CheckBox_gpumulti.Checked = True
-        Else
-            CheckBox_gpumulti.Checked = False
-        End If
-
-        'MultiThreaded
-        If MultiThreaded.ToString() = "True" Or MultiThreaded.ToString() = "1" Then
-            CheckBox_multishread.Checked = True
-        Else
-            CheckBox_multishread.Checked = False
-        End If
-
-        'MultiTexture
-        If MultiTexture.ToString() = "True" Or MultiTexture.ToString() = "1" Then
-            CheckBox_multitexture.Checked = True
-        Else
-            CheckBox_multitexture.Checked = False
-        End If
-
-        'Borderless
-        If BorderlessWindow.ToString() = "True" Or BorderlessWindow.ToString() = "1" Then
-            CheckBox_borderless.Checked = True
-        Else
-            CheckBox_borderless.Checked = False
-        End If
-
-        'Borderless
-        If BorderlessWindow.ToString() = "True" Or BorderlessWindow.ToString() = "1" Then
-            CheckBox_borderless.Checked = True
-        Else
-            CheckBox_borderless.Checked = False
-        End If
-
-        'FullScreen
-        If FullScreen.ToString() = "True" Or FullScreen.ToString() = "1" Then
-            CheckBox_fullscreen.Checked = True
-        Else
-            CheckBox_fullscreen.Checked = False
-        End If
-
-        'WideScreen
-        If WideScreen.ToString() = "True" Or WideScreen.ToString() = "1" Then
-            CheckBox_widescreen.Checked = True
-        Else
-            CheckBox_widescreen.Checked = False
-        End If
-
-        'WideBackground
-        If WideBackground.ToString() = "True" Or WideBackground.ToString() = "1" Then
-            CheckBox_widebg.Checked = True
-        Else
-            CheckBox_widebg.Checked = False
-        End If
-
-        'Stretch
-        If Stretch.ToString() = "True" Or Stretch.ToString() = "1" Then
-            CheckBox_stretch.Checked = True
-        Else
-            CheckBox_stretch.Checked = False
-        End If
-
-        'ShowFrameRate
-        If ShowFrameRate.ToString() = "True" Or ShowFrameRate.ToString() = "1" Then
-            CheckBox_showfrmerate.Checked = True
-        Else
-            CheckBox_showfrmerate.Checked = False
-        End If
-
-        'Throttle
-        If Throttle.ToString() = "True" Or Throttle.ToString() = "1" Then
-            CheckBox_throttle.Checked = True
-        Else
-            CheckBox_throttle.Checked = False
-        End If
-
-        'EmulateSound
-        If EmulateSound.ToString() = "True" Or EmulateSound.ToString() = "1" Then
-            CheckBox_emulatesound.Checked = True
-        Else
-            CheckBox_emulatesound.Checked = False
-        End If
-
-        'FlipStereo
-        If FlipStereo.ToString() = "True" Or FlipStereo.ToString() = "1" Then
-            CheckBox_flipstereo.Checked = True
-        Else
-            CheckBox_flipstereo.Checked = False
-        End If
-
-        'EmulateDSB
-        If EmulateDSB.ToString() = "True" Or EmulateDSB.ToString() = "1" Then
-            CheckBox_emuDSB.Checked = True
-        Else
-            CheckBox_emuDSB.Checked = False
-        End If
-
-        'LegacySoundDSP
-        If LegacySoundDSP.ToString() = "True" Or LegacySoundDSP.ToString() = "1" Then
-            CheckBox_legacyDSP.Checked = True
-        Else
-            CheckBox_legacyDSP.Checked = False
-        End If
-
-        'MusicVolume
-        Label_Music.Text = MusicVolume.ToString()
-        MusicBar.Value = CInt(MusicVolume.ToString())
-
-        'MusicVolume
-        Label_Sound.Text = SoundVolume.ToString()
-        SoundBar.Value = CInt(SoundVolume.ToString())
-
-        'Balance
-        Label_Balance.Text = Balance.ToString()
-        BalanceBar.Value = CInt(Balance.ToString())
-
-        'RefreshRate
-        Dim RR As String = RefreshRate.ToString
-        If RR = "57.524160" Then
-            CheckBox_TrueHz.Checked = True
-        Else
-            CheckBox_TrueHz.Checked = False
-        End If
-        Label_refreshrate.Text = RefreshRate.ToString()
-
-        'PowerPCFrequency
-        Dim PPC As String = PowerPCFrequency.ToString()
-        If PPC = "0" Then
-            PPC = "Auto"
-        End If
-        Label_PPC.Text = PPC
-        PPC_Bar.Value = CInt(PowerPCFrequency.ToString())
-
-        'Supersampling
-        Label_SS.Text = Supersampling.ToString()
-        SS_Bar.Value = CInt(Supersampling.ToString())
-
-        'WindowsPosition
-        Label_xPos.Text = WindowXPosition.ToString()
-        Label_yPos.Text = WindowYPosition.ToString()
-
-        'Resolution
-        Label_xRes.Text = XResolution.ToString
-        Label_yRes.Text = YResolution.ToString
-
-        'HideCMD
-        If HideCMD.ToString() = "True" Or HideCMD.ToString() = "1" Then
-            CheckBox_hidecmd.Checked = True
-        Else
-            CheckBox_hidecmd.Checked = False
-        End If
-        'Debug("HideCMD" & HideCMD.ToString)
-
-        'Dir
-        Label_path.Text = Dir.ToString
-        Roms_count(Dir.ToString)
-        'Debug("Dir" & Dir.ToString)
-
-        'Title
-        TextBox_Title.Text = Title_SB.ToString
-
-        'InputSystem
-        ComboBox_input.Text = InputSystem.ToString
-        'Crosshairs
-        Select Case Crosshairs.ToString
-            Case "0"
-                ComboBox_crosshair.Text = "Disable"
-            Case "1"
-                ComboBox_crosshair.Text = "Player1"
-            Case "2"
-                ComboBox_crosshair.Text = "Player2"
-            Case "3"
-                ComboBox_crosshair.Text = "2Players"
-        End Select
-
-        'CrosshairStyle
-        ComboBox_style.Text = CrosshairStyle.ToString
-
-        'ForceFeedback
-        If ForceFeedback.ToString() = "True" Or ForceFeedback.ToString() = "1" Then
-            CheckBox18.Checked = True
-        Else
-            CheckBox18.Checked = False
-        End If
-
-        'Outputs
-        If Outputs.ToString() = "True" Or Outputs.ToString() = "1" Then
-            CheckBox_outputs.Checked = True
-        Else
-            CheckBox_outputs.Checked = False
-        End If
-
-        'Network
-        If Network.ToString() = "True" Or Network.ToString() = "1" Then
-            CheckBox_network.Checked = True
-        Else
-            CheckBox_network.Checked = False
-        End If
-
-        'SimulateNet
-        If SimulateNet.ToString() = "True" Or SimulateNet.ToString() = "1" Then
-            CheckBox_simnetwork.Checked = True
-        Else
-            CheckBox_simnetwork.Checked = False
-        End If
-
-        'PortIn
-        TextBox_Portin.Text = PortIn.ToString
-
-        'PortOut
-        TextBox_Portout.Text = PortOut.ToString
-
-        'AddressOut
-        TextBox_Addressout.Text = AddressOut.ToString
-
-        'DirectInputConstForceLeftMax
-        DConstLeft.Text = DirectInputConstForceLeftMax.ToString
-
-        'DirectInputConstForceRightMax
-        DConstRight.Text = DirectInputConstForceRightMax.ToString
-
-        'DirectInputSelfCenterMax
-        DCenter.Text = DirectInputSelfCenterMax.ToString
-
-        'DirectInputFrictionMax
-        DFriction.Text = DirectInputFrictionMax.ToString
-
-        'DirectInputVibrateMax
-        DViblate.Text = DirectInputVibrateMax.ToString
-
-        'XInputConstForceThreshold
-        XThreshold.Text = XInputConstForceThreshold.ToString
-
-        'XInputConstForceMax
-        XConst.Text = XInputConstForceMax.ToString
-
-        'XInputVibrateMax
-        XViblate.Text = XInputVibrateMax.ToString
-
-        'Resolution
-        ComboBox_resolution.Text = XResolution.ToString & "x" & YResolution.ToString
-
-        'Get Display Size 
-        Dim i As Integer = 0
-
-        For Each s In System.Windows.Forms.Screen.AllScreens
-            'display device name
-            ScreenN(i) = s.DeviceName
-            'top left of display
-            Bx(i) = s.Bounds.X
-            By(i) = s.Bounds.Y
-            'Display size
-            Bw(i) = s.Bounds.Width
-            Label_wScreenRes.Text = CStr(s.Bounds.Width)
-            Bh(i) = s.Bounds.Height
-            Label_hScreenRes.Text = CStr(s.Bounds.Height)
-            'Debug(i & "::" & ScreenN(i))
-            i += 1
-        Next
-
-        Label_wScreenRes.Text = CStr(Screen.GetBounds(Me).Width)
-        Label_hScreenRes.Text = CStr(Screen.GetBounds(Me).Height)
-
     End Sub
 
     'Where is the debug window? i hate it
@@ -1142,14 +1155,19 @@ Public Class Form1
 
         Else
             If Integer.Parse(Label_wScreenRes.Text) < Integer.Parse(Label_xRes.Text) Or Integer.Parse(Label_hScreenRes.Text) < Integer.Parse(Label_yRes.Text) Then
-                Dim result As DialogResult = MessageBox.Show("It's bigger than the screen size.",
+                Dim result As DialogResult = MessageBox.Show("It's bigger than the screen size. Are you sure Lunch PosResWindow?",
                                              "confirmation",
-                                             MessageBoxButtons.OK,
+                                             MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Exclamation,
                                             MessageBoxDefaultButton.Button1)
-                If result = DialogResult.OK Then
+                If result = DialogResult.No Then
                     Exit Sub
                 End If
+                Dim f As PosResWindow = New PosResWindow()
+                f.StartPosition = FormStartPosition.CenterScreen
+                If f.ShowDialog(Me) = DialogResult.OK Then
+                End If
+                f.Dispose()
             Else
                 Dim f As PosResWindow = New PosResWindow()
                 f.StartPosition = FormStartPosition.CenterScreen
@@ -1165,7 +1183,6 @@ Public Class Form1
         Inputs = CStr(DataGridView1.CurrentRow.Cells(5).Value)
         PictureBox1.ImageLocation = "Snaps\" & Roms & ".jpg"
         Last_SelectedRow = DataGridView1.CurrentRow.Index
-
     End Sub
 
     Private Sub DataGridView1_SelectCellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
@@ -1244,10 +1261,13 @@ Public Class Form1
 
 
         WriteIni()
-
+        Dim ffb As String = ""
+        If CheckBox18.Checked = True Then
+            ffb = " -outputs=win"
+        End If
         Try
             Dim appPath As String = System.Windows.Forms.Application.StartupPath
-            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""") ')
+            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""" & ffb) ')
             startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
             startInfo.UseShellExecute = False
             Process.Start(startInfo)

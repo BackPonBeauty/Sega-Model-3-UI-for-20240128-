@@ -189,13 +189,19 @@ Public Class PosResWindow
         If Integer.Parse(Form1.Label_wScreenRes.Text) < Integer.Parse(Form1.Label_xRes.Text) Or Integer.Parse(Form1.Label_hScreenRes.Text) < Integer.Parse(Form1.Label_yRes.Text) Then
             Dim result As DialogResult = MessageBox.Show("It's bigger than the screen size.",
                                              "confirmation",
-                                             MessageBoxButtons.OK,
+                                             MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Exclamation,
                                             MessageBoxDefaultButton.Button2)
-            If result = DialogResult.OK Then
+            If result = DialogResult.No Then
                 ComboBox_resolution.SelectedIndex = Last_index
                 Form1.ComboBox_resolution.SelectedIndex = ComboBox_resolution.SelectedIndex
                 Exit Sub
+            Else
+                Form1.ComboBox_resolution.SelectedIndex = ComboBox_resolution.SelectedIndex
+                Last_index = ComboBox_resolution.SelectedIndex
+                Me.Width = Integer.Parse(Form1.Label_xRes.Text)
+                Me.Height = Integer.Parse(Form1.Label_yRes.Text)
+                Form2_Shown()
             End If
         Else
             Form1.ComboBox_resolution.SelectedIndex = ComboBox_resolution.SelectedIndex
