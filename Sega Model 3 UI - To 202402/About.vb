@@ -55,4 +55,8 @@
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs)
         System.Diagnostics.Process.Start("https://supermodel3.com")
     End Sub
+
+    Private Sub PictureBox5_Click_1(sender As Object, e As EventArgs) Handles PictureBox5.Click
+        System.Diagnostics.Process.Start("https://www.patreon.com/PonMi")
+    End Sub
 End Class
