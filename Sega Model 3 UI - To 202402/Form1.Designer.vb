@@ -551,7 +551,7 @@ Partial Class Form1
         Me.Label_refreshrate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label_refreshrate.Location = New System.Drawing.Point(75, 173)
         Me.Label_refreshrate.Name = "Label_refreshrate"
-        Me.Label_refreshrate.Size = New System.Drawing.Size(68, 20)
+        Me.Label_refreshrate.Size = New System.Drawing.Size(86, 20)
         Me.Label_refreshrate.TabIndex = 68
         Me.Label_refreshrate.Text = "57.524160"
         Me.Label_refreshrate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -749,7 +749,7 @@ Partial Class Form1
         '
         'ComboBox_resolution
         '
-        Me.ComboBox_resolution.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ComboBox_resolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox_resolution.FormattingEnabled = True
         Me.ComboBox_resolution.Location = New System.Drawing.Point(213, 12)
         Me.ComboBox_resolution.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2654,7 +2654,7 @@ Partial Class Form1
         'ComboBox1
         '
         Me.ComboBox1.BackColor = System.Drawing.Color.White
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox1.ForeColor = System.Drawing.Color.Black
         Me.ComboBox1.FormattingEnabled = True
@@ -2692,7 +2692,7 @@ Partial Class Form1
         'ComboBox2
         '
         Me.ComboBox2.BackColor = System.Drawing.Color.White
-        Me.ComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox2.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox2.ForeColor = System.Drawing.Color.Black
         Me.ComboBox2.FormattingEnabled = True
