@@ -224,6 +224,10 @@ Partial Class Form1
         Me.Header5 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -293,7 +297,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem, Me.ShowFavoriteToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1008, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1011, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -431,6 +435,10 @@ Partial Class Form1
         '
         'Panel_Video
         '
+        Me.Panel_Video.Controls.Add(Me.ComboBox2)
+        Me.Panel_Video.Controls.Add(Me.Label42)
+        Me.Panel_Video.Controls.Add(Me.Label41)
+        Me.Panel_Video.Controls.Add(Me.ComboBox1)
         Me.Panel_Video.Controls.Add(Me.CheckBox_ss)
         Me.Panel_Video.Controls.Add(Me.CheckBox_TrueHz)
         Me.Panel_Video.Controls.Add(Me.SS_Bar)
@@ -464,7 +472,7 @@ Partial Class Form1
         Me.CheckBox_ss.AutoSize = True
         Me.CheckBox_ss.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_ss.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_ss.Location = New System.Drawing.Point(24, 198)
+        Me.CheckBox_ss.Location = New System.Drawing.Point(276, 48)
         Me.CheckBox_ss.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_ss.Name = "CheckBox_ss"
         Me.CheckBox_ss.Size = New System.Drawing.Size(114, 20)
@@ -477,7 +485,7 @@ Partial Class Form1
         Me.CheckBox_TrueHz.AutoSize = True
         Me.CheckBox_TrueHz.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_TrueHz.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_TrueHz.Location = New System.Drawing.Point(72, 174)
+        Me.CheckBox_TrueHz.Location = New System.Drawing.Point(8, 174)
         Me.CheckBox_TrueHz.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_TrueHz.Name = "CheckBox_TrueHz"
         Me.CheckBox_TrueHz.Size = New System.Drawing.Size(69, 20)
@@ -489,12 +497,12 @@ Partial Class Form1
         '
         Me.SS_Bar.AutoSize = False
         Me.SS_Bar.LargeChange = 1
-        Me.SS_Bar.Location = New System.Drawing.Point(145, 200)
+        Me.SS_Bar.Location = New System.Drawing.Point(270, 69)
         Me.SS_Bar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SS_Bar.Maximum = 8
         Me.SS_Bar.Minimum = 1
         Me.SS_Bar.Name = "SS_Bar"
-        Me.SS_Bar.Size = New System.Drawing.Size(194, 23)
+        Me.SS_Bar.Size = New System.Drawing.Size(102, 23)
         Me.SS_Bar.TabIndex = 72
         Me.SS_Bar.Value = 1
         '
@@ -503,9 +511,9 @@ Partial Class Form1
         Me.Label_SS.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_SS.ForeColor = System.Drawing.Color.White
         Me.Label_SS.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_SS.Location = New System.Drawing.Point(338, 198)
+        Me.Label_SS.Location = New System.Drawing.Point(370, 69)
         Me.Label_SS.Name = "Label_SS"
-        Me.Label_SS.Size = New System.Drawing.Size(37, 20)
+        Me.Label_SS.Size = New System.Drawing.Size(20, 20)
         Me.Label_SS.TabIndex = 73
         Me.Label_SS.Text = "1"
         Me.Label_SS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -515,7 +523,7 @@ Partial Class Form1
         Me.CheckBox_throttle.AutoSize = True
         Me.CheckBox_throttle.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_throttle.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_throttle.Location = New System.Drawing.Point(223, 153)
+        Me.CheckBox_throttle.Location = New System.Drawing.Point(147, 153)
         Me.CheckBox_throttle.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_throttle.Name = "CheckBox_throttle"
         Me.CheckBox_throttle.Size = New System.Drawing.Size(69, 20)
@@ -528,7 +536,7 @@ Partial Class Form1
         Me.CheckBox_showfrmerate.AutoSize = True
         Me.CheckBox_showfrmerate.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_showfrmerate.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_showfrmerate.Location = New System.Drawing.Point(223, 132)
+        Me.CheckBox_showfrmerate.Location = New System.Drawing.Point(147, 132)
         Me.CheckBox_showfrmerate.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_showfrmerate.Name = "CheckBox_showfrmerate"
         Me.CheckBox_showfrmerate.Size = New System.Drawing.Size(122, 20)
@@ -541,9 +549,9 @@ Partial Class Form1
         Me.Label_refreshrate.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_refreshrate.ForeColor = System.Drawing.Color.White
         Me.Label_refreshrate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_refreshrate.Location = New System.Drawing.Point(181, 174)
+        Me.Label_refreshrate.Location = New System.Drawing.Point(75, 173)
         Me.Label_refreshrate.Name = "Label_refreshrate"
-        Me.Label_refreshrate.Size = New System.Drawing.Size(94, 20)
+        Me.Label_refreshrate.Size = New System.Drawing.Size(68, 20)
         Me.Label_refreshrate.TabIndex = 68
         Me.Label_refreshrate.Text = "57.524160"
         Me.Label_refreshrate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -553,7 +561,7 @@ Partial Class Form1
         Me.Label_PPC.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_PPC.ForeColor = System.Drawing.Color.White
         Me.Label_PPC.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_PPC.Location = New System.Drawing.Point(335, 224)
+        Me.Label_PPC.Location = New System.Drawing.Point(319, 224)
         Me.Label_PPC.Name = "Label_PPC"
         Me.Label_PPC.Size = New System.Drawing.Size(40, 20)
         Me.Label_PPC.TabIndex = 67
@@ -563,7 +571,7 @@ Partial Class Form1
         'PPC_Bar
         '
         Me.PPC_Bar.AutoSize = False
-        Me.PPC_Bar.Location = New System.Drawing.Point(143, 224)
+        Me.PPC_Bar.Location = New System.Drawing.Point(127, 224)
         Me.PPC_Bar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PPC_Bar.Maximum = 200
         Me.PPC_Bar.Name = "PPC_Bar"
@@ -577,9 +585,9 @@ Partial Class Form1
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label5.Location = New System.Drawing.Point(0, 224)
+        Me.Label5.Location = New System.Drawing.Point(-7, 224)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(139, 20)
+        Me.Label5.Size = New System.Drawing.Size(130, 20)
         Me.Label5.TabIndex = 65
         Me.Label5.Text = "PowerPCFrequency"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -589,7 +597,7 @@ Partial Class Form1
         Me.CheckBox_stretch.AutoSize = True
         Me.CheckBox_stretch.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_stretch.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_stretch.Location = New System.Drawing.Point(223, 111)
+        Me.CheckBox_stretch.Location = New System.Drawing.Point(147, 111)
         Me.CheckBox_stretch.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_stretch.Name = "CheckBox_stretch"
         Me.CheckBox_stretch.Size = New System.Drawing.Size(68, 20)
@@ -602,7 +610,7 @@ Partial Class Form1
         Me.CheckBox_widebg.AutoSize = True
         Me.CheckBox_widebg.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_widebg.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_widebg.Location = New System.Drawing.Point(223, 90)
+        Me.CheckBox_widebg.Location = New System.Drawing.Point(147, 90)
         Me.CheckBox_widebg.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_widebg.Name = "CheckBox_widebg"
         Me.CheckBox_widebg.Size = New System.Drawing.Size(125, 20)
@@ -615,7 +623,7 @@ Partial Class Form1
         Me.CheckBox_widescreen.AutoSize = True
         Me.CheckBox_widescreen.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_widescreen.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_widescreen.Location = New System.Drawing.Point(223, 69)
+        Me.CheckBox_widescreen.Location = New System.Drawing.Point(147, 69)
         Me.CheckBox_widescreen.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_widescreen.Name = "CheckBox_widescreen"
         Me.CheckBox_widescreen.Size = New System.Drawing.Size(97, 20)
@@ -628,7 +636,7 @@ Partial Class Form1
         Me.CheckBox_fullscreen.AutoSize = True
         Me.CheckBox_fullscreen.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_fullscreen.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_fullscreen.Location = New System.Drawing.Point(223, 48)
+        Me.CheckBox_fullscreen.Location = New System.Drawing.Point(147, 48)
         Me.CheckBox_fullscreen.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_fullscreen.Name = "CheckBox_fullscreen"
         Me.CheckBox_fullscreen.Size = New System.Drawing.Size(88, 20)
@@ -641,7 +649,7 @@ Partial Class Form1
         Me.CheckBox_borderless.AutoSize = True
         Me.CheckBox_borderless.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_borderless.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_borderless.Location = New System.Drawing.Point(24, 153)
+        Me.CheckBox_borderless.Location = New System.Drawing.Point(8, 153)
         Me.CheckBox_borderless.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_borderless.Name = "CheckBox_borderless"
         Me.CheckBox_borderless.Size = New System.Drawing.Size(88, 20)
@@ -654,7 +662,7 @@ Partial Class Form1
         Me.CheckBox_multitexture.AutoSize = True
         Me.CheckBox_multitexture.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_multitexture.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_multitexture.Location = New System.Drawing.Point(24, 132)
+        Me.CheckBox_multitexture.Location = New System.Drawing.Point(8, 132)
         Me.CheckBox_multitexture.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_multitexture.Name = "CheckBox_multitexture"
         Me.CheckBox_multitexture.Size = New System.Drawing.Size(96, 20)
@@ -667,7 +675,7 @@ Partial Class Form1
         Me.CheckBox_multishread.AutoSize = True
         Me.CheckBox_multishread.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_multishread.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_multishread.Location = New System.Drawing.Point(24, 111)
+        Me.CheckBox_multishread.Location = New System.Drawing.Point(8, 111)
         Me.CheckBox_multishread.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_multishread.Name = "CheckBox_multishread"
         Me.CheckBox_multishread.Size = New System.Drawing.Size(107, 20)
@@ -680,7 +688,7 @@ Partial Class Form1
         Me.CheckBox_gpumulti.AutoSize = True
         Me.CheckBox_gpumulti.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_gpumulti.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_gpumulti.Location = New System.Drawing.Point(24, 90)
+        Me.CheckBox_gpumulti.Location = New System.Drawing.Point(8, 90)
         Me.CheckBox_gpumulti.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_gpumulti.Name = "CheckBox_gpumulti"
         Me.CheckBox_gpumulti.Size = New System.Drawing.Size(135, 20)
@@ -693,7 +701,7 @@ Partial Class Form1
         Me.CheckBox_quadrender.AutoSize = True
         Me.CheckBox_quadrender.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_quadrender.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_quadrender.Location = New System.Drawing.Point(24, 69)
+        Me.CheckBox_quadrender.Location = New System.Drawing.Point(8, 69)
         Me.CheckBox_quadrender.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_quadrender.Name = "CheckBox_quadrender"
         Me.CheckBox_quadrender.Size = New System.Drawing.Size(115, 20)
@@ -706,7 +714,7 @@ Partial Class Form1
         Me.CheckBox_vsync.AutoSize = True
         Me.CheckBox_vsync.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_vsync.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_vsync.Location = New System.Drawing.Point(24, 48)
+        Me.CheckBox_vsync.Location = New System.Drawing.Point(8, 48)
         Me.CheckBox_vsync.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_vsync.Name = "CheckBox_vsync"
         Me.CheckBox_vsync.Size = New System.Drawing.Size(65, 20)
@@ -741,7 +749,7 @@ Partial Class Form1
         '
         'ComboBox_resolution
         '
-        Me.ComboBox_resolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox_resolution.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ComboBox_resolution.FormattingEnabled = True
         Me.ComboBox_resolution.Location = New System.Drawing.Point(213, 12)
         Me.ComboBox_resolution.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2643,12 +2651,64 @@ Partial Class Form1
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(158, 22)
         Me.ToolStripMenuItem1.Text = "Add to favorites"
         '
+        'ComboBox1
+        '
+        Me.ComboBox1.BackColor = System.Drawing.Color.White
+        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ComboBox1.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.ForeColor = System.Drawing.Color.Black
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"0=none", "1=ARI/D93 ", "2=PVM_20M2U/D93", "3=BT601_525/D93", "4=BT601_525/D65", "5=BT601_625/D65"})
+        Me.ComboBox1.Location = New System.Drawing.Point(276, 128)
+        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(118, 22)
+        Me.ComboBox1.TabIndex = 76
+        '
+        'Label41
+        '
+        Me.Label41.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label41.ForeColor = System.Drawing.Color.White
+        Me.Label41.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label41.Location = New System.Drawing.Point(275, 105)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(109, 20)
+        Me.Label41.TabIndex = 97
+        Me.Label41.Text = "CRTcolors"
+        Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label42
+        '
+        Me.Label42.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label42.ForeColor = System.Drawing.Color.White
+        Me.Label42.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label42.Location = New System.Drawing.Point(275, 153)
+        Me.Label42.Name = "Label42"
+        Me.Label42.Size = New System.Drawing.Size(109, 20)
+        Me.Label42.TabIndex = 98
+        Me.Label42.Text = "UpscaleMode"
+        Me.Label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.BackColor = System.Drawing.Color.White
+        Me.ComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ComboBox2.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox2.ForeColor = System.Drawing.Color.Black
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"0=none", "1=biquintic", "2=bilinear", "3=bicubic"})
+        Me.ComboBox2.Location = New System.Drawing.Point(276, 175)
+        Me.ComboBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(118, 22)
+        Me.ComboBox2.TabIndex = 99
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(1008, 592)
+        Me.ClientSize = New System.Drawing.Size(1011, 592)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Header5)
@@ -2956,4 +3016,8 @@ Partial Class Form1
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ShowFavoriteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents Label42 As Label
+    Friend WithEvents Label41 As Label
 End Class

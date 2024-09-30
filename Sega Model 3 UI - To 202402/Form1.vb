@@ -115,6 +115,9 @@ Public Class Form1
         End If
         UpdateDataGridView()
         Load_comp_F = True
+
+        'ComboBox1.SelectedIndex = 0
+        'ComboBox2.SelectedIndex = 0
     End Sub
 
 
@@ -613,6 +616,8 @@ Public Class Form1
 
             Dim PowerPCFrequency As StringBuilder = New StringBuilder(300)
             Dim Supersampling As StringBuilder = New StringBuilder(300)
+            Dim CRTcolors As StringBuilder = New StringBuilder(300)
+            Dim UpscaleMode As StringBuilder = New StringBuilder(300)
 
             Dim EmulateSound As StringBuilder = New StringBuilder(300)
             Dim EmulateDSB As StringBuilder = New StringBuilder(300)
@@ -674,6 +679,10 @@ Public Class Form1
 
             GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
             GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
+
+            GetPrivateProfileString(" Global ", "CRTcolors", "0", CRTcolors, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "UpscaleMode", "2", UpscaleMode, 15, iniFileName)
+
             GetPrivateProfileString(" Global ", "XResolution", "496", XResolution, 15, iniFileName)
             GetPrivateProfileString(" Global ", "YResolution", "384", YResolution, 15, iniFileName)
             GetPrivateProfileString(" Global ", "WindowXPosition", "50", WindowXPosition, 15, iniFileName)
@@ -758,8 +767,8 @@ Public Class Form1
             GetPrivateProfileString(" Supermodel3 UI ", "BackColor_G", "0", BgcolorG, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
-            GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
-            GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
+            'GetPrivateProfileString(" Supermodel3 UI ", "BackColor_B", "80", BgcolorB, 15, iniFileName)
+            'GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Scanline", "False", Scanline, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Gamepad", "False", Gamepad, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "5", Opacity, 15, iniFileName)
@@ -774,6 +783,15 @@ Public Class Form1
             Else
                 CheckBox_ss.Checked = False
             End If
+
+            'CRTcolor
+            ComboBox1.SelectedIndex = Integer.Parse(CRTcolors.ToString)
+
+            'UpscaleMode
+            ComboBox2.SelectedIndex = Integer.Parse(UpscaleMode.ToString)
+
+
+
             'Opacity
             Dim result As Integer
             If Integer.TryParse(Opacity.ToString, result) = False Then
@@ -1511,7 +1529,8 @@ MessageBoxIcon.Error)
         Else
             WritePrivateProfileString(Section, "Supersampling", Nothing, iniFileName)
         End If
-
+        WritePrivateProfileString(Section, "CRTcolors", ComboBox1.SelectedIndex.ToString, iniFileName)
+        WritePrivateProfileString(Section, "UpscaleMode ", ComboBox2.SelectedIndex.ToString, iniFileName)
 
         WritePrivateProfileString(Section, "EmulateSound", CheckBox_emulatesound.Checked.ToString, iniFileName)
         WritePrivateProfileString(Section, "EmulateDSB", CheckBox_emuDSB.Checked.ToString, iniFileName)
@@ -1871,6 +1890,9 @@ MessageBoxIcon.Error)
                 c.ForeColor = Color.Black
             Else
                 c.ForeColor = Color.White
+            End If
+            If c.name = "ComboBox1" Or c.name = "ComboBox2" Then
+                c.ForeColor = Color.Black
             End If
         Next
         For Each c In Panel_Sound.Controls

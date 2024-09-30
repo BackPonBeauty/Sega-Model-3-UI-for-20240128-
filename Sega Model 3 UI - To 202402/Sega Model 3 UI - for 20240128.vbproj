@@ -112,9 +112,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="WiimoteLib, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WiimoteLib.1.7\lib\WiimoteLib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -186,12 +183,6 @@
     <Compile Include="ScanLine.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="warning.Designer.vb">
-      <DependentUpon>warning.vb</DependentUpon>
-    </Compile>
-    <Compile Include="warning.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="XinputForce.Designer.vb">
       <DependentUpon>XinputForce.vb</DependentUpon>
     </Compile>
@@ -245,9 +236,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ScanLine.resx">
       <DependentUpon>ScanLine.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="warning.resx">
-      <DependentUpon>warning.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XinputForce.resx">
       <DependentUpon>XinputForce.vb</DependentUpon>
