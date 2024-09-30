@@ -46,9 +46,9 @@ Public Class Form1
                 IgnoreClose = True
                 Me.Close()
             ElseIf result = DialogResult.No Then
-                Me.Close()
-            End If
 
+            End If
+            Me.Close()
         End If
 
         fileName = appPath & "\Config"
