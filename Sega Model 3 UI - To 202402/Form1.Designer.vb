@@ -44,7 +44,11 @@ Partial Class Form1
         Me.Button_folder = New System.Windows.Forms.Button()
         Me.Label_path = New System.Windows.Forms.Label()
         Me.Panel_Video = New System.Windows.Forms.Panel()
-        Me.CheckBox_ss = New System.Windows.Forms.CheckBox()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.CheckBox_TrueHz = New System.Windows.Forms.CheckBox()
         Me.SS_Bar = New System.Windows.Forms.TrackBar()
         Me.Label_SS = New System.Windows.Forms.Label()
@@ -69,6 +73,7 @@ Partial Class Form1
         Me.ComboBox_resolution = New System.Windows.Forms.ComboBox()
         Me.RadioButton_legacy = New System.Windows.Forms.RadioButton()
         Me.RadioButton_new3d = New System.Windows.Forms.RadioButton()
+        Me.CheckBox_ss = New System.Windows.Forms.CheckBox()
         Me.Button_loadrom = New System.Windows.Forms.Button()
         Me.Label_Width = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -168,6 +173,7 @@ Partial Class Form1
         Me.Label30 = New System.Windows.Forms.Label()
         Me.TextBox_Title = New System.Windows.Forms.TextBox()
         Me.Panel_ponmi = New System.Windows.Forms.Panel()
+        Me.CheckBox_truear = New System.Windows.Forms.CheckBox()
         Me.RawInput_hook = New System.Windows.Forms.Button()
         Me.Label38 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
@@ -224,10 +230,7 @@ Partial Class Form1
         Me.Header5 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Label41 = New System.Windows.Forms.Label()
-        Me.Label42 = New System.Windows.Forms.Label()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Label44 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -297,7 +300,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem, Me.ShowFavoriteToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1011, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1008, 24)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -435,11 +438,11 @@ Partial Class Form1
         '
         'Panel_Video
         '
+        Me.Panel_Video.Controls.Add(Me.Label43)
         Me.Panel_Video.Controls.Add(Me.ComboBox2)
         Me.Panel_Video.Controls.Add(Me.Label42)
         Me.Panel_Video.Controls.Add(Me.Label41)
         Me.Panel_Video.Controls.Add(Me.ComboBox1)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_ss)
         Me.Panel_Video.Controls.Add(Me.CheckBox_TrueHz)
         Me.Panel_Video.Controls.Add(Me.SS_Bar)
         Me.Panel_Video.Controls.Add(Me.Label_SS)
@@ -467,18 +470,69 @@ Partial Class Form1
         Me.Panel_Video.Size = New System.Drawing.Size(394, 252)
         Me.Panel_Video.TabIndex = 48
         '
-        'CheckBox_ss
+        'Label43
         '
-        Me.CheckBox_ss.AutoSize = True
-        Me.CheckBox_ss.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBox_ss.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_ss.Location = New System.Drawing.Point(276, 48)
-        Me.CheckBox_ss.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox_ss.Name = "CheckBox_ss"
-        Me.CheckBox_ss.Size = New System.Drawing.Size(114, 20)
-        Me.CheckBox_ss.TabIndex = 75
-        Me.CheckBox_ss.Text = "SuperSampling"
-        Me.CheckBox_ss.UseVisualStyleBackColor = True
+        Me.Label43.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label43.ForeColor = System.Drawing.Color.White
+        Me.Label43.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label43.Location = New System.Drawing.Point(275, 47)
+        Me.Label43.Name = "Label43"
+        Me.Label43.Size = New System.Drawing.Size(109, 20)
+        Me.Label43.TabIndex = 100
+        Me.Label43.Text = "SuperSampling"
+        Me.Label43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.BackColor = System.Drawing.Color.White
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox2.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox2.ForeColor = System.Drawing.Color.Black
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"0=none", "1=biquintic", "2=bilinear", "3=bicubic"})
+        Me.ComboBox2.Location = New System.Drawing.Point(276, 175)
+        Me.ComboBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(118, 22)
+        Me.ComboBox2.TabIndex = 99
+        '
+        'Label42
+        '
+        Me.Label42.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label42.ForeColor = System.Drawing.Color.White
+        Me.Label42.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label42.Location = New System.Drawing.Point(275, 153)
+        Me.Label42.Name = "Label42"
+        Me.Label42.Size = New System.Drawing.Size(109, 20)
+        Me.Label42.TabIndex = 98
+        Me.Label42.Text = "UpscaleMode"
+        Me.Label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label41
+        '
+        Me.Label41.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label41.ForeColor = System.Drawing.Color.White
+        Me.Label41.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label41.Location = New System.Drawing.Point(275, 105)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(109, 20)
+        Me.Label41.TabIndex = 97
+        Me.Label41.Text = "CRTcolors"
+        Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.BackColor = System.Drawing.Color.White
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.ForeColor = System.Drawing.Color.Black
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"0=none", "1=ARI/D93 ", "2=PVM_20M2U/D93", "3=BT601_525/D93", "4=BT601_525/D65", "5=BT601_625/D65"})
+        Me.ComboBox1.Location = New System.Drawing.Point(276, 128)
+        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(118, 22)
+        Me.ComboBox1.TabIndex = 76
         '
         'CheckBox_TrueHz
         '
@@ -781,6 +835,19 @@ Partial Class Form1
         Me.RadioButton_new3d.Text = "New3DEngine"
         Me.RadioButton_new3d.UseVisualStyleBackColor = True
         '
+        'CheckBox_ss
+        '
+        Me.CheckBox_ss.AutoSize = True
+        Me.CheckBox_ss.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_ss.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_ss.Location = New System.Drawing.Point(9, 487)
+        Me.CheckBox_ss.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_ss.Name = "CheckBox_ss"
+        Me.CheckBox_ss.Size = New System.Drawing.Size(114, 20)
+        Me.CheckBox_ss.TabIndex = 75
+        Me.CheckBox_ss.Text = "SuperSampling"
+        Me.CheckBox_ss.UseVisualStyleBackColor = True
+        '
         'Button_loadrom
         '
         Me.Button_loadrom.ForeColor = System.Drawing.Color.Black
@@ -930,6 +997,7 @@ Partial Class Form1
         Me.Panel2.Controls.Add(Me.Label39)
         Me.Panel2.Controls.Add(Me.Label2)
         Me.Panel2.Controls.Add(Me.XViblate)
+        Me.Panel2.Controls.Add(Me.CheckBox_ss)
         Me.Panel2.Controls.Add(Me.XConst)
         Me.Panel2.Controls.Add(Me.XThreshold)
         Me.Panel2.Controls.Add(Me.DViblate)
@@ -2019,6 +2087,8 @@ Partial Class Form1
         '
         'Panel_ponmi
         '
+        Me.Panel_ponmi.Controls.Add(Me.Label44)
+        Me.Panel_ponmi.Controls.Add(Me.CheckBox_truear)
         Me.Panel_ponmi.Controls.Add(Me.Label1)
         Me.Panel_ponmi.Controls.Add(Me.RawInput_hook)
         Me.Panel_ponmi.Controls.Add(Me.Label38)
@@ -2039,6 +2109,19 @@ Partial Class Form1
         Me.Panel_ponmi.Name = "Panel_ponmi"
         Me.Panel_ponmi.Size = New System.Drawing.Size(394, 252)
         Me.Panel_ponmi.TabIndex = 81
+        '
+        'CheckBox_truear
+        '
+        Me.CheckBox_truear.AutoSize = True
+        Me.CheckBox_truear.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_truear.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_truear.Location = New System.Drawing.Point(19, 42)
+        Me.CheckBox_truear.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_truear.Name = "CheckBox_truear"
+        Me.CheckBox_truear.Size = New System.Drawing.Size(63, 20)
+        Me.CheckBox_truear.TabIndex = 95
+        Me.CheckBox_truear.Text = "true-ar"
+        Me.CheckBox_truear.UseVisualStyleBackColor = True
         '
         'RawInput_hook
         '
@@ -2457,7 +2540,7 @@ Partial Class Form1
         Me.Label31.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label31.ForeColor = System.Drawing.Color.White
         Me.Label31.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label31.Location = New System.Drawing.Point(62, 44)
+        Me.Label31.Location = New System.Drawing.Point(135, 60)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(56, 20)
         Me.Label31.TabIndex = 83
@@ -2468,7 +2551,7 @@ Partial Class Form1
         '
         Me.LinkLabel1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LinkLabel1.LinkColor = System.Drawing.Color.Gray
-        Me.LinkLabel1.Location = New System.Drawing.Point(138, 46)
+        Me.LinkLabel1.Location = New System.Drawing.Point(135, 62)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(241, 16)
         Me.LinkLabel1.TabIndex = 82
@@ -2651,64 +2734,24 @@ Partial Class Form1
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(158, 22)
         Me.ToolStripMenuItem1.Text = "Add to favorites"
         '
-        'ComboBox1
+        'Label44
         '
-        Me.ComboBox1.BackColor = System.Drawing.Color.White
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.ForeColor = System.Drawing.Color.Black
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"0=none", "1=ARI/D93 ", "2=PVM_20M2U/D93", "3=BT601_525/D93", "4=BT601_525/D65", "5=BT601_625/D65"})
-        Me.ComboBox1.Location = New System.Drawing.Point(276, 128)
-        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(118, 22)
-        Me.ComboBox1.TabIndex = 76
-        '
-        'Label41
-        '
-        Me.Label41.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label41.ForeColor = System.Drawing.Color.White
-        Me.Label41.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label41.Location = New System.Drawing.Point(275, 105)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(109, 20)
-        Me.Label41.TabIndex = 97
-        Me.Label41.Text = "CRTcolors"
-        Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label42
-        '
-        Me.Label42.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label42.ForeColor = System.Drawing.Color.White
-        Me.Label42.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label42.Location = New System.Drawing.Point(275, 153)
-        Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(109, 20)
-        Me.Label42.TabIndex = 98
-        Me.Label42.Text = "UpscaleMode"
-        Me.Label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.BackColor = System.Drawing.Color.White
-        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox2.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox2.ForeColor = System.Drawing.Color.Black
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"0=none", "1=biquintic", "2=bilinear", "3=bicubic"})
-        Me.ComboBox2.Location = New System.Drawing.Point(276, 175)
-        Me.ComboBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(118, 22)
-        Me.ComboBox2.TabIndex = 99
+        Me.Label44.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label44.ForeColor = System.Drawing.Color.White
+        Me.Label44.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label44.Location = New System.Drawing.Point(89, 43)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(109, 19)
+        Me.Label44.TabIndex = 96
+        Me.Label44.Text = "AspectRatio 4:3"
+        Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(1011, 592)
+        Me.ClientSize = New System.Drawing.Size(1008, 592)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Header5)
@@ -2755,7 +2798,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.1.7"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.1.8"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -2767,6 +2810,7 @@ Partial Class Form1
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel_Sound.ResumeLayout(False)
@@ -2782,6 +2826,7 @@ Partial Class Form1
         Me.Panel_Network.ResumeLayout(False)
         Me.Panel_Network.PerformLayout()
         Me.Panel_ponmi.ResumeLayout(False)
+        Me.Panel_ponmi.PerformLayout()
         Me.Panel7.ResumeLayout(False)
         CType(Me.Lbox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Rbox2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3020,4 +3065,7 @@ Partial Class Form1
     Friend WithEvents ComboBox2 As ComboBox
     Friend WithEvents Label42 As Label
     Friend WithEvents Label41 As Label
+    Friend WithEvents CheckBox_truear As CheckBox
+    Friend WithEvents Label43 As Label
+    Friend WithEvents Label44 As Label
 End Class

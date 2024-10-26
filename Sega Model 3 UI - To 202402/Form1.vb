@@ -12,9 +12,6 @@ Imports System.Threading
 Imports System.Net.Http
 Imports System.Threading.Tasks
 Imports System.Runtime.InteropServices.ComTypes
-
-
-
 Public Class Form1
     Inherits Form
     Private x_timer As System.Threading.Timer
@@ -594,6 +591,7 @@ Public Class Form1
 
             Dim iniFileName = "Config\Supermodel.ini"
             Dim RefreshRate As StringBuilder = New StringBuilder(300)
+            Dim TrueAR As StringBuilder = New StringBuilder(300)
             Dim XResolution As StringBuilder = New StringBuilder(300)
             Dim YResolution As StringBuilder = New StringBuilder(300)
             Dim WindowXPosition As StringBuilder = New StringBuilder(300)
@@ -678,6 +676,7 @@ Public Class Form1
 
 
             GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "true-ar", "False", TrueAR, 15, iniFileName)
             GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
 
             GetPrivateProfileString(" Global ", "CRTcolors", "0", CRTcolors, 15, iniFileName)
@@ -1018,6 +1017,13 @@ Public Class Form1
                 CheckBox_TrueHz.Checked = False
             End If
             Label_refreshrate.Text = RefreshRate.ToString()
+
+            'true-ar
+            If TrueAR.ToString() = "True" Or TrueAR.ToString() = "1" Then
+                CheckBox_truear.Checked = True
+            Else
+                CheckBox_truear.Checked = False
+            End If
 
             'PowerPCFrequency
             Dim PPC As String = PowerPCFrequency.ToString()
@@ -1524,11 +1530,9 @@ MessageBoxIcon.Error)
         Else
             WritePrivateProfileString(Section, "PowerPCFrequency", Label_PPC.Text, iniFileName)
         End If
-        If CheckBox_ss.Checked Then
-            WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
-        Else
-            WritePrivateProfileString(Section, "Supersampling", Nothing, iniFileName)
-        End If
+
+        WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
+
         WritePrivateProfileString(Section, "CRTcolors", ComboBox1.SelectedIndex.ToString, iniFileName)
         WritePrivateProfileString(Section, "UpscaleMode ", ComboBox2.SelectedIndex.ToString, iniFileName)
 
@@ -1556,6 +1560,7 @@ MessageBoxIcon.Error)
             TextBox_Title.Text = "Supermodel - PonMi"
         End If
         WritePrivateProfileString(Section, "Title", TextBox_Title.Text, iniFileName)
+        WritePrivateProfileString(Section, "true-ar", CheckBox_truear.Checked.ToString, iniFileName)
 
         WritePrivateProfileString(" Supermodel3 UI ", "Columns0Width", CStr(DataGridView1.Columns(0).Width), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Columns1Width", CStr(DataGridView1.Columns(1).Width), iniFileName)
@@ -2559,27 +2564,27 @@ MessageBoxIcon.Error)
         End If
     End Sub
 
-    Private Sub CheckBox_ss_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox_ss.CheckedChanged
-        If CheckBox_ss.Checked = True Then
-            Write_ss_Ini()
-        Else
-            Delete_ss_Ini()
-        End If
-    End Sub
+    'Private Sub CheckBox_ss_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox_ss.CheckedChanged
+    '    If CheckBox_ss.Checked = True Then
+    '        Write_ss_Ini()
+    '    Else
+    '        Delete_ss_Ini()
+    '    End If
+    'End Sub
 
-    Private Sub Write_ss_Ini()
-        Dim iniFileName As New StringBuilder(300)
-        iniFileName.Append("Config\Supermodel.ini")
-        Dim Section As String = " Global "
-        WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
-    End Sub
+    'Private Sub Write_ss_Ini()
+    '    Dim iniFileName As New StringBuilder(300)
+    '    iniFileName.Append("Config\Supermodel.ini")
+    '    Dim Section As String = " Global "
+    '    WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
+    'End Sub
 
-    Private Sub Delete_ss_Ini()
-        Dim iniFileName As New StringBuilder(300)
-        iniFileName.Append("Config\Supermodel.ini")
-        Dim Section As String = " Global "
-        WritePrivateProfileString(Section, "Supersampling", Nothing, iniFileName)
-    End Sub
+    'Private Sub Delete_ss_Ini()
+    '    Dim iniFileName As New StringBuilder(300)
+    '    iniFileName.Append("Config\Supermodel.ini")
+    '    Dim Section As String = " Global "
+    '    WritePrivateProfileString(Section, "Supersampling", Nothing, iniFileName)
+    'End Sub
 
     Private Sub ComboBox_input_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_input.SelectedIndexChanged
         Dim N As String = ComboBox_input.SelectedItem
