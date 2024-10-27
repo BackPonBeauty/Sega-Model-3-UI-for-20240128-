@@ -133,6 +133,12 @@
     <Compile Include="About.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="captureForm.Designer.vb">
+      <DependentUpon>captureForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="captureForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -216,6 +222,9 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="captureForm.resx">
+      <DependentUpon>captureForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
@@ -281,9 +290,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PonMi.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resolution.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Snaps\bassdx.jpg">

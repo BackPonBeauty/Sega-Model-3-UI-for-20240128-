@@ -1,0 +1,241 @@
+﻿Imports System.Runtime.InteropServices
+
+Public Class captureForm
+    Dim FPS As Integer = 0
+    Dim Hwnd_bin As IntPtr = Nothing
+    Dim MyhWnd As IntPtr = Nothing
+    'Dim left_i As Integer = 320
+    'Dim top_i As Integer = 180
+    Private targetBitmap As Bitmap
+    Dim targetProcessName As String = "supermodel" ' ターゲットのプロセス名を指定してください
+    Dim targetHwnd As IntPtr = IntPtr.Zero
+
+    <DllImport("gdi32.dll")>
+    Private Shared Function BitBlt(ByVal hDestDC As IntPtr,
+        ByVal x As Integer, ByVal y As Integer,
+        ByVal nWidth As Integer, ByVal nHeight As Integer,
+        ByVal hSrcDC As IntPtr,
+        ByVal xSrc As Integer, ByVal ySrc As Integer,
+        ByVal dwRop As Integer) As Integer
+    End Function
+
+    <DllImport("user32.dll")>
+    Private Shared Function ReleaseDC(ByVal hwnd As IntPtr,
+        ByVal hdc As IntPtr) As IntPtr
+    End Function
+
+
+    <DllImport("user32.dll")>
+    Private Shared Function GetWindowDC(ByVal hwnd As IntPtr) As IntPtr
+    End Function
+
+    <DllImport("user32.dll")>
+    Private Shared Function GetForegroundWindow() As IntPtr
+    End Function
+
+
+    <DllImport("user32.dll")>
+    Private Shared Function SetForegroundWindow(hWnd As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
+    End Function
+
+
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        targetBitmap = New Bitmap(640, 360)
+        MyhWnd = Me.Handle
+        For Each p As System.Diagnostics.Process In System.Diagnostics.Process.GetProcesses()
+            Console.WriteLine(p.ProcessName)
+            Console.WriteLine(p.MainWindowHandle)
+            If p.ProcessName = targetProcessName Then
+                targetHwnd = p.MainWindowHandle
+                Exit For
+            End If
+        Next
+        StartCapture()
+        FPS_Timer.Enabled = True
+
+    End Sub
+
+    Private Sub Center(By As Integer, Bh As Integer, Bx As Integer, Bw As Integer)
+        Me.Top = CInt(((Bh / 2) + By) - (Me.Height / 2))
+        Me.Left = CInt(((Bw / 2) + Bx) - (Me.Width / 2))
+    End Sub
+
+    Private taskRunning As Boolean = False
+
+    Private Async Sub StartCapture()
+        'If taskRunning Then Return ' 前回のタスクが完了していない場合は何もしない
+        taskRunning = True
+
+
+        Await Task.Run(Async Function()
+                           While taskRunning
+                               If FPS_Timer.Enabled Then
+                                   FPS += 1
+                                   'Console.WriteLine(FPS)
+                               End If
+                               ' Get the handle of the foreground window
+                               'Dim hWnd As IntPtr = GetForegroundWindow() 'CType(4928, IntPtr) 
+                               ''Console.WriteLine(hWnd)
+                               'If hWnd <> MyhWnd And hWnd <> Nothing Then
+                               '    Hwnd_bin = hWnd
+                               'End If
+
+                               Dim winDC As IntPtr = GetWindowDC(targetHwnd)
+                               'Dim bmp As New Bitmap(left_i, top_i)
+                               Dim g As Graphics = Graphics.FromImage(targetBitmap)
+                               Dim hDC As IntPtr = g.GetHdc()
+
+                               ' Capture the screen content
+                               BitBlt(hDC, 0, 0, 640, 360, winDC, Nothing, Nothing, SRCCOPY)
+
+                               g.ReleaseHdc(hDC)
+                               g.Dispose()
+                               ReleaseDC(IntPtr.Zero, winDC)
+
+
+                               ' 更新後の画像を保持する
+                               PictureBox.Invoke(Sub()
+                                                     If PictureBox.Image IsNot Nothing Then
+                                                         PictureBox.Image.Dispose()
+                                                     End If
+                                                     PictureBox.Image = New Bitmap(targetBitmap)
+                                                 End Sub)
+
+                               ' 繰り返し間隔を調整するための遅延
+                               Await Task.Delay(10) ' 適切な遅延時間を設定
+
+                           End While
+                       End Function)
+    End Sub
+
+
+
+    Private Sub StopCapture()
+        taskRunning = False
+    End Sub
+
+    Const SRCCOPY As Integer = 13369376
+
+    Private mousePoint As Point
+
+    Private Sub Form1_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Me.MouseDown, PictureBox.MouseDown, Me.MouseClick, PictureBox.MouseClick
+        If (e.Button And MouseButtons.Left) = MouseButtons.Left Then
+            mousePoint = New Point(e.X, e.Y)
+        End If
+    End Sub
+    Dim N As Integer
+
+    Private Sub Form1_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Me.MouseMove, PictureBox.MouseMove
+        If (e.Button And MouseButtons.Left) = MouseButtons.Left Then
+            Me.Left += e.X - mousePoint.X
+            Me.Top += e.Y - mousePoint.Y
+        End If
+
+    End Sub
+
+    Dim mode As Integer = 1
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox.DoubleClick
+        If mode = 3 Then
+            Me.WindowState = FormWindowState.Maximized
+            PictureBox.Top = 0
+            PictureBox.Left = 0
+            PictureBox.Width = Me.Width
+            PictureBox.Height = Me.Height
+            PictureBox.Top = 0
+            Try
+                AppActivate("Parsec")
+            Catch ex As Exception
+            End Try
+            mode = 0
+        ElseIf mode = 2 Then
+            Me.WindowState = FormWindowState.Normal
+            Me.Width = 1600
+            Me.Height = 900
+            Me.Top = Me.Top - 90
+            Me.Left = Me.Left - 160
+            PictureBox.Top = 0
+            PictureBox.Left = 0
+            PictureBox.Width = Me.Width
+            PictureBox.Height = Me.Height
+            PictureBox.Top = 0
+            Try
+                AppActivate("Parsec")
+            Catch ex As Exception
+            End Try
+            mode = 3
+        ElseIf mode = 1 Then
+            Me.WindowState = FormWindowState.Normal
+            Me.Width = 1280
+            Me.Height = 720
+            PictureBox.Top = 0
+            PictureBox.Left = 0
+            PictureBox.Width = Me.Width
+            PictureBox.Height = Me.Height
+            PictureBox.Top = 0
+            Me.Top = Me.Top - 90
+            Me.Left = Me.Left - 160
+
+            mode = 2
+        ElseIf mode = 0 Then
+            Me.WindowState = FormWindowState.Normal
+            Me.Width = 960
+            Me.Height = 540
+            PictureBox.Top = 0
+            PictureBox.Left = 0
+            PictureBox.Width = Me.Width
+            PictureBox.Height = Me.Height
+            PictureBox.Top = 0
+            Me.Top = Me.Top + 180
+            Me.Left = Me.Left + 320
+
+            mode = 1
+        Else
+        End If
+        'Try
+        '    If Hwnd_bin <> MyhWnd Then
+        '        SetForegroundWindow(CType(Hwnd_bin, IntPtr))
+        '        task_F = True
+        '        Task_Tick(Me, EventArgs.Empty)
+        '    End If
+
+        'Catch ex As Exception
+        'End Try
+        If mode = 1 Or mode = 2 Or mode = 3 Or mode = 4 Then
+            Dim s As System.Windows.Forms.Screen = System.Windows.Forms.Screen.FromControl(Me)
+            Dim x As Integer = s.Bounds.X
+            Dim y As Integer = s.Bounds.Y
+            Dim h As Integer = s.Bounds.Height
+            Dim w As Integer = s.Bounds.Width
+            Center(y, h, x, w)
+        End If
+
+
+    End Sub
+
+    Private Sub FPS_Timer_Tick(sender As Object, e As EventArgs) Handles FPS_Timer.Tick
+        FPS_Label.Text = FPS.ToString
+        FPS = 0
+    End Sub
+
+    Private Sub FPS_Click(sender As Object, e As EventArgs) Handles FPS_Label.Click
+        If FPS_Timer.Enabled = True Then
+            FPS_Timer.Enabled = False
+            FPS_Label.Text = "0"
+        Else
+            FPS_Timer.Enabled = True
+        End If
+    End Sub
+
+
+    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles FPS_Label.DoubleClick
+        Form1.Capture_F = False
+        Me.Close()
+    End Sub
+    Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Form1.Capture_F = False
+        taskRunning = False
+        targetBitmap.Dispose()
+    End Sub
+End Class

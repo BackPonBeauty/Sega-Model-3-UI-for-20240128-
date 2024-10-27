@@ -173,6 +173,7 @@ Partial Class Form1
         Me.Label30 = New System.Windows.Forms.Label()
         Me.TextBox_Title = New System.Windows.Forms.TextBox()
         Me.Panel_ponmi = New System.Windows.Forms.Panel()
+        Me.Label44 = New System.Windows.Forms.Label()
         Me.CheckBox_truear = New System.Windows.Forms.CheckBox()
         Me.RawInput_hook = New System.Windows.Forms.Button()
         Me.Label38 = New System.Windows.Forms.Label()
@@ -230,7 +231,7 @@ Partial Class Form1
         Me.Header5 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Label44 = New System.Windows.Forms.Label()
+        Me.Button14 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -2110,6 +2111,18 @@ Partial Class Form1
         Me.Panel_ponmi.Size = New System.Drawing.Size(394, 252)
         Me.Panel_ponmi.TabIndex = 81
         '
+        'Label44
+        '
+        Me.Label44.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label44.ForeColor = System.Drawing.Color.White
+        Me.Label44.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label44.Location = New System.Drawing.Point(89, 43)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(109, 19)
+        Me.Label44.TabIndex = 96
+        Me.Label44.Text = "AspectRatio 4:3"
+        Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'CheckBox_truear
         '
         Me.CheckBox_truear.AutoSize = True
@@ -2734,17 +2747,14 @@ Partial Class Form1
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(158, 22)
         Me.ToolStripMenuItem1.Text = "Add to favorites"
         '
-        'Label44
+        'Button14
         '
-        Me.Label44.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label44.ForeColor = System.Drawing.Color.White
-        Me.Label44.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label44.Location = New System.Drawing.Point(89, 43)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(109, 19)
-        Me.Label44.TabIndex = 96
-        Me.Label44.Text = "AspectRatio 4:3"
-        Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button14.Location = New System.Drawing.Point(610, 155)
+        Me.Button14.Name = "Button14"
+        Me.Button14.Size = New System.Drawing.Size(24, 23)
+        Me.Button14.TabIndex = 98
+        Me.Button14.Text = "Button14"
+        Me.Button14.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -2752,6 +2762,7 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.Navy
         Me.ClientSize = New System.Drawing.Size(1008, 592)
+        Me.Controls.Add(Me.Button14)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Header5)
@@ -2798,7 +2809,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.1.8"
+        Me.Text = "Sega Model 3 UI - Ver 1.1.1.9"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -3068,4 +3079,5 @@ Partial Class Form1
     Friend WithEvents CheckBox_truear As CheckBox
     Friend WithEvents Label43 As Label
     Friend WithEvents Label44 As Label
+    Friend WithEvents Button14 As Button
 End Class

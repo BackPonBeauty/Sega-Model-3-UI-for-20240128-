@@ -18,6 +18,16 @@ Public Class ScanLine
     End Sub
 
     Public Sub Draw_Scanline(scanline_type As String)
+        If Form1.Capture_F = True Then
+            Me.Top = captureForm.Top
+            Me.Left = captureForm.Left
+            Me.Width = captureForm.Width
+            Me.Height = captureForm.Height
+            PictureBox1.Width = captureForm.Width
+            PictureBox1.Height = captureForm.Height
+        End If
+
+
         PictureBox1.BackgroundImage = Nothing
         PictureBox1.Image = Nothing
         If Form1.scanline_type = "LINE1" Then
@@ -28,10 +38,14 @@ Public Class ScanLine
 
             Dim g As Graphics = Graphics.FromImage(canvas)
             Dim p_bin_1 As Double = (Integer.Parse(Form1.Label_yRes.Text) / 480)
-            Dim p_bin As Integer = Math.Round(p_bin_1)
-            'Form1.Debug(p_bin)
             Dim w As Integer = Integer.Parse(Form1.Label_xRes.Text)
             Dim h As Integer = Integer.Parse(Form1.Label_yRes.Text)
+            If Form1.Capture_F = True Then
+                p_bin_1 = (Integer.Parse(captureForm.Height) / 480)
+                w = captureForm.Width
+                h = captureForm.Height
+            End If
+            Dim p_bin As Integer = Math.Round(p_bin_1)
             Dim blackPen As Pen = New Pen(Color.FromArgb(255, 0, 0, 0), p_bin)
 
             For i As Integer = 0 To h Step p_bin + p_bin
@@ -47,10 +61,15 @@ Public Class ScanLine
 
             Dim g As Graphics = Graphics.FromImage(canvas)
             Dim p_bin_1 As Double = (Integer.Parse(Form1.Label_yRes.Text) / 480)
-            Dim p_bin As Integer = Math.Round(p_bin_1)
             'Form1.Debug(p_bin)
             Dim w As Integer = Integer.Parse(Form1.Label_xRes.Text)
             Dim h As Integer = Integer.Parse(Form1.Label_yRes.Text)
+            If Form1.Capture_F = True Then
+                p_bin_1 = (Integer.Parse(captureForm.Height) / 480)
+                w = captureForm.Width
+                h = captureForm.Height
+            End If
+            Dim p_bin As Integer = Math.Round(p_bin_1)
             Dim blackPen As Pen = New Pen(Color.FromArgb(255, 0, 0, 0), p_bin / 2)
 
             For i As Integer = 0 To h Step p_bin + p_bin

@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Net
 Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices
+Imports System.Diagnostics
 Imports System.Text
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Xml
@@ -23,6 +24,49 @@ Public Class Form1
 
     Private mouseDevices As New Dictionary(Of IntPtr, String)
     'Private WithEvents wm As New Wiimote()
+
+    <DllImport("user32.dll")>
+    Private Shared Function GetWindowRect(ByVal hWnd As IntPtr, ByRef rect As RECT) As Boolean
+    End Function
+
+    <StructLayout(LayoutKind.Sequential)>
+    Private Structure RECT
+        Public Left As Integer
+        Public Top As Integer
+        Public Right As Integer
+        Public Bottom As Integer
+    End Structure
+
+    Private Function GetSupermodelWidth() As Integer?
+        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        If processes.Length > 0 Then
+            Dim hWnd As IntPtr = processes(0).MainWindowHandle
+            If hWnd <> IntPtr.Zero Then
+                Dim rect As RECT
+                If GetWindowRect(hWnd, rect) Then
+                    Dim width As Integer = rect.Right - rect.Left
+                    Return width
+                End If
+            End If
+        End If
+        Return Nothing
+    End Function
+
+    Private Function GetSupermodelHeight() As Integer?
+        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        If processes.Length > 0 Then
+            Dim hWnd As IntPtr = processes(0).MainWindowHandle
+            If hWnd <> IntPtr.Zero Then
+                Dim rect As RECT
+                If GetWindowRect(hWnd, rect) Then
+                    Dim Height As Integer = rect.Bottom - rect.Top
+                    Return Height
+                End If
+            End If
+        End If
+        Return Nothing
+    End Function
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Surround1.Interval = interval
@@ -428,6 +472,7 @@ Public Class Form1
     Public Forecolor_s As String = "White"
     Public Outputs_F As Boolean
     Public ScanLine_F As Boolean = False
+    Public Capture_F As Boolean = False
     Dim Front_F As Boolean = True
     Dim Scanline_Enabled As Boolean = False
     Dim RawInput_Enabled As Boolean = False
@@ -2640,7 +2685,30 @@ MessageBoxIcon.Error)
 
     End Sub
 
+    Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+        If Capture_F = True Then
+            captureForm.Close()
+            Capture_F = False
+            Exit Sub
+        End If
+        'Console.WriteLine(Process.GetProcessesByName("supermodel").Count)
+        If Process.GetProcessesByName("supermodel").Count <> 0 Then
 
+            Dim w As Integer = GetSupermodelWidth()
+            Dim h As Integer = GetSupermodelHeight()
+            Console.WriteLine("w:" & w)
+            If w <> 640 Or h <> 360 Then
+
+            Else
+                Capture_F = True
+                captureForm.Show()
+            End If
+        Else
+
+
+        End If
+
+    End Sub
 End Class
 
 
