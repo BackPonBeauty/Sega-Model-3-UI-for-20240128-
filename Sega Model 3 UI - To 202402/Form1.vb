@@ -1575,10 +1575,14 @@ MessageBoxIcon.Error)
         Else
             WritePrivateProfileString(Section, "PowerPCFrequency", Label_PPC.Text, iniFileName)
         End If
+        If RadioButton_new3d.Checked = True Then
+            WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
+            WritePrivateProfileString(Section, "CRTcolors", ComboBox1.SelectedIndex.ToString, iniFileName)
+        Else
+            WritePrivateProfileString(Section, "Supersampling", "1", iniFileName)
+            WritePrivateProfileString(Section, "CRTcolors", "0", iniFileName)
+        End If
 
-        WritePrivateProfileString(Section, "Supersampling", Label_SS.Text, iniFileName)
-
-        WritePrivateProfileString(Section, "CRTcolors", ComboBox1.SelectedIndex.ToString, iniFileName)
         WritePrivateProfileString(Section, "UpscaleMode ", ComboBox2.SelectedIndex.ToString, iniFileName)
 
         WritePrivateProfileString(Section, "EmulateSound", CheckBox_emulatesound.Checked.ToString, iniFileName)
@@ -2709,6 +2713,8 @@ MessageBoxIcon.Error)
         End If
 
     End Sub
+
+
 End Class
 
 
