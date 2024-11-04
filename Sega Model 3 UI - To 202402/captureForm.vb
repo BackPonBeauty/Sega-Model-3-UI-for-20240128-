@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.InteropServices
+﻿Imports System.Reflection.Emit
+Imports System.Runtime.InteropServices
 
 Public Class captureForm
     Dim FPS As Integer = 0
@@ -6,7 +7,7 @@ Public Class captureForm
     Dim MyhWnd As IntPtr = Nothing
     'Dim left_i As Integer = 320
     'Dim top_i As Integer = 180
-    Private targetBitmap As Bitmap
+    Public targetBitmap As Bitmap
     Dim targetProcessName As String = "supermodel" ' ターゲットのプロセス名を指定してください
     Dim targetHwnd As IntPtr = IntPtr.Zero
 
@@ -38,19 +39,50 @@ Public Class captureForm
     Private Shared Function SetForegroundWindow(hWnd As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
     End Function
 
-
+    'PrivateFontCollectionオブジェクトを作成する
+    Dim pfc As New System.Drawing.Text.PrivateFontCollection()
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'リソース(wlmaru2004p4u)をバイト配列に読み込む
+        Dim fontBuf As Byte() = My.Resources.HOOG0557
+
+        'または、次のようにしてリソースを読み込む
+        'Dim asm As System.Reflection.Assembly = _
+        '    System.Reflection.Assembly.GetExecutingAssembly()
+        'Dim strm As System.IO.Stream = _
+        '    asm.GetManifestResourceStream("Project1.wlmaru2004p4u.ttf")
+        'Dim fontBuf As Byte() = New Byte(strm.Length - 1) {}
+        'strm.Read(fontBuf, 0, fontBuf.Length)
+        'strm.Close()
+
+        'バイト配列のポインターを取得する
+        Dim fontBufPtr As IntPtr = System.Runtime.InteropServices.
+    Marshal.AllocCoTaskMem(fontBuf.Length)
+        System.Runtime.InteropServices.
+    Marshal.Copy(fontBuf, 0, fontBufPtr, fontBuf.Length)
+        'PrivateFontCollectionにフォントを追加する
+        pfc.AddMemoryFont(fontBufPtr, fontBuf.Length)
+        System.Runtime.InteropServices.
+    Marshal.FreeCoTaskMem(fontBufPtr)
+
         targetBitmap = New Bitmap(640, 360)
         MyhWnd = Me.Handle
+        Dim N = 0
         For Each p As System.Diagnostics.Process In System.Diagnostics.Process.GetProcesses()
             Console.WriteLine(p.ProcessName)
             Console.WriteLine(p.MainWindowHandle)
             If p.ProcessName = targetProcessName Then
-                targetHwnd = p.MainWindowHandle
-                Exit For
+                N += 1
+                If N = 1 Then
+                    targetHwnd = p.MainWindowHandle
+                    Console.WriteLine(N)
+                    Exit For
+                End If
+
             End If
         Next
+
         StartCapture()
         FPS_Timer.Enabled = True
 
@@ -61,10 +93,10 @@ Public Class captureForm
         Me.Left = CInt(((Bw / 2) + Bx) - (Me.Width / 2))
     End Sub
 
-    Private taskRunning As Boolean = False
+    Public taskRunning As Boolean = False
 
-    Private Async Sub StartCapture()
-        'If taskRunning Then Return ' 前回のタスクが完了していない場合は何もしない
+    Public Async Sub StartCapture()
+        If taskRunning Then Return ' 前回のタスクが完了していない場合は何もしない
         taskRunning = True
 
 
@@ -72,17 +104,9 @@ Public Class captureForm
                            While taskRunning
                                If FPS_Timer.Enabled Then
                                    FPS += 1
-                                   'Console.WriteLine(FPS)
                                End If
-                               ' Get the handle of the foreground window
-                               'Dim hWnd As IntPtr = GetForegroundWindow() 'CType(4928, IntPtr) 
-                               ''Console.WriteLine(hWnd)
-                               'If hWnd <> MyhWnd And hWnd <> Nothing Then
-                               '    Hwnd_bin = hWnd
-                               'End If
 
                                Dim winDC As IntPtr = GetWindowDC(targetHwnd)
-                               'Dim bmp As New Bitmap(left_i, top_i)
                                Dim g As Graphics = Graphics.FromImage(targetBitmap)
                                Dim hDC As IntPtr = g.GetHdc()
 
@@ -103,7 +127,7 @@ Public Class captureForm
                                                  End Sub)
 
                                ' 繰り返し間隔を調整するための遅延
-                               Await Task.Delay(10) ' 適切な遅延時間を設定
+                               Await Task.Delay(2) ' 適切な遅延時間を設定
 
                            End While
                        End Function)
@@ -111,7 +135,7 @@ Public Class captureForm
 
 
 
-    Private Sub StopCapture()
+    Public Sub StopCapture()
         taskRunning = False
     End Sub
 
@@ -144,10 +168,6 @@ Public Class captureForm
             PictureBox.Width = Me.Width
             PictureBox.Height = Me.Height
             PictureBox.Top = 0
-            Try
-                AppActivate("Parsec")
-            Catch ex As Exception
-            End Try
             mode = 0
         ElseIf mode = 2 Then
             Me.WindowState = FormWindowState.Normal
@@ -160,10 +180,6 @@ Public Class captureForm
             PictureBox.Width = Me.Width
             PictureBox.Height = Me.Height
             PictureBox.Top = 0
-            Try
-                AppActivate("Parsec")
-            Catch ex As Exception
-            End Try
             mode = 3
         ElseIf mode = 1 Then
             Me.WindowState = FormWindowState.Normal
@@ -176,7 +192,6 @@ Public Class captureForm
             PictureBox.Top = 0
             Me.Top = Me.Top - 90
             Me.Left = Me.Left - 160
-
             mode = 2
         ElseIf mode = 0 Then
             Me.WindowState = FormWindowState.Normal
@@ -189,20 +204,10 @@ Public Class captureForm
             PictureBox.Top = 0
             Me.Top = Me.Top + 180
             Me.Left = Me.Left + 320
-
             mode = 1
         Else
         End If
-        'Try
-        '    If Hwnd_bin <> MyhWnd Then
-        '        SetForegroundWindow(CType(Hwnd_bin, IntPtr))
-        '        task_F = True
-        '        Task_Tick(Me, EventArgs.Empty)
-        '    End If
-
-        'Catch ex As Exception
-        'End Try
-        If mode = 1 Or mode = 2 Or mode = 3 Or mode = 4 Then
+        If mode = 1 Or mode = 2 Or mode = 3 Then
             Dim s As System.Windows.Forms.Screen = System.Windows.Forms.Screen.FromControl(Me)
             Dim x As Integer = s.Bounds.X
             Dim y As Integer = s.Bounds.Y
@@ -210,11 +215,14 @@ Public Class captureForm
             Dim w As Integer = s.Bounds.Width
             Center(y, h, x, w)
         End If
-
+        FPS_Timer.Enabled = True
 
     End Sub
 
     Private Sub FPS_Timer_Tick(sender As Object, e As EventArgs) Handles FPS_Timer.Tick
+        Dim f As New System.Drawing.Font(pfc.Families(0), 12)
+        FPS_Label.UseCompatibleTextRendering = True
+        FPS_Label.Font = f
         FPS_Label.Text = FPS.ToString
         FPS = 0
     End Sub
@@ -222,20 +230,34 @@ Public Class captureForm
     Private Sub FPS_Click(sender As Object, e As EventArgs) Handles FPS_Label.Click
         If FPS_Timer.Enabled = True Then
             FPS_Timer.Enabled = False
-            FPS_Label.Text = "0"
+            FPS_Label.Text = ""
         Else
             FPS_Timer.Enabled = True
         End If
     End Sub
 
 
-    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles FPS_Label.DoubleClick
-        Form1.Capture_F = False
-        Me.Close()
+    Private Sub pic_MouseDown(sender As Object, e As MouseEventArgs) Handles PictureBox.MouseDown
+        If e.Button = MouseButtons.Right Then
+            StopCapture()
+            Dim result As DialogResult = MessageBox.Show("Close Window?",
+                                             "Question",
+                                             MessageBoxButtons.OKCancel,
+                                             MessageBoxIcon.Exclamation,
+                                             MessageBoxDefaultButton.Button2)
+            If result = DialogResult.OK Then
+                Form1.Capture_F = False
+                Me.Close()
+            ElseIf result = DialogResult.Cancel Then
+                StartCapture()
+            End If
+        End If
     End Sub
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Form1.Capture_F = False
         taskRunning = False
         targetBitmap.Dispose()
     End Sub
+
+
 End Class

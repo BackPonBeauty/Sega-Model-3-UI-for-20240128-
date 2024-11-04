@@ -13,6 +13,8 @@ Imports System.Threading
 Imports System.Net.Http
 Imports System.Threading.Tasks
 Imports System.Runtime.InteropServices.ComTypes
+Imports System.Timers
+
 Public Class Form1
     Inherits Form
     Private x_timer As System.Threading.Timer
@@ -21,6 +23,16 @@ Public Class Form1
 
     Dim IgnoreClose As Boolean = False
     Dim Load_comp_F As Boolean = False
+    Dim brdy = 0
+
+    <System.Runtime.InteropServices.DllImport("winmm.dll", CharSet:=System.Runtime.InteropServices.CharSet.Auto)>
+    Private Shared Function mciSendString(ByVal command As String,
+    ByVal buffer As System.Text.StringBuilder,
+    ByVal bufferSize As Integer, ByVal hwndCallback As IntPtr) As Integer
+    End Function
+
+    Private mysound As String = "mysound3"
+    Private aliasName As String = "MediaFile"
 
     Private mouseDevices As New Dictionary(Of IntPtr, String)
     'Private WithEvents wm As New Wiimote()
@@ -103,7 +115,7 @@ Public Class Form1
             GameData.Columns.Add("Inputs", GetType(String))
             DT_Roms.Columns.Add("name", GetType(String))
 
-            Load_gamexml()
+            LoadGameXml()
             Load_initialfile()
             If Forecolor_s = "White" Then
                 WhiteToolStripMenuItem.PerformClick()
@@ -157,8 +169,28 @@ Public Class Form1
         UpdateDataGridView()
         Load_comp_F = True
 
+        Timer3.Enabled = False
+        Dim cmd As String
+        cmd = "stop " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        cmd = "close " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        Dim Rnd As String = "up"
+        Dim leng As Integer = 2000
+        Dim sond As String = "sound\" & Rnd & ".mp3"
+        Dim fileNames As String = sond
+        cmd = "open """ + fileNames + """ type mpegvideo alias " + mysound
+
+        If mciSendString(cmd, Nothing, 0, IntPtr.Zero) <> 0 Then
+            Return
+        End If
+        cmd = "play " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        Timer3.Interval = leng
+        Timer3.Enabled = True
         'ComboBox1.SelectedIndex = 0
         'ComboBox2.SelectedIndex = 0
+        brdy = 1
     End Sub
 
 
@@ -488,7 +520,7 @@ Public Class Form1
     WithEvents KeyboardHooker1 As New Key
     Public Sub New()
         InitializeComponent()
-        x_timer = New System.Threading.Timer(AddressOf SurroundingSub1)
+        'x_timer = New System.Threading.Timer(AddressOf SurroundingSub1)
         x2_timer = New System.Threading.Timer(AddressOf SurroundingSub2)
         rep_timer = New System.Threading.Timer(AddressOf DemoPlay)
 
@@ -543,43 +575,70 @@ Public Class Form1
         'Debug("LastSelect = " & Last_SelectedRow.ToString)
     End Sub
 
-    Private Sub Load_gamexml()
-        'XmlReader
+    Private Sub LoadGameXml()
         Dim xmlDoc As New XmlDocument()
-        Dim xroot As XmlNode
-        Dim xfolder As XmlNodeList
-        Dim xnode As XmlNode
-        'StringBuilder
-        Dim xname(1000) As String
-        Dim xVersion(1000) As String
-        Dim xRoms(1000) As String
-        Dim xStep(1000) As String
-        Dim xInputType(1000) As String
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
-        Dim fileName As String = appPath & "\Config\Games.xml"
-        If System.IO.File.Exists(fileName) Then
-            xmlDoc.Load(appPath & "\Config\Games.xml")
-            xroot = xmlDoc.DocumentElement
-            xfolder = xroot.SelectNodes("//game")
-            Dim i As Integer = 1
-            For Each xnode In xfolder
-                xname(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/title").InnerText
-                xVersion(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/version").InnerText
-                xRoms(i) = xnode.SelectSingleNode("//game[" & i & "]/@name").Value
-                xStep(i) = xnode.SelectSingleNode("//game[" & i & "]/hardware/stepping").InnerText
-                Dim j As Integer = 2
-                Dim InputNodes = xnode.SelectNodes("//game[" & i & "]/hardware/inputs/input[" & j & "]")
-                xInputType(i) = String.Join(", ", InputNodes.Cast(Of XmlNode).Select(Function(inputNode) inputNode.Attributes("type").Value))
-                GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i), " ", xInputType(i))
-                i += 1
-            Next
-        Else
+        Dim fileName As String = $"{appPath}\Config\Games.xml"
+
+        If Not System.IO.File.Exists(fileName) Then
             MessageBox.Show("Games.xml not found.")
             Me.Close()
+            Exit Sub
         End If
 
+        xmlDoc.Load(fileName)
+        Dim games = xmlDoc.SelectNodes("//game")
 
+        For Each game As XmlNode In games
+            Dim title = game.SelectSingleNode("identity/title")?.InnerText
+            Dim version = game.SelectSingleNode("identity/version")?.InnerText
+            Dim romName = game.Attributes("name")?.Value
+            Dim stepping = game.SelectSingleNode("hardware/stepping")?.InnerText
+
+            Dim inputs = game.SelectNodes("hardware/inputs/input")
+            Dim inputTypes_bin = String.Join(", ", inputs.Cast(Of XmlNode)().Select(Function(input) input.Attributes("type")?.Value))
+            Dim inputTypes() As String = inputTypes_bin.Split(",")
+            GameData.Rows.Add(title, version, romName, stepping, "", inputTypes(1).Trim)
+            'ComboBox1.Items.Add(title)
+        Next
     End Sub
+    'Private Sub Load_gamexml()
+    '    XmlReader
+    '    Dim xmlDoc As New XmlDocument()
+    '    Dim xroot As XmlNode
+    '    Dim xfolder As XmlNodeList
+    '    Dim xnode As XmlNode
+    '    StringBuilder
+    '    Dim xname(1000) As String
+    '    Dim xVersion(1000) As String
+    '    Dim xRoms(1000) As String
+    '    Dim xStep(1000) As String
+    '    Dim xInputType(1000) As String
+    '    Dim appPath As String = System.Windows.Forms.Application.StartupPath
+    '    Dim fileName As String = appPath & "\Config\Games.xml"
+    '    If System.IO.File.Exists(fileName) Then
+    '        xmlDoc.Load(appPath & "\Config\Games.xml")
+    '        xroot = xmlDoc.DocumentElement
+    '        xfolder = xroot.SelectNodes("//game")
+    '        Dim i As Integer = 1
+    '        For Each xnode In xfolder
+    '            xname(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/title").InnerText
+    '            xVersion(i) = xnode.SelectSingleNode("//game[" & i & "]/identity/version").InnerText
+    '            xRoms(i) = xnode.SelectSingleNode("//game[" & i & "]/@name").Value
+    '            xStep(i) = xnode.SelectSingleNode("//game[" & i & "]/hardware/stepping").InnerText
+    '            Dim j As Integer = 2
+    '            Dim InputNodes = xnode.SelectNodes("//game[" & i & "]/hardware/inputs/input[" & j & "]")
+    '            xInputType(i) = String.Join(", ", InputNodes.Cast(Of XmlNode).Select(Function(inputNode) inputNode.Attributes("type").Value))
+    '            GameData.Rows.Add(xname(i), xVersion(i), xRoms(i), xStep(i), " ", xInputType(i))
+    '            i += 1
+    '        Next
+    '    Else
+    '        MessageBox.Show("Games.xml not found.")
+    '        Me.Close()
+    '    End If
+
+
+    'End Sub
 
     Private Sub DataGridView_Setting()
 
@@ -2043,10 +2102,33 @@ MessageBoxIcon.Error)
     End Sub
 
     Private Sub Surround1_Tick(sender As Object, e As EventArgs) Handles Surround1.Tick
-        'SurroundingSub1()
+        SurroundingSub1()
     End Sub
     Private Sub Surround2_Tick(sender As Object, e As EventArgs) Handles Surround2.Tick
         SurroundingSub2()
+    End Sub
+
+    Sub Sounds(Rnd As String, leng As Integer)
+        brdy = 1
+        Timer3.Enabled = False
+        Dim cmd As String
+        cmd = "stop " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        cmd = "close " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        'Dim Rnd As String = "up"
+        'Dim leng As Integer = 200
+        Dim sond As String = "sound\" & Rnd & ".mp3"
+        Dim fileNames As String = sond
+        cmd = "open """ + fileNames + """ type mpegvideo alias " + mysound
+
+        If mciSendString(cmd, Nothing, 0, IntPtr.Zero) <> 0 Then
+            Return
+        End If
+        cmd = "play " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        Timer3.Interval = leng
+        Timer3.Enabled = True
     End Sub
 
 
@@ -2078,26 +2160,50 @@ MessageBoxIcon.Error)
             Dim n2 = "0"
             Dim n3 = "0"
             Dim n4 = "0"
-            Dim x = state.Gamepad.LeftThumbX
-            Dim y = state.Gamepad.LeftThumbY
+            'Dim x = state.Gamepad.LeftThumbX
+            'Dim y = state.Gamepad.LeftThumbY
 
-            If (y <> Center_i Or x <> Center_i) And lever = "0000" Then
-                If y > Center_i Then
-                    n1 = "1"
-                End If
-                If y < Center_i Then
-                    n2 = "1"
-                End If
-                If x < Center_i Then
-                    n3 = "1"
-                End If
-                If x > Center_i Then
-                    n4 = "1"
-                End If
-                lever = n4 & n3 & n2 & n1
-            End If
+            'If (y <> Center_i Or x <> Center_i) And lever = "0000" Then
+            '    If y > Center_i * -1 Then
+            '        n1 = "1"
+            '    End If
+            '    If y < Center_i Then
+            '        n2 = "1"
+            '    End If
+            '    If x < Center_i Then
+            '        n3 = "1"
+            '    End If
+            '    If x > Center_i * -1 Then
+            '        n4 = "1"
+            '    End If
+            '    lever = n4 & n3 & n2 & n1
+            'End If
 
             joybox1.Image = CType(My.Resources.ResourceManager.GetObject("_" & lever.ToString), Image)
+
+            If lever = "0001" Then
+                If brdy = 0 Then
+                    Sounds("up", 200)
+                End If
+            End If
+            If lever = "0010" Then
+                If brdy = 0 Then
+                    Sounds("down", 300)
+                End If
+            End If
+            If lever = "0100" Then
+                If brdy = 0 Then
+                    Sounds("left", 300)
+                End If
+            End If
+            If lever = "1000" Then
+                If brdy = 0 Then
+                    Sounds("right", 250)
+                End If
+            End If
+
+
+
 
             'Shift
             Dim ss As String = n.Substring(3, 1)
@@ -2106,7 +2212,9 @@ MessageBoxIcon.Error)
 
             Else
                 shiftbox1.Image = My.Resources.sd
-
+                If brdy = 0 Then
+                    Sounds("chu", 300)
+                End If
             End If
 
 
@@ -2117,7 +2225,9 @@ MessageBoxIcon.Error)
 
             Else
                 beatbox1.Image = My.Resources.bd
-
+                If brdy = 0 Then
+                    Sounds("chu", 300)
+                End If
             End If
 
             'Charge
@@ -2127,7 +2237,9 @@ MessageBoxIcon.Error)
 
             Else
                 chargebox1.Image = My.Resources.cd
-
+                If brdy = 0 Then
+                    Sounds("nya", 200)
+                End If
             End If
 
 
@@ -2138,7 +2250,9 @@ MessageBoxIcon.Error)
 
             Else
                 jumpbox1.Image = My.Resources.jd
-
+                If brdy = 0 Then
+                    Sounds("one", 200)
+                End If
             End If
 
 
@@ -2149,7 +2263,9 @@ MessageBoxIcon.Error)
 
             Else
                 Startbox1.Image = My.Resources.cd
-
+                If brdy = 0 Then
+                    Sounds("suzuki", 400)
+                End If
             End If
 
             'Home
@@ -2159,7 +2275,9 @@ MessageBoxIcon.Error)
 
             Else
                 Homebox1.Image = My.Resources.cd
-
+                If brdy = 0 Then
+                    Sounds("tanaka", 400)
+                End If
             End If
 
             'B
@@ -2169,7 +2287,9 @@ MessageBoxIcon.Error)
 
             Else
                 Bbox1.Image = My.Resources.cd
-
+                If brdy = 0 Then
+                    Sounds("nya", 200)
+                End If
             End If
 
             'L_Sholder
@@ -2179,7 +2299,9 @@ MessageBoxIcon.Error)
 
             Else
                 LSbox1.Image = My.Resources.cd
-
+                If brdy = 0 Then
+                    Sounds("one", 200)
+                End If
             End If
 
             'RSB
@@ -2189,6 +2311,9 @@ MessageBoxIcon.Error)
 
             Else
                 Rbox1.Image = My.Resources.cd
+                If brdy = 0 Then
+                    Sounds("suzuki", 400)
+                End If
             End If
 
             'LSB
@@ -2198,6 +2323,9 @@ MessageBoxIcon.Error)
 
             Else
                 Lbox1.Image = My.Resources.cd
+                If brdy = 0 Then
+                    Sounds("tanaka", 400)
+                End If
             End If
             'Dim rrr As String = n.Substring(9, 1)
             'If rrr = "1" And Rec = False Then
@@ -2372,12 +2500,14 @@ MessageBoxIcon.Error)
 
     Private Sub ControlerX4_Click(sender As Object, e As EventArgs) Handles Button_X.Click
         If XTimer_F = False Then
-            x_timer.Change(0, interval)
+            'x_timer.Change(0, interval)
+            Surround1.Enabled = True
             Button_X.Text = "Enabled"
             XTimer_F = True
             Panel7.Left = -240
         Else
-            x_timer.Change(Timeout.Infinite, Timeout.Infinite)
+            'x_timer.Change(Timeout.Infinite, Timeout.Infinite)
+            Surround1.Enabled = False
             Button_X.Text = "Disabled"
             joybox1.Image = Nothing
             XTimer_F = False
@@ -2690,31 +2820,77 @@ MessageBoxIcon.Error)
     End Sub
 
     Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+        'Button14.Top = -100
         If Capture_F = True Then
-            captureForm.Close()
-            Capture_F = False
-            Exit Sub
-        End If
-        'Console.WriteLine(Process.GetProcessesByName("supermodel").Count)
-        If Process.GetProcessesByName("supermodel").Count <> 0 Then
-
-            Dim w As Integer = GetSupermodelWidth()
-            Dim h As Integer = GetSupermodelHeight()
-            Console.WriteLine("w:" & w)
-            If w <> 640 Or h <> 360 Then
-
-            Else
-                Capture_F = True
-                captureForm.Show()
+            captureForm.StopCapture()
+            Dim result As DialogResult = MessageBox.Show("Close Window?",
+                                             "Question",
+                                             MessageBoxButtons.OKCancel,
+                                             MessageBoxIcon.Exclamation,
+                                             MessageBoxDefaultButton.Button2)
+            If result = DialogResult.OK Then
+                Capture_F = False
+                captureForm.Close()
+                captureForm.Dispose()
+            ElseIf result = DialogResult.Cancel Then
+                captureForm.StartCapture()
+                captureForm.BringToFront()
             End If
         Else
+            If Process.GetProcessesByName("supermodel").Count <> 0 Then
 
+                Dim w As Integer = GetSupermodelWidth()
+                Dim h As Integer = GetSupermodelHeight()
+                Console.WriteLine("w:" & w)
+                If w <> 640 Or h <> 360 Then
 
+                Else
+                    Capture_F = True
+                    captureForm.Show()
+                End If
+            End If
         End If
+
+
+
+        ''Console.WriteLine(Process.GetProcessesByName("supermodel").Count)
+        'If Process.GetProcessesByName("supermodel").Count <> 0 Then
+
+        '    Dim w As Integer = GetSupermodelWidth()
+        '    Dim h As Integer = GetSupermodelHeight()
+        '    Console.WriteLine("w:" & w)
+        '    If w <> 640 Or h <> 360 Then
+
+        '    Else
+        '        Capture_F = True
+        '        captureForm.Show()
+        '    End If
+        'Else
+        'End If
 
     End Sub
 
+    Private Sub timer_buttonProcess_Tick(sender As Object, e As EventArgs) Handles timer_buttonProcess.Tick
+        timer_buttonProcess.Enabled = False
+        Button14.Enabled = True
+        Button14.Top = 32
+    End Sub
 
+    Private Sub Timer3_Tick(sender As Object, e As EventArgs) Handles Timer3.Tick
+        Timer3.Enabled = False
+        'If Tabb = 96 Then
+        Dim cmd As String
+        '再生しているWAVEを停止する
+        cmd = "stop " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        '  閉じる
+        cmd = "close " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        'End If
+        brdy = 0
+        Console.WriteLine("ttt:::" & brdy)
+
+    End Sub
 End Class
 
 

@@ -68,11 +68,11 @@ Partial Class Form1
         Me.CheckBox_gpumulti = New System.Windows.Forms.CheckBox()
         Me.CheckBox_quadrender = New System.Windows.Forms.CheckBox()
         Me.CheckBox_vsync = New System.Windows.Forms.CheckBox()
-        Me.Button_screenpos = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.ComboBox_resolution = New System.Windows.Forms.ComboBox()
         Me.RadioButton_legacy = New System.Windows.Forms.RadioButton()
         Me.RadioButton_new3d = New System.Windows.Forms.RadioButton()
+        Me.Button_screenpos = New System.Windows.Forms.Button()
         Me.CheckBox_ss = New System.Windows.Forms.CheckBox()
         Me.Button_loadrom = New System.Windows.Forms.Button()
         Me.Label_Width = New System.Windows.Forms.Label()
@@ -232,6 +232,9 @@ Partial Class Form1
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Button14 = New System.Windows.Forms.Button()
+        Me.timer_buttonProcess = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer10 = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -776,17 +779,6 @@ Partial Class Form1
         Me.CheckBox_vsync.Text = "VSync"
         Me.CheckBox_vsync.UseVisualStyleBackColor = True
         '
-        'Button_screenpos
-        '
-        Me.Button_screenpos.ForeColor = System.Drawing.Color.Black
-        Me.Button_screenpos.Location = New System.Drawing.Point(348, 13)
-        Me.Button_screenpos.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button_screenpos.Name = "Button_screenpos"
-        Me.Button_screenpos.Size = New System.Drawing.Size(33, 25)
-        Me.Button_screenpos.TabIndex = 1
-        Me.Button_screenpos.Text = "..."
-        Me.Button_screenpos.UseVisualStyleBackColor = True
-        '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.ComboBox_resolution)
@@ -836,6 +828,17 @@ Partial Class Form1
         Me.RadioButton_new3d.TabStop = True
         Me.RadioButton_new3d.Text = "New3D"
         Me.RadioButton_new3d.UseVisualStyleBackColor = True
+        '
+        'Button_screenpos
+        '
+        Me.Button_screenpos.ForeColor = System.Drawing.Color.Black
+        Me.Button_screenpos.Location = New System.Drawing.Point(348, 13)
+        Me.Button_screenpos.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button_screenpos.Name = "Button_screenpos"
+        Me.Button_screenpos.Size = New System.Drawing.Size(33, 25)
+        Me.Button_screenpos.TabIndex = 1
+        Me.Button_screenpos.Text = "..."
+        Me.Button_screenpos.UseVisualStyleBackColor = True
         '
         'CheckBox_ss
         '
@@ -2757,6 +2760,17 @@ Partial Class Form1
         Me.Button14.Text = "Button14"
         Me.Button14.UseVisualStyleBackColor = True
         '
+        'timer_buttonProcess
+        '
+        Me.timer_buttonProcess.Interval = 2000
+        '
+        'Timer10
+        '
+        Me.Timer10.Interval = 1000
+        '
+        'Timer3
+        '
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -3081,4 +3095,7 @@ Partial Class Form1
     Friend WithEvents Label43 As Label
     Friend WithEvents Label44 As Label
     Friend WithEvents Button14 As Button
+    Friend WithEvents timer_buttonProcess As Timer
+    Friend WithEvents Timer10 As Timer
+    Friend WithEvents Timer3 As Timer
 End Class

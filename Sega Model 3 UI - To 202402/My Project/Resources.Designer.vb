@@ -371,6 +371,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  型 System.Byte[] のローカライズされたリソースを検索します。
+        '''</summary>
+        Friend ReadOnly Property HOOG0557() As Byte()
+            Get
+                Dim obj As Object = ResourceManager.GetObject("HOOG0557", resourceCulture)
+                Return CType(obj,Byte())
+            End Get
+        End Property
+        
+        '''<summary>
         '''  (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
         '''</summary>
         Friend ReadOnly Property icon() As System.Drawing.Icon

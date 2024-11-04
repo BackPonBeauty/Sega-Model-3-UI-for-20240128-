@@ -46,15 +46,17 @@ Partial Class captureForm
         '
         'FPS_Label
         '
+        Me.FPS_Label.AutoSize = True
         Me.FPS_Label.BackColor = System.Drawing.Color.Black
-        Me.FPS_Label.Font = New System.Drawing.Font("hooge 05_57", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FPS_Label.Dock = System.Windows.Forms.DockStyle.Right
+        Me.FPS_Label.Font = New System.Drawing.Font("Cascadia Code", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FPS_Label.ForeColor = System.Drawing.Color.Green
-        Me.FPS_Label.Location = New System.Drawing.Point(-3, 0)
+        Me.FPS_Label.Location = New System.Drawing.Point(935, 0)
         Me.FPS_Label.Name = "FPS_Label"
-        Me.FPS_Label.Size = New System.Drawing.Size(29, 18)
+        Me.FPS_Label.Size = New System.Drawing.Size(25, 15)
         Me.FPS_Label.TabIndex = 50
         Me.FPS_Label.Text = "888"
-        Me.FPS_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.FPS_Label.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'captureForm
         '
@@ -72,6 +74,7 @@ Partial Class captureForm
         Me.Text = "capture"
         CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
