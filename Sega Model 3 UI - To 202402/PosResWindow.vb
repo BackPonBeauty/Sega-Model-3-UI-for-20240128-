@@ -187,7 +187,7 @@ Public Class PosResWindow
         Form1.Label_xRes.Text = S_Split(0)
         Form1.Label_yRes.Text = S_Split(1)
         If Integer.Parse(Form1.Label_wScreenRes.Text) < Integer.Parse(Form1.Label_xRes.Text) Or Integer.Parse(Form1.Label_hScreenRes.Text) < Integer.Parse(Form1.Label_yRes.Text) Then
-            Dim result As DialogResult = MessageBox.Show("It's bigger than the screen size.",
+            Dim result As DialogResult = MessageBox.Show("It's bigger than the screen size. are you sure?",
                                              "confirmation",
                                              MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Exclamation,

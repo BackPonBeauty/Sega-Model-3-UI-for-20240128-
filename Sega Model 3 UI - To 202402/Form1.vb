@@ -4,16 +4,11 @@ Imports System.IO
 Imports System.Net
 Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices
-Imports System.Diagnostics
 Imports System.Text
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Xml
 Imports SharpDX.XInput
 Imports System.Threading
-Imports System.Net.Http
-Imports System.Threading.Tasks
-Imports System.Runtime.InteropServices.ComTypes
-Imports System.Timers
+
 
 Public Class Form1
     Inherits Form
@@ -23,6 +18,7 @@ Public Class Form1
 
     Dim IgnoreClose As Boolean = False
     Dim Load_comp_F As Boolean = False
+    Dim Nya As Boolean = False
     Dim brdy = 0
 
     <System.Runtime.InteropServices.DllImport("winmm.dll", CharSet:=System.Runtime.InteropServices.CharSet.Auto)>
@@ -37,47 +33,47 @@ Public Class Form1
     Private mouseDevices As New Dictionary(Of IntPtr, String)
     'Private WithEvents wm As New Wiimote()
 
-    <DllImport("user32.dll")>
-    Private Shared Function GetWindowRect(ByVal hWnd As IntPtr, ByRef rect As RECT) As Boolean
-    End Function
+    '<DllImport("user32.dll")>
+    'Private Shared Function GetWindowRect(ByVal hWnd As IntPtr, ByRef rect As RECT) As Boolean
+    'End Function
 
-    <StructLayout(LayoutKind.Sequential)>
-    Private Structure RECT
-        Public Left As Integer
-        Public Top As Integer
-        Public Right As Integer
-        Public Bottom As Integer
-    End Structure
+    '<StructLayout(LayoutKind.Sequential)>
+    'Private Structure RECT
+    '    Public Left As Integer
+    '    Public Top As Integer
+    '    Public Right As Integer
+    '    Public Bottom As Integer
+    'End Structure
 
-    Private Function GetSupermodelWidth() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
-        If processes.Length > 0 Then
-            Dim hWnd As IntPtr = processes(0).MainWindowHandle
-            If hWnd <> IntPtr.Zero Then
-                Dim rect As RECT
-                If GetWindowRect(hWnd, rect) Then
-                    Dim width As Integer = rect.Right - rect.Left
-                    Return width
-                End If
-            End If
-        End If
-        Return Nothing
-    End Function
+    'Private Function GetSupermodelWidth() As Integer?
+    '    Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+    '    If processes.Length > 0 Then
+    '        Dim hWnd As IntPtr = processes(0).MainWindowHandle
+    '        If hWnd <> IntPtr.Zero Then
+    '            Dim rect As RECT
+    '            If GetWindowRect(hWnd, rect) Then
+    '                Dim width As Integer = rect.Right - rect.Left
+    '                Return width
+    '            End If
+    '        End If
+    '    End If
+    '    Return Nothing
+    'End Function
 
-    Private Function GetSupermodelHeight() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
-        If processes.Length > 0 Then
-            Dim hWnd As IntPtr = processes(0).MainWindowHandle
-            If hWnd <> IntPtr.Zero Then
-                Dim rect As RECT
-                If GetWindowRect(hWnd, rect) Then
-                    Dim Height As Integer = rect.Bottom - rect.Top
-                    Return Height
-                End If
-            End If
-        End If
-        Return Nothing
-    End Function
+    'Private Function GetSupermodelHeight() As Integer?
+    '    Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+    '    If processes.Length > 0 Then
+    '        Dim hWnd As IntPtr = processes(0).MainWindowHandle
+    '        If hWnd <> IntPtr.Zero Then
+    '            Dim rect As RECT
+    '            If GetWindowRect(hWnd, rect) Then
+    '                Dim Height As Integer = rect.Bottom - rect.Top
+    '                Return Height
+    '            End If
+    '        End If
+    '    End If
+    '    Return Nothing
+    'End Function
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -186,8 +182,15 @@ Public Class Form1
         End If
         cmd = "play " + mysound
         mciSendString(cmd, Nothing, 0, IntPtr.Zero)
-        Timer3.Interval = leng
-        Timer3.Enabled = True
+        cmd = "stop " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        '  閉じる
+        cmd = "close " + mysound
+        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        'End If
+        'brdy = 0
+        'Timer3.Interval = leng
+        'Timer3.Enabled = True
         'ComboBox1.SelectedIndex = 0
         'ComboBox2.SelectedIndex = 0
         brdy = 1
@@ -294,10 +297,12 @@ Public Class Form1
         Marshal.FreeHGlobal(pRawInputDeviceList)
     End Sub
 
+    Dim deviceName As String
+
     Protected Overrides Sub WndProc(ByRef m As Message)
         Const WM_INPUT As Integer = &HFF
-
-        If m.Msg = WM_INPUT Then
+        Dim data1 As String = ""
+        If m.Msg = WM_INPUT Or m.Msg = &H20A Then
             Dim dwSize As UInteger = 0
             RawInput.GetRawInputData(m.LParam, RawInput.RID_INPUT, IntPtr.Zero, dwSize, CUInt(Marshal.SizeOf(GetType(RawInput.RAWINPUTHEADER))))
 
@@ -309,13 +314,13 @@ Public Class Form1
 
                         If raw.header.dwType = RawInput.RIM_TYPEMOUSE Then
                             Dim mouse As RawInput.RAWMOUSE = raw.mouse
-                            Dim deviceName As String = If(mouseDevices.ContainsKey(raw.header.hDevice), mouseDevices(raw.header.hDevice), "Unknown Mouse")
+                            deviceName = If(mouseDevices.ContainsKey(raw.header.hDevice), mouseDevices(raw.header.hDevice), "Unknown Mouse")
                             'Dim wheelDelta As Short = CType(mouse.usButtonData, Short)
                             'Console.WriteLine($"Device Name: {raw.header.hDevice}")
                             'Console.WriteLine($"Button Flags: {mouse.usButtonFlags}")
                             'Console.WriteLine($"Button Data: {mouse.usButtonData}")
                             ' ボタンの状態をチェック
-                            Dim data1 As String = ""
+
                             If mouse.usButtonData = 1 Or mouse.usButtonData = 2 Then
                                 data1 = "LEFT_BUTTON"
                             End If
@@ -324,6 +329,12 @@ Public Class Form1
                             End If
                             If mouse.usButtonData = 16 Or mouse.usButtonData = 32 Then
                                 data1 = "MIDDLE_BUTTON"
+                            End If
+                            If mouse.usButtonData = 64 Or mouse.usButtonData = 128 Then
+                                data1 = "BACK_BUTTON"
+                            End If
+                            If mouse.usButtonData = 256 Or mouse.usButtonData = 512 Then
+                                data1 = "FORWARD_BUTTON"
                             End If
                             If mouse.usButtonData = 7865344 Then
                                 data1 = "ZAXIS_POS"
@@ -373,7 +384,10 @@ Public Class Form1
                             '    Console.WriteLine($"{deviceName}: Button 5 down")
                             'End If
                             'If (mouse.usButtonFlags And RawInput.RI_MOUSE_BUTTON_5_UP) <> 0 Then
-                            '    Console.WriteLine($"{deviceName}: Button 5 up")
+                            If mouse.usButtonData <> 0 Then
+                                Console.WriteLine(mouse.usButtonData)
+                            End If
+
                             'End If
 
                             ' マウスの移動量を取得する場合
@@ -395,6 +409,18 @@ Public Class Form1
                     Marshal.FreeHGlobal(buffer)
                 End Try
             End If
+        End If
+
+        Dim data2 As String = ""
+        If m.Msg = &H20A And data1 = "" Then ' WM_MOUSEWHEEL
+            Dim wheelDelta As Integer = CInt((m.WParam.ToInt32() >> 16) And &HFFFF)
+            If wheelDelta = 120 Then
+                data2 = "Wheel Scrolled UP"
+            ElseIf wheelDelta = 65416 Then
+                data2 = "Wheel Scrolled Down"
+            End If
+            Console.WriteLine(wheelDelta)
+            Label1.Text = ($"{deviceName}_{data2}")
         End If
         MyBase.WndProc(m)
     End Sub
@@ -558,16 +584,69 @@ Public Class Form1
         Dim line As String = ""
         Dim al As New ArrayList
 
-        Using sr As StreamReader = New StreamReader(
-          "Resolution.txt", Encoding.GetEncoding("UTF-8"))
+        Try
+            Using sr As StreamReader = New StreamReader(
+                   "Resolution.txt", Encoding.GetEncoding("UTF-8"))
 
-            line = sr.ReadLine()
-            Do Until line Is Nothing
-                ComboBox_resolution.Items.Add(line)
                 line = sr.ReadLine()
-            Loop
-            ComboBox_resolution.SelectedIndex = Resolution_index_bin
-        End Using
+                Do Until line Is Nothing
+                    ComboBox_resolution.Items.Add(line)
+                    line = sr.ReadLine()
+                Loop
+                ComboBox_resolution.SelectedIndex = Resolution_index_bin
+            End Using
+        Catch ex As Exception
+            System.Console.WriteLine("file not found." & ex.Message)
+            Dim writer As System.IO.StreamWriter
+
+            writer = New System.IO.StreamWriter("Resolution.txt", False, System.Text.Encoding.UTF8)
+
+            writer.WriteLine("496x384")
+            writer.WriteLine("512x384")
+            writer.WriteLine("683x384")
+            writer.WriteLine("640x360")
+            writer.WriteLine("640x480")
+            writer.WriteLine("800x600")
+            writer.WriteLine("960x540")
+            writer.WriteLine("1024x768")
+            writer.WriteLine("1152x864")
+            writer.WriteLine("1280x720")
+            writer.WriteLine("1280x800")
+            writer.WriteLine("1280x960")
+            writer.WriteLine("1280x1024")
+            writer.WriteLine("1360x768")
+            writer.WriteLine("1366x768")
+            writer.WriteLine("1440x1080")
+            writer.WriteLine("1600x900")
+            writer.WriteLine("1600x1024")
+            writer.WriteLine("1600x1200")
+            writer.WriteLine("1680x1050")
+            writer.WriteLine("1920x1080")
+            writer.WriteLine("1920x1200")
+            writer.WriteLine("1920x1440")
+            writer.WriteLine("2048x1536")
+            writer.WriteLine("2560x1080")
+            writer.WriteLine("2560x1440")
+            writer.WriteLine("2560x1440")
+            writer.WriteLine("2560x1600")
+            writer.WriteLine("3440x1440")
+            writer.WriteLine("3840x2160")
+            writer.WriteLine("5760x1080")
+
+            writer.Close()
+
+            Using sr As StreamReader = New StreamReader(
+                   "Resolution.txt", Encoding.GetEncoding("UTF-8"))
+
+                line = sr.ReadLine()
+                Do Until line Is Nothing
+                    ComboBox_resolution.Items.Add(line)
+                    line = sr.ReadLine()
+                Loop
+                ComboBox_resolution.SelectedIndex = Resolution_index_bin
+            End Using
+        End Try
+
     End Sub
 
     Private Sub LastSelectRow()
@@ -775,6 +854,7 @@ Public Class Form1
             Dim Outputs As StringBuilder = New StringBuilder(300)
             Dim Scanline As StringBuilder = New StringBuilder(300)
             Dim Gamepad As StringBuilder = New StringBuilder(300)
+            Dim Urami As StringBuilder = New StringBuilder(300)
             Dim Opacity As StringBuilder = New StringBuilder(30000)
             Dim SS As StringBuilder = New StringBuilder(300)
 
@@ -874,6 +954,7 @@ Public Class Form1
             'GetPrivateProfileString(" Supermodel3 UI ", "ForeColor", "White", Forecolor, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Scanline", "False", Scanline, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Gamepad", "False", Gamepad, 15, iniFileName)
+            GetPrivateProfileString(" Supermodel3 UI ", "Urami", "False", Urami, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "5", Opacity, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "SS", "False", SS, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Favorite", "False", Favorite, 15, iniFileName)
@@ -908,8 +989,13 @@ Public Class Form1
             End If
 
             'Gamepad
-            If Gamepad.ToString() = "True" Or VSync.ToString() = "1" Then
+            If Gamepad.ToString() = "True" Or Gamepad.ToString() = "1" Then
                 Button_X.PerformClick()
+            End If
+
+            'Urami
+            If Urami.ToString() = "True" Or Urami.ToString() = "1" Then
+                Button_U.PerformClick()
             End If
 
             'BackColor
@@ -1694,6 +1780,7 @@ MessageBoxIcon.Error)
         WritePrivateProfileString(" Supermodel3 UI ", "ForeColor", Forecolor_s, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Scanline", CStr(Scanline_Enabled), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Gamepad", CStr(Surround1.Enabled), iniFileName)
+        WritePrivateProfileString(" Supermodel3 UI ", "Urami", CStr(Nya.ToString), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Opacity", CStr(Opacity_D), iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "SS", CheckBox_ss.Checked.ToString, iniFileName)
         WritePrivateProfileString(" Supermodel3 UI ", "Favorite", ShowFavoriteToolStripMenuItem.Text.ToString, iniFileName)
@@ -2499,7 +2586,7 @@ MessageBoxIcon.Error)
     'End Function
 
     Private Sub ControlerX4_Click(sender As Object, e As EventArgs) Handles Button_X.Click
-        If XTimer_F = False Then
+        If Button_X.Text = "Disabled" Then
             'x_timer.Change(0, interval)
             Surround1.Enabled = True
             Button_X.Text = "Enabled"
@@ -2823,31 +2910,31 @@ MessageBoxIcon.Error)
         'Button14.Top = -100
         If Capture_F = True Then
             captureForm.StopCapture()
-            Dim result As DialogResult = MessageBox.Show("Close Window?",
-                                             "Question",
-                                             MessageBoxButtons.OKCancel,
-                                             MessageBoxIcon.Exclamation,
-                                             MessageBoxDefaultButton.Button2)
-            If result = DialogResult.OK Then
-                Capture_F = False
-                captureForm.Close()
-                captureForm.Dispose()
-            ElseIf result = DialogResult.Cancel Then
-                captureForm.StartCapture()
-                captureForm.BringToFront()
-            End If
+            'Dim result As DialogResult = MessageBox.Show("Close Window?",
+            '                                 "Question",
+            '                                 MessageBoxButtons.OKCancel,
+            '                                 MessageBoxIcon.Exclamation,
+            '                                 MessageBoxDefaultButton.Button2)
+            'If result = DialogResult.OK Then
+            'Capture_F = False
+            captureForm.Close()
+            captureForm.Dispose()
+            'ElseIf result = DialogResult.Cancel Then
+            '    captureForm.StartCapture()
+            '    captureForm.BringToFront()
+            'End If
         Else
             If Process.GetProcessesByName("supermodel").Count <> 0 Then
 
-                Dim w As Integer = GetSupermodelWidth()
-                Dim h As Integer = GetSupermodelHeight()
-                Console.WriteLine("w:" & w)
-                If w <> 640 Or h <> 360 Then
+                'Dim w As Integer = GetSupermodelWidth()
+                'Dim h As Integer = GetSupermodelHeight()
+                'Console.WriteLine("w:" & w)
+                'If w <> 683 Or h <> 384 Then
 
-                Else
-                    Capture_F = True
-                    captureForm.Show()
-                End If
+                'Else
+                Capture_F = True
+                captureForm.Show()
+                'End If
             End If
         End If
 
@@ -2891,6 +2978,18 @@ MessageBoxIcon.Error)
         Console.WriteLine("ttt:::" & brdy)
 
     End Sub
+
+    Private Sub Button_U_Click(sender As Object, e As EventArgs) Handles Button_U.Click
+        If brdy = 1 Then
+            Button_U.BackColor = Color.White
+            brdy = 0
+        Else
+            Button_U.BackColor = Color.Gray
+            brdy = 1
+        End If
+    End Sub
+
+
 End Class
 
 

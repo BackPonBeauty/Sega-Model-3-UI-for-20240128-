@@ -34,7 +34,7 @@ Partial Class captureForm
         Me.PictureBox.BackColor = System.Drawing.Color.Black
         Me.PictureBox.Location = New System.Drawing.Point(0, 0)
         Me.PictureBox.Name = "PictureBox"
-        Me.PictureBox.Size = New System.Drawing.Size(960, 540)
+        Me.PictureBox.Size = New System.Drawing.Size(683, 384)
         Me.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox.TabIndex = 0
         Me.PictureBox.TabStop = False
@@ -51,7 +51,7 @@ Partial Class captureForm
         Me.FPS_Label.Dock = System.Windows.Forms.DockStyle.Right
         Me.FPS_Label.Font = New System.Drawing.Font("Cascadia Code", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FPS_Label.ForeColor = System.Drawing.Color.Green
-        Me.FPS_Label.Location = New System.Drawing.Point(935, 0)
+        Me.FPS_Label.Location = New System.Drawing.Point(658, 0)
         Me.FPS_Label.Name = "FPS_Label"
         Me.FPS_Label.Size = New System.Drawing.Size(25, 15)
         Me.FPS_Label.TabIndex = 50
@@ -63,7 +63,7 @@ Partial Class captureForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 22.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Gray
-        Me.ClientSize = New System.Drawing.Size(960, 540)
+        Me.ClientSize = New System.Drawing.Size(683, 384)
         Me.Controls.Add(Me.FPS_Label)
         Me.Controls.Add(Me.PictureBox)
         Me.Font = New System.Drawing.Font("Consolas", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

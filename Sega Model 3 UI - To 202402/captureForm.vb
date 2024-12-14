@@ -8,7 +8,7 @@ Public Class captureForm
     'Dim left_i As Integer = 320
     'Dim top_i As Integer = 180
     Public targetBitmap As Bitmap
-    Dim targetProcessName As String = "supermodel" ' ターゲットのプロセス名を指定してください
+    Dim targetProcessName As String
     Dim targetHwnd As IntPtr = IntPtr.Zero
 
     <DllImport("gdi32.dll")>
@@ -39,8 +39,94 @@ Public Class captureForm
     Private Shared Function SetForegroundWindow(hWnd As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
     End Function
 
+    <DllImport("user32.dll")>
+    Private Shared Function GetWindowRect(ByVal hWnd As IntPtr, ByRef rect As RECT) As Boolean
+    End Function
+
+    <StructLayout(LayoutKind.Sequential)>
+    Private Structure RECT
+        Public Left As Integer
+        Public Top As Integer
+        Public Right As Integer
+        Public Bottom As Integer
+    End Structure
+
+    Private Function GetSupermodelWidth() As Integer?
+        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        If processes.Length > 0 Then
+            Dim hWnd As IntPtr = processes(0).MainWindowHandle
+            If hWnd <> IntPtr.Zero Then
+                Dim rect As RECT
+                If GetWindowRect(hWnd, rect) Then
+                    Dim width As Integer = rect.Right - rect.Left
+                    Return width
+                End If
+            End If
+        End If
+        Return Nothing
+    End Function
+
+    Private Function GetSupermodelHeight() As Integer?
+        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        If processes.Length > 0 Then
+            Dim hWnd As IntPtr = processes(0).MainWindowHandle
+            If hWnd <> IntPtr.Zero Then
+                Dim rect As RECT
+                If GetWindowRect(hWnd, rect) Then
+                    Dim Height As Integer = rect.Bottom - rect.Top
+                    Return Height
+                End If
+            End If
+        End If
+        Return Nothing
+    End Function
+
+    Private Function GetSupermodelTop() As Integer?
+        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        If processes.Length > 0 Then
+            Dim hWnd As IntPtr = processes(0).MainWindowHandle
+            If hWnd <> IntPtr.Zero Then
+                Dim rect As RECT
+                If GetWindowRect(hWnd, rect) Then
+                    'Dim Height As Integer = rect.Bottom - rect.Top
+                    Return rect.Top
+                End If
+            End If
+        End If
+        Return Nothing
+    End Function
+
+    Private Function GetSupermodelLeft() As Integer?
+        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        If processes.Length > 0 Then
+            Dim hWnd As IntPtr = processes(0).MainWindowHandle
+            If hWnd <> IntPtr.Zero Then
+                Dim rect As RECT
+                If GetWindowRect(hWnd, rect) Then
+                    'Dim Height As Integer = rect.Bottom - rect.Top
+                    Return rect.Left
+                End If
+            End If
+        End If
+        Return Nothing
+    End Function
+
+    <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Auto)>
+    Private Shared Function FindWindow(lpClassName As String, lpWindowName As String) As IntPtr
+    End Function
+
     'PrivateFontCollectionオブジェクトを作成する
     Dim pfc As New System.Drawing.Text.PrivateFontCollection()
+
+    Public Shared Function GetHwndFromWindowCaption(windowTitle As String) As Integer
+        ' ウィンドウハンドルを取得
+        Dim hWnd As IntPtr = FindWindow(Nothing, windowTitle)
+        If hWnd = IntPtr.Zero Then
+            Throw New Exception("指定されたウィンドウが見つかりません")
+        End If
+
+        Return hWnd
+    End Function
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -66,24 +152,34 @@ Public Class captureForm
         System.Runtime.InteropServices.
     Marshal.FreeCoTaskMem(fontBufPtr)
 
-        targetBitmap = New Bitmap(640, 360)
-        MyhWnd = Me.Handle
+        Dim windowTitle As String = ""
+        For Each p In System.Diagnostics.Process.GetProcesses()
+            'メインウィンドウのタイトルがある時だけ列挙する
+            If p.MainWindowTitle.Length <> 0 Then
+                'Console.WriteLine("プロセス名:" & p.ProcessName)
+                'Console.WriteLine("タイトル名:" & p.MainWindowTitle)
+                If p.ProcessName = "supermodel" Then
+                    windowTitle = p.MainWindowTitle
+                    Exit For
+                End If
+            End If
+        Next
+
+        targetProcessName = "supermodel"
+
         Dim N = 0
         For Each p As System.Diagnostics.Process In System.Diagnostics.Process.GetProcesses()
             Console.WriteLine(p.ProcessName)
             Console.WriteLine(p.MainWindowHandle)
             If p.ProcessName = targetProcessName Then
-                N += 1
-                If N = 1 Then
-                    targetHwnd = p.MainWindowHandle
+
+                targetHwnd = p.MainWindowHandle
                     Console.WriteLine(N)
                     Exit For
-                End If
 
             End If
         Next
-
-        StartCapture()
+        StartCapture(targetHwnd, GetSupermodelWidth, GetSupermodelHeight, GetSupermodelLeft, GetSupermodelTop)
         FPS_Timer.Enabled = True
 
     End Sub
@@ -94,11 +190,23 @@ Public Class captureForm
     End Sub
 
     Public taskRunning As Boolean = False
+    Private S_width As Integer
+    Private S_height As Integer
+    Private S_top As Integer
+    Private S_left As Integer
+    Private Start_F As Boolean = False
 
-    Public Async Sub StartCapture()
+    Public Async Sub StartCapture(targetWindowHandle As IntPtr, width As Integer, height As Integer, left As Integer, top As Integer)
+        targetHwnd = targetWindowHandle
+        S_width = width
+        S_height = height
+        S_top = top
+        S_left = left
+        Start_F = True
         If taskRunning Then Return ' 前回のタスクが完了していない場合は何もしない
         taskRunning = True
-
+        taskRunning = True
+        targetBitmap = New Bitmap(width, height)
 
         Await Task.Run(Async Function()
                            While taskRunning
@@ -111,7 +219,7 @@ Public Class captureForm
                                Dim hDC As IntPtr = g.GetHdc()
 
                                ' Capture the screen content
-                               BitBlt(hDC, 0, 0, 640, 360, winDC, Nothing, Nothing, SRCCOPY)
+                               BitBlt(hDC, 0, 0, width, height, winDC, Nothing, Nothing, SRCCOPY)
 
                                g.ReleaseHdc(hDC)
                                g.Dispose()
@@ -127,7 +235,7 @@ Public Class captureForm
                                                  End Sub)
 
                                ' 繰り返し間隔を調整するための遅延
-                               Await Task.Delay(2) ' 適切な遅延時間を設定
+                               Await Task.Delay(8) ' 適切な遅延時間を設定
 
                            End While
                        End Function)
@@ -195,8 +303,8 @@ Public Class captureForm
             mode = 2
         ElseIf mode = 0 Then
             Me.WindowState = FormWindowState.Normal
-            Me.Width = 960
-            Me.Height = 540
+            Me.Width = 683
+            Me.Height = 384
             PictureBox.Top = 0
             PictureBox.Left = 0
             PictureBox.Width = Me.Width
@@ -249,7 +357,7 @@ Public Class captureForm
                 Form1.Capture_F = False
                 Me.Close()
             ElseIf result = DialogResult.Cancel Then
-                StartCapture()
+                StartCapture(targetHwnd, GetSupermodelWidth, GetSupermodelHeight, GetSupermodelLeft, GetSupermodelTop)
             End If
         End If
     End Sub
