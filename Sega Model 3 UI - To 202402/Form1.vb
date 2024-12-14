@@ -2909,6 +2909,8 @@ MessageBoxIcon.Error)
     Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
         'Button14.Top = -100
         If Capture_F = True Then
+            Capture_F = False
+
             captureForm.StopCapture()
             'Dim result As DialogResult = MessageBox.Show("Close Window?",
             '                                 "Question",
@@ -2930,7 +2932,7 @@ MessageBoxIcon.Error)
                 'Dim h As Integer = GetSupermodelHeight()
                 'Console.WriteLine("w:" & w)
                 'If w <> 683 Or h <> 384 Then
-
+                Button14.Enabled = False
                 'Else
                 Capture_F = True
                 captureForm.Show()

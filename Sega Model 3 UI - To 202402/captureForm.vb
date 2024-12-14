@@ -355,6 +355,7 @@ Public Class captureForm
                                              MessageBoxDefaultButton.Button2)
             If result = DialogResult.OK Then
                 Form1.Capture_F = False
+                Form1.Button14.Enabled = True
                 Me.Close()
             ElseIf result = DialogResult.Cancel Then
                 StartCapture(targetHwnd, GetSupermodelWidth, GetSupermodelHeight, GetSupermodelLeft, GetSupermodelTop)
@@ -362,9 +363,11 @@ Public Class captureForm
         End If
     End Sub
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Form1.Button14.Enabled = True
         Form1.Capture_F = False
         taskRunning = False
         targetBitmap.Dispose()
+
     End Sub
 
 
