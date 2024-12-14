@@ -1079,7 +1079,12 @@ Public Class Form1
             Resolution_index_bin = Integer.Parse(Resolution_index.ToString)
 
             'New3DEngine
-            If New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
+            If (cpuArchitecture = 12) Then
+                ' ARM64
+                RadioButton_new3d.Checked = True
+                RadioButton_legacy.Checked = False
+                RadioButton_legacy.Enabled = False
+            ElseIf New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
                 RadioButton_new3d.Checked = True
                 RadioButton_legacy.Checked = False
             Else
