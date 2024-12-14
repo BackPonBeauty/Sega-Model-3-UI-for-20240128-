@@ -105,6 +105,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>ARM64</PlatformTarget>
     <Prefer32Bit>true</Prefer32Bit>
+    <TargetName>$(AssemblyName)-$(Platform)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <DefineTrace>true</DefineTrace>
@@ -115,6 +116,7 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>ARM64</PlatformTarget>
     <Prefer32Bit>true</Prefer32Bit>
+    <TargetName>$(AssemblyName)-$(Platform)</TargetName>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
