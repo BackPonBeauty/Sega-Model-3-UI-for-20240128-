@@ -20,6 +20,7 @@ Public Class Form1
     Dim Load_comp_F As Boolean = False
     Dim Nya As Boolean = False
     Dim brdy = 0
+    Dim cpuArchitecture As Integer = 0
 
     <System.Runtime.InteropServices.DllImport("winmm.dll", CharSet:=System.Runtime.InteropServices.CharSet.Auto)>
     Private Shared Function mciSendString(ByVal command As String,
@@ -76,7 +77,7 @@ Public Class Form1
     'End Function
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        GetArchitecture()
         Surround1.Interval = interval
         Surround2.Interval = interval
         DemoTimer.Interval = interval
@@ -85,7 +86,11 @@ Public Class Form1
         If System.IO.File.Exists(fileName) Then
             Label37.Text = System.IO.File.GetLastWriteTime(fileName).ToString
         Else
-            Dim result As DialogResult = MessageBox.Show("Supermodel.exe not found." & vbCrLf & "Want you download PonMi version of Supermodel3?",
+            Dim downloadMessage = "PonMi version of Supermodel3?"
+            If (cpuArchitecture = 12) Then
+                downloadMessage = "mijk84 ARM64 Supermodel3 build?"
+            End If
+            Dim result As DialogResult = MessageBox.Show("Supermodel.exe not found." & vbCrLf & "Do you want to download " & downloadMessage,
                                              "質問",
                                              MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Exclamation,
@@ -196,11 +201,25 @@ Public Class Form1
         brdy = 1
     End Sub
 
-
-    Private Sub download()
-        System.Diagnostics.Process.Start("https://github.com/BackPonBeauty/Supermodel3-PonMi/releases")
+    Private Sub GetArchitecture()
+        ' pulls out the cpu arch 
+        ' https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-processor
+        Dim WinMgmts As Object
+        Dim cpu As Object
+        Dim cpuAarchitecture = 0
+        WinMgmts = GetObject("WinMgmts:").instancesof("Win32_Processor")
+        For Each cpu In WinMgmts
+            cpuArchitecture = cpu.Architecture
+        Next
     End Sub
 
+    Private Sub download()
+        Dim releaseURL = "https://github.com/BackPonBeauty/Supermodel3-PonMi/releases"
+        If (cpuArchitecture = 12) Then
+            releaseURL = "https://github.com/mijk84/win-arm64-binaries/releases/tag/supermodel"
+        End If
+        System.Diagnostics.Process.Start(releaseURL)
+    End Sub
 
     Private Sub DataGridView1_MouseDown(sender As Object, e As MouseEventArgs) Handles DataGridView1.MouseDown
         If e.Button = MouseButtons.Right Then
@@ -1060,7 +1079,12 @@ Public Class Form1
             Resolution_index_bin = Integer.Parse(Resolution_index.ToString)
 
             'New3DEngine
-            If New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
+            If (cpuArchitecture = 12) Then
+                ' ARM64
+                RadioButton_new3d.Checked = True
+                RadioButton_legacy.Checked = False
+                RadioButton_legacy.Enabled = False
+            ElseIf New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
                 RadioButton_new3d.Checked = True
                 RadioButton_legacy.Checked = False
             Else
