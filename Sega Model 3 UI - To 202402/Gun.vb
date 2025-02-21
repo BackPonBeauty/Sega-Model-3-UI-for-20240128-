@@ -47,7 +47,7 @@ Public Class Gun
                 GetAllControls(childControl, size)
                 'テキストボックスだけにアクセスしたい場合
                 ' If TypeOf childControl Is TextBox Then
-                childControl.Font = New Font("Arial", size, FontStyle.Regular)
+                childControl.Font = New Font("Cascadia Code", size, FontStyle.Regular)
                 If TypeOf childControl Is ButtonBase Then
                     childControl.ForeColor = Form1.Pub_Forecolor_s
                 End If

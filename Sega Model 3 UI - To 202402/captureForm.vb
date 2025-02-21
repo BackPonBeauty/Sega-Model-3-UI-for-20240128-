@@ -52,7 +52,7 @@ Public Class captureForm
     End Structure
 
     Private Function GetSupermodelWidth() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        Dim processes() As Process = Process.GetProcessesByName("Supermodel") ' Ensure this name is accurate
         If processes.Length > 0 Then
             Dim hWnd As IntPtr = processes(0).MainWindowHandle
             If hWnd <> IntPtr.Zero Then
@@ -67,7 +67,7 @@ Public Class captureForm
     End Function
 
     Private Function GetSupermodelHeight() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        Dim processes() As Process = Process.GetProcessesByName("Supermodel") ' Ensure this name is accurate
         If processes.Length > 0 Then
             Dim hWnd As IntPtr = processes(0).MainWindowHandle
             If hWnd <> IntPtr.Zero Then
@@ -82,7 +82,7 @@ Public Class captureForm
     End Function
 
     Private Function GetSupermodelTop() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        Dim processes() As Process = Process.GetProcessesByName("Supermodel") ' Ensure this name is accurate
         If processes.Length > 0 Then
             Dim hWnd As IntPtr = processes(0).MainWindowHandle
             If hWnd <> IntPtr.Zero Then
@@ -97,7 +97,7 @@ Public Class captureForm
     End Function
 
     Private Function GetSupermodelLeft() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
+        Dim processes() As Process = Process.GetProcessesByName("Supermodel") ' Ensure this name is accurate
         If processes.Length > 0 Then
             Dim hWnd As IntPtr = processes(0).MainWindowHandle
             If hWnd <> IntPtr.Zero Then
@@ -129,7 +129,6 @@ Public Class captureForm
     End Function
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         'リソース(wlmaru2004p4u)をバイト配列に読み込む
         Dim fontBuf As Byte() = My.Resources.HOOG0557
 
@@ -156,16 +155,16 @@ Public Class captureForm
         For Each p In System.Diagnostics.Process.GetProcesses()
             'メインウィンドウのタイトルがある時だけ列挙する
             If p.MainWindowTitle.Length <> 0 Then
-                'Console.WriteLine("プロセス名:" & p.ProcessName)
+                'Console.WriteLine("プロセス名:" & p."supermodel")
                 'Console.WriteLine("タイトル名:" & p.MainWindowTitle)
-                If p.ProcessName = "supermodel" Then
+                If p.ProcessName = "Supermodel" Then
                     windowTitle = p.MainWindowTitle
                     Exit For
                 End If
             End If
         Next
 
-        targetProcessName = "supermodel"
+        targetProcessName = "Supermodel"
 
         Dim N = 0
         For Each p As System.Diagnostics.Process In System.Diagnostics.Process.GetProcesses()
@@ -174,8 +173,8 @@ Public Class captureForm
             If p.ProcessName = targetProcessName Then
 
                 targetHwnd = p.MainWindowHandle
-                    Console.WriteLine(N)
-                    Exit For
+                Console.WriteLine(N)
+                Exit For
 
             End If
         Next
@@ -205,7 +204,7 @@ Public Class captureForm
         Start_F = True
         If taskRunning Then Return ' 前回のタスクが完了していない場合は何もしない
         taskRunning = True
-        taskRunning = True
+        'taskRunning = True
         targetBitmap = New Bitmap(width, height)
 
         Await Task.Run(Async Function()

@@ -50,7 +50,7 @@ Public Class PosResWindow
         If control.HasChildren Then
             For Each childControl As Control In control.Controls
                 GetAllControls(childControl, size)
-                childControl.Font = New Font("Arial", size, FontStyle.Regular)
+                childControl.Font = New Font("Cascadia Code", size, FontStyle.Regular)
             Next childControl
         End If
     End Sub

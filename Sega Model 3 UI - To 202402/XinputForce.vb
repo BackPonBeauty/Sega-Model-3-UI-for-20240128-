@@ -30,7 +30,7 @@
                 GetAllControls(childControl, size)
                 'テキストボックスだけにアクセスしたい場合
                 ' If TypeOf childControl Is TextBox Then
-                childControl.Font = New Font("Arial", size, FontStyle.Regular)
+                childControl.Font = New Font("Cascadia Code", size, FontStyle.Regular)
                 ' End If
             Next childControl
         End If

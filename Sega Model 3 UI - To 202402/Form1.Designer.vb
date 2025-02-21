@@ -32,12 +32,6 @@ Partial Class Form1
         Me.FontSizeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BackColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ChooseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DefoultToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FontColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.WhiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowFavoriteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Debugtext = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -235,26 +229,30 @@ Partial Class Form1
         Me.timer_buttonProcess = New System.Windows.Forms.Timer(Me.components)
         Me.Timer10 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
+        Me.CheckBox_nowhiteflash = New System.Windows.Forms.CheckBox()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.TabPage6 = New System.Windows.Forms.TabPage()
+        Me.Panel8 = New System.Windows.Forms.Panel()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        Me.Panel_Video.SuspendLayout()
         CType(Me.SS_Bar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PPC_Bar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel_Sound.SuspendLayout()
         CType(Me.SoundBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BalanceBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MusicBar, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel_Input.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        Me.Panel_Network.SuspendLayout()
-        Me.Panel_ponmi.SuspendLayout()
         Me.Panel6.SuspendLayout()
         CType(Me.Lbox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Rbox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -283,6 +281,13 @@ Partial Class Form1
         CType(Me.chargebox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.shiftbox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
+        Me.TabPage5.SuspendLayout()
+        Me.Panel8.SuspendLayout()
         Me.SuspendLayout()
         '
         'DataGridView1
@@ -294,17 +299,17 @@ Partial Class Form1
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowTemplate.Height = 21
-        Me.DataGridView1.Size = New System.Drawing.Size(600, 450)
+        Me.DataGridView1.Size = New System.Drawing.Size(497, 474)
         Me.DataGridView1.TabIndex = 0
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.MenuStrip1.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.OptionToolStripMenuItem, Me.ShowFavoriteToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1013, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1015, 25)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -313,119 +318,83 @@ Partial Class Form1
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(45, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(52, 21)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
         Me.AboutToolStripMenuItem.Text = "About"
         '
         'OptionToolStripMenuItem
         '
-        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem, Me.BackColorToolStripMenuItem, Me.FontColorToolStripMenuItem})
+        Me.OptionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FontSizeToolStripMenuItem})
         Me.OptionToolStripMenuItem.Name = "OptionToolStripMenuItem"
-        Me.OptionToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
+        Me.OptionToolStripMenuItem.Size = New System.Drawing.Size(68, 21)
         Me.OptionToolStripMenuItem.Text = "Option"
         '
         'FontSizeToolStripMenuItem
         '
         Me.FontSizeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem10, Me.ToolStripMenuItem8})
         Me.FontSizeToolStripMenuItem.Name = "FontSizeToolStripMenuItem"
-        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
+        Me.FontSizeToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
         Me.FontSizeToolStripMenuItem.Text = "Font size"
         '
         'ToolStripMenuItem10
         '
         Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
-        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(115, 22)
+        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(124, 22)
         Me.ToolStripMenuItem10.Tag = "10"
         Me.ToolStripMenuItem10.Text = "Normal"
         '
         'ToolStripMenuItem8
         '
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(115, 22)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(124, 22)
         Me.ToolStripMenuItem8.Tag = "8"
         Me.ToolStripMenuItem8.Text = "Small"
-        '
-        'BackColorToolStripMenuItem
-        '
-        Me.BackColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ChooseToolStripMenuItem, Me.DefoultToolStripMenuItem})
-        Me.BackColorToolStripMenuItem.Name = "BackColorToolStripMenuItem"
-        Me.BackColorToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
-        Me.BackColorToolStripMenuItem.Text = "BackColor"
-        '
-        'ChooseToolStripMenuItem
-        '
-        Me.ChooseToolStripMenuItem.Name = "ChooseToolStripMenuItem"
-        Me.ChooseToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
-        Me.ChooseToolStripMenuItem.Text = "Choose"
-        '
-        'DefoultToolStripMenuItem
-        '
-        Me.DefoultToolStripMenuItem.Name = "DefoultToolStripMenuItem"
-        Me.DefoultToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
-        Me.DefoultToolStripMenuItem.Text = "Default"
-        '
-        'FontColorToolStripMenuItem
-        '
-        Me.FontColorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.WhiteToolStripMenuItem, Me.BlackToolStripMenuItem})
-        Me.FontColorToolStripMenuItem.Name = "FontColorToolStripMenuItem"
-        Me.FontColorToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
-        Me.FontColorToolStripMenuItem.Text = "FontColor"
-        '
-        'WhiteToolStripMenuItem
-        '
-        Me.WhiteToolStripMenuItem.Name = "WhiteToolStripMenuItem"
-        Me.WhiteToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
-        Me.WhiteToolStripMenuItem.Text = "White"
-        '
-        'BlackToolStripMenuItem
-        '
-        Me.BlackToolStripMenuItem.Name = "BlackToolStripMenuItem"
-        Me.BlackToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
-        Me.BlackToolStripMenuItem.Text = "Black"
         '
         'ShowFavoriteToolStripMenuItem
         '
         Me.ShowFavoriteToolStripMenuItem.Name = "ShowFavoriteToolStripMenuItem"
-        Me.ShowFavoriteToolStripMenuItem.Size = New System.Drawing.Size(107, 20)
+        Me.ShowFavoriteToolStripMenuItem.Size = New System.Drawing.Size(132, 21)
         Me.ShowFavoriteToolStripMenuItem.Text = "Show Favorites"
         '
         'Debugtext
         '
         Me.Debugtext.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Debugtext.Location = New System.Drawing.Point(1018, 34)
+        Me.Debugtext.Location = New System.Drawing.Point(1126, 34)
         Me.Debugtext.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Debugtext.Multiline = True
         Me.Debugtext.Name = "Debugtext"
         Me.Debugtext.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Debugtext.Size = New System.Drawing.Size(187, 531)
+        Me.Debugtext.Size = New System.Drawing.Size(79, 531)
         Me.Debugtext.TabIndex = 41
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.Button_folder)
         Me.GroupBox1.Controls.Add(Me.Label_path)
+        Me.GroupBox1.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
-        Me.GroupBox1.Location = New System.Drawing.Point(4, 532)
+        Me.GroupBox1.Location = New System.Drawing.Point(4, 558)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox1.Size = New System.Drawing.Size(600, 53)
+        Me.GroupBox1.Size = New System.Drawing.Size(497, 71)
         Me.GroupBox1.TabIndex = 42
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Roms Directory"
         '
         'Button_folder
         '
+        Me.Button_folder.Font = New System.Drawing.Font("Cascadia Code", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_folder.ForeColor = System.Drawing.Color.Black
         Me.Button_folder.Location = New System.Drawing.Point(6, 21)
         Me.Button_folder.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_folder.Name = "Button_folder"
-        Me.Button_folder.Size = New System.Drawing.Size(88, 25)
+        Me.Button_folder.Size = New System.Drawing.Size(69, 25)
         Me.Button_folder.TabIndex = 0
         Me.Button_folder.Text = "Folder..."
         Me.Button_folder.UseVisualStyleBackColor = True
@@ -433,54 +402,29 @@ Partial Class Form1
         'Label_path
         '
         Me.Label_path.BackColor = System.Drawing.Color.Navy
-        Me.Label_path.Location = New System.Drawing.Point(100, 15)
+        Me.Label_path.Font = New System.Drawing.Font("Cascadia Code", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_path.Location = New System.Drawing.Point(81, 18)
         Me.Label_path.Name = "Label_path"
-        Me.Label_path.Size = New System.Drawing.Size(494, 32)
+        Me.Label_path.Size = New System.Drawing.Size(410, 49)
         Me.Label_path.TabIndex = 1
         Me.Label_path.Text = "C:\天上天下唯我独尊\Roms"
-        Me.Label_path.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel_Video
         '
-        Me.Panel_Video.Controls.Add(Me.Label43)
-        Me.Panel_Video.Controls.Add(Me.ComboBox2)
-        Me.Panel_Video.Controls.Add(Me.Label42)
-        Me.Panel_Video.Controls.Add(Me.Label41)
-        Me.Panel_Video.Controls.Add(Me.ComboBox1)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_TrueHz)
-        Me.Panel_Video.Controls.Add(Me.SS_Bar)
-        Me.Panel_Video.Controls.Add(Me.Label_SS)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_throttle)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_showfrmerate)
-        Me.Panel_Video.Controls.Add(Me.Label_refreshrate)
-        Me.Panel_Video.Controls.Add(Me.Label_PPC)
-        Me.Panel_Video.Controls.Add(Me.PPC_Bar)
-        Me.Panel_Video.Controls.Add(Me.Label5)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_stretch)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_widebg)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_widescreen)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_fullscreen)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_borderless)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_multitexture)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_multishread)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_gpumulti)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_quadrender)
-        Me.Panel_Video.Controls.Add(Me.CheckBox_vsync)
-        Me.Panel_Video.Controls.Add(Me.GroupBox2)
-        Me.Panel_Video.Location = New System.Drawing.Point(612, 336)
+        Me.Panel_Video.Location = New System.Drawing.Point(2390, 347)
         Me.Panel_Video.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel_Video.Name = "Panel_Video"
-        Me.Panel_Video.Size = New System.Drawing.Size(394, 252)
+        Me.Panel_Video.Size = New System.Drawing.Size(495, 317)
         Me.Panel_Video.TabIndex = 48
         '
         'Label43
         '
-        Me.Label43.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label43.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label43.ForeColor = System.Drawing.Color.White
         Me.Label43.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label43.Location = New System.Drawing.Point(275, 63)
+        Me.Label43.Location = New System.Drawing.Point(333, 65)
         Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(109, 20)
+        Me.Label43.Size = New System.Drawing.Size(121, 20)
         Me.Label43.TabIndex = 100
         Me.Label43.Text = "SuperSampling"
         Me.Label43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -489,22 +433,22 @@ Partial Class Form1
         '
         Me.ComboBox2.BackColor = System.Drawing.Color.White
         Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox2.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox2.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox2.ForeColor = System.Drawing.Color.Black
         Me.ComboBox2.FormattingEnabled = True
         Me.ComboBox2.Items.AddRange(New Object() {"0=none", "1=biquintic", "2=bilinear", "3=bicubic"})
-        Me.ComboBox2.Location = New System.Drawing.Point(276, 191)
+        Me.ComboBox2.Location = New System.Drawing.Point(336, 190)
         Me.ComboBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(118, 22)
+        Me.ComboBox2.Size = New System.Drawing.Size(118, 25)
         Me.ComboBox2.TabIndex = 99
         '
         'Label42
         '
-        Me.Label42.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label42.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label42.ForeColor = System.Drawing.Color.White
         Me.Label42.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label42.Location = New System.Drawing.Point(275, 169)
+        Me.Label42.Location = New System.Drawing.Point(335, 168)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(109, 20)
         Me.Label42.TabIndex = 98
@@ -513,10 +457,10 @@ Partial Class Form1
         '
         'Label41
         '
-        Me.Label41.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label41.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label41.ForeColor = System.Drawing.Color.White
         Me.Label41.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label41.Location = New System.Drawing.Point(275, 121)
+        Me.Label41.Location = New System.Drawing.Point(335, 119)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(109, 20)
         Me.Label41.TabIndex = 97
@@ -527,25 +471,25 @@ Partial Class Form1
         '
         Me.ComboBox1.BackColor = System.Drawing.Color.White
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox1.ForeColor = System.Drawing.Color.Black
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"0=None", "1=ARI/D93 ", "2=PVM_20M2U/D93", "3=BT601_525/D93", "4=BT601_525/D65", "5=BT601_625/D65"})
-        Me.ComboBox1.Location = New System.Drawing.Point(276, 144)
+        Me.ComboBox1.Location = New System.Drawing.Point(336, 142)
         Me.ComboBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(118, 22)
+        Me.ComboBox1.Size = New System.Drawing.Size(118, 25)
         Me.ComboBox1.TabIndex = 76
         '
         'CheckBox_TrueHz
         '
         Me.CheckBox_TrueHz.AutoSize = True
-        Me.CheckBox_TrueHz.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_TrueHz.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_TrueHz.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_TrueHz.Location = New System.Drawing.Point(8, 190)
+        Me.CheckBox_TrueHz.Location = New System.Drawing.Point(6, 226)
         Me.CheckBox_TrueHz.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_TrueHz.Name = "CheckBox_TrueHz"
-        Me.CheckBox_TrueHz.Size = New System.Drawing.Size(69, 20)
+        Me.CheckBox_TrueHz.Size = New System.Drawing.Size(83, 21)
         Me.CheckBox_TrueHz.TabIndex = 74
         Me.CheckBox_TrueHz.Text = "True-hz"
         Me.CheckBox_TrueHz.UseVisualStyleBackColor = True
@@ -554,21 +498,21 @@ Partial Class Form1
         '
         Me.SS_Bar.AutoSize = False
         Me.SS_Bar.LargeChange = 1
-        Me.SS_Bar.Location = New System.Drawing.Point(270, 85)
+        Me.SS_Bar.Location = New System.Drawing.Point(328, 87)
         Me.SS_Bar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SS_Bar.Maximum = 8
         Me.SS_Bar.Minimum = 1
         Me.SS_Bar.Name = "SS_Bar"
-        Me.SS_Bar.Size = New System.Drawing.Size(102, 23)
+        Me.SS_Bar.Size = New System.Drawing.Size(126, 23)
         Me.SS_Bar.TabIndex = 72
         Me.SS_Bar.Value = 1
         '
         'Label_SS
         '
-        Me.Label_SS.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_SS.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_SS.ForeColor = System.Drawing.Color.White
         Me.Label_SS.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_SS.Location = New System.Drawing.Point(370, 85)
+        Me.Label_SS.Location = New System.Drawing.Point(458, 85)
         Me.Label_SS.Name = "Label_SS"
         Me.Label_SS.Size = New System.Drawing.Size(20, 20)
         Me.Label_SS.TabIndex = 73
@@ -578,12 +522,12 @@ Partial Class Form1
         'CheckBox_throttle
         '
         Me.CheckBox_throttle.AutoSize = True
-        Me.CheckBox_throttle.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_throttle.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_throttle.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_throttle.Location = New System.Drawing.Point(147, 169)
+        Me.CheckBox_throttle.Location = New System.Drawing.Point(185, 199)
         Me.CheckBox_throttle.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_throttle.Name = "CheckBox_throttle"
-        Me.CheckBox_throttle.Size = New System.Drawing.Size(69, 20)
+        Me.CheckBox_throttle.Size = New System.Drawing.Size(91, 21)
         Me.CheckBox_throttle.TabIndex = 70
         Me.CheckBox_throttle.Text = "Throttle"
         Me.CheckBox_throttle.UseVisualStyleBackColor = True
@@ -591,22 +535,22 @@ Partial Class Form1
         'CheckBox_showfrmerate
         '
         Me.CheckBox_showfrmerate.AutoSize = True
-        Me.CheckBox_showfrmerate.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_showfrmerate.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_showfrmerate.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_showfrmerate.Location = New System.Drawing.Point(147, 148)
+        Me.CheckBox_showfrmerate.Location = New System.Drawing.Point(185, 172)
         Me.CheckBox_showfrmerate.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_showfrmerate.Name = "CheckBox_showfrmerate"
-        Me.CheckBox_showfrmerate.Size = New System.Drawing.Size(122, 20)
+        Me.CheckBox_showfrmerate.Size = New System.Drawing.Size(131, 21)
         Me.CheckBox_showfrmerate.TabIndex = 69
         Me.CheckBox_showfrmerate.Text = "ShowFrameRate"
         Me.CheckBox_showfrmerate.UseVisualStyleBackColor = True
         '
         'Label_refreshrate
         '
-        Me.Label_refreshrate.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_refreshrate.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_refreshrate.ForeColor = System.Drawing.Color.White
         Me.Label_refreshrate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_refreshrate.Location = New System.Drawing.Point(75, 189)
+        Me.Label_refreshrate.Location = New System.Drawing.Point(87, 225)
         Me.Label_refreshrate.Name = "Label_refreshrate"
         Me.Label_refreshrate.Size = New System.Drawing.Size(86, 20)
         Me.Label_refreshrate.TabIndex = 68
@@ -615,10 +559,10 @@ Partial Class Form1
         '
         'Label_PPC
         '
-        Me.Label_PPC.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_PPC.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_PPC.ForeColor = System.Drawing.Color.White
         Me.Label_PPC.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_PPC.Location = New System.Drawing.Point(319, 224)
+        Me.Label_PPC.Location = New System.Drawing.Point(441, 258)
         Me.Label_PPC.Name = "Label_PPC"
         Me.Label_PPC.Size = New System.Drawing.Size(40, 20)
         Me.Label_PPC.TabIndex = 67
@@ -628,36 +572,36 @@ Partial Class Form1
         'PPC_Bar
         '
         Me.PPC_Bar.AutoSize = False
-        Me.PPC_Bar.Location = New System.Drawing.Point(127, 224)
+        Me.PPC_Bar.Location = New System.Drawing.Point(160, 259)
         Me.PPC_Bar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PPC_Bar.Maximum = 200
         Me.PPC_Bar.Name = "PPC_Bar"
-        Me.PPC_Bar.Size = New System.Drawing.Size(196, 36)
+        Me.PPC_Bar.Size = New System.Drawing.Size(275, 36)
         Me.PPC_Bar.TabIndex = 66
         Me.PPC_Bar.TickFrequency = 10
         Me.PPC_Bar.Value = 66
         '
         'Label5
         '
-        Me.Label5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label5.Location = New System.Drawing.Point(-7, 224)
+        Me.Label5.Location = New System.Drawing.Point(3, 258)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(130, 20)
+        Me.Label5.Size = New System.Drawing.Size(151, 20)
         Me.Label5.TabIndex = 65
         Me.Label5.Text = "PowerPCFrequency"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'CheckBox_stretch
         '
         Me.CheckBox_stretch.AutoSize = True
-        Me.CheckBox_stretch.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_stretch.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_stretch.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_stretch.Location = New System.Drawing.Point(147, 127)
+        Me.CheckBox_stretch.Location = New System.Drawing.Point(185, 145)
         Me.CheckBox_stretch.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_stretch.Name = "CheckBox_stretch"
-        Me.CheckBox_stretch.Size = New System.Drawing.Size(68, 20)
+        Me.CheckBox_stretch.Size = New System.Drawing.Size(83, 21)
         Me.CheckBox_stretch.TabIndex = 11
         Me.CheckBox_stretch.Text = "Stretch"
         Me.CheckBox_stretch.UseVisualStyleBackColor = True
@@ -665,12 +609,12 @@ Partial Class Form1
         'CheckBox_widebg
         '
         Me.CheckBox_widebg.AutoSize = True
-        Me.CheckBox_widebg.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_widebg.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_widebg.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_widebg.Location = New System.Drawing.Point(147, 106)
+        Me.CheckBox_widebg.Location = New System.Drawing.Point(185, 118)
         Me.CheckBox_widebg.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_widebg.Name = "CheckBox_widebg"
-        Me.CheckBox_widebg.Size = New System.Drawing.Size(125, 20)
+        Me.CheckBox_widebg.Size = New System.Drawing.Size(139, 21)
         Me.CheckBox_widebg.TabIndex = 10
         Me.CheckBox_widebg.Text = "WideBackground"
         Me.CheckBox_widebg.UseVisualStyleBackColor = True
@@ -678,12 +622,12 @@ Partial Class Form1
         'CheckBox_widescreen
         '
         Me.CheckBox_widescreen.AutoSize = True
-        Me.CheckBox_widescreen.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_widescreen.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_widescreen.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_widescreen.Location = New System.Drawing.Point(147, 85)
+        Me.CheckBox_widescreen.Location = New System.Drawing.Point(185, 91)
         Me.CheckBox_widescreen.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_widescreen.Name = "CheckBox_widescreen"
-        Me.CheckBox_widescreen.Size = New System.Drawing.Size(97, 20)
+        Me.CheckBox_widescreen.Size = New System.Drawing.Size(107, 21)
         Me.CheckBox_widescreen.TabIndex = 9
         Me.CheckBox_widescreen.Text = "WideScreen"
         Me.CheckBox_widescreen.UseVisualStyleBackColor = True
@@ -691,12 +635,12 @@ Partial Class Form1
         'CheckBox_fullscreen
         '
         Me.CheckBox_fullscreen.AutoSize = True
-        Me.CheckBox_fullscreen.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_fullscreen.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_fullscreen.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_fullscreen.Location = New System.Drawing.Point(147, 64)
+        Me.CheckBox_fullscreen.Location = New System.Drawing.Point(185, 64)
         Me.CheckBox_fullscreen.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_fullscreen.Name = "CheckBox_fullscreen"
-        Me.CheckBox_fullscreen.Size = New System.Drawing.Size(88, 20)
+        Me.CheckBox_fullscreen.Size = New System.Drawing.Size(107, 21)
         Me.CheckBox_fullscreen.TabIndex = 8
         Me.CheckBox_fullscreen.Text = "FullScreen"
         Me.CheckBox_fullscreen.UseVisualStyleBackColor = True
@@ -704,12 +648,12 @@ Partial Class Form1
         'CheckBox_borderless
         '
         Me.CheckBox_borderless.AutoSize = True
-        Me.CheckBox_borderless.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_borderless.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_borderless.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_borderless.Location = New System.Drawing.Point(8, 169)
+        Me.CheckBox_borderless.Location = New System.Drawing.Point(6, 199)
         Me.CheckBox_borderless.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_borderless.Name = "CheckBox_borderless"
-        Me.CheckBox_borderless.Size = New System.Drawing.Size(88, 20)
+        Me.CheckBox_borderless.Size = New System.Drawing.Size(107, 21)
         Me.CheckBox_borderless.TabIndex = 7
         Me.CheckBox_borderless.Text = "Borderless"
         Me.CheckBox_borderless.UseVisualStyleBackColor = True
@@ -717,12 +661,12 @@ Partial Class Form1
         'CheckBox_multitexture
         '
         Me.CheckBox_multitexture.AutoSize = True
-        Me.CheckBox_multitexture.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_multitexture.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_multitexture.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_multitexture.Location = New System.Drawing.Point(8, 148)
+        Me.CheckBox_multitexture.Location = New System.Drawing.Point(6, 172)
         Me.CheckBox_multitexture.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_multitexture.Name = "CheckBox_multitexture"
-        Me.CheckBox_multitexture.Size = New System.Drawing.Size(96, 20)
+        Me.CheckBox_multitexture.Size = New System.Drawing.Size(123, 21)
         Me.CheckBox_multitexture.TabIndex = 6
         Me.CheckBox_multitexture.Text = "MultiTexture"
         Me.CheckBox_multitexture.UseVisualStyleBackColor = True
@@ -730,12 +674,12 @@ Partial Class Form1
         'CheckBox_multishread
         '
         Me.CheckBox_multishread.AutoSize = True
-        Me.CheckBox_multishread.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_multishread.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_multishread.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_multishread.Location = New System.Drawing.Point(8, 127)
+        Me.CheckBox_multishread.Location = New System.Drawing.Point(6, 145)
         Me.CheckBox_multishread.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_multishread.Name = "CheckBox_multishread"
-        Me.CheckBox_multishread.Size = New System.Drawing.Size(107, 20)
+        Me.CheckBox_multishread.Size = New System.Drawing.Size(131, 21)
         Me.CheckBox_multishread.TabIndex = 5
         Me.CheckBox_multishread.Text = "MultiThreaded"
         Me.CheckBox_multishread.UseVisualStyleBackColor = True
@@ -743,12 +687,12 @@ Partial Class Form1
         'CheckBox_gpumulti
         '
         Me.CheckBox_gpumulti.AutoSize = True
-        Me.CheckBox_gpumulti.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_gpumulti.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_gpumulti.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_gpumulti.Location = New System.Drawing.Point(8, 106)
+        Me.CheckBox_gpumulti.Location = New System.Drawing.Point(6, 118)
         Me.CheckBox_gpumulti.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_gpumulti.Name = "CheckBox_gpumulti"
-        Me.CheckBox_gpumulti.Size = New System.Drawing.Size(135, 20)
+        Me.CheckBox_gpumulti.Size = New System.Drawing.Size(155, 21)
         Me.CheckBox_gpumulti.TabIndex = 4
         Me.CheckBox_gpumulti.Text = "GPUMultiThreaded"
         Me.CheckBox_gpumulti.UseVisualStyleBackColor = True
@@ -756,12 +700,12 @@ Partial Class Form1
         'CheckBox_quadrender
         '
         Me.CheckBox_quadrender.AutoSize = True
-        Me.CheckBox_quadrender.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_quadrender.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_quadrender.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_quadrender.Location = New System.Drawing.Point(8, 85)
+        Me.CheckBox_quadrender.Location = New System.Drawing.Point(6, 91)
         Me.CheckBox_quadrender.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_quadrender.Name = "CheckBox_quadrender"
-        Me.CheckBox_quadrender.Size = New System.Drawing.Size(115, 20)
+        Me.CheckBox_quadrender.Size = New System.Drawing.Size(131, 21)
         Me.CheckBox_quadrender.TabIndex = 3
         Me.CheckBox_quadrender.Text = "QuadRendering"
         Me.CheckBox_quadrender.UseVisualStyleBackColor = True
@@ -769,12 +713,12 @@ Partial Class Form1
         'CheckBox_vsync
         '
         Me.CheckBox_vsync.AutoSize = True
-        Me.CheckBox_vsync.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_vsync.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_vsync.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_vsync.Location = New System.Drawing.Point(8, 64)
+        Me.CheckBox_vsync.Location = New System.Drawing.Point(6, 64)
         Me.CheckBox_vsync.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_vsync.Name = "CheckBox_vsync"
-        Me.CheckBox_vsync.Size = New System.Drawing.Size(65, 20)
+        Me.CheckBox_vsync.Size = New System.Drawing.Size(67, 21)
         Me.CheckBox_vsync.TabIndex = 2
         Me.CheckBox_vsync.Text = "VSync"
         Me.CheckBox_vsync.UseVisualStyleBackColor = True
@@ -786,11 +730,11 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.RadioButton_new3d)
         Me.GroupBox2.Controls.Add(Me.Button_screenpos)
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 8)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox2.Size = New System.Drawing.Size(388, 42)
+        Me.GroupBox2.Size = New System.Drawing.Size(472, 52)
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "GraphicEngine"
@@ -799,10 +743,10 @@ Partial Class Form1
         '
         Me.ComboBox_resolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox_resolution.FormattingEnabled = True
-        Me.ComboBox_resolution.Location = New System.Drawing.Point(215, 13)
+        Me.ComboBox_resolution.Location = New System.Drawing.Point(321, 15)
         Me.ComboBox_resolution.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboBox_resolution.Name = "ComboBox_resolution"
-        Me.ComboBox_resolution.Size = New System.Drawing.Size(96, 24)
+        Me.ComboBox_resolution.Size = New System.Drawing.Size(96, 25)
         Me.ComboBox_resolution.TabIndex = 1
         '
         'RadioButton_legacy
@@ -811,7 +755,7 @@ Partial Class Form1
         Me.RadioButton_legacy.Location = New System.Drawing.Point(117, 18)
         Me.RadioButton_legacy.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.RadioButton_legacy.Name = "RadioButton_legacy"
-        Me.RadioButton_legacy.Size = New System.Drawing.Size(67, 20)
+        Me.RadioButton_legacy.Size = New System.Drawing.Size(74, 21)
         Me.RadioButton_legacy.TabIndex = 1
         Me.RadioButton_legacy.Text = "Legacy"
         Me.RadioButton_legacy.UseVisualStyleBackColor = True
@@ -823,7 +767,7 @@ Partial Class Form1
         Me.RadioButton_new3d.Location = New System.Drawing.Point(8, 18)
         Me.RadioButton_new3d.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.RadioButton_new3d.Name = "RadioButton_new3d"
-        Me.RadioButton_new3d.Size = New System.Drawing.Size(66, 20)
+        Me.RadioButton_new3d.Size = New System.Drawing.Size(66, 21)
         Me.RadioButton_new3d.TabIndex = 0
         Me.RadioButton_new3d.TabStop = True
         Me.RadioButton_new3d.Text = "New3D"
@@ -832,10 +776,10 @@ Partial Class Form1
         'Button_screenpos
         '
         Me.Button_screenpos.ForeColor = System.Drawing.Color.Black
-        Me.Button_screenpos.Location = New System.Drawing.Point(348, 13)
+        Me.Button_screenpos.Location = New System.Drawing.Point(423, 14)
         Me.Button_screenpos.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_screenpos.Name = "Button_screenpos"
-        Me.Button_screenpos.Size = New System.Drawing.Size(33, 25)
+        Me.Button_screenpos.Size = New System.Drawing.Size(43, 25)
         Me.Button_screenpos.TabIndex = 1
         Me.Button_screenpos.Text = "..."
         Me.Button_screenpos.UseVisualStyleBackColor = True
@@ -856,10 +800,10 @@ Partial Class Form1
         'Button_loadrom
         '
         Me.Button_loadrom.ForeColor = System.Drawing.Color.Black
-        Me.Button_loadrom.Location = New System.Drawing.Point(107, 497)
+        Me.Button_loadrom.Location = New System.Drawing.Point(12, 529)
         Me.Button_loadrom.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_loadrom.Name = "Button_loadrom"
-        Me.Button_loadrom.Size = New System.Drawing.Size(82, 25)
+        Me.Button_loadrom.Size = New System.Drawing.Size(92, 25)
         Me.Button_loadrom.TabIndex = 49
         Me.Button_loadrom.Text = "Load Rom"
         Me.Button_loadrom.UseVisualStyleBackColor = True
@@ -1294,21 +1238,22 @@ Partial Class Form1
         '
         'Panel3
         '
-        Me.Panel3.BackgroundImage = CType(resources.GetObject("Panel3.BackgroundImage"), System.Drawing.Image)
+        Me.Panel3.BackColor = System.Drawing.Color.White
         Me.Panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Panel3.Controls.Add(Me.PictureBox1)
-        Me.Panel3.Location = New System.Drawing.Point(640, 32)
+        Me.Panel3.Location = New System.Drawing.Point(599, 32)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(336, 256)
+        Me.Panel3.Size = New System.Drawing.Size(339, 262)
         Me.Panel3.TabIndex = 63
         '
         'PictureBox1
         '
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
+        Me.PictureBox1.BackColor = System.Drawing.Color.Navy
+        Me.PictureBox1.Location = New System.Drawing.Point(9, 11)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(312, 231)
+        Me.PictureBox1.Size = New System.Drawing.Size(320, 240)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
@@ -1316,12 +1261,12 @@ Partial Class Form1
         'CheckBox_hidecmd
         '
         Me.CheckBox_hidecmd.AutoSize = True
-        Me.CheckBox_hidecmd.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_hidecmd.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_hidecmd.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_hidecmd.Location = New System.Drawing.Point(4, 482)
+        Me.CheckBox_hidecmd.Location = New System.Drawing.Point(4, 508)
         Me.CheckBox_hidecmd.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_hidecmd.Name = "CheckBox_hidecmd"
-        Me.CheckBox_hidecmd.Size = New System.Drawing.Size(81, 20)
+        Me.CheckBox_hidecmd.Size = New System.Drawing.Size(83, 21)
         Me.CheckBox_hidecmd.TabIndex = 64
         Me.CheckBox_hidecmd.Text = "HideCMD"
         Me.CheckBox_hidecmd.UseVisualStyleBackColor = True
@@ -1332,10 +1277,10 @@ Partial Class Form1
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button4.Image = CType(resources.GetObject("Button4.Image"), System.Drawing.Image)
         Me.Button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button4.Location = New System.Drawing.Point(612, 292)
+        Me.Button4.Location = New System.Drawing.Point(3, 3)
         Me.Button4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(82, 36)
+        Me.Button4.Size = New System.Drawing.Size(94, 36)
         Me.Button4.TabIndex = 65
         Me.Button4.Text = "Video"
         Me.Button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1347,10 +1292,10 @@ Partial Class Form1
         Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button5.Image = CType(resources.GetObject("Button5.Image"), System.Drawing.Image)
         Me.Button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button5.Location = New System.Drawing.Point(700, 292)
+        Me.Button5.Location = New System.Drawing.Point(103, 3)
         Me.Button5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(85, 36)
+        Me.Button5.Size = New System.Drawing.Size(97, 36)
         Me.Button5.TabIndex = 66
         Me.Button5.Text = "Sound"
         Me.Button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1362,10 +1307,10 @@ Partial Class Form1
         Me.Button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button6.Image = CType(resources.GetObject("Button6.Image"), System.Drawing.Image)
         Me.Button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button6.Location = New System.Drawing.Point(791, 292)
+        Me.Button6.Location = New System.Drawing.Point(206, 3)
         Me.Button6.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(93, 36)
+        Me.Button6.Size = New System.Drawing.Size(105, 36)
         Me.Button6.TabIndex = 67
         Me.Button6.Text = "Control"
         Me.Button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1377,10 +1322,10 @@ Partial Class Form1
         Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button7.Image = CType(resources.GetObject("Button7.Image"), System.Drawing.Image)
         Me.Button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button7.Location = New System.Drawing.Point(890, 292)
+        Me.Button7.Location = New System.Drawing.Point(317, 3)
         Me.Button7.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(92, 36)
+        Me.Button7.Size = New System.Drawing.Size(104, 36)
         Me.Button7.TabIndex = 68
         Me.Button7.Text = "Network"
         Me.Button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1388,20 +1333,7 @@ Partial Class Form1
         '
         'Panel_Sound
         '
-        Me.Panel_Sound.Controls.Add(Me.Label_Sound)
-        Me.Panel_Sound.Controls.Add(Me.Label17)
-        Me.Panel_Sound.Controls.Add(Me.Label16)
-        Me.Panel_Sound.Controls.Add(Me.Label_Balance)
-        Me.Panel_Sound.Controls.Add(Me.SoundBar)
-        Me.Panel_Sound.Controls.Add(Me.BalanceBar)
-        Me.Panel_Sound.Controls.Add(Me.Label_Music)
-        Me.Panel_Sound.Controls.Add(Me.MusicBar)
-        Me.Panel_Sound.Controls.Add(Me.Label15)
-        Me.Panel_Sound.Controls.Add(Me.CheckBox_legacyDSP)
-        Me.Panel_Sound.Controls.Add(Me.CheckBox_emuDSB)
-        Me.Panel_Sound.Controls.Add(Me.CheckBox_flipstereo)
-        Me.Panel_Sound.Controls.Add(Me.CheckBox_emulatesound)
-        Me.Panel_Sound.Location = New System.Drawing.Point(1841, 333)
+        Me.Panel_Sound.Location = New System.Drawing.Point(1936, 336)
         Me.Panel_Sound.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel_Sound.Name = "Panel_Sound"
         Me.Panel_Sound.Size = New System.Drawing.Size(394, 252)
@@ -1409,10 +1341,10 @@ Partial Class Form1
         '
         'Label_Sound
         '
-        Me.Label_Sound.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Sound.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Sound.ForeColor = System.Drawing.Color.White
         Me.Label_Sound.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_Sound.Location = New System.Drawing.Point(305, 207)
+        Me.Label_Sound.Location = New System.Drawing.Point(347, 224)
         Me.Label_Sound.Name = "Label_Sound"
         Me.Label_Sound.Size = New System.Drawing.Size(40, 20)
         Me.Label_Sound.TabIndex = 73
@@ -1421,10 +1353,10 @@ Partial Class Form1
         '
         'Label17
         '
-        Me.Label17.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label17.ForeColor = System.Drawing.Color.White
         Me.Label17.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label17.Location = New System.Drawing.Point(37, 207)
+        Me.Label17.Location = New System.Drawing.Point(79, 224)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(73, 20)
         Me.Label17.TabIndex = 72
@@ -1433,10 +1365,10 @@ Partial Class Form1
         '
         'Label16
         '
-        Me.Label16.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.ForeColor = System.Drawing.Color.White
         Me.Label16.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label16.Location = New System.Drawing.Point(37, 167)
+        Me.Label16.Location = New System.Drawing.Point(79, 184)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(73, 20)
         Me.Label16.TabIndex = 71
@@ -1445,10 +1377,10 @@ Partial Class Form1
         '
         'Label_Balance
         '
-        Me.Label_Balance.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Balance.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Balance.ForeColor = System.Drawing.Color.White
         Me.Label_Balance.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_Balance.Location = New System.Drawing.Point(305, 167)
+        Me.Label_Balance.Location = New System.Drawing.Point(347, 184)
         Me.Label_Balance.Name = "Label_Balance"
         Me.Label_Balance.Size = New System.Drawing.Size(40, 20)
         Me.Label_Balance.TabIndex = 70
@@ -1458,7 +1390,7 @@ Partial Class Form1
         'SoundBar
         '
         Me.SoundBar.AutoSize = False
-        Me.SoundBar.Location = New System.Drawing.Point(109, 207)
+        Me.SoundBar.Location = New System.Drawing.Point(151, 224)
         Me.SoundBar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SoundBar.Maximum = 200
         Me.SoundBar.Minimum = 1
@@ -1471,7 +1403,7 @@ Partial Class Form1
         'BalanceBar
         '
         Me.BalanceBar.AutoSize = False
-        Me.BalanceBar.Location = New System.Drawing.Point(109, 167)
+        Me.BalanceBar.Location = New System.Drawing.Point(151, 184)
         Me.BalanceBar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.BalanceBar.Maximum = 100
         Me.BalanceBar.Minimum = -100
@@ -1482,10 +1414,10 @@ Partial Class Form1
         '
         'Label_Music
         '
-        Me.Label_Music.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Music.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Music.ForeColor = System.Drawing.Color.White
         Me.Label_Music.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_Music.Location = New System.Drawing.Point(305, 130)
+        Me.Label_Music.Location = New System.Drawing.Point(347, 147)
         Me.Label_Music.Name = "Label_Music"
         Me.Label_Music.Size = New System.Drawing.Size(40, 20)
         Me.Label_Music.TabIndex = 67
@@ -1495,7 +1427,7 @@ Partial Class Form1
         'MusicBar
         '
         Me.MusicBar.AutoSize = False
-        Me.MusicBar.Location = New System.Drawing.Point(109, 130)
+        Me.MusicBar.Location = New System.Drawing.Point(151, 147)
         Me.MusicBar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.MusicBar.Maximum = 200
         Me.MusicBar.Minimum = 1
@@ -1507,10 +1439,10 @@ Partial Class Form1
         '
         'Label15
         '
-        Me.Label15.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.Color.White
         Me.Label15.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label15.Location = New System.Drawing.Point(37, 130)
+        Me.Label15.Location = New System.Drawing.Point(79, 147)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(73, 20)
         Me.Label15.TabIndex = 65
@@ -1520,12 +1452,12 @@ Partial Class Form1
         'CheckBox_legacyDSP
         '
         Me.CheckBox_legacyDSP.AutoSize = True
-        Me.CheckBox_legacyDSP.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_legacyDSP.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_legacyDSP.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_legacyDSP.Location = New System.Drawing.Point(194, 11)
+        Me.CheckBox_legacyDSP.Location = New System.Drawing.Point(227, 27)
         Me.CheckBox_legacyDSP.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_legacyDSP.Name = "CheckBox_legacyDSP"
-        Me.CheckBox_legacyDSP.Size = New System.Drawing.Size(132, 20)
+        Me.CheckBox_legacyDSP.Size = New System.Drawing.Size(139, 21)
         Me.CheckBox_legacyDSP.TabIndex = 8
         Me.CheckBox_legacyDSP.Text = "LegacySoundDSP"
         Me.CheckBox_legacyDSP.UseVisualStyleBackColor = True
@@ -1533,12 +1465,12 @@ Partial Class Form1
         'CheckBox_emuDSB
         '
         Me.CheckBox_emuDSB.AutoSize = True
-        Me.CheckBox_emuDSB.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_emuDSB.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_emuDSB.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_emuDSB.Location = New System.Drawing.Point(23, 87)
+        Me.CheckBox_emuDSB.Location = New System.Drawing.Point(82, 103)
         Me.CheckBox_emuDSB.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_emuDSB.Name = "CheckBox_emuDSB"
-        Me.CheckBox_emuDSB.Size = New System.Drawing.Size(108, 20)
+        Me.CheckBox_emuDSB.Size = New System.Drawing.Size(115, 21)
         Me.CheckBox_emuDSB.TabIndex = 4
         Me.CheckBox_emuDSB.Text = "EmulatedDSB"
         Me.CheckBox_emuDSB.UseVisualStyleBackColor = True
@@ -1546,12 +1478,12 @@ Partial Class Form1
         'CheckBox_flipstereo
         '
         Me.CheckBox_flipstereo.AutoSize = True
-        Me.CheckBox_flipstereo.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_flipstereo.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_flipstereo.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_flipstereo.Location = New System.Drawing.Point(23, 48)
+        Me.CheckBox_flipstereo.Location = New System.Drawing.Point(82, 64)
         Me.CheckBox_flipstereo.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_flipstereo.Name = "CheckBox_flipstereo"
-        Me.CheckBox_flipstereo.Size = New System.Drawing.Size(85, 20)
+        Me.CheckBox_flipstereo.Size = New System.Drawing.Size(107, 21)
         Me.CheckBox_flipstereo.TabIndex = 3
         Me.CheckBox_flipstereo.Text = "FlipStereo"
         Me.CheckBox_flipstereo.UseVisualStyleBackColor = True
@@ -1559,53 +1491,44 @@ Partial Class Form1
         'CheckBox_emulatesound
         '
         Me.CheckBox_emulatesound.AutoSize = True
-        Me.CheckBox_emulatesound.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_emulatesound.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_emulatesound.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_emulatesound.Location = New System.Drawing.Point(23, 11)
+        Me.CheckBox_emulatesound.Location = New System.Drawing.Point(82, 27)
         Me.CheckBox_emulatesound.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_emulatesound.Name = "CheckBox_emulatesound"
-        Me.CheckBox_emulatesound.Size = New System.Drawing.Size(111, 20)
+        Me.CheckBox_emulatesound.Size = New System.Drawing.Size(123, 21)
         Me.CheckBox_emulatesound.TabIndex = 2
         Me.CheckBox_emulatesound.Text = "EmulateSound"
         Me.CheckBox_emulatesound.UseVisualStyleBackColor = True
         '
         'Panel_Input
         '
-        Me.Panel_Input.Controls.Add(Me.ComboBox_input)
-        Me.Panel_Input.Controls.Add(Me.Panel4)
-        Me.Panel_Input.Controls.Add(Me.Panel1)
-        Me.Panel_Input.Controls.Add(Me.Label29)
-        Me.Panel_Input.Controls.Add(Me.Button10)
-        Me.Panel_Input.Controls.Add(Me.GroupBox4)
-        Me.Panel_Input.Controls.Add(Me.GroupBox3)
-        Me.Panel_Input.Controls.Add(Me.Label11)
-        Me.Panel_Input.Controls.Add(Me.CheckBox18)
-        Me.Panel_Input.Controls.Add(Me.Label18)
         Me.Panel_Input.Location = New System.Drawing.Point(1428, 333)
         Me.Panel_Input.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel_Input.Name = "Panel_Input"
-        Me.Panel_Input.Size = New System.Drawing.Size(394, 252)
+        Me.Panel_Input.Size = New System.Drawing.Size(495, 317)
         Me.Panel_Input.TabIndex = 70
         '
         'ComboBox_input
         '
         Me.ComboBox_input.BackColor = System.Drawing.Color.White
         Me.ComboBox_input.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox_input.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox_input.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox_input.ForeColor = System.Drawing.Color.Black
         Me.ComboBox_input.FormattingEnabled = True
         Me.ComboBox_input.Items.AddRange(New Object() {"xinput", "dinput", "rawinput"})
-        Me.ComboBox_input.Location = New System.Drawing.Point(143, 21)
+        Me.ComboBox_input.Location = New System.Drawing.Point(185, 34)
         Me.ComboBox_input.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboBox_input.Name = "ComboBox_input"
-        Me.ComboBox_input.Size = New System.Drawing.Size(96, 24)
+        Me.ComboBox_input.Size = New System.Drawing.Size(96, 25)
         Me.ComboBox_input.TabIndex = 1
         '
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.ComboBox_crosshair)
         Me.Panel4.Controls.Add(Me.ComboBox_style)
-        Me.Panel4.Location = New System.Drawing.Point(235, 182)
+        Me.Panel4.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel4.Location = New System.Drawing.Point(277, 195)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(115, 70)
         Me.Panel4.TabIndex = 79
@@ -1636,17 +1559,18 @@ Partial Class Form1
         '
         'Panel1
         '
-        Me.Panel1.Location = New System.Drawing.Point(262, 21)
+        Me.Panel1.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel1.Location = New System.Drawing.Point(304, 35)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(96, 24)
         Me.Panel1.TabIndex = 78
         '
         'Label29
         '
-        Me.Label29.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label29.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label29.ForeColor = System.Drawing.Color.White
         Me.Label29.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label29.Location = New System.Drawing.Point(133, 219)
+        Me.Label29.Location = New System.Drawing.Point(175, 232)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(100, 20)
         Me.Label29.TabIndex = 77
@@ -1655,12 +1579,12 @@ Partial Class Form1
         '
         'Button10
         '
-        Me.Button10.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button10.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button10.ForeColor = System.Drawing.Color.Black
-        Me.Button10.Location = New System.Drawing.Point(41, 189)
+        Me.Button10.Location = New System.Drawing.Point(83, 200)
         Me.Button10.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(88, 25)
+        Me.Button10.Size = New System.Drawing.Size(88, 31)
         Me.Button10.TabIndex = 75
         Me.Button10.Text = "Config"
         Me.Button10.UseVisualStyleBackColor = True
@@ -1669,9 +1593,9 @@ Partial Class Form1
         '
         Me.GroupBox4.Controls.Add(Me.Button9)
         Me.GroupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GroupBox4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox4.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox4.ForeColor = System.Drawing.Color.White
-        Me.GroupBox4.Location = New System.Drawing.Point(192, 71)
+        Me.GroupBox4.Location = New System.Drawing.Point(234, 84)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1695,9 +1619,9 @@ Partial Class Form1
         '
         Me.GroupBox3.Controls.Add(Me.Button8)
         Me.GroupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GroupBox3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox3.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox3.ForeColor = System.Drawing.Color.White
-        Me.GroupBox3.Location = New System.Drawing.Point(41, 71)
+        Me.GroupBox3.Location = New System.Drawing.Point(83, 84)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1719,10 +1643,10 @@ Partial Class Form1
         '
         'Label11
         '
-        Me.Label11.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.White
         Me.Label11.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label11.Location = New System.Drawing.Point(25, 25)
+        Me.Label11.Location = New System.Drawing.Point(67, 38)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(112, 20)
         Me.Label11.TabIndex = 71
@@ -1732,22 +1656,22 @@ Partial Class Form1
         'CheckBox18
         '
         Me.CheckBox18.AutoSize = True
-        Me.CheckBox18.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox18.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox18.ForeColor = System.Drawing.Color.White
-        Me.CheckBox18.Location = New System.Drawing.Point(221, 156)
+        Me.CheckBox18.Location = New System.Drawing.Point(263, 169)
         Me.CheckBox18.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox18.Name = "CheckBox18"
-        Me.CheckBox18.Size = New System.Drawing.Size(116, 20)
+        Me.CheckBox18.Size = New System.Drawing.Size(131, 21)
         Me.CheckBox18.TabIndex = 70
         Me.CheckBox18.Text = "ForceFeedback"
         Me.CheckBox18.UseVisualStyleBackColor = True
         '
         'Label18
         '
-        Me.Label18.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label18.ForeColor = System.Drawing.Color.White
         Me.Label18.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label18.Location = New System.Drawing.Point(133, 192)
+        Me.Label18.Location = New System.Drawing.Point(175, 205)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(100, 20)
         Me.Label18.TabIndex = 65
@@ -1756,12 +1680,12 @@ Partial Class Form1
         '
         'Label1
         '
-        Me.Label1.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label1.Location = New System.Drawing.Point(157, 141)
+        Me.Label1.Location = New System.Drawing.Point(194, 156)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(222, 20)
+        Me.Label1.Size = New System.Drawing.Size(240, 20)
         Me.Label1.TabIndex = 80
         Me.Label1.Text = "Mouse"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1781,18 +1705,6 @@ Partial Class Form1
         '
         'Panel_Network
         '
-        Me.Panel_Network.Controls.Add(Me.Label_Global_IPaddress)
-        Me.Panel_Network.Controls.Add(Me.Button_Get_Global_IPAddress)
-        Me.Panel_Network.Controls.Add(Me.Button_Get_Local_IPAddress)
-        Me.Panel_Network.Controls.Add(Me.Label_Local_IPaddress)
-        Me.Panel_Network.Controls.Add(Me.CheckBox_simnetwork)
-        Me.Panel_Network.Controls.Add(Me.TextBox_Addressout)
-        Me.Panel_Network.Controls.Add(Me.TextBox_Portout)
-        Me.Panel_Network.Controls.Add(Me.TextBox_Portin)
-        Me.Panel_Network.Controls.Add(Me.Label20)
-        Me.Panel_Network.Controls.Add(Me.Label14)
-        Me.Panel_Network.Controls.Add(Me.CheckBox_network)
-        Me.Panel_Network.Controls.Add(Me.Label19)
         Me.Panel_Network.Location = New System.Drawing.Point(1428, 44)
         Me.Panel_Network.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel_Network.Name = "Panel_Network"
@@ -1801,10 +1713,10 @@ Partial Class Form1
         '
         'Label_Global_IPaddress
         '
-        Me.Label_Global_IPaddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Global_IPaddress.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Global_IPaddress.ForeColor = System.Drawing.Color.White
         Me.Label_Global_IPaddress.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_Global_IPaddress.Location = New System.Drawing.Point(216, 94)
+        Me.Label_Global_IPaddress.Location = New System.Drawing.Point(256, 97)
         Me.Label_Global_IPaddress.Name = "Label_Global_IPaddress"
         Me.Label_Global_IPaddress.Size = New System.Drawing.Size(131, 20)
         Me.Label_Global_IPaddress.TabIndex = 80
@@ -1813,9 +1725,9 @@ Partial Class Form1
         '
         'Button_Get_Global_IPAddress
         '
-        Me.Button_Get_Global_IPAddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_Get_Global_IPAddress.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Get_Global_IPAddress.ForeColor = System.Drawing.Color.Black
-        Me.Button_Get_Global_IPAddress.Location = New System.Drawing.Point(52, 92)
+        Me.Button_Get_Global_IPAddress.Location = New System.Drawing.Point(92, 95)
         Me.Button_Get_Global_IPAddress.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_Get_Global_IPAddress.Name = "Button_Get_Global_IPAddress"
         Me.Button_Get_Global_IPAddress.Size = New System.Drawing.Size(158, 24)
@@ -1826,9 +1738,9 @@ Partial Class Form1
         '
         'Button_Get_Local_IPAddress
         '
-        Me.Button_Get_Local_IPAddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_Get_Local_IPAddress.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Get_Local_IPAddress.ForeColor = System.Drawing.Color.Black
-        Me.Button_Get_Local_IPAddress.Location = New System.Drawing.Point(52, 120)
+        Me.Button_Get_Local_IPAddress.Location = New System.Drawing.Point(92, 123)
         Me.Button_Get_Local_IPAddress.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_Get_Local_IPAddress.Name = "Button_Get_Local_IPAddress"
         Me.Button_Get_Local_IPAddress.Size = New System.Drawing.Size(158, 24)
@@ -1839,10 +1751,10 @@ Partial Class Form1
         '
         'Label_Local_IPaddress
         '
-        Me.Label_Local_IPaddress.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Local_IPaddress.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Local_IPaddress.ForeColor = System.Drawing.Color.White
         Me.Label_Local_IPaddress.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_Local_IPaddress.Location = New System.Drawing.Point(216, 122)
+        Me.Label_Local_IPaddress.Location = New System.Drawing.Point(256, 125)
         Me.Label_Local_IPaddress.Name = "Label_Local_IPaddress"
         Me.Label_Local_IPaddress.Size = New System.Drawing.Size(131, 20)
         Me.Label_Local_IPaddress.TabIndex = 78
@@ -1852,12 +1764,12 @@ Partial Class Form1
         'CheckBox_simnetwork
         '
         Me.CheckBox_simnetwork.AutoSize = True
-        Me.CheckBox_simnetwork.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_simnetwork.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_simnetwork.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_simnetwork.Location = New System.Drawing.Point(56, 50)
+        Me.CheckBox_simnetwork.Location = New System.Drawing.Point(96, 53)
         Me.CheckBox_simnetwork.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_simnetwork.Name = "CheckBox_simnetwork"
-        Me.CheckBox_simnetwork.Size = New System.Drawing.Size(97, 20)
+        Me.CheckBox_simnetwork.Size = New System.Drawing.Size(115, 21)
         Me.CheckBox_simnetwork.TabIndex = 76
         Me.CheckBox_simnetwork.Text = "SimulateNet"
         Me.CheckBox_simnetwork.UseVisualStyleBackColor = True
@@ -1865,12 +1777,12 @@ Partial Class Form1
         'TextBox_Addressout
         '
         Me.TextBox_Addressout.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TextBox_Addressout.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox_Addressout.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox_Addressout.ForeColor = System.Drawing.Color.White
-        Me.TextBox_Addressout.Location = New System.Drawing.Point(223, 216)
+        Me.TextBox_Addressout.Location = New System.Drawing.Point(263, 219)
         Me.TextBox_Addressout.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox_Addressout.Name = "TextBox_Addressout"
-        Me.TextBox_Addressout.Size = New System.Drawing.Size(127, 22)
+        Me.TextBox_Addressout.Size = New System.Drawing.Size(127, 23)
         Me.TextBox_Addressout.TabIndex = 75
         Me.TextBox_Addressout.Text = "127.0.0.1"
         Me.TextBox_Addressout.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1878,12 +1790,12 @@ Partial Class Form1
         'TextBox_Portout
         '
         Me.TextBox_Portout.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TextBox_Portout.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox_Portout.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox_Portout.ForeColor = System.Drawing.Color.White
-        Me.TextBox_Portout.Location = New System.Drawing.Point(280, 190)
+        Me.TextBox_Portout.Location = New System.Drawing.Point(320, 193)
         Me.TextBox_Portout.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox_Portout.Name = "TextBox_Portout"
-        Me.TextBox_Portout.Size = New System.Drawing.Size(70, 22)
+        Me.TextBox_Portout.Size = New System.Drawing.Size(70, 23)
         Me.TextBox_Portout.TabIndex = 74
         Me.TextBox_Portout.Text = "1971"
         Me.TextBox_Portout.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1891,22 +1803,22 @@ Partial Class Form1
         'TextBox_Portin
         '
         Me.TextBox_Portin.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TextBox_Portin.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox_Portin.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox_Portin.ForeColor = System.Drawing.Color.White
-        Me.TextBox_Portin.Location = New System.Drawing.Point(280, 164)
+        Me.TextBox_Portin.Location = New System.Drawing.Point(320, 167)
         Me.TextBox_Portin.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox_Portin.Name = "TextBox_Portin"
-        Me.TextBox_Portin.Size = New System.Drawing.Size(70, 22)
+        Me.TextBox_Portin.Size = New System.Drawing.Size(70, 23)
         Me.TextBox_Portin.TabIndex = 73
         Me.TextBox_Portin.Text = "1970"
         Me.TextBox_Portin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label20
         '
-        Me.Label20.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.ForeColor = System.Drawing.Color.White
         Me.Label20.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label20.Location = New System.Drawing.Point(52, 217)
+        Me.Label20.Location = New System.Drawing.Point(92, 220)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(112, 20)
         Me.Label20.TabIndex = 72
@@ -1915,10 +1827,10 @@ Partial Class Form1
         '
         'Label14
         '
-        Me.Label14.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.Color.White
         Me.Label14.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label14.Location = New System.Drawing.Point(52, 194)
+        Me.Label14.Location = New System.Drawing.Point(92, 197)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(112, 20)
         Me.Label14.TabIndex = 71
@@ -1928,22 +1840,22 @@ Partial Class Form1
         'CheckBox_network
         '
         Me.CheckBox_network.AutoSize = True
-        Me.CheckBox_network.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_network.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_network.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_network.Location = New System.Drawing.Point(56, 23)
+        Me.CheckBox_network.Location = New System.Drawing.Point(96, 26)
         Me.CheckBox_network.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_network.Name = "CheckBox_network"
-        Me.CheckBox_network.Size = New System.Drawing.Size(73, 20)
+        Me.CheckBox_network.Size = New System.Drawing.Size(83, 21)
         Me.CheckBox_network.TabIndex = 70
         Me.CheckBox_network.Text = "Network"
         Me.CheckBox_network.UseVisualStyleBackColor = True
         '
         'Label19
         '
-        Me.Label19.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.ForeColor = System.Drawing.Color.White
         Me.Label19.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label19.Location = New System.Drawing.Point(52, 165)
+        Me.Label19.Location = New System.Drawing.Point(92, 168)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(109, 20)
         Me.Label19.TabIndex = 65
@@ -1956,9 +1868,9 @@ Partial Class Form1
         Me.Header0.BackColor = System.Drawing.Color.White
         Me.Header0.FlatAppearance.BorderSize = 0
         Me.Header0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Header0.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header0.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header0.ForeColor = System.Drawing.Color.Black
-        Me.Header0.Location = New System.Drawing.Point(510, 616)
+        Me.Header0.Location = New System.Drawing.Point(510, 671)
         Me.Header0.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header0.Name = "Header0"
         Me.Header0.Size = New System.Drawing.Size(88, 22)
@@ -1973,9 +1885,9 @@ Partial Class Form1
         Me.Header1.BackColor = System.Drawing.Color.White
         Me.Header1.FlatAppearance.BorderSize = 0
         Me.Header1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Header1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header1.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header1.ForeColor = System.Drawing.Color.Black
-        Me.Header1.Location = New System.Drawing.Point(604, 616)
+        Me.Header1.Location = New System.Drawing.Point(604, 671)
         Me.Header1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header1.Name = "Header1"
         Me.Header1.Size = New System.Drawing.Size(88, 22)
@@ -1990,9 +1902,9 @@ Partial Class Form1
         Me.Header2.BackColor = System.Drawing.Color.White
         Me.Header2.FlatAppearance.BorderSize = 0
         Me.Header2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Header2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header2.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header2.ForeColor = System.Drawing.Color.Black
-        Me.Header2.Location = New System.Drawing.Point(698, 616)
+        Me.Header2.Location = New System.Drawing.Point(698, 671)
         Me.Header2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header2.Name = "Header2"
         Me.Header2.Size = New System.Drawing.Size(88, 22)
@@ -2007,9 +1919,9 @@ Partial Class Form1
         Me.Header3.BackColor = System.Drawing.Color.White
         Me.Header3.FlatAppearance.BorderSize = 0
         Me.Header3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Header3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header3.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header3.ForeColor = System.Drawing.Color.Black
-        Me.Header3.Location = New System.Drawing.Point(792, 616)
+        Me.Header3.Location = New System.Drawing.Point(792, 671)
         Me.Header3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header3.Name = "Header3"
         Me.Header3.Size = New System.Drawing.Size(88, 22)
@@ -2020,22 +1932,22 @@ Partial Class Form1
         '
         'Label_listed
         '
-        Me.Label_listed.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_listed.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_listed.ForeColor = System.Drawing.Color.White
         Me.Label_listed.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_listed.Location = New System.Drawing.Point(429, 482)
+        Me.Label_listed.Location = New System.Drawing.Point(326, 506)
         Me.Label_listed.Name = "Label_listed"
         Me.Label_listed.Size = New System.Drawing.Size(175, 20)
         Me.Label_listed.TabIndex = 77
-        Me.Label_listed.Text = "game(s) listed"
+        Me.Label_listed.Text = "0 game(s) listed."
         Me.Label_listed.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label_Roms
         '
-        Me.Label_Roms.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Roms.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Roms.ForeColor = System.Drawing.Color.White
         Me.Label_Roms.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label_Roms.Location = New System.Drawing.Point(432, 502)
+        Me.Label_Roms.Location = New System.Drawing.Point(329, 526)
         Me.Label_Roms.Name = "Label_Roms"
         Me.Label_Roms.Size = New System.Drawing.Size(172, 20)
         Me.Label_Roms.TabIndex = 78
@@ -2048,9 +1960,9 @@ Partial Class Form1
         Me.Header4.BackColor = System.Drawing.Color.White
         Me.Header4.FlatAppearance.BorderSize = 0
         Me.Header4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Header4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header4.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header4.ForeColor = System.Drawing.Color.Black
-        Me.Header4.Location = New System.Drawing.Point(886, 616)
+        Me.Header4.Location = New System.Drawing.Point(886, 671)
         Me.Header4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header4.Name = "Header4"
         Me.Header4.Size = New System.Drawing.Size(88, 22)
@@ -2068,12 +1980,12 @@ Partial Class Form1
         '
         'Label30
         '
-        Me.Label30.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label30.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label30.ForeColor = System.Drawing.Color.White
         Me.Label30.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label30.Location = New System.Drawing.Point(16, 12)
+        Me.Label30.Location = New System.Drawing.Point(38, 27)
         Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(37, 20)
+        Me.Label30.Size = New System.Drawing.Size(52, 20)
         Me.Label30.TabIndex = 79
         Me.Label30.Text = "Title"
         Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2092,22 +2004,6 @@ Partial Class Form1
         '
         'Panel_ponmi
         '
-        Me.Panel_ponmi.Controls.Add(Me.Button_U)
-        Me.Panel_ponmi.Controls.Add(Me.Label44)
-        Me.Panel_ponmi.Controls.Add(Me.CheckBox_truear)
-        Me.Panel_ponmi.Controls.Add(Me.RawInput_hook)
-        Me.Panel_ponmi.Controls.Add(Me.Label38)
-        Me.Panel_ponmi.Controls.Add(Me.Label1)
-        Me.Panel_ponmi.Controls.Add(Me.Label35)
-        Me.Panel_ponmi.Controls.Add(Me.Label34)
-        Me.Panel_ponmi.Controls.Add(Me.Button_hook)
-        Me.Panel_ponmi.Controls.Add(Me.Label33)
-        Me.Panel_ponmi.Controls.Add(Me.Label32)
-        Me.Panel_ponmi.Controls.Add(Me.Button_X)
-        Me.Panel_ponmi.Controls.Add(Me.Panel6)
-        Me.Panel_ponmi.Controls.Add(Me.LinkLabel1)
-        Me.Panel_ponmi.Controls.Add(Me.Panel5)
-        Me.Panel_ponmi.Controls.Add(Me.Label30)
         Me.Panel_ponmi.Location = New System.Drawing.Point(1841, 44)
         Me.Panel_ponmi.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel_ponmi.Name = "Panel_ponmi"
@@ -2119,9 +2015,9 @@ Partial Class Form1
         Me.Button_U.BackColor = System.Drawing.Color.Gray
         Me.Button_U.FlatAppearance.BorderSize = 0
         Me.Button_U.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button_U.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_U.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_U.ForeColor = System.Drawing.Color.Black
-        Me.Button_U.Location = New System.Drawing.Point(175, 84)
+        Me.Button_U.Location = New System.Drawing.Point(158, 103)
         Me.Button_U.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_U.Name = "Button_U"
         Me.Button_U.Size = New System.Drawing.Size(23, 24)
@@ -2131,12 +2027,12 @@ Partial Class Form1
         '
         'Label44
         '
-        Me.Label44.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label44.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label44.ForeColor = System.Drawing.Color.White
         Me.Label44.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label44.Location = New System.Drawing.Point(89, 43)
+        Me.Label44.Location = New System.Drawing.Point(150, 58)
         Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(109, 19)
+        Me.Label44.Size = New System.Drawing.Size(136, 19)
         Me.Label44.TabIndex = 96
         Me.Label44.Text = "AspectRatio 4:3"
         Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2144,104 +2040,106 @@ Partial Class Form1
         'CheckBox_truear
         '
         Me.CheckBox_truear.AutoSize = True
-        Me.CheckBox_truear.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_truear.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckBox_truear.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_truear.Location = New System.Drawing.Point(19, 42)
+        Me.CheckBox_truear.Location = New System.Drawing.Point(56, 57)
         Me.CheckBox_truear.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox_truear.Name = "CheckBox_truear"
-        Me.CheckBox_truear.Size = New System.Drawing.Size(63, 20)
+        Me.CheckBox_truear.Size = New System.Drawing.Size(83, 21)
         Me.CheckBox_truear.TabIndex = 95
         Me.CheckBox_truear.Text = "true-ar"
         Me.CheckBox_truear.UseVisualStyleBackColor = True
         '
         'RawInput_hook
         '
+        Me.RawInput_hook.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RawInput_hook.ForeColor = System.Drawing.Color.Black
-        Me.RawInput_hook.Location = New System.Drawing.Point(308, 112)
+        Me.RawInput_hook.Location = New System.Drawing.Point(345, 127)
         Me.RawInput_hook.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.RawInput_hook.Name = "RawInput_hook"
-        Me.RawInput_hook.Size = New System.Drawing.Size(71, 25)
+        Me.RawInput_hook.Size = New System.Drawing.Size(89, 25)
         Me.RawInput_hook.TabIndex = 94
         Me.RawInput_hook.Text = "Disabled"
         Me.RawInput_hook.UseVisualStyleBackColor = True
         '
         'Label38
         '
-        Me.Label38.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label38.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label38.ForeColor = System.Drawing.Color.White
         Me.Label38.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label38.Location = New System.Drawing.Point(189, 113)
+        Me.Label38.Location = New System.Drawing.Point(227, 128)
         Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(113, 20)
+        Me.Label38.Size = New System.Drawing.Size(112, 20)
         Me.Label38.TabIndex = 93
         Me.Label38.Text = "RawInputHook"
         Me.Label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label35
         '
-        Me.Label35.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label35.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label35.ForeColor = System.Drawing.Color.White
         Me.Label35.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label35.Location = New System.Drawing.Point(37, 199)
+        Me.Label35.Location = New System.Drawing.Point(62, 214)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(107, 55)
+        Me.Label35.Size = New System.Drawing.Size(119, 55)
         Me.Label35.TabIndex = 92
         Me.Label35.Text = "CTRL+[S] " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "CTRL+[P]/[O] " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "CTRL+[I] "
         '
         'Label34
         '
-        Me.Label34.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label34.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label34.ForeColor = System.Drawing.Color.White
         Me.Label34.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label34.Location = New System.Drawing.Point(145, 199)
+        Me.Label34.Location = New System.Drawing.Point(172, 214)
         Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(234, 55)
+        Me.Label34.Size = New System.Drawing.Size(244, 55)
         Me.Label34.TabIndex = 91
         Me.Label34.Text = "...... Toggle FakeScanLine" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "...... Opacity +/-" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "...... Form bring to front"
-        Me.Label34.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Button_hook
         '
+        Me.Button_hook.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_hook.ForeColor = System.Drawing.Color.Black
-        Me.Button_hook.Location = New System.Drawing.Point(308, 170)
+        Me.Button_hook.Location = New System.Drawing.Point(345, 185)
         Me.Button_hook.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_hook.Name = "Button_hook"
-        Me.Button_hook.Size = New System.Drawing.Size(71, 25)
+        Me.Button_hook.Size = New System.Drawing.Size(89, 25)
         Me.Button_hook.TabIndex = 90
         Me.Button_hook.Text = "Disabled"
         Me.Button_hook.UseVisualStyleBackColor = True
         '
         'Label33
         '
-        Me.Label33.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label33.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label33.ForeColor = System.Drawing.Color.White
         Me.Label33.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label33.Location = New System.Drawing.Point(189, 173)
+        Me.Label33.Location = New System.Drawing.Point(230, 188)
         Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(101, 20)
+        Me.Label33.Size = New System.Drawing.Size(109, 20)
         Me.Label33.TabIndex = 89
         Me.Label33.Text = "FakeScanLine"
         Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label32
         '
-        Me.Label32.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label32.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label32.ForeColor = System.Drawing.Color.White
         Me.Label32.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label32.Location = New System.Drawing.Point(204, 85)
+        Me.Label32.Location = New System.Drawing.Point(229, 100)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(98, 20)
+        Me.Label32.Size = New System.Drawing.Size(110, 20)
         Me.Label32.TabIndex = 88
         Me.Label32.Text = "XinputViwer"
         Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Button_X
         '
+        Me.Button_X.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_X.ForeColor = System.Drawing.Color.Black
-        Me.Button_X.Location = New System.Drawing.Point(308, 83)
+        Me.Button_X.Location = New System.Drawing.Point(345, 98)
         Me.Button_X.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_X.Name = "Button_X"
-        Me.Button_X.Size = New System.Drawing.Size(71, 25)
+        Me.Button_X.Size = New System.Drawing.Size(89, 25)
         Me.Button_X.TabIndex = 87
         Me.Button_X.Text = "Disabled"
         Me.Button_X.UseVisualStyleBackColor = True
@@ -2260,7 +2158,8 @@ Partial Class Form1
         Me.Panel6.Controls.Add(Me.beatbox1)
         Me.Panel6.Controls.Add(Me.chargebox1)
         Me.Panel6.Controls.Add(Me.shiftbox1)
-        Me.Panel6.Location = New System.Drawing.Point(19, 80)
+        Me.Panel6.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel6.Location = New System.Drawing.Point(7, 95)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(132, 81)
         Me.Panel6.TabIndex = 85
@@ -2408,9 +2307,9 @@ Partial Class Form1
         '
         'LinkLabel1
         '
-        Me.LinkLabel1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabel1.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LinkLabel1.LinkColor = System.Drawing.Color.Gray
-        Me.LinkLabel1.Location = New System.Drawing.Point(195, 45)
+        Me.LinkLabel1.Location = New System.Drawing.Point(279, 59)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(184, 16)
         Me.LinkLabel1.TabIndex = 82
@@ -2421,7 +2320,8 @@ Partial Class Form1
         'Panel5
         '
         Me.Panel5.Controls.Add(Me.TextBox_Title)
-        Me.Panel5.Location = New System.Drawing.Point(59, 10)
+        Me.Panel5.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel5.Location = New System.Drawing.Point(96, 25)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(338, 33)
         Me.Panel5.TabIndex = 81
@@ -2600,7 +2500,7 @@ Partial Class Form1
         'Button13
         '
         Me.Button13.ForeColor = System.Drawing.Color.Black
-        Me.Button13.Location = New System.Drawing.Point(2307, 351)
+        Me.Button13.Location = New System.Drawing.Point(2381, 298)
         Me.Button13.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button13.Name = "Button13"
         Me.Button13.Size = New System.Drawing.Size(71, 25)
@@ -2629,18 +2529,19 @@ Partial Class Form1
         Me.Button_Ponmi.BackColor = System.Drawing.Color.White
         Me.Button_Ponmi.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button_Ponmi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button_Ponmi.Location = New System.Drawing.Point(988, 292)
+        Me.Button_Ponmi.Location = New System.Drawing.Point(427, 3)
         Me.Button_Ponmi.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button_Ponmi.Name = "Button_Ponmi"
-        Me.Button_Ponmi.Size = New System.Drawing.Size(14, 36)
+        Me.Button_Ponmi.Size = New System.Drawing.Size(68, 36)
         Me.Button_Ponmi.TabIndex = 82
+        Me.Button_Ponmi.Text = "Option"
         Me.Button_Ponmi.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Button_Ponmi.UseVisualStyleBackColor = False
         '
         'Button11
         '
         Me.Button11.ForeColor = System.Drawing.Color.Black
-        Me.Button11.Location = New System.Drawing.Point(217, 613)
+        Me.Button11.Location = New System.Drawing.Point(217, 668)
         Me.Button11.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button11.Name = "Button11"
         Me.Button11.Size = New System.Drawing.Size(104, 25)
@@ -2651,7 +2552,7 @@ Partial Class Form1
         'Button12
         '
         Me.Button12.ForeColor = System.Drawing.Color.Black
-        Me.Button12.Location = New System.Drawing.Point(327, 613)
+        Me.Button12.Location = New System.Drawing.Point(327, 668)
         Me.Button12.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button12.Name = "Button12"
         Me.Button12.Size = New System.Drawing.Size(85, 25)
@@ -2670,7 +2571,7 @@ Partial Class Form1
         'Button1
         '
         Me.Button1.ForeColor = System.Drawing.Color.Black
-        Me.Button1.Location = New System.Drawing.Point(98, 613)
+        Me.Button1.Location = New System.Drawing.Point(98, 668)
         Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(63, 25)
@@ -2681,7 +2582,7 @@ Partial Class Form1
         'Button2
         '
         Me.Button2.ForeColor = System.Drawing.Color.Black
-        Me.Button2.Location = New System.Drawing.Point(167, 613)
+        Me.Button2.Location = New System.Drawing.Point(167, 668)
         Me.Button2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(44, 25)
@@ -2692,7 +2593,7 @@ Partial Class Form1
         'Button3
         '
         Me.Button3.ForeColor = System.Drawing.Color.Black
-        Me.Button3.Location = New System.Drawing.Point(418, 613)
+        Me.Button3.Location = New System.Drawing.Point(418, 668)
         Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(70, 25)
@@ -2702,22 +2603,22 @@ Partial Class Form1
         '
         'Label36
         '
-        Me.Label36.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label36.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label36.ForeColor = System.Drawing.Color.White
         Me.Label36.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label36.Location = New System.Drawing.Point(265, 482)
+        Me.Label36.Location = New System.Drawing.Point(135, 506)
         Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(158, 20)
+        Me.Label36.Size = New System.Drawing.Size(178, 20)
         Me.Label36.TabIndex = 95
         Me.Label36.Text = "Supermodel Lastwrite "
         Me.Label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label37
         '
-        Me.Label37.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label37.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label37.ForeColor = System.Drawing.Color.White
         Me.Label37.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label37.Location = New System.Drawing.Point(265, 502)
+        Me.Label37.Location = New System.Drawing.Point(155, 526)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(128, 20)
         Me.Label37.TabIndex = 96
@@ -2730,9 +2631,9 @@ Partial Class Form1
         Me.Header5.BackColor = System.Drawing.Color.White
         Me.Header5.FlatAppearance.BorderSize = 0
         Me.Header5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Header5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Header5.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Header5.ForeColor = System.Drawing.Color.Black
-        Me.Header5.Location = New System.Drawing.Point(980, 616)
+        Me.Header5.Location = New System.Drawing.Point(980, 671)
         Me.Header5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Header5.Name = "Header5"
         Me.Header5.Size = New System.Drawing.Size(88, 22)
@@ -2755,11 +2656,12 @@ Partial Class Form1
         '
         'Button14
         '
-        Me.Button14.Location = New System.Drawing.Point(610, 32)
+        Me.Button14.Font = New System.Drawing.Font("Cascadia Code", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button14.Location = New System.Drawing.Point(507, 32)
         Me.Button14.Name = "Button14"
-        Me.Button14.Size = New System.Drawing.Size(24, 23)
+        Me.Button14.Size = New System.Drawing.Size(86, 30)
         Me.Button14.TabIndex = 98
-        Me.Button14.Text = "Button14"
+        Me.Button14.Text = "Capture"
         Me.Button14.UseVisualStyleBackColor = True
         '
         'timer_buttonProcess
@@ -2773,12 +2675,186 @@ Partial Class Form1
         'Timer3
         '
         '
+        'CheckBox_nowhiteflash
+        '
+        Me.CheckBox_nowhiteflash.AutoSize = True
+        Me.CheckBox_nowhiteflash.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_nowhiteflash.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_nowhiteflash.Location = New System.Drawing.Point(185, 226)
+        Me.CheckBox_nowhiteflash.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_nowhiteflash.Name = "CheckBox_nowhiteflash"
+        Me.CheckBox_nowhiteflash.Size = New System.Drawing.Size(123, 21)
+        Me.CheckBox_nowhiteflash.TabIndex = 101
+        Me.CheckBox_nowhiteflash.Text = "NoWhiteFlash"
+        Me.CheckBox_nowhiteflash.UseVisualStyleBackColor = True
+        '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.TabPage3)
+        Me.TabControl1.Controls.Add(Me.TabPage4)
+        Me.TabControl1.Controls.Add(Me.TabPage5)
+        Me.TabControl1.Controls.Add(Me.TabPage6)
+        Me.TabControl1.Location = New System.Drawing.Point(511, 312)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(492, 317)
+        Me.TabControl1.TabIndex = 99
+        '
+        'TabPage1
+        '
+        Me.TabPage1.BackColor = System.Drawing.Color.Navy
+        Me.TabPage1.Controls.Add(Me.GroupBox2)
+        Me.TabPage1.Controls.Add(Me.Label43)
+        Me.TabPage1.Controls.Add(Me.ComboBox2)
+        Me.TabPage1.Controls.Add(Me.CheckBox_nowhiteflash)
+        Me.TabPage1.Controls.Add(Me.Label42)
+        Me.TabPage1.Controls.Add(Me.CheckBox_vsync)
+        Me.TabPage1.Controls.Add(Me.Label41)
+        Me.TabPage1.Controls.Add(Me.CheckBox_quadrender)
+        Me.TabPage1.Controls.Add(Me.ComboBox1)
+        Me.TabPage1.Controls.Add(Me.CheckBox_gpumulti)
+        Me.TabPage1.Controls.Add(Me.SS_Bar)
+        Me.TabPage1.Controls.Add(Me.CheckBox_multishread)
+        Me.TabPage1.Controls.Add(Me.Label_SS)
+        Me.TabPage1.Controls.Add(Me.CheckBox_multitexture)
+        Me.TabPage1.Controls.Add(Me.CheckBox_borderless)
+        Me.TabPage1.Controls.Add(Me.Label_PPC)
+        Me.TabPage1.Controls.Add(Me.CheckBox_TrueHz)
+        Me.TabPage1.Controls.Add(Me.PPC_Bar)
+        Me.TabPage1.Controls.Add(Me.CheckBox_fullscreen)
+        Me.TabPage1.Controls.Add(Me.Label5)
+        Me.TabPage1.Controls.Add(Me.CheckBox_widescreen)
+        Me.TabPage1.Controls.Add(Me.CheckBox_widebg)
+        Me.TabPage1.Controls.Add(Me.CheckBox_throttle)
+        Me.TabPage1.Controls.Add(Me.CheckBox_stretch)
+        Me.TabPage1.Controls.Add(Me.CheckBox_showfrmerate)
+        Me.TabPage1.Controls.Add(Me.Label_refreshrate)
+        Me.TabPage1.ForeColor = System.Drawing.Color.White
+        Me.TabPage1.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(484, 287)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "Video"
+        '
+        'TabPage2
+        '
+        Me.TabPage2.BackColor = System.Drawing.Color.Navy
+        Me.TabPage2.Controls.Add(Me.Label_Sound)
+        Me.TabPage2.Controls.Add(Me.CheckBox_emulatesound)
+        Me.TabPage2.Controls.Add(Me.Label17)
+        Me.TabPage2.Controls.Add(Me.CheckBox_flipstereo)
+        Me.TabPage2.Controls.Add(Me.Label16)
+        Me.TabPage2.Controls.Add(Me.CheckBox_emuDSB)
+        Me.TabPage2.Controls.Add(Me.Label_Balance)
+        Me.TabPage2.Controls.Add(Me.CheckBox_legacyDSP)
+        Me.TabPage2.Controls.Add(Me.SoundBar)
+        Me.TabPage2.Controls.Add(Me.Label15)
+        Me.TabPage2.Controls.Add(Me.BalanceBar)
+        Me.TabPage2.Controls.Add(Me.MusicBar)
+        Me.TabPage2.Controls.Add(Me.Label_Music)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Size = New System.Drawing.Size(484, 287)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Sound"
+        '
+        'TabPage3
+        '
+        Me.TabPage3.BackColor = System.Drawing.Color.Navy
+        Me.TabPage3.Controls.Add(Me.ComboBox_input)
+        Me.TabPage3.Controls.Add(Me.Label11)
+        Me.TabPage3.Controls.Add(Me.Panel4)
+        Me.TabPage3.Controls.Add(Me.Label18)
+        Me.TabPage3.Controls.Add(Me.Panel1)
+        Me.TabPage3.Controls.Add(Me.CheckBox18)
+        Me.TabPage3.Controls.Add(Me.Label29)
+        Me.TabPage3.Controls.Add(Me.GroupBox3)
+        Me.TabPage3.Controls.Add(Me.Button10)
+        Me.TabPage3.Controls.Add(Me.GroupBox4)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Size = New System.Drawing.Size(484, 287)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Control"
+        '
+        'TabPage4
+        '
+        Me.TabPage4.BackColor = System.Drawing.Color.Navy
+        Me.TabPage4.Controls.Add(Me.Label_Global_IPaddress)
+        Me.TabPage4.Controls.Add(Me.CheckBox_network)
+        Me.TabPage4.Controls.Add(Me.Button_Get_Global_IPAddress)
+        Me.TabPage4.Controls.Add(Me.Label19)
+        Me.TabPage4.Controls.Add(Me.Button_Get_Local_IPAddress)
+        Me.TabPage4.Controls.Add(Me.Label14)
+        Me.TabPage4.Controls.Add(Me.Label_Local_IPaddress)
+        Me.TabPage4.Controls.Add(Me.Label20)
+        Me.TabPage4.Controls.Add(Me.CheckBox_simnetwork)
+        Me.TabPage4.Controls.Add(Me.TextBox_Portin)
+        Me.TabPage4.Controls.Add(Me.TextBox_Addressout)
+        Me.TabPage4.Controls.Add(Me.TextBox_Portout)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Size = New System.Drawing.Size(484, 287)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "Network"
+        '
+        'TabPage5
+        '
+        Me.TabPage5.BackColor = System.Drawing.Color.Navy
+        Me.TabPage5.Controls.Add(Me.Button_U)
+        Me.TabPage5.Controls.Add(Me.Panel5)
+        Me.TabPage5.Controls.Add(Me.Label44)
+        Me.TabPage5.Controls.Add(Me.Label30)
+        Me.TabPage5.Controls.Add(Me.CheckBox_truear)
+        Me.TabPage5.Controls.Add(Me.LinkLabel1)
+        Me.TabPage5.Controls.Add(Me.RawInput_hook)
+        Me.TabPage5.Controls.Add(Me.Panel6)
+        Me.TabPage5.Controls.Add(Me.Label38)
+        Me.TabPage5.Controls.Add(Me.Button_X)
+        Me.TabPage5.Controls.Add(Me.Label1)
+        Me.TabPage5.Controls.Add(Me.Label32)
+        Me.TabPage5.Controls.Add(Me.Label35)
+        Me.TabPage5.Controls.Add(Me.Label33)
+        Me.TabPage5.Controls.Add(Me.Label34)
+        Me.TabPage5.Controls.Add(Me.Button_hook)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.Size = New System.Drawing.Size(484, 287)
+        Me.TabPage5.TabIndex = 4
+        Me.TabPage5.Text = "Option"
+        '
+        'TabPage6
+        '
+        Me.TabPage6.BackColor = System.Drawing.Color.Navy
+        Me.TabPage6.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.Size = New System.Drawing.Size(484, 287)
+        Me.TabPage6.TabIndex = 5
+        Me.TabPage6.Text = "Null"
+        '
+        'Panel8
+        '
+        Me.Panel8.Controls.Add(Me.Button4)
+        Me.Panel8.Controls.Add(Me.Button5)
+        Me.Panel8.Controls.Add(Me.Button6)
+        Me.Panel8.Controls.Add(Me.Button7)
+        Me.Panel8.Controls.Add(Me.Button_Ponmi)
+        Me.Panel8.Location = New System.Drawing.Point(508, 280)
+        Me.Panel8.Name = "Panel8"
+        Me.Panel8.Size = New System.Drawing.Size(503, 38)
+        Me.Panel8.TabIndex = 100
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(1013, 592)
+        Me.ClientSize = New System.Drawing.Size(1015, 634)
+        Me.Controls.Add(Me.Panel8)
+        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Button14)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel7)
@@ -2793,7 +2869,6 @@ Partial Class Form1
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Button_Ponmi)
         Me.Controls.Add(Me.CheckBox_outputs)
         Me.Controls.Add(Me.Panel_ponmi)
         Me.Controls.Add(Me.Header4)
@@ -2808,17 +2883,13 @@ Partial Class Form1
         Me.Controls.Add(Me.Debugtext)
         Me.Controls.Add(Me.Panel_Network)
         Me.Controls.Add(Me.Panel_Input)
-        Me.Controls.Add(Me.Button7)
-        Me.Controls.Add(Me.Button6)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.CheckBox_hidecmd)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel_Video)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.DataGridView1)
-        Me.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -2827,13 +2898,11 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega Model 3 UI - Ver 1.1.2.2"
+        Me.Text = "SuperModel3-UI-2025-02-21"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
-        Me.Panel_Video.ResumeLayout(False)
-        Me.Panel_Video.PerformLayout()
         CType(Me.SS_Bar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PPC_Bar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
@@ -2842,20 +2911,12 @@ Partial Class Form1
         Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel_Sound.ResumeLayout(False)
-        Me.Panel_Sound.PerformLayout()
         CType(Me.SoundBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BalanceBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MusicBar, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel_Input.ResumeLayout(False)
-        Me.Panel_Input.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
-        Me.Panel_Network.ResumeLayout(False)
-        Me.Panel_Network.PerformLayout()
-        Me.Panel_ponmi.ResumeLayout(False)
-        Me.Panel_ponmi.PerformLayout()
         Me.Panel6.ResumeLayout(False)
         CType(Me.Lbox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Rbox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2885,6 +2946,18 @@ Partial Class Form1
         CType(Me.chargebox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.shiftbox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
+        Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
+        Me.TabPage3.ResumeLayout(False)
+        Me.TabPage3.PerformLayout()
+        Me.TabPage4.ResumeLayout(False)
+        Me.TabPage4.PerformLayout()
+        Me.TabPage5.ResumeLayout(False)
+        Me.TabPage5.PerformLayout()
+        Me.Panel8.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3014,12 +3087,6 @@ Partial Class Form1
     Friend WithEvents Label_listed As Label
     Friend WithEvents Label_Roms As Label
     Friend WithEvents Header4 As Button
-    Friend WithEvents BackColorToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents FontColorToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents WhiteToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents BlackToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ChooseToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DefoultToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label8 As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel4 As Panel
@@ -3101,4 +3168,13 @@ Partial Class Form1
     Friend WithEvents Timer10 As Timer
     Friend WithEvents Timer3 As Timer
     Friend WithEvents Button_U As Button
+    Friend WithEvents CheckBox_nowhiteflash As CheckBox
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents TabPage5 As TabPage
+    Friend WithEvents TabPage6 As TabPage
+    Friend WithEvents Panel8 As Panel
 End Class

@@ -16,10 +16,13 @@ Public Class Form1
     Private x2_timer As System.Threading.Timer
     Private rep_timer As System.Threading.Timer
 
+    Public ProcessName As String
+
     Dim IgnoreClose As Boolean = False
     Dim Load_comp_F As Boolean = False
     Dim Nya As Boolean = False
     Dim brdy = 0
+    Dim cpuArchitecture As Integer = 0
 
     <System.Runtime.InteropServices.DllImport("winmm.dll", CharSet:=System.Runtime.InteropServices.CharSet.Auto)>
     Private Shared Function mciSendString(ByVal command As String,
@@ -76,16 +79,23 @@ Public Class Form1
     'End Function
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        GetArchitecture()
+        Panel8.Top = 299
         Surround1.Interval = interval
         Surround2.Interval = interval
         DemoTimer.Interval = interval
         Dim appPath As String = System.Windows.Forms.Application.StartupPath
-        Dim fileName As String = appPath & "\Supermodel.exe"
+        Dim fileName As String = appPath & "\supermodel.exe"
+        Dim newname As String = appPath & "\Supermodel.exe"
         If System.IO.File.Exists(fileName) Then
             Label37.Text = System.IO.File.GetLastWriteTime(fileName).ToString
+            Microsoft.VisualBasic.FileSystem.Rename(fileName, newname)
         Else
-            Dim result As DialogResult = MessageBox.Show("Supermodel.exe not found." & vbCrLf & "Want you download PonMi version of Supermodel3?",
+            Dim downloadMessage = "PonMi version of Supermodel3?"
+            If (cpuArchitecture = 12) Then
+                downloadMessage = "mijk84 ARM64 Supermodel3 build?"
+            End If
+            Dim result As DialogResult = MessageBox.Show("Supermodel.exe not found." & vbCrLf & "Do you want to download " & downloadMessage,
                                              "質問",
                                              MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Exclamation,
@@ -113,18 +123,20 @@ Public Class Form1
 
             LoadGameXml()
             Load_initialfile()
-            If Forecolor_s = "White" Then
-                WhiteToolStripMenuItem.PerformClick()
-            Else
-                BlackToolStripMenuItem.PerformClick()
-            End If
+            'If Forecolor_s = "White" Then
+            '    WhiteToolStripMenuItem.PerformClick()
+            'Else
+            '    BlackToolStripMenuItem.PerformClick()
+            'End If
 
-            If Bgcolor_R = 147 And Bgcolor_G = 0 And Bgcolor_B = 80 Then
-                Bgcolor_R = 0
-                Bgcolor_G = 0
-                Bgcolor_B = 255
-            End If
-
+            'If Bgcolor_R = 147 And Bgcolor_G = 0 And Bgcolor_B = 80 Then
+            '    Bgcolor_R = 0
+            '    Bgcolor_G = 0
+            '    Bgcolor_B = 128
+            'End If
+            Bgcolor_R = 0
+            Bgcolor_G = 0
+            Bgcolor_B = 128
 
             Me.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
             Label_path.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
@@ -194,13 +206,28 @@ Public Class Form1
         'ComboBox1.SelectedIndex = 0
         'ComboBox2.SelectedIndex = 0
         brdy = 1
+
     End Sub
 
+    Private Sub GetArchitecture()
+        ' pulls out the cpu arch 
+        ' https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-processor
+        Dim WinMgmts As Object
+        Dim cpu As Object
+        Dim cpuAarchitecture = 0
+        WinMgmts = GetObject("WinMgmts:").instancesof("Win32_Processor")
+        For Each cpu In WinMgmts
+            cpuArchitecture = cpu.Architecture
+        Next
+    End Sub
 
     Private Sub download()
-        System.Diagnostics.Process.Start("https://github.com/BackPonBeauty/Supermodel3-PonMi/releases")
+        Dim releaseURL = "https://github.com/BackPonBeauty/Supermodel3-PonMi/releases"
+        If (cpuArchitecture = 12) Then
+            releaseURL = "https://github.com/mijk84/win-arm64-binaries/releases/tag/supermodel"
+        End If
+        System.Diagnostics.Process.Start(releaseURL)
     End Sub
-
 
     Private Sub DataGridView1_MouseDown(sender As Object, e As MouseEventArgs) Handles DataGridView1.MouseDown
         If e.Button = MouseButtons.Right Then
@@ -420,7 +447,10 @@ Public Class Form1
                 data2 = "Wheel Scrolled Down"
             End If
             Console.WriteLine(wheelDelta)
-            Label1.Text = ($"{deviceName}_{data2}")
+            If RawInput_Enabled = True Then
+                Label1.Text = ($"{deviceName}_{data2}")
+            End If
+
         End If
         MyBase.WndProc(m)
     End Sub
@@ -833,6 +863,7 @@ Public Class Form1
             Dim HideCMD As StringBuilder = New StringBuilder(300)
             Dim Dir As StringBuilder = New StringBuilder(300)
             Dim CrosshairStyle As StringBuilder = New StringBuilder(300)
+            Dim NoWhiteFlash As StringBuilder = New StringBuilder(300)
 
             Dim C0_F As StringBuilder = New StringBuilder(300)
             Dim C1_F As StringBuilder = New StringBuilder(300)
@@ -927,6 +958,7 @@ Public Class Form1
             GetPrivateProfileString(" Global ", "Title", "Supermodel", Title_SB, 150, iniFileName)
 
             GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "NoWhiteFlash", "False", NoWhiteFlash, 15, iniFileName)
 
             GetPrivateProfileString(" Supermodel3 UI ", "Columns0Width", CStr(200), Columns0Width, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Columns1Width", CStr(150), Columns1Width, 15, iniFileName)
@@ -1060,7 +1092,12 @@ Public Class Form1
             Resolution_index_bin = Integer.Parse(Resolution_index.ToString)
 
             'New3DEngine
-            If New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
+            If (cpuArchitecture = 12) Then
+                ' ARM64
+                RadioButton_new3d.Checked = True
+                RadioButton_legacy.Checked = False
+                RadioButton_legacy.Enabled = False
+            ElseIf New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
                 RadioButton_new3d.Checked = True
                 RadioButton_legacy.Checked = False
             Else
@@ -1273,6 +1310,13 @@ Public Class Form1
                 CheckBox18.Checked = True
             Else
                 CheckBox18.Checked = False
+            End If
+
+            'NoWhiteFlash
+            If NoWhiteFlash.ToString() = "True" Or NoWhiteFlash.ToString() = "1" Then
+                CheckBox_nowhiteflash.Checked = True
+            Else
+                CheckBox_nowhiteflash.Checked = False
             End If
 
             'Outputs
@@ -1599,55 +1643,73 @@ MessageBoxIcon.Error)
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        Panel_Video.Left = 612
-        Panel_Video.Top = 336
-        Panel_Sound.Left = 2000
-        Panel_Sound.Top = 336
-        Panel_Input.Left = 2000
-        Panel_Input.Top = 336
-        Panel_Network.Left = 2000
-        Panel_Network.Top = 336
-        Panel_ponmi.Left = 2000
-        Panel_ponmi.Top = 336
+        TabControl1.SelectedIndex = 0
+        'Panel_Video.Left = 612
+        'Panel_Video.Top = 336
+        'Panel_Sound.Left = 2000
+        'Panel_Sound.Top = 336
+        'Panel_Input.Left = 2000
+        'Panel_Input.Top = 336
+        'Panel_Network.Left = 2000
+        'Panel_Network.Top = 336
+        'Panel_ponmi.Left = 2000
+        'Panel_ponmi.Top = 336
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        Panel_Video.Left = 2000
-        Panel_Video.Top = 336
-        Panel_Sound.Left = 612
-        Panel_Sound.Top = 336
-        Panel_Input.Left = 2000
-        Panel_Input.Top = 336
-        Panel_Network.Left = 2000
-        Panel_Network.Top = 336
-        Panel_ponmi.Left = 2000
-        Panel_ponmi.Top = 336
+        TabControl1.SelectedIndex = 1
+        'Panel_Video.Left = 2000
+        'Panel_Video.Top = 336
+        'Panel_Sound.Left = 612
+        'Panel_Sound.Top = 336
+        'Panel_Input.Left = 2000
+        'Panel_Input.Top = 336
+        'Panel_Network.Left = 2000
+        'Panel_Network.Top = 336
+        'Panel_ponmi.Left = 2000
+        'Panel_ponmi.Top = 336
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        Panel_Video.Left = 2000
-        Panel_Video.Top = 336
-        Panel_Sound.Left = 2000
-        Panel_Sound.Top = 336
-        Panel_Input.Left = 612
-        Panel_Input.Top = 336
-        Panel_Network.Left = 2000
-        Panel_Network.Top = 336
-        Panel_ponmi.Left = 2000
-        Panel_ponmi.Top = 336
+        TabControl1.SelectedIndex = 2
+        'Panel_Video.Left = 2000
+        'Panel_Video.Top = 336
+        'Panel_Sound.Left = 2000
+        'Panel_Sound.Top = 336
+        'Panel_Input.Left = 612
+        'Panel_Input.Top = 336
+        'Panel_Network.Left = 2000
+        'Panel_Network.Top = 336
+        'Panel_ponmi.Left = 2000
+        'Panel_ponmi.Top = 336
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
-        Panel_Video.Left = 2000
-        Panel_Video.Top = 336
-        Panel_Sound.Left = 2000
-        Panel_Sound.Top = 336
-        Panel_Input.Left = 2000
-        Panel_Input.Top = 336
-        Panel_Network.Left = 612
-        Panel_Network.Top = 336
-        Panel_ponmi.Left = 2000
-        Panel_ponmi.Top = 336
+        TabControl1.SelectedIndex = 3
+        'Panel_Video.Left = 2000
+        'Panel_Video.Top = 336
+        'Panel_Sound.Left = 2000
+        'Panel_Sound.Top = 336
+        'Panel_Input.Left = 2000
+        'Panel_Input.Top = 336
+        'Panel_Network.Left = 612
+        'Panel_Network.Top = 336
+        'Panel_ponmi.Left = 2000
+        'Panel_ponmi.Top = 336
+    End Sub
+
+    Private Sub Button_Ponmi_Click(sender As Object, e As EventArgs) Handles Button_Ponmi.Click
+        TabControl1.SelectedIndex = 4
+        'Panel_Video.Left = 2000
+        'Panel_Video.Top = 336
+        'Panel_Sound.Left = 2000
+        'Panel_Sound.Top = 336
+        'Panel_Input.Left = 2000
+        'Panel_Input.Top = 336
+        'Panel_Network.Left = 2000
+        'Panel_Network.Top = 336
+        'Panel_ponmi.Left = 612
+        'Panel_ponmi.Top = 336
     End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs)
@@ -1796,6 +1858,7 @@ MessageBoxIcon.Error)
         WritePrivateProfileString(Section, "XInputVibrateMax", XViblate.Text, iniFileName)
 
         WritePrivateProfileString(Section, "CrosshairStyle", CStr(ComboBox_style.SelectedItem), iniFileName)
+        WritePrivateProfileString(Section, "NoWhiteFlash", CStr(CheckBox_nowhiteflash.Checked.ToString), iniFileName)
     End Sub
 
     Private Sub Me_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
@@ -2056,12 +2119,12 @@ MessageBoxIcon.Error)
         If control.HasChildren Then
             For Each childControl As Control In control.Controls
                 GetAllControls(childControl, size)
-                childControl.Font = New Font("Arial", size, FontStyle.Regular)
+                childControl.Font = New Font("Cascadia Code", size, FontStyle.Regular)
             Next childControl
         End If
     End Sub
 
-    Private Sub BGColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChooseToolStripMenuItem.Click
+    Private Sub BGColorToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim cd As New ColorDialog()
         cd.Color = Me.BackColor
         cd.AllowFullOpen = True
@@ -2075,114 +2138,98 @@ MessageBoxIcon.Error)
         End If
     End Sub
 
-    Private Sub WhiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WhiteToolStripMenuItem.Click
-        Dim c As Object
-        For Each c In Controls
-            If TypeOf c Is IButtonControl Or TypeOf c Is MenuStrip Or TypeOf c Is TextBoxBase Then
-                c.ForeColor = Color.Black
-            Else
-                c.ForeColor = Color.White
-            End If
-        Next
-        For Each c In Panel_Video.Controls
-            c.ForeColor = Color.White
-            If TypeOf c Is IButtonControl Then
-                c.ForeColor = Color.Black
-            Else
-                c.ForeColor = Color.White
-            End If
-            If c.name = "ComboBox1" Or c.name = "ComboBox2" Then
-                c.ForeColor = Color.Black
-            End If
-        Next
-        For Each c In Panel_Sound.Controls
-            c.ForeColor = Color.White
-        Next
-        For Each c In Panel_Input.Controls
-            c.ForeColor = Color.White
-            If TypeOf c Is ButtonBase Then
-                c.ForeColor = Color.Black
-            End If
-            If c.name = "CheckBox18" Or c.name = "CheckBox_outputs" Then
-                c.ForeColor = Color.White
-            End If
+    'Private Sub WhiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WhiteToolStripMenuItem.Click
+    '    Dim c As Object
+    '    For Each c In Controls
+    '        If TypeOf c Is IButtonControl Or TypeOf c Is MenuStrip Or TypeOf c Is TextBoxBase Then
+    '            c.ForeColor = Color.Black
+    '        Else
+    '            c.ForeColor = Color.White
+    '        End If
+    '    Next
+    '    For Each c In Panel8.Controls
+    '        c.ForeColor = Color.White
+    '        If TypeOf c Is IButtonControl Then
+    '            c.ForeColor = Color.Black
+    '        Else
+    '            c.ForeColor = Color.White
+    '        End If
 
-            If c.name = "ComboBox_input" Then
-                c.Forecolor = Color.Black
-            End If
-        Next
-        For Each c In Panel_Network.Controls
-            c.ForeColor = Color.White
-            If TypeOf c Is IButtonControl Then
-                c.ForeColor = Color.Black
-            Else
-                c.ForeColor = Color.White
-            End If
-        Next
-        For Each c In Panel_ponmi.Controls
-            c.ForeColor = Color.White
-            If TypeOf c Is IButtonControl Then
-                c.ForeColor = Color.Black
-            Else
-                c.ForeColor = Color.White
-            End If
-        Next
-        Pub_Forecolor_s = Color.White
-        Forecolor_s = "White"
-    End Sub
+    '    Next
+    '    For Each c In TabControl1.Controls
+    '        c.ForeColor = Color.White
+    '        If TypeOf c Is ButtonBase Then
+    '            c.ForeColor = Color.Black
+    '        End If
+    '        If c.name = "CheckBox18" Or c.name = "CheckBox_outputs" Then
+    '            c.ForeColor = Color.White
+    '        End If
 
-    Private Sub BlackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BlackToolStripMenuItem.Click
-        Dim c As Object
-        For Each c In Me.Controls
-            If TypeOf c Is DataGridView Then
-                c.ForeColor = Color.White
-            Else
-                c.ForeColor = Color.Black
-            End If
-        Next
-        For Each c In Panel_Video.Controls
-            c.ForeColor = Color.Black
-        Next
-        For Each c In Panel_Sound.Controls
-            c.ForeColor = Color.Black
-        Next
-        For Each c In Panel_Input.Controls
-            c.ForeColor = Color.Black
-        Next
-        For Each c In Panel_Network.Controls
-            c.ForeColor = Color.Black
-            If TypeOf c Is TextBoxBase Then
-                c.ForeColor = Color.White
-            End If
-        Next
-        For Each c In Panel_ponmi.Controls
-            c.ForeColor = Color.Black
-        Next
-        Pub_Forecolor_s = Color.Black
-        Forecolor_s = "Black"
-    End Sub
+    '        If c.name = "ComboBox_input" Then
+    '            c.Forecolor = Color.Black
+    '        End If
+    '    Next
+    '    'For Each c In Panel_Network.Controls
+    '    '    c.ForeColor = Color.White
+    '    '    If TypeOf c Is IButtonControl Then
+    '    '        c.ForeColor = Color.Black
+    '    '    Else
+    '    '        c.ForeColor = Color.White
+    '    '    End If
+    '    'Next
+    '    'For Each c In Panel_ponmi.Controls
+    '    '    c.ForeColor = Color.White
+    '    '    If TypeOf c Is IButtonControl Then
+    '    '        c.ForeColor = Color.Black
+    '    '    Else
+    '    '        c.ForeColor = Color.White
+    '    '    End If
+    '    'Next
+    '    Pub_Forecolor_s = Color.White
+    '    Forecolor_s = "White"
+    'End Sub
 
-    Private Sub DefoultToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DefoultToolStripMenuItem.Click
-        Bgcolor_R = 147
-        Bgcolor_G = 0
-        Bgcolor_B = 80
-        Me.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
-        Label_path.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
-        WhiteToolStripMenuItem.PerformClick()
-    End Sub
+    'Private Sub BlackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BlackToolStripMenuItem.Click
+    '    Dim c As Object
+    '    For Each c In Me.Controls
+    '        If TypeOf c Is DataGridView Then
+    '            c.ForeColor = Color.White
+    '        Else
+    '            c.ForeColor = Color.Black
+    '        End If
+    '    Next
+    '    For Each c In Panel_Video.Controls
+    '        c.ForeColor = Color.Black
+    '    Next
+    '    For Each c In Panel_Sound.Controls
+    '        c.ForeColor = Color.Black
+    '    Next
+    '    For Each c In Panel_Input.Controls
+    '        c.ForeColor = Color.Black
+    '    Next
+    '    For Each c In Panel_Network.Controls
+    '        c.ForeColor = Color.Black
+    '        If TypeOf c Is TextBoxBase Then
+    '            c.ForeColor = Color.White
+    '        End If
+    '    Next
+    '    For Each c In Panel_ponmi.Controls
+    '        c.ForeColor = Color.Black
+    '    Next
+    '    Pub_Forecolor_s = Color.Black
+    '    Forecolor_s = "Black"
+    'End Sub
 
-    Private Sub Button_Ponmi_Click(sender As Object, e As EventArgs) Handles Button_Ponmi.Click
-        Panel_Video.Left = 2000
-        Panel_Video.Top = 336
-        Panel_Sound.Left = 2000
-        Panel_Sound.Top = 336
-        Panel_Input.Left = 2000
-        Panel_Input.Top = 336
-        Panel_Network.Left = 2000
-        Panel_Network.Top = 336
-        Panel_ponmi.Left = 612
-        Panel_ponmi.Top = 336
-    End Sub
+    'Private Sub DefoultToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DefoultToolStripMenuItem.Click
+    '    Bgcolor_R = 147
+    '    Bgcolor_G = 0
+    '    Bgcolor_B = 80
+    '    Me.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
+    '    Label_path.BackColor = Color.FromArgb(255, Bgcolor_R, Bgcolor_G, Bgcolor_B)
+    '    WhiteToolStripMenuItem.PerformClick()
+    'End Sub
+
+
 
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
         System.Diagnostics.Process.Start("https://github.com/BackPonBeauty/Supermodel3-PonMi?tab=readme-ov-file#ponmi")
@@ -2907,6 +2954,7 @@ MessageBoxIcon.Error)
     End Sub
 
     Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+
         'Button14.Top = -100
         If Capture_F = True Then
             Capture_F = False
@@ -2926,7 +2974,8 @@ MessageBoxIcon.Error)
             '    captureForm.BringToFront()
             'End If
         Else
-            If Process.GetProcessesByName("supermodel").Count <> 0 Then
+            If Process.GetProcessesByName("Supermodel").Count <> 0 Then
+
 
                 'Dim w As Integer = GetSupermodelWidth()
                 'Dim h As Integer = GetSupermodelHeight()

@@ -40,7 +40,7 @@ Partial Class PosResWindow
         Me.Label3.ForeColor = System.Drawing.Color.White
         Me.Label3.Location = New System.Drawing.Point(4, 4)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(88, 20)
+        Me.Label3.Size = New System.Drawing.Size(78, 19)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Position :"
         '
@@ -48,9 +48,9 @@ Partial Class PosResWindow
         '
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(4, 26)
+        Me.Label4.Location = New System.Drawing.Point(4, 25)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(88, 20)
+        Me.Label4.Size = New System.Drawing.Size(78, 19)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Resolution :"
         '
@@ -58,36 +58,36 @@ Partial Class PosResWindow
         '
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(98, 4)
+        Me.Label1.Location = New System.Drawing.Point(87, 4)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(347, 18)
+        Me.Label1.Size = New System.Drawing.Size(308, 17)
         Me.Label1.TabIndex = 7
         Me.Label1.Text = "Label1"
         '
         'Button1
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.Button1.BackColor = System.Drawing.Color.Navy
         Me.Button1.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Button1.FlatAppearance.BorderSize = 0
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(8, 71)
+        Me.Button1.Location = New System.Drawing.Point(7, 67)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(72, 28)
+        Me.Button1.Size = New System.Drawing.Size(64, 26)
         Me.Button1.TabIndex = 8
         Me.Button1.Text = "SET"
         Me.Button1.UseVisualStyleBackColor = False
         '
         'Button2
         '
-        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.Button2.BackColor = System.Drawing.Color.Navy
         Me.Button2.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Button2.FlatAppearance.BorderSize = 0
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(109, 71)
+        Me.Button2.Location = New System.Drawing.Point(97, 67)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(72, 28)
+        Me.Button2.Size = New System.Drawing.Size(64, 26)
         Me.Button2.TabIndex = 9
         Me.Button2.Text = "Cancel"
         Me.Button2.UseVisualStyleBackColor = False
@@ -96,22 +96,22 @@ Partial Class PosResWindow
         '
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(35, 112)
+        Me.Label2.Location = New System.Drawing.Point(31, 106)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(120, 20)
+        Me.Label2.Size = New System.Drawing.Size(107, 19)
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Label2"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Button3
         '
-        Me.Button3.BackColor = System.Drawing.Color.FromArgb(CType(CType(147, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.Button3.BackColor = System.Drawing.Color.Navy
         Me.Button3.FlatAppearance.BorderSize = 0
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.ForeColor = System.Drawing.Color.White
-        Me.Button3.Location = New System.Drawing.Point(58, 24)
+        Me.Button3.Location = New System.Drawing.Point(52, 23)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(72, 28)
+        Me.Button3.Size = New System.Drawing.Size(64, 26)
         Me.Button3.TabIndex = 11
         Me.Button3.Text = "Center"
         Me.Button3.UseVisualStyleBackColor = False
@@ -123,9 +123,9 @@ Partial Class PosResWindow
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.Button2)
-        Me.Panel1.Location = New System.Drawing.Point(392, 195)
+        Me.Panel1.Location = New System.Drawing.Point(348, 184)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(188, 144)
+        Me.Panel1.Size = New System.Drawing.Size(167, 136)
         Me.Panel1.TabIndex = 12
         '
         'ComboBox_resolution
@@ -135,24 +135,24 @@ Partial Class PosResWindow
         Me.ComboBox_resolution.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox_resolution.ForeColor = System.Drawing.Color.White
         Me.ComboBox_resolution.FormattingEnabled = True
-        Me.ComboBox_resolution.Location = New System.Drawing.Point(98, 24)
+        Me.ComboBox_resolution.Location = New System.Drawing.Point(87, 23)
         Me.ComboBox_resolution.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboBox_resolution.Name = "ComboBox_resolution"
-        Me.ComboBox_resolution.Size = New System.Drawing.Size(96, 24)
+        Me.ComboBox_resolution.Size = New System.Drawing.Size(86, 24)
         Me.ComboBox_resolution.TabIndex = 13
         '
         'PosResWindow
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1006, 492)
+        Me.ClientSize = New System.Drawing.Size(894, 465)
         Me.Controls.Add(Me.ComboBox_resolution)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
-        Me.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "PosResWindow"
