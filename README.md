@@ -1,5 +1,5 @@
 # Sega Model3 UI for 20240128+
-*Copyright 2024 PonMI The man eat shark*
+*Copyright 2024-2026 PonMI*
 
 ## Overview
 
