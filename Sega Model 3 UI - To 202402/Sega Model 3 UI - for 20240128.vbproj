@@ -124,6 +124,10 @@
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.DirectInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.XInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.XInput.4.2.0\lib\net45\SharpDX.XInput.dll</HintPath>
     </Reference>
@@ -181,6 +185,12 @@
       <DependentUpon>Gun.vb</DependentUpon>
     </Compile>
     <Compile Include="Gun.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="joystick1.Designer.vb">
+      <DependentUpon>joystick1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="joystick1.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Key.Designer.vb">
@@ -259,6 +269,9 @@
     <EmbeddedResource Include="Gun.resx">
       <DependentUpon>Gun.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="joystick1.resx">
+      <DependentUpon>joystick1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ponmi.resx">
       <DependentUpon>ponmi.vb</DependentUpon>
     </EmbeddedResource>
@@ -297,6 +310,7 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="sharpdx.directinput.4.2.0.nupkg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

@@ -225,6 +225,7 @@ Partial Class Form1
         Me.Header5 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConfigInputsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Button14 = New System.Windows.Forms.Button()
         Me.timer_buttonProcess = New System.Windows.Forms.Timer(Me.components)
         Me.Timer10 = New System.Windows.Forms.Timer(Me.components)
@@ -554,7 +555,7 @@ Partial Class Form1
         Me.Label_refreshrate.Name = "Label_refreshrate"
         Me.Label_refreshrate.Size = New System.Drawing.Size(86, 20)
         Me.Label_refreshrate.TabIndex = 68
-        Me.Label_refreshrate.Text = "57.524160"
+        Me.Label_refreshrate.Text = "57.524158"
         Me.Label_refreshrate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label_PPC
@@ -1650,7 +1651,7 @@ Partial Class Form1
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(112, 20)
         Me.Label11.TabIndex = 71
-        Me.Label11.Text = "InputSystem"
+        Me.Label11.Text = "InputType"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'CheckBox18
@@ -2644,15 +2645,21 @@ Partial Class Form1
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ConfigInputsToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(159, 26)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(159, 48)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(158, 22)
         Me.ToolStripMenuItem1.Text = "Add to favorites"
+        '
+        'ConfigInputsToolStripMenuItem
+        '
+        Me.ConfigInputsToolStripMenuItem.Name = "ConfigInputsToolStripMenuItem"
+        Me.ConfigInputsToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.ConfigInputsToolStripMenuItem.Text = "Config Inputs"
         '
         'Button14
         '
@@ -2898,7 +2905,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "SuperModel3-UI-2025-02-21"
+        Me.Text = "SuperModel3-UI-2026-01-12"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -3177,4 +3184,5 @@ Partial Class Form1
     Friend WithEvents TabPage5 As TabPage
     Friend WithEvents TabPage6 As TabPage
     Friend WithEvents Panel8 As Panel
+    Friend WithEvents ConfigInputsToolStripMenuItem As ToolStripMenuItem
 End Class

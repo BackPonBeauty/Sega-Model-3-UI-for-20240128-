@@ -1,13 +1,12 @@
 ﻿Option Strict Off
-Imports System.ComponentModel
 Imports System.IO
 Imports System.Net
-Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Xml
 Imports SharpDX.XInput
 Imports System.Threading
+Imports System.Runtime.CompilerServices
 
 
 Public Class Form1
@@ -34,49 +33,6 @@ Public Class Form1
     Private aliasName As String = "MediaFile"
 
     Private mouseDevices As New Dictionary(Of IntPtr, String)
-    'Private WithEvents wm As New Wiimote()
-
-    '<DllImport("user32.dll")>
-    'Private Shared Function GetWindowRect(ByVal hWnd As IntPtr, ByRef rect As RECT) As Boolean
-    'End Function
-
-    '<StructLayout(LayoutKind.Sequential)>
-    'Private Structure RECT
-    '    Public Left As Integer
-    '    Public Top As Integer
-    '    Public Right As Integer
-    '    Public Bottom As Integer
-    'End Structure
-
-    'Private Function GetSupermodelWidth() As Integer?
-    '    Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
-    '    If processes.Length > 0 Then
-    '        Dim hWnd As IntPtr = processes(0).MainWindowHandle
-    '        If hWnd <> IntPtr.Zero Then
-    '            Dim rect As RECT
-    '            If GetWindowRect(hWnd, rect) Then
-    '                Dim width As Integer = rect.Right - rect.Left
-    '                Return width
-    '            End If
-    '        End If
-    '    End If
-    '    Return Nothing
-    'End Function
-
-    'Private Function GetSupermodelHeight() As Integer?
-    '    Dim processes() As Process = Process.GetProcessesByName("supermodel") ' Ensure this name is accurate
-    '    If processes.Length > 0 Then
-    '        Dim hWnd As IntPtr = processes(0).MainWindowHandle
-    '        If hWnd <> IntPtr.Zero Then
-    '            Dim rect As RECT
-    '            If GetWindowRect(hWnd, rect) Then
-    '                Dim Height As Integer = rect.Bottom - rect.Top
-    '                Return Height
-    '            End If
-    '        End If
-    '    End If
-    '    Return Nothing
-    'End Function
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetArchitecture()
@@ -123,17 +79,7 @@ Public Class Form1
 
             LoadGameXml()
             Load_initialfile()
-            'If Forecolor_s = "White" Then
-            '    WhiteToolStripMenuItem.PerformClick()
-            'Else
-            '    BlackToolStripMenuItem.PerformClick()
-            'End If
 
-            'If Bgcolor_R = 147 And Bgcolor_G = 0 And Bgcolor_B = 80 Then
-            '    Bgcolor_R = 0
-            '    Bgcolor_G = 0
-            '    Bgcolor_B = 128
-            'End If
             Bgcolor_R = 0
             Bgcolor_G = 0
             Bgcolor_B = 128
@@ -171,6 +117,7 @@ Public Class Form1
         End If
         RegisterRawInputDevices()
         InitializeMouseDevices()
+
         If Favorite.ToString = "Show All" Then
             ShowFavoriteToolStripMenuItem.PerformClick()
         End If
@@ -243,6 +190,7 @@ Public Class Form1
                 Else
                     ContextMenuStrip1.Items(0).Text = "Add Favorite"
                 End If
+                ContextMenuStrip1.Items(1).Text = "Config Inputs"
                 ContextMenuStrip1.Show(DataGridView1, e.Location)
             End If
         End If
@@ -250,23 +198,37 @@ Public Class Form1
 
     ' コンテキストメニューのアイテムクリックイベントハンドラ
     Private Sub contextMenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ContextMenuStrip1.ItemClicked
-        Dim selectedCellValue As String = DataGridView1.CurrentRow.Cells(2).Value.ToString()
-        ' ファイルパスを設定
-        Dim filePath As String = "favorite.txt"
-        If ContextMenuStrip1.Items(0).Text = "Add Favorite" Then
-            File.AppendAllText(filePath, selectedCellValue & Environment.NewLine)
-        Else
-            Dim lines As List(Of String) = File.ReadAllLines(filePath).ToList()
-            lines.Remove(selectedCellValue)
-            File.WriteAllLines(filePath, lines)
+
+        If e.ClickedItem Is ContextMenuStrip1.Items(0) Then
+            Dim selectedCellValue As String = DataGridView1.CurrentRow.Cells(2).Value.ToString()
+            Dim filePath As String = "favorite.txt"
+            If ContextMenuStrip1.Items(0).Text = "Add Favorite" Then
+                File.AppendAllText(filePath, selectedCellValue & Environment.NewLine)
+            Else
+                Dim lines As List(Of String) = File.ReadAllLines(filePath).ToList()
+                lines.Remove(selectedCellValue)
+                File.WriteAllLines(filePath, lines)
+            End If
+            If ShowFavoriteToolStripMenuItem.Text = "Show All" Then
+                ShowFavoriteToolStripMenuItem.Text = "Show Favorites"
+                ShowFavoriteToolStripMenuItem.PerformClick()
+            Else
+                UpdateDataGridView()
+            End If
+            Console.WriteLine(Favorite_n)
         End If
-        If ShowFavoriteToolStripMenuItem.Text = "Show All" Then
-            ShowFavoriteToolStripMenuItem.Text = "Show Favorites"
-            ShowFavoriteToolStripMenuItem.PerformClick()
-        Else
-            UpdateDataGridView()
+        If e.ClickedItem Is ContextMenuStrip1.Items(1) Then
+            Dim Roms As String = DataGridView1.CurrentRow.Cells(2).Value.ToString()
+            Dim InputType As String = DataGridView1.CurrentRow.Cells(5).Value.ToString()
+            Dim Inputs As String = ComboBox_input.SelectedItem
+            'joystick1.Inputs = Inputs
+            'joystick1.Roms = Roms
+            'joystick1.InputType = InputType
+            joystick1.Show()
+            Console.WriteLine(InputType)
         End If
-        Console.WriteLine(Favorite_n)
+
+
     End Sub
 
     Private Sub UpdateDataGridView()
@@ -890,7 +852,7 @@ Public Class Form1
             Dim SS As StringBuilder = New StringBuilder(300)
 
 
-            GetPrivateProfileString(" Global ", "RefreshRate", "57.524160", RefreshRate, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "RefreshRate", "57.524158", RefreshRate, 15, iniFileName)
             GetPrivateProfileString(" Global ", "true-ar", "False", TrueAR, 15, iniFileName)
             GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
 
@@ -1238,7 +1200,7 @@ Public Class Form1
 
             'RefreshRate
             Dim RR As String = RefreshRate.ToString
-            If RR = "57.524160" Then
+            If RR = "57.524158" Then
                 CheckBox_TrueHz.Checked = True
             Else
                 CheckBox_TrueHz.Checked = False
@@ -1996,7 +1958,7 @@ MessageBoxIcon.Error)
         If CheckBox_TrueHz.Checked = False Then
             Label_refreshrate.Text = "60"
         Else
-            Label_refreshrate.Text = "57.524160"
+            Label_refreshrate.Text = "57.524158"
         End If
     End Sub
 
@@ -3042,5 +3004,15 @@ MessageBoxIcon.Error)
 
 
 End Class
+
+Module ControlExtensions
+    <Extension()>
+    Public Sub DoubleBuffered(ctrl As Control, enabled As Boolean)
+        Dim prop = GetType(Control).GetProperty(
+            "DoubleBuffered",
+            Reflection.BindingFlags.NonPublic Or Reflection.BindingFlags.Instance)
+        prop.SetValue(ctrl, enabled, Nothing)
+    End Sub
+End Module
 
 

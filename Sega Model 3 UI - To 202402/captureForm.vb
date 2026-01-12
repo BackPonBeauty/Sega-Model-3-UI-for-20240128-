@@ -52,7 +52,7 @@ Public Class captureForm
     End Structure
 
     Private Function GetSupermodelWidth() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("Supermodel") ' Ensure this name is accurate
+        Dim processes() As Process = Process.GetProcessesByName(targetProcessName) ' Ensure this name is accurate
         If processes.Length > 0 Then
             Dim hWnd As IntPtr = processes(0).MainWindowHandle
             If hWnd <> IntPtr.Zero Then
@@ -67,7 +67,7 @@ Public Class captureForm
     End Function
 
     Private Function GetSupermodelHeight() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("Supermodel") ' Ensure this name is accurate
+        Dim processes() As Process = Process.GetProcessesByName(targetProcessName) ' Ensure this name is accurate
         If processes.Length > 0 Then
             Dim hWnd As IntPtr = processes(0).MainWindowHandle
             If hWnd <> IntPtr.Zero Then
@@ -82,7 +82,7 @@ Public Class captureForm
     End Function
 
     Private Function GetSupermodelTop() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("Supermodel") ' Ensure this name is accurate
+        Dim processes() As Process = Process.GetProcessesByName(targetProcessName) ' Ensure this name is accurate
         If processes.Length > 0 Then
             Dim hWnd As IntPtr = processes(0).MainWindowHandle
             If hWnd <> IntPtr.Zero Then
@@ -97,7 +97,7 @@ Public Class captureForm
     End Function
 
     Private Function GetSupermodelLeft() As Integer?
-        Dim processes() As Process = Process.GetProcessesByName("Supermodel") ' Ensure this name is accurate
+        Dim processes() As Process = Process.GetProcessesByName(targetProcessName) ' Ensure this name is accurate
         If processes.Length > 0 Then
             Dim hWnd As IntPtr = processes(0).MainWindowHandle
             If hWnd <> IntPtr.Zero Then
@@ -132,6 +132,7 @@ Public Class captureForm
         'リソース(wlmaru2004p4u)をバイト配列に読み込む
         Dim fontBuf As Byte() = My.Resources.HOOG0557
 
+        PictureBox.DoubleBuffered(True)
         'または、次のようにしてリソースを読み込む
         'Dim asm As System.Reflection.Assembly = _
         '    System.Reflection.Assembly.GetExecutingAssembly()
@@ -155,7 +156,7 @@ Public Class captureForm
         For Each p In System.Diagnostics.Process.GetProcesses()
             'メインウィンドウのタイトルがある時だけ列挙する
             If p.MainWindowTitle.Length <> 0 Then
-                'Console.WriteLine("プロセス名:" & p."supermodel")
+                'Console.WriteLine("プロセス名:" & p."eurotrucks2")
                 'Console.WriteLine("タイトル名:" & p.MainWindowTitle)
                 If p.ProcessName = "Supermodel" Then
                     windowTitle = p.MainWindowTitle
@@ -173,13 +174,19 @@ Public Class captureForm
             If p.ProcessName = targetProcessName Then
 
                 targetHwnd = p.MainWindowHandle
-                Console.WriteLine(N)
+                Console.WriteLine($" target: {targetHwnd}")
+                Dim width As Integer = GetSupermodelWidth()
+                Dim height As Integer = GetSupermodelHeight()
+                Dim left As Integer = GetSupermodelLeft()
+                Dim top As Integer = GetSupermodelTop()
+                Console.WriteLine($"{targetHwnd},{width},{height},{left},{top}")
+                StartCapture(targetHwnd, GetSupermodelWidth, GetSupermodelHeight, GetSupermodelLeft, GetSupermodelTop)
+                FPS_Timer.Enabled = True
                 Exit For
-
             End If
         Next
-        StartCapture(targetHwnd, GetSupermodelWidth, GetSupermodelHeight, GetSupermodelLeft, GetSupermodelTop)
-        FPS_Timer.Enabled = True
+
+
 
     End Sub
 
