@@ -924,8 +924,12 @@ Public Class Form1
             Dim Urami As StringBuilder = New StringBuilder(300)
             Dim Opacity As StringBuilder = New StringBuilder(30000)
             Dim SS As StringBuilder = New StringBuilder(300)
+            Dim ScanlineStrength As StringBuilder = New StringBuilder(300)
+            Dim BarrelStrength As StringBuilder = New StringBuilder(300)
 
 
+            GetPrivateProfileString(" Global ", "ScanlineStrength", "0.8", ScanlineStrength, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "BarrelStrength", "0.04", BarrelStrength, 15, iniFileName)
             GetPrivateProfileString(" Global ", "RefreshRate", "57.524158", RefreshRate, 15, iniFileName)
             GetPrivateProfileString(" Global ", "true-ar", "False", TrueAR, 15, iniFileName)
             GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -1028,412 +1032,414 @@ Public Class Form1
             GetPrivateProfileString(" Supermodel3 UI ", "Favorite", "False", Favorite, 15, iniFileName)
 
 
+            NumericUpDown1.Value = Double.Parse(ScanlineStrength.ToString)
+            NumericUpDown2.Value = Double.Parse(BarrelStrength.ToString)
 
             'SuperSampling
             If SS.ToString = True Then
-                CheckBox_ss.Checked = True
+                    CheckBox_ss.Checked = True
+                Else
+                    CheckBox_ss.Checked = False
+                End If
+
+                'CRTcolor
+                ComboBox1.SelectedIndex = Integer.Parse(CRTcolors.ToString)
+
+                'UpscaleMode
+                ComboBox2.SelectedIndex = Integer.Parse(UpscaleMode.ToString)
+
+
+
+                'Opacity
+                Dim result As Integer
+                If Integer.TryParse(Opacity.ToString, result) = False Then
+                    Opacity_D = 5
+                Else
+                    Opacity_D = Integer.Parse(Opacity.ToString())
+                End If
+                'Scanline
+                If Scanline.ToString() = "True" Or VSync.ToString() = "1" Then
+                    Button_hook.PerformClick()
+                End If
+
+                'Gamepad
+                If Gamepad.ToString() = "True" Or Gamepad.ToString() = "1" Then
+                    Button_X.PerformClick()
+                End If
+
+                'Urami
+                If Urami.ToString() = "True" Or Urami.ToString() = "1" Then
+                    Button_U.PerformClick()
+                End If
+
+                'BackColor
+                Bgcolor_R = CInt(BgcolorR.ToString)
+                Bgcolor_G = CInt(BgcolorG.ToString)
+                Bgcolor_B = CInt(BgcolorB.ToString)
+
+                'ForeColor
+                Forecolor_s = Forecolor.ToString
+
+                'Columuns
+                Columns0_i = Integer.Parse(Columns0Width.ToString)
+                Columns1_i = Integer.Parse(Columns1Width.ToString)
+                Columns2_i = Integer.Parse(Columns2Width.ToString)
+                Columns3_i = Integer.Parse(Columns3Width.ToString)
+                Columns4_i = Integer.Parse(Columns4Width.ToString)
+                Columns5_i = Integer.Parse(Columns5Width.ToString)
+
+                'Columuns Sort Flag
+                If C0_F.ToString() = "True" Then
+                    C0_Sort_F = True
+                Else
+                    C0_Sort_F = False
+                End If
+                If C1_F.ToString() = "True" Then
+                    C1_Sort_F = True
+                Else
+                    C1_Sort_F = False
+                End If
+                If C2_F.ToString() = "True" Then
+                    C2_Sort_F = True
+                Else
+                    C2_Sort_F = False
+                End If
+                If C3_F.ToString() = "True" Then
+                    C3_Sort_F = True
+                Else
+                    C3_Sort_F = False
+                End If
+                If C4_F.ToString() = "True" Then
+                    C4_Sort_F = True
+                Else
+                    C4_Sort_F = False
+                End If
+                If C5_F.ToString() = "True" Then
+                    C5_Sort_F = True
+                Else
+                    C5_Sort_F = False
+                End If
+
+                'Last_Sort
+                Last_Sort = Integer.Parse(Last_Sort_s.ToString)
+
+                'Last_Selected
+                Last_SelectedRow = Integer.Parse(Last_Selected_s.ToString)
+                Last_SelectedRow_bin = Integer.Parse(Last_Selected_s.ToString)
+
+                'FontSize
+                FontSize_bin = Integer.Parse(FontSize.ToString)
+
+                'Resolution_index
+                Resolution_index_bin = Integer.Parse(Resolution_index.ToString)
+
+                'New3DEngine
+                If (cpuArchitecture = 12) Then
+                    ' ARM64
+                    RadioButton_new3d.Checked = True
+                    RadioButton_legacy.Checked = False
+                    RadioButton_legacy.Enabled = False
+                ElseIf New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
+                    RadioButton_new3d.Checked = True
+                    RadioButton_legacy.Checked = False
+                Else
+                    RadioButton_new3d.Checked = False
+                    RadioButton_legacy.Checked = True
+                End If
+
+                'VSync
+                If VSync.ToString() = "True" Or VSync.ToString() = "1" Then
+                    CheckBox_vsync.Checked = True
+                Else
+                    CheckBox_vsync.Checked = False
+                End If
+
+                'QuadRendering
+                If QuadRendering.ToString() = "True" Or QuadRendering.ToString() = "1" Then
+                    CheckBox_quadrender.Checked = True
+                Else
+                    CheckBox_quadrender.Checked = False
+                End If
+
+                'GPUMultiThreaded
+                If GPUMultiThreaded.ToString() = "True" Or GPUMultiThreaded.ToString() = "1" Then
+                    CheckBox_gpumulti.Checked = True
+                Else
+                    CheckBox_gpumulti.Checked = False
+                End If
+
+                'MultiThreaded
+                If MultiThreaded.ToString() = "True" Or MultiThreaded.ToString() = "1" Then
+                    CheckBox_multishread.Checked = True
+                Else
+                    CheckBox_multishread.Checked = False
+                End If
+
+                'MultiTexture
+                If MultiTexture.ToString() = "True" Or MultiTexture.ToString() = "1" Then
+                    CheckBox_multitexture.Checked = True
+                Else
+                    CheckBox_multitexture.Checked = False
+                End If
+
+                'Borderless
+                If BorderlessWindow.ToString() = "True" Or BorderlessWindow.ToString() = "1" Then
+                    CheckBox_borderless.Checked = True
+                Else
+                    CheckBox_borderless.Checked = False
+                End If
+
+                'Borderless
+                If BorderlessWindow.ToString() = "True" Or BorderlessWindow.ToString() = "1" Then
+                    CheckBox_borderless.Checked = True
+                Else
+                    CheckBox_borderless.Checked = False
+                End If
+
+                'FullScreen
+                If FullScreen.ToString() = "True" Or FullScreen.ToString() = "1" Then
+                    CheckBox_fullscreen.Checked = True
+                Else
+                    CheckBox_fullscreen.Checked = False
+                End If
+
+                'WideScreen
+                If WideScreen.ToString() = "True" Or WideScreen.ToString() = "1" Then
+                    CheckBox_widescreen.Checked = True
+                Else
+                    CheckBox_widescreen.Checked = False
+                End If
+
+                'WideBackground
+                If WideBackground.ToString() = "True" Or WideBackground.ToString() = "1" Then
+                    CheckBox_widebg.Checked = True
+                Else
+                    CheckBox_widebg.Checked = False
+                End If
+
+                'Stretch
+                If Stretch.ToString() = "True" Or Stretch.ToString() = "1" Then
+                    CheckBox_stretch.Checked = True
+                Else
+                    CheckBox_stretch.Checked = False
+                End If
+
+                'ShowFrameRate
+                If ShowFrameRate.ToString() = "True" Or ShowFrameRate.ToString() = "1" Then
+                    CheckBox_showfrmerate.Checked = True
+                Else
+                    CheckBox_showfrmerate.Checked = False
+                End If
+
+                'Throttle
+                If Throttle.ToString() = "True" Or Throttle.ToString() = "1" Then
+                    CheckBox_throttle.Checked = True
+                Else
+                    CheckBox_throttle.Checked = False
+                End If
+
+                'EmulateSound
+                If EmulateSound.ToString() = "True" Or EmulateSound.ToString() = "1" Then
+                    CheckBox_emulatesound.Checked = True
+                Else
+                    CheckBox_emulatesound.Checked = False
+                End If
+
+                'FlipStereo
+                If FlipStereo.ToString() = "True" Or FlipStereo.ToString() = "1" Then
+                    CheckBox_flipstereo.Checked = True
+                Else
+                    CheckBox_flipstereo.Checked = False
+                End If
+
+                'EmulateDSB
+                If EmulateDSB.ToString() = "True" Or EmulateDSB.ToString() = "1" Then
+                    CheckBox_emuDSB.Checked = True
+                Else
+                    CheckBox_emuDSB.Checked = False
+                End If
+
+                'LegacySoundDSP
+                If LegacySoundDSP.ToString() = "True" Or LegacySoundDSP.ToString() = "1" Then
+                    CheckBox_legacyDSP.Checked = True
+                Else
+                    CheckBox_legacyDSP.Checked = False
+                End If
+
+                'MusicVolume
+                Label_Music.Text = MusicVolume.ToString()
+                MusicBar.Value = CInt(MusicVolume.ToString())
+
+                'MusicVolume
+                Label_Sound.Text = SoundVolume.ToString()
+                SoundBar.Value = CInt(SoundVolume.ToString())
+
+                'Balance
+                Label_Balance.Text = Balance.ToString()
+                BalanceBar.Value = CInt(Balance.ToString())
+
+                'RefreshRate
+                Dim RR As String = RefreshRate.ToString
+                If RR = "57.524158" Then
+                    CheckBox_TrueHz.Checked = True
+                Else
+                    CheckBox_TrueHz.Checked = False
+                End If
+                Label_refreshrate.Text = RefreshRate.ToString()
+
+                'true-ar
+                If TrueAR.ToString() = "True" Or TrueAR.ToString() = "1" Then
+                    CheckBox_truear.Checked = True
+                Else
+                    CheckBox_truear.Checked = False
+                End If
+
+                'PowerPCFrequency
+                Dim PPC As String = PowerPCFrequency.ToString()
+                If PPC = "0" Then
+                    PPC = "Auto"
+                End If
+                Label_PPC.Text = PPC
+                PPC_Bar.Value = CInt(PowerPCFrequency.ToString())
+
+                'Supersampling
+                Label_SS.Text = Supersampling.ToString()
+                SS_Bar.Value = CInt(Supersampling.ToString())
+
+                'WindowsPosition
+                Label_xPos.Text = WindowXPosition.ToString()
+                Label_yPos.Text = WindowYPosition.ToString()
+
+                'Resolution
+                Label_xRes.Text = XResolution.ToString
+                Label_yRes.Text = YResolution.ToString
+
+                'HideCMD
+                If HideCMD.ToString() = "True" Or HideCMD.ToString() = "1" Then
+                    CheckBox_hidecmd.Checked = True
+                Else
+                    CheckBox_hidecmd.Checked = False
+                End If
+                'Debug("HideCMD" & HideCMD.ToString)
+
+                'Dir
+                Label_path.Text = Dir.ToString
+                Roms_count(Dir.ToString)
+                'Debug("Dir" & Dir.ToString)
+
+                'Title
+                TextBox_Title.Text = Title_SB.ToString
+
+                'InputSystem
+                ComboBox_input.Text = InputSystem.ToString
+                'Crosshairs
+                Select Case Crosshairs.ToString
+                    Case "0"
+                        ComboBox_crosshair.Text = "Disable"
+                    Case "1"
+                        ComboBox_crosshair.Text = "Player1"
+                    Case "2"
+                        ComboBox_crosshair.Text = "Player2"
+                    Case "3"
+                        ComboBox_crosshair.Text = "2Players"
+                End Select
+
+                'CrosshairStyle
+                ComboBox_style.Text = CrosshairStyle.ToString
+
+                'ForceFeedback
+                If ForceFeedback.ToString() = "True" Or ForceFeedback.ToString() = "1" Then
+                    CheckBox18.Checked = True
+                Else
+                    CheckBox18.Checked = False
+                End If
+
+                'NoWhiteFlash
+                If NoWhiteFlash.ToString() = "True" Or NoWhiteFlash.ToString() = "1" Then
+                    CheckBox_nowhiteflash.Checked = True
+                Else
+                    CheckBox_nowhiteflash.Checked = False
+                End If
+
+                'Outputs
+                If Outputs.ToString() = "True" Or Outputs.ToString() = "1" Then
+                    CheckBox_outputs.Checked = True
+                Else
+                    CheckBox_outputs.Checked = False
+                End If
+
+                'Network
+                If Network.ToString() = "True" Or Network.ToString() = "1" Then
+                    CheckBox_network.Checked = True
+                Else
+                    CheckBox_network.Checked = False
+                End If
+
+                'SimulateNet
+                If SimulateNet.ToString() = "True" Or SimulateNet.ToString() = "1" Then
+                    CheckBox_simnetwork.Checked = True
+                Else
+                    CheckBox_simnetwork.Checked = False
+                End If
+
+                'PortIn
+                TextBox_Portin.Text = PortIn.ToString
+
+                'PortOut
+                TextBox_Portout.Text = PortOut.ToString
+
+                'AddressOut
+                TextBox_Addressout.Text = AddressOut.ToString
+
+                'DirectInputConstForceLeftMax
+                DConstLeft.Text = DirectInputConstForceLeftMax.ToString
+
+                'DirectInputConstForceRightMax
+                DConstRight.Text = DirectInputConstForceRightMax.ToString
+
+                'DirectInputSelfCenterMax
+                DCenter.Text = DirectInputSelfCenterMax.ToString
+
+                'DirectInputFrictionMax
+                DFriction.Text = DirectInputFrictionMax.ToString
+
+                'DirectInputVibrateMax
+                DViblate.Text = DirectInputVibrateMax.ToString
+
+                'XInputConstForceThreshold
+                XThreshold.Text = XInputConstForceThreshold.ToString
+
+                'XInputConstForceMax
+                XConst.Text = XInputConstForceMax.ToString
+
+                'XInputVibrateMax
+                XViblate.Text = XInputVibrateMax.ToString
+
+                'Resolution
+                ComboBox_resolution.Text = XResolution.ToString & "x" & YResolution.ToString
+
+                'Get Display Size 
+                Dim i As Integer = 0
+
+                For Each s In System.Windows.Forms.Screen.AllScreens
+                    'display device name
+                    ScreenN(i) = s.DeviceName
+                    'top left of display
+                    Bx(i) = s.Bounds.X
+                    By(i) = s.Bounds.Y
+                    'Display size
+                    Bw(i) = s.Bounds.Width
+                    Label_wScreenRes.Text = CStr(s.Bounds.Width)
+                    Bh(i) = s.Bounds.Height
+                    Label_hScreenRes.Text = CStr(s.Bounds.Height)
+                    'Debug(i & "::" & ScreenN(i))
+                    i += 1
+                Next
+
+                Label_wScreenRes.Text = CStr(Screen.GetBounds(Me).Width)
+                Label_hScreenRes.Text = CStr(Screen.GetBounds(Me).Height)
             Else
-                CheckBox_ss.Checked = False
-            End If
-
-            'CRTcolor
-            ComboBox1.SelectedIndex = Integer.Parse(CRTcolors.ToString)
-
-            'UpscaleMode
-            ComboBox2.SelectedIndex = Integer.Parse(UpscaleMode.ToString)
-
-
-
-            'Opacity
-            Dim result As Integer
-            If Integer.TryParse(Opacity.ToString, result) = False Then
-                Opacity_D = 5
-            Else
-                Opacity_D = Integer.Parse(Opacity.ToString())
-            End If
-            'Scanline
-            If Scanline.ToString() = "True" Or VSync.ToString() = "1" Then
-                Button_hook.PerformClick()
-            End If
-
-            'Gamepad
-            If Gamepad.ToString() = "True" Or Gamepad.ToString() = "1" Then
-                Button_X.PerformClick()
-            End If
-
-            'Urami
-            If Urami.ToString() = "True" Or Urami.ToString() = "1" Then
-                Button_U.PerformClick()
-            End If
-
-            'BackColor
-            Bgcolor_R = CInt(BgcolorR.ToString)
-            Bgcolor_G = CInt(BgcolorG.ToString)
-            Bgcolor_B = CInt(BgcolorB.ToString)
-
-            'ForeColor
-            Forecolor_s = Forecolor.ToString
-
-            'Columuns
-            Columns0_i = Integer.Parse(Columns0Width.ToString)
-            Columns1_i = Integer.Parse(Columns1Width.ToString)
-            Columns2_i = Integer.Parse(Columns2Width.ToString)
-            Columns3_i = Integer.Parse(Columns3Width.ToString)
-            Columns4_i = Integer.Parse(Columns4Width.ToString)
-            Columns5_i = Integer.Parse(Columns5Width.ToString)
-
-            'Columuns Sort Flag
-            If C0_F.ToString() = "True" Then
-                C0_Sort_F = True
-            Else
-                C0_Sort_F = False
-            End If
-            If C1_F.ToString() = "True" Then
-                C1_Sort_F = True
-            Else
-                C1_Sort_F = False
-            End If
-            If C2_F.ToString() = "True" Then
-                C2_Sort_F = True
-            Else
-                C2_Sort_F = False
-            End If
-            If C3_F.ToString() = "True" Then
-                C3_Sort_F = True
-            Else
-                C3_Sort_F = False
-            End If
-            If C4_F.ToString() = "True" Then
-                C4_Sort_F = True
-            Else
-                C4_Sort_F = False
-            End If
-            If C5_F.ToString() = "True" Then
-                C5_Sort_F = True
-            Else
-                C5_Sort_F = False
-            End If
-
-            'Last_Sort
-            Last_Sort = Integer.Parse(Last_Sort_s.ToString)
-
-            'Last_Selected
-            Last_SelectedRow = Integer.Parse(Last_Selected_s.ToString)
-            Last_SelectedRow_bin = Integer.Parse(Last_Selected_s.ToString)
-
-            'FontSize
-            FontSize_bin = Integer.Parse(FontSize.ToString)
-
-            'Resolution_index
-            Resolution_index_bin = Integer.Parse(Resolution_index.ToString)
-
-            'New3DEngine
-            If (cpuArchitecture = 12) Then
-                ' ARM64
-                RadioButton_new3d.Checked = True
-                RadioButton_legacy.Checked = False
-                RadioButton_legacy.Enabled = False
-            ElseIf New3DEngine.ToString() = "True" Or New3DEngine.ToString() = "1" Then
-                RadioButton_new3d.Checked = True
-                RadioButton_legacy.Checked = False
-            Else
-                RadioButton_new3d.Checked = False
-                RadioButton_legacy.Checked = True
-            End If
-
-            'VSync
-            If VSync.ToString() = "True" Or VSync.ToString() = "1" Then
-                CheckBox_vsync.Checked = True
-            Else
-                CheckBox_vsync.Checked = False
-            End If
-
-            'QuadRendering
-            If QuadRendering.ToString() = "True" Or QuadRendering.ToString() = "1" Then
-                CheckBox_quadrender.Checked = True
-            Else
-                CheckBox_quadrender.Checked = False
-            End If
-
-            'GPUMultiThreaded
-            If GPUMultiThreaded.ToString() = "True" Or GPUMultiThreaded.ToString() = "1" Then
-                CheckBox_gpumulti.Checked = True
-            Else
-                CheckBox_gpumulti.Checked = False
-            End If
-
-            'MultiThreaded
-            If MultiThreaded.ToString() = "True" Or MultiThreaded.ToString() = "1" Then
-                CheckBox_multishread.Checked = True
-            Else
-                CheckBox_multishread.Checked = False
-            End If
-
-            'MultiTexture
-            If MultiTexture.ToString() = "True" Or MultiTexture.ToString() = "1" Then
-                CheckBox_multitexture.Checked = True
-            Else
-                CheckBox_multitexture.Checked = False
-            End If
-
-            'Borderless
-            If BorderlessWindow.ToString() = "True" Or BorderlessWindow.ToString() = "1" Then
-                CheckBox_borderless.Checked = True
-            Else
-                CheckBox_borderless.Checked = False
-            End If
-
-            'Borderless
-            If BorderlessWindow.ToString() = "True" Or BorderlessWindow.ToString() = "1" Then
-                CheckBox_borderless.Checked = True
-            Else
-                CheckBox_borderless.Checked = False
-            End If
-
-            'FullScreen
-            If FullScreen.ToString() = "True" Or FullScreen.ToString() = "1" Then
-                CheckBox_fullscreen.Checked = True
-            Else
-                CheckBox_fullscreen.Checked = False
-            End If
-
-            'WideScreen
-            If WideScreen.ToString() = "True" Or WideScreen.ToString() = "1" Then
-                CheckBox_widescreen.Checked = True
-            Else
-                CheckBox_widescreen.Checked = False
-            End If
-
-            'WideBackground
-            If WideBackground.ToString() = "True" Or WideBackground.ToString() = "1" Then
-                CheckBox_widebg.Checked = True
-            Else
-                CheckBox_widebg.Checked = False
-            End If
-
-            'Stretch
-            If Stretch.ToString() = "True" Or Stretch.ToString() = "1" Then
-                CheckBox_stretch.Checked = True
-            Else
-                CheckBox_stretch.Checked = False
-            End If
-
-            'ShowFrameRate
-            If ShowFrameRate.ToString() = "True" Or ShowFrameRate.ToString() = "1" Then
-                CheckBox_showfrmerate.Checked = True
-            Else
-                CheckBox_showfrmerate.Checked = False
-            End If
-
-            'Throttle
-            If Throttle.ToString() = "True" Or Throttle.ToString() = "1" Then
-                CheckBox_throttle.Checked = True
-            Else
-                CheckBox_throttle.Checked = False
-            End If
-
-            'EmulateSound
-            If EmulateSound.ToString() = "True" Or EmulateSound.ToString() = "1" Then
-                CheckBox_emulatesound.Checked = True
-            Else
-                CheckBox_emulatesound.Checked = False
-            End If
-
-            'FlipStereo
-            If FlipStereo.ToString() = "True" Or FlipStereo.ToString() = "1" Then
-                CheckBox_flipstereo.Checked = True
-            Else
-                CheckBox_flipstereo.Checked = False
-            End If
-
-            'EmulateDSB
-            If EmulateDSB.ToString() = "True" Or EmulateDSB.ToString() = "1" Then
-                CheckBox_emuDSB.Checked = True
-            Else
-                CheckBox_emuDSB.Checked = False
-            End If
-
-            'LegacySoundDSP
-            If LegacySoundDSP.ToString() = "True" Or LegacySoundDSP.ToString() = "1" Then
-                CheckBox_legacyDSP.Checked = True
-            Else
-                CheckBox_legacyDSP.Checked = False
-            End If
-
-            'MusicVolume
-            Label_Music.Text = MusicVolume.ToString()
-            MusicBar.Value = CInt(MusicVolume.ToString())
-
-            'MusicVolume
-            Label_Sound.Text = SoundVolume.ToString()
-            SoundBar.Value = CInt(SoundVolume.ToString())
-
-            'Balance
-            Label_Balance.Text = Balance.ToString()
-            BalanceBar.Value = CInt(Balance.ToString())
-
-            'RefreshRate
-            Dim RR As String = RefreshRate.ToString
-            If RR = "57.524158" Then
-                CheckBox_TrueHz.Checked = True
-            Else
-                CheckBox_TrueHz.Checked = False
-            End If
-            Label_refreshrate.Text = RefreshRate.ToString()
-
-            'true-ar
-            If TrueAR.ToString() = "True" Or TrueAR.ToString() = "1" Then
-                CheckBox_truear.Checked = True
-            Else
-                CheckBox_truear.Checked = False
-            End If
-
-            'PowerPCFrequency
-            Dim PPC As String = PowerPCFrequency.ToString()
-            If PPC = "0" Then
-                PPC = "Auto"
-            End If
-            Label_PPC.Text = PPC
-            PPC_Bar.Value = CInt(PowerPCFrequency.ToString())
-
-            'Supersampling
-            Label_SS.Text = Supersampling.ToString()
-            SS_Bar.Value = CInt(Supersampling.ToString())
-
-            'WindowsPosition
-            Label_xPos.Text = WindowXPosition.ToString()
-            Label_yPos.Text = WindowYPosition.ToString()
-
-            'Resolution
-            Label_xRes.Text = XResolution.ToString
-            Label_yRes.Text = YResolution.ToString
-
-            'HideCMD
-            If HideCMD.ToString() = "True" Or HideCMD.ToString() = "1" Then
-                CheckBox_hidecmd.Checked = True
-            Else
-                CheckBox_hidecmd.Checked = False
-            End If
-            'Debug("HideCMD" & HideCMD.ToString)
-
-            'Dir
-            Label_path.Text = Dir.ToString
-            Roms_count(Dir.ToString)
-            'Debug("Dir" & Dir.ToString)
-
-            'Title
-            TextBox_Title.Text = Title_SB.ToString
-
-            'InputSystem
-            ComboBox_input.Text = InputSystem.ToString
-            'Crosshairs
-            Select Case Crosshairs.ToString
-                Case "0"
-                    ComboBox_crosshair.Text = "Disable"
-                Case "1"
-                    ComboBox_crosshair.Text = "Player1"
-                Case "2"
-                    ComboBox_crosshair.Text = "Player2"
-                Case "3"
-                    ComboBox_crosshair.Text = "2Players"
-            End Select
-
-            'CrosshairStyle
-            ComboBox_style.Text = CrosshairStyle.ToString
-
-            'ForceFeedback
-            If ForceFeedback.ToString() = "True" Or ForceFeedback.ToString() = "1" Then
-                CheckBox18.Checked = True
-            Else
-                CheckBox18.Checked = False
-            End If
-
-            'NoWhiteFlash
-            If NoWhiteFlash.ToString() = "True" Or NoWhiteFlash.ToString() = "1" Then
-                CheckBox_nowhiteflash.Checked = True
-            Else
-                CheckBox_nowhiteflash.Checked = False
-            End If
-
-            'Outputs
-            If Outputs.ToString() = "True" Or Outputs.ToString() = "1" Then
-                CheckBox_outputs.Checked = True
-            Else
-                CheckBox_outputs.Checked = False
-            End If
-
-            'Network
-            If Network.ToString() = "True" Or Network.ToString() = "1" Then
-                CheckBox_network.Checked = True
-            Else
-                CheckBox_network.Checked = False
-            End If
-
-            'SimulateNet
-            If SimulateNet.ToString() = "True" Or SimulateNet.ToString() = "1" Then
-                CheckBox_simnetwork.Checked = True
-            Else
-                CheckBox_simnetwork.Checked = False
-            End If
-
-            'PortIn
-            TextBox_Portin.Text = PortIn.ToString
-
-            'PortOut
-            TextBox_Portout.Text = PortOut.ToString
-
-            'AddressOut
-            TextBox_Addressout.Text = AddressOut.ToString
-
-            'DirectInputConstForceLeftMax
-            DConstLeft.Text = DirectInputConstForceLeftMax.ToString
-
-            'DirectInputConstForceRightMax
-            DConstRight.Text = DirectInputConstForceRightMax.ToString
-
-            'DirectInputSelfCenterMax
-            DCenter.Text = DirectInputSelfCenterMax.ToString
-
-            'DirectInputFrictionMax
-            DFriction.Text = DirectInputFrictionMax.ToString
-
-            'DirectInputVibrateMax
-            DViblate.Text = DirectInputVibrateMax.ToString
-
-            'XInputConstForceThreshold
-            XThreshold.Text = XInputConstForceThreshold.ToString
-
-            'XInputConstForceMax
-            XConst.Text = XInputConstForceMax.ToString
-
-            'XInputVibrateMax
-            XViblate.Text = XInputVibrateMax.ToString
-
-            'Resolution
-            ComboBox_resolution.Text = XResolution.ToString & "x" & YResolution.ToString
-
-            'Get Display Size 
-            Dim i As Integer = 0
-
-            For Each s In System.Windows.Forms.Screen.AllScreens
-                'display device name
-                ScreenN(i) = s.DeviceName
-                'top left of display
-                Bx(i) = s.Bounds.X
-                By(i) = s.Bounds.Y
-                'Display size
-                Bw(i) = s.Bounds.Width
-                Label_wScreenRes.Text = CStr(s.Bounds.Width)
-                Bh(i) = s.Bounds.Height
-                Label_hScreenRes.Text = CStr(s.Bounds.Height)
-                'Debug(i & "::" & ScreenN(i))
-                i += 1
-            Next
-
-            Label_wScreenRes.Text = CStr(Screen.GetBounds(Me).Width)
-            Label_hScreenRes.Text = CStr(Screen.GetBounds(Me).Height)
-        Else
-            MessageBox.Show("supermodel.ini not found.")
+                MessageBox.Show("supermodel.ini not found.")
             Me.Close()
         End If
     End Sub
@@ -1819,6 +1825,12 @@ Public Class Form1
         Dim iniFileName As New StringBuilder(300)
         iniFileName.Append("Config\Supermodel.ini")
         Dim Section As String = " Global "
+        Dim s As String = "0.0"
+        If NumericUpDown2.Value.ToString <> "0.00" Then
+            s = NumericUpDown2.Value.ToString
+        End If
+        WritePrivateProfileString(Section, "ScanlineStrength", NumericUpDown1.Value.ToString, iniFileName)
+        WritePrivateProfileString(Section, "BarrelStrength", s, iniFileName)
         WritePrivateProfileString(Section, "RefreshRate", Label_refreshrate.Text, iniFileName)
         WritePrivateProfileString(Section, "XResolution", Label_xRes.Text, iniFileName)
         WritePrivateProfileString(Section, "YResolution", Label_yRes.Text, iniFileName)
