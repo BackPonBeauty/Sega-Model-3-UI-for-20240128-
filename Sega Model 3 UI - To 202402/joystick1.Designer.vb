@@ -85,8 +85,8 @@ Partial Class joystick1
         Me.Label1.Location = New System.Drawing.Point(639, 11)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(133, 27)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "JOYUP"
+        Me.Label1.TabIndex = 101
+        Me.Label1.Text = "JOY_UP"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label2
@@ -95,8 +95,8 @@ Partial Class joystick1
         Me.Label2.Location = New System.Drawing.Point(639, 43)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(133, 25)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "JOYDOWN"
+        Me.Label2.TabIndex = 102
+        Me.Label2.Text = "JOY_DOWN"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'TextBox2
@@ -105,7 +105,7 @@ Partial Class joystick1
         Me.TextBox2.Location = New System.Drawing.Point(778, 44)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(154, 26)
-        Me.TextBox2.TabIndex = 2
+        Me.TextBox2.TabIndex = 1
         Me.TextBox2.Text = "JOY1_POV1_DOWN"
         '
         'Label3
@@ -114,8 +114,8 @@ Partial Class joystick1
         Me.Label3.Location = New System.Drawing.Point(639, 75)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(133, 25)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "JOYLEFT"
+        Me.Label3.TabIndex = 103
+        Me.Label3.Text = "JOY_LEFT"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'TextBox3
@@ -124,7 +124,7 @@ Partial Class joystick1
         Me.TextBox3.Location = New System.Drawing.Point(778, 76)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(154, 26)
-        Me.TextBox3.TabIndex = 4
+        Me.TextBox3.TabIndex = 2
         Me.TextBox3.Text = "JOY1_POV1_LEFT"
         '
         'Label4
@@ -133,8 +133,8 @@ Partial Class joystick1
         Me.Label4.Location = New System.Drawing.Point(639, 107)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(133, 25)
-        Me.Label4.TabIndex = 7
-        Me.Label4.Text = "JOYRIGHT"
+        Me.Label4.TabIndex = 104
+        Me.Label4.Text = "JOY_RIGHT"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'TextBox4
@@ -143,7 +143,7 @@ Partial Class joystick1
         Me.TextBox4.Location = New System.Drawing.Point(778, 108)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(154, 26)
-        Me.TextBox4.TabIndex = 6
+        Me.TextBox4.TabIndex = 3
         Me.TextBox4.Text = "JOY1_POV1_RIGHT"
         '
         'Label5
@@ -152,7 +152,7 @@ Partial Class joystick1
         Me.Label5.Location = New System.Drawing.Point(639, 169)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(133, 25)
-        Me.Label5.TabIndex = 9
+        Me.Label5.TabIndex = 105
         Me.Label5.Text = "SHIFT"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -162,7 +162,7 @@ Partial Class joystick1
         Me.TextBox5.Location = New System.Drawing.Point(778, 170)
         Me.TextBox5.Name = "TextBox5"
         Me.TextBox5.Size = New System.Drawing.Size(154, 26)
-        Me.TextBox5.TabIndex = 8
+        Me.TextBox5.TabIndex = 4
         Me.TextBox5.Text = "JOY1_BUTTON1"
         '
         'Label6
@@ -171,7 +171,7 @@ Partial Class joystick1
         Me.Label6.Location = New System.Drawing.Point(639, 201)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(133, 25)
-        Me.Label6.TabIndex = 11
+        Me.Label6.TabIndex = 106
         Me.Label6.Text = "BEAT"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -181,7 +181,7 @@ Partial Class joystick1
         Me.TextBox6.Location = New System.Drawing.Point(778, 202)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.Size = New System.Drawing.Size(154, 26)
-        Me.TextBox6.TabIndex = 10
+        Me.TextBox6.TabIndex = 5
         Me.TextBox6.Text = "JOY1_BUTTON3"
         '
         'Label7
@@ -190,7 +190,7 @@ Partial Class joystick1
         Me.Label7.Location = New System.Drawing.Point(639, 233)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(133, 25)
-        Me.Label7.TabIndex = 13
+        Me.Label7.TabIndex = 107
         Me.Label7.Text = "CHARGE"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -200,7 +200,7 @@ Partial Class joystick1
         Me.TextBox7.Location = New System.Drawing.Point(778, 234)
         Me.TextBox7.Name = "TextBox7"
         Me.TextBox7.Size = New System.Drawing.Size(154, 26)
-        Me.TextBox7.TabIndex = 12
+        Me.TextBox7.TabIndex = 6
         Me.TextBox7.Text = "JOY1_BUTTON4"
         '
         'Label8
@@ -209,7 +209,7 @@ Partial Class joystick1
         Me.Label8.Location = New System.Drawing.Point(639, 265)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(133, 25)
-        Me.Label8.TabIndex = 15
+        Me.Label8.TabIndex = 108
         Me.Label8.Text = "JUMP"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -219,7 +219,7 @@ Partial Class joystick1
         Me.TextBox8.Location = New System.Drawing.Point(778, 266)
         Me.TextBox8.Name = "TextBox8"
         Me.TextBox8.Size = New System.Drawing.Size(154, 26)
-        Me.TextBox8.TabIndex = 14
+        Me.TextBox8.TabIndex = 7
         Me.TextBox8.Text = "JOY1_BUTTON6"
         '
         'Panel6
@@ -385,13 +385,11 @@ Partial Class joystick1
         '
         'Timer1
         '
-        Me.Timer1.Enabled = True
         Me.Timer1.Interval = 16
         '
         'Timer2
         '
-        Me.timer2.Enabled = True
-        Me.timer2.Interval = 16
+        Me.Timer2.Interval = 16
         '
         'joystick1
         '
@@ -420,7 +418,7 @@ Partial Class joystick1
         Me.ForeColor = System.Drawing.Color.White
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "joystick1"
-        Me.Text = "Joystick1"
+        Me.Text = "KeyConfig"
         Me.Panel6.ResumeLayout(False)
         CType(Me.Lbox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Rbox1, System.ComponentModel.ISupportInitialize).EndInit()

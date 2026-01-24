@@ -9,6 +9,9 @@ Public Class joystick1
     Private joysticks As New List(Of Joystick)
     Private timer As Timer
 
+    Public InputType As String = ""
+    Public Roms As String = ""
+    Public Inputs As String = ""
 
     <StructLayout(LayoutKind.Sequential)>
     Private Structure XINPUT_STATE
@@ -34,20 +37,27 @@ Public Class joystick1
     Private previousButtons(3) As UShort
 
     Private Sub joystick_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Me.Text = ($"Config {Roms} : {InputType} : {Inputs}")
+        'If Inputs = "xinput" Then
+        '    Timer1.Enabled = True
+        '    Timer2.Enabled = False
+        'Else
         directInput = New DirectInput()
 
-        ' ゲームパッド/ジョイスティックを列挙（最大4台）
-        Dim devices = directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly).ToList()
-        devices.AddRange(directInput.GetDevices(DeviceType.Joystick, DeviceEnumerationFlags.AttachedOnly))
+            ' ゲームパッド/ジョイスティックを列挙（最大4台）
+            Dim devices = directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly).ToList()
+            devices.AddRange(directInput.GetDevices(DeviceType.Joystick, DeviceEnumerationFlags.AttachedOnly))
 
-        For i = 0 To Math.Min(3, devices.Count - 1)
-            Dim js = New Joystick(directInput, devices(i).InstanceGuid)
-            js.Acquire()
-            joysticks.Add(js)
-            Console.WriteLine($"Controller {i} connected: {devices(i).InstanceName}")
-        Next
-
-        Timer2.Start()
+            For i = 0 To Math.Min(3, devices.Count - 1)
+                Dim js = New Joystick(directInput, devices(i).InstanceGuid)
+                js.Acquire()
+                joysticks.Add(js)
+                Console.WriteLine($"Controller {i} connected: {devices(i).InstanceName}")
+            Next
+            Timer1.Enabled = False
+            Timer2.Enabled = True
+        'End If
     End Sub
 
     Private Sub joystick_Close(sender As Object, e As EventArgs) Handles MyBase.Closed
@@ -58,33 +68,44 @@ Public Class joystick1
     Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
         For i = 0 To joysticks.Count - 1
             Dim state = joysticks(i).GetCurrentState()
-
+            Dim Joy As Integer = i + 1
             ' ボタン
             Dim buttons = state.Buttons
             For b = 0 To buttons.Length - 1
                 If buttons(b) Then
-                    Console.WriteLine($"Controller {i} Button {b} pressed")
+                    Console.WriteLine($"Controller {Joy} Button {b + 1} pressed")
                 End If
             Next
 
+            Dim z As Double = NormalizeAxis(state.Z)
+            Dim zr As Double = NormalizeAxis(state.RotationZ)
+            'If Joy = 1 Then
+            '    Console.WriteLine($"Controller {Joy} state.RotationZ={state.RotationZ}")
+            'End If
+
+            If Math.Abs(z) > 0.2 OrElse Math.Abs(zr) > 0.2 And state.RotationZ <> 0 Then
+                Console.WriteLine($"Controller {Joy} DirectRightStick: Z={z:F2}, ZR={zr:F2}")
+            End If
             ' アナログ軸（0～65535 の範囲で返る）
             Dim lx As Double = NormalizeAxis(state.X)
             Dim ly As Double = NormalizeAxis(state.Y)
             Dim rx As Double = NormalizeAxis(state.RotationX)
             Dim ry As Double = NormalizeAxis(state.RotationY)
+            Dim TrueRX As Double = state.RotationX
+            Dim TrueRY As Double = state.RotationY
 
             If Math.Abs(lx) > 0.2 OrElse Math.Abs(ly) > 0.2 Then
-                Console.WriteLine($"Controller {i} LeftStick: X={lx:F2}, Y={ly:F2}")
+                Console.WriteLine($"Controller {Joy} LeftStick: X={lx:F2}, Y={ly:F2}")
             End If
-            If Math.Abs(rx) > 0.2 OrElse Math.Abs(ry) > 0.2 Then
-                Console.WriteLine($"Controller {i} RightStick: X={rx:F2}, Y={ry:F2}")
+            If (Math.Abs(rx) > 0.2 OrElse Math.Abs(ry) > 0.2) And (TrueRX <> 0.0 And TrueRY <> 0.0) Then
+                Console.WriteLine($"Controller {Joy} RightStick: X={rx:F2}, Y={ry:F2}")
             End If
 
             ' POV (十字キー)
             If state.PointOfViewControllers.Length > 0 Then
                 Dim pov = state.PointOfViewControllers(0)
                 If pov <> -1 Then
-                    Console.WriteLine($"Controller {i} POV: {pov}")
+                    Console.WriteLine($"Controller {Joy} POV: {pov}")
                 End If
             End If
         Next
@@ -93,6 +114,24 @@ Public Class joystick1
     ' 0～65535 を -1.0～1.0 に正規化
     Private Function NormalizeAxis(value As Integer) As Double
         Return (value - 32767.5) / 32767.5
+    End Function
+
+    Private Function NormalizeTrigger(z As Integer, isLeft As Boolean) As Double
+        If isLeft Then
+            ' LT: 中立32767 → 最大65408
+            If z >= 32767 Then
+                Return (z - 32767) / (65408.0 - 32767.0)
+            Else
+                Return 0.0
+            End If
+        Else
+            ' RT: 中立32767 → 最小128
+            If z <= 32767 Then
+                Return (32767 - z) / (32767.0 - 128.0)
+            Else
+                Return 0.0
+            End If
+        End If
     End Function
 
 
@@ -106,7 +145,7 @@ Public Class joystick1
                 Dim buttons As UShort = state.Gamepad.wButtons
                 If buttons <> 0 Then
                     If LastButton <> ButtonToString(buttons) Then
-                        Console.WriteLine($"JOY{i}_Buttons: {ButtonToString(buttons)}")
+                        Console.WriteLine($"JOY{i + 1}_{ButtonToString(buttons)}")
                         LastButton = ButtonToString(buttons)
                     End If
                 End If
@@ -120,8 +159,16 @@ Public Class joystick1
                 Dim ry As Short = state.Gamepad.sThumbRY
 
                 ' トリガー（0～255）
-                If lt > 10 Then Console.WriteLine($"JOY{i + 1}_ZAXIS_POS")
-                If rt > 10 Then Console.WriteLine($"JOY{i + 1}_RZAXIS_POS")
+                If lt > 10 AndAlso LastButton <> ($"JOY{i + 1}_ZAXIS_POS") Then
+                    Console.WriteLine($"JOY{i + 1}_ZAXIS_POS")
+                    LastButton = ($"JOY{i + 1}_ZAXIS_POS")
+                End If
+
+                If rt > 10 AndAlso LastButton <> ($"JOY{i + 1}_RZAXIS_POS") Then
+                    Console.WriteLine($"JOY{i + 1}_RZAXIS_POS")
+                    LastButton = ($"JOY{i + 1}_RZAXIS_POS")
+                End If
+
 
                 Dim lxNorm As String = ""
                 Dim lyNorm As String = ""
@@ -191,46 +238,46 @@ Public Class joystick1
     Private Function ButtonToString(buttons As UShort) As String
         Dim names As New List(Of String)()
         If (buttons And &H1000) <> 0 Then
-            names.Add("A")
+            names.Add("BUTTON1")
         End If
         If (buttons And &H2000) <> 0 Then
-            names.Add("B")
+            names.Add("BUTTON2")
         End If
         If (buttons And &H4000) <> 0 Then
-            names.Add("X")
+            names.Add("BUTTON3")
         End If
         If (buttons And &H8000) <> 0 Then
-            names.Add("Y")
+            names.Add("BUTTON4")
         End If
         If (buttons And &H1) <> 0 Then
-            names.Add("DPAD_UP")
+            names.Add("POV1_UP")
         End If
         If (buttons And &H2) <> 0 Then
-            names.Add("DPAD_DOWN")
+            names.Add("POV1_DOWN")
         End If
         If (buttons And &H4) <> 0 Then
-            names.Add("DPAD_LEFT")
+            names.Add("POV1_LEFT")
         End If
         If (buttons And &H8) <> 0 Then
-            names.Add("DPAD_RIGHT")
+            names.Add("POV1_RIGHT")
         End If
         If (buttons And &H10) <> 0 Then
-            names.Add("START")
+            names.Add("BUTTON10")
         End If
         If (buttons And &H20) <> 0 Then
-            names.Add("BACK")
+            names.Add("BUTTON9")
         End If
         If (buttons And &H40) <> 0 Then
-            names.Add("LEFT_THUMB")
+            names.Add("BUTTON11")
         End If
         If (buttons And &H80) <> 0 Then
-            names.Add("RIGHT_THUMB")
+            names.Add("BUTTON12")
         End If
         If (buttons And &H100) <> 0 Then
-            names.Add("LEFT_SHOULDER")
+            names.Add("BUTTON5")
         End If
         If (buttons And &H200) <> 0 Then
-            names.Add("RIGHT_SHOULDER")
+            names.Add("BUTTON6")
         End If
         Return String.Join(",", names)
     End Function

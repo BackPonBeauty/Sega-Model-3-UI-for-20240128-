@@ -239,6 +239,10 @@ Partial Class Form1
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.TabPage6 = New System.Windows.Forms.TabPage()
         Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.Button15 = New System.Windows.Forms.Button()
+        Me.Button16 = New System.Windows.Forms.Button()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.ButtonDelete = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -1242,7 +1246,7 @@ Partial Class Form1
         Me.Panel3.BackColor = System.Drawing.Color.White
         Me.Panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Panel3.Controls.Add(Me.PictureBox1)
-        Me.Panel3.Location = New System.Drawing.Point(599, 32)
+        Me.Panel3.Location = New System.Drawing.Point(511, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(339, 262)
@@ -2663,10 +2667,10 @@ Partial Class Form1
         '
         'Button14
         '
-        Me.Button14.Font = New System.Drawing.Font("Cascadia Code", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button14.Location = New System.Drawing.Point(507, 32)
+        Me.Button14.Font = New System.Drawing.Font("Cascadia Code", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button14.Location = New System.Drawing.Point(883, 30)
         Me.Button14.Name = "Button14"
-        Me.Button14.Size = New System.Drawing.Size(86, 30)
+        Me.Button14.Size = New System.Drawing.Size(86, 25)
         Me.Button14.TabIndex = 98
         Me.Button14.Text = "Capture"
         Me.Button14.UseVisualStyleBackColor = True
@@ -2854,12 +2858,55 @@ Partial Class Form1
         Me.Panel8.Size = New System.Drawing.Size(503, 38)
         Me.Panel8.TabIndex = 100
         '
+        'Button15
+        '
+        Me.Button15.Font = New System.Drawing.Font("Cascadia Code", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button15.Location = New System.Drawing.Point(856, 71)
+        Me.Button15.Name = "Button15"
+        Me.Button15.Size = New System.Drawing.Size(65, 23)
+        Me.Button15.TabIndex = 101
+        Me.Button15.Text = "Record"
+        Me.Button15.UseVisualStyleBackColor = True
+        '
+        'Button16
+        '
+        Me.Button16.Font = New System.Drawing.Font("Cascadia Code", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button16.Location = New System.Drawing.Point(938, 71)
+        Me.Button16.Name = "Button16"
+        Me.Button16.Size = New System.Drawing.Size(65, 23)
+        Me.Button16.TabIndex = 102
+        Me.Button16.Text = "Replay"
+        Me.Button16.UseVisualStyleBackColor = True
+        '
+        'ListBox1
+        '
+        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.ItemHeight = 17
+        Me.ListBox1.Location = New System.Drawing.Point(856, 102)
+        Me.ListBox1.Name = "ListBox1"
+        Me.ListBox1.Size = New System.Drawing.Size(147, 140)
+        Me.ListBox1.TabIndex = 103
+        '
+        'ButtonDelete
+        '
+        Me.ButtonDelete.Font = New System.Drawing.Font("Cascadia Code", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonDelete.Location = New System.Drawing.Point(856, 251)
+        Me.ButtonDelete.Name = "ButtonDelete"
+        Me.ButtonDelete.Size = New System.Drawing.Size(65, 23)
+        Me.ButtonDelete.TabIndex = 104
+        Me.ButtonDelete.Text = "Delete"
+        Me.ButtonDelete.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.Navy
         Me.ClientSize = New System.Drawing.Size(1015, 634)
+        Me.Controls.Add(Me.ButtonDelete)
+        Me.Controls.Add(Me.ListBox1)
+        Me.Controls.Add(Me.Button16)
+        Me.Controls.Add(Me.Button15)
         Me.Controls.Add(Me.Panel8)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Button14)
@@ -2905,7 +2952,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "SuperModel3-UI-2026-01-12"
+        Me.Text = "SuperModel3-UI-2026-01-24"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -3185,4 +3232,8 @@ Partial Class Form1
     Friend WithEvents TabPage6 As TabPage
     Friend WithEvents Panel8 As Panel
     Friend WithEvents ConfigInputsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Button15 As Button
+    Friend WithEvents Button16 As Button
+    Friend WithEvents ListBox1 As ListBox
+    Friend WithEvents ButtonDelete As Button
 End Class

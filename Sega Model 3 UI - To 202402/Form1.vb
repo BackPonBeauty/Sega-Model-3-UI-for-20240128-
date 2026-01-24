@@ -1,11 +1,14 @@
 ﻿Option Strict Off
+Imports System.ComponentModel
 Imports System.IO
 Imports System.Net
+Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Xml
 Imports SharpDX.XInput
 Imports System.Threading
+Imports SharpDX.DirectInput
 Imports System.Runtime.CompilerServices
 
 
@@ -34,8 +37,52 @@ Public Class Form1
 
     Private mouseDevices As New Dictionary(Of IntPtr, String)
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private REC_F As Boolean = False
+    Private REP_F As Boolean = False
+
+    Private listToolTip As New ToolTip()
+    Private lastIndex As Integer = -1
+
+    Private Sub ListBox1_MouseMove(sender As Object, e As MouseEventArgs) _
+    Handles ListBox1.MouseMove
+
+        ' マウス位置からアイテムの index を取得
+        Dim index As Integer = ListBox1.IndexFromPoint(e.Location)
+
+        ' 有効な index か？
+        If index >= 0 AndAlso index < ListBox1.Items.Count Then
+
+            ' 前回と違うアイテムに乗ったときだけ表示更新
+            If index <> lastIndex Then
+                Dim text As String = ListBox1.Items(index).ToString()
+                Dim filePath = Path.Combine(Application.StartupPath, text)
+                Dim info = New FileInfo(filePath)
+
+                Dim tipText =
+    $"File : {info.Name}" & vbCrLf &
+    $"Size : {info.Length \ 1024} KB" & vbCrLf &
+    $"Date : {info.LastWriteTime}"
+
+                listToolTip.SetToolTip(ListBox1, tipText)
+                lastIndex = index
+            End If
+
+        Else
+            ' アイテム以外に乗ったら非表示
+            listToolTip.SetToolTip(ListBox1, "")
+            lastIndex = -1
+        End If
+    End Sub
+
+    Private Sub ListBox1_MouseLeave(sender As Object, e As EventArgs) _
+    Handles ListBox1.MouseLeave
+
+        listToolTip.SetToolTip(ListBox1, "")
+        lastIndex = -1
+    End Sub
+    Private Async Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetArchitecture()
+        Await getRecFiles()
         Panel8.Top = 299
         Surround1.Interval = interval
         Surround2.Interval = interval
@@ -79,7 +126,17 @@ Public Class Form1
 
             LoadGameXml()
             Load_initialfile()
+            'If Forecolor_s = "White" Then
+            '    WhiteToolStripMenuItem.PerformClick()
+            'Else
+            '    BlackToolStripMenuItem.PerformClick()
+            'End If
 
+            'If Bgcolor_R = 147 And Bgcolor_G = 0 And Bgcolor_B = 80 Then
+            '    Bgcolor_R = 0
+            '    Bgcolor_G = 0
+            '    Bgcolor_B = 128
+            'End If
             Bgcolor_R = 0
             Bgcolor_G = 0
             Bgcolor_B = 128
@@ -118,6 +175,13 @@ Public Class Form1
         RegisterRawInputDevices()
         InitializeMouseDevices()
 
+        'Dim filePath As String = "favorite.txt"
+        'Dim favoriteItems As New HashSet(Of String)(File.ReadAllLines(filePath))
+
+        'Console.WriteLine(favoriteItems(0).ToString)
+
+
+
         If Favorite.ToString = "Show All" Then
             ShowFavoriteToolStripMenuItem.PerformClick()
         End If
@@ -155,6 +219,16 @@ Public Class Form1
         brdy = 1
 
     End Sub
+
+    Private Async Function getRecFiles() As Task
+        Dim exeDir As String = Application.StartupPath
+        ListBox1.Items.Clear()
+
+        For Each file As String In IO.Directory.GetFiles(exeDir, "*.rec")
+            ListBox1.Items.Add(IO.Path.GetFileName(file))
+        Next
+        Return
+    End Function
 
     Private Sub GetArchitecture()
         ' pulls out the cpu arch 
@@ -221,9 +295,9 @@ Public Class Form1
             Dim Roms As String = DataGridView1.CurrentRow.Cells(2).Value.ToString()
             Dim InputType As String = DataGridView1.CurrentRow.Cells(5).Value.ToString()
             Dim Inputs As String = ComboBox_input.SelectedItem
-            'joystick1.Inputs = Inputs
-            'joystick1.Roms = Roms
-            'joystick1.InputType = InputType
+            joystick1.Inputs = Inputs
+            joystick1.Roms = Roms
+            joystick1.InputType = InputType
             joystick1.Show()
             Console.WriteLine(InputType)
         End If
@@ -1437,7 +1511,7 @@ Public Class Form1
     Private Sub Button_LoadRom_Click(sender As Object, e As EventArgs) Handles Button_loadrom.Click
         Load_Roms()
     End Sub
-    Private Sub Load_Roms()
+    Private Async Sub Load_Roms()
         If ShowFavoriteToolStripMenuItem.Text = "Show All" And Favorite_n = 0 Then
             MessageBox.Show("Boo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
@@ -1482,20 +1556,47 @@ Public Class Form1
 
         WriteIni()
         Dim ffb As String = ""
+        Dim rec As String = ""
+        Dim rep As String = ""
         If CheckBox18.Checked = True Then
-            ffb = " -outputs=win"
+            ffb = "-outputs=win "
         End If
+        If REP_F Then
+            Dim s As String = ListBox1.SelectedItem.ToString
+            Roms = s.Split("_"c)(0)
+            rep = " -play " & s & " "
+        End If
+        If REC_F Then
+            Dim dateTimeString As String = DateTime.Now.ToString("yyyyMMddHHmmss")
+            Dim recFileName As String = Roms & "_" & dateTimeString & ".rec"
+            Dim exeDir As String = Application.StartupPath
+            Dim fullPath As String = IO.Path.Combine(exeDir, recFileName)
+            IO.File.Create(fullPath).Close()
+            Await getRecFiles()
+            rec = " -record " & recFileName & " "
+        End If
+
         Try
             Dim appPath As String = System.Windows.Forms.Application.StartupPath
-            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip""" & ffb) ')
+            'Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & rep & " 0002.rec " & Label_path.Text & "\" & Roms & ".zip " & ffb & """ ")
+            'Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip """)
+            Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ")
+            startInfo.Arguments =
+                        ffb &
+                        rep &
+                        rec &
+                        """" & Label_path.Text & "\" & Roms & ".zip """
+
+
+
+            ' Console.WriteLine(" """ & rep & " 0002.rec " & Label_path.Text & "\" & Roms & ".zip " & ffb & """ ")
+            '   Exit Sub
             startInfo.CreateNoWindow = CheckBox_hidecmd.Checked
             startInfo.UseShellExecute = False
             Process.Start(startInfo)
             loading.Show()
         Catch ex As Exception
-            MessageBox.Show(ex.Message.ToString, "Error",
-MessageBoxButtons.OK,
-MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message.ToString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
         'End If
 
@@ -3000,6 +3101,100 @@ MessageBoxIcon.Error)
             Button_U.BackColor = Color.Gray
             brdy = 1
         End If
+    End Sub
+
+
+    Private Sub Button_REC_Click(sender As Object, e As EventArgs) Handles Button15.Click
+        REC_F = Not REC_F
+        If REC_F Then
+            Button15.ForeColor = Color.Red
+            REP_F = False
+            Button16.ForeColor = Color.Black
+        Else
+            Button15.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub Button16_Click(sender As Object, e As EventArgs) Handles Button16.Click
+        REP_F = Not REP_F
+        If REP_F Then
+            Button16.ForeColor = Color.Green
+            REC_F = False
+            Button15.ForeColor = Color.Black
+        Else
+            Button16.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
+        Console.WriteLine(ListBox1.SelectedItem)
+    End Sub
+
+    Private Sub ButtonDelete_Click(sender As Object, e As EventArgs) Handles ButtonDelete.Click
+        If ListBox1.SelectedItem Is Nothing Then
+            MessageBox.Show(
+                "Please select a .rec file to delete.",
+                "Warning",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning
+            )
+            Return
+        End If
+
+        Dim index As Integer = ListBox1.SelectedIndex
+        Dim fileName As String = ListBox1.SelectedItem.ToString()
+
+        ' ===== 削除確認 =====
+        Dim result As DialogResult = MessageBox.Show(
+            $"Are you sure you want to delete this file?{vbCrLf}{fileName}",
+            "Confirm Delete",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning
+        )
+
+        If result <> DialogResult.Yes Then Return
+
+        Dim fullPath As String = IO.Path.Combine(Application.StartupPath, fileName)
+
+        Try
+            IO.File.Delete(fullPath)
+
+            ' ListBox から削除
+            ListBox1.Items.RemoveAt(index)
+
+            ' ===== 削除後の自動選択 =====
+            If ListBox1.Items.Count > 0 Then
+                If index < ListBox1.Items.Count Then
+                    ListBox1.SelectedIndex = index
+                Else
+                    ListBox1.SelectedIndex = ListBox1.Items.Count - 1
+                End If
+            End If
+
+        Catch ex As UnauthorizedAccessException
+            MessageBox.Show(
+                "You do not have permission to delete this file.",
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            )
+
+        Catch ex As IOException
+            MessageBox.Show(
+                "The file is currently in use and cannot be deleted.",
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            )
+
+        Catch ex As Exception
+            MessageBox.Show(
+                "An unexpected error occurred while deleting the file." & vbCrLf & ex.Message,
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            )
+        End Try
     End Sub
 
 
