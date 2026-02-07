@@ -214,25 +214,6 @@ Partial Class Form1
         Me.CheckBox_nowhiteflash = New System.Windows.Forms.CheckBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.TabPage5 = New System.Windows.Forms.TabPage()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.TabPage6 = New System.Windows.Forms.TabPage()
-        Me.Button15 = New System.Windows.Forms.Button()
-        Me.Button16 = New System.Windows.Forms.Button()
-        Me.ListBox1 = New System.Windows.Forms.ListBox()
-        Me.ButtonDelete = New System.Windows.Forms.Button()
-        Me.Label50 = New System.Windows.Forms.Label()
-        Me.Label49 = New System.Windows.Forms.Label()
-        Me.TrackBar2 = New System.Windows.Forms.TrackBar()
-        Me.TrackBar1 = New System.Windows.Forms.TrackBar()
-        Me.Label45 = New System.Windows.Forms.Label()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.CheckBox_truear = New System.Windows.Forms.CheckBox()
-        Me.TextBox_Title = New System.Windows.Forms.TextBox()
-        Me.Label30 = New System.Windows.Forms.Label()
         Me.TabPage7 = New System.Windows.Forms.TabPage()
         Me.Label43 = New System.Windows.Forms.Label()
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
@@ -241,7 +222,26 @@ Partial Class Form1
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.SS_Bar = New System.Windows.Forms.TrackBar()
         Me.Label_SS = New System.Windows.Forms.Label()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.Button14 = New System.Windows.Forms.Button()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.TabPage6 = New System.Windows.Forms.TabPage()
+        Me.TextBox_Title = New System.Windows.Forms.TextBox()
+        Me.CheckBox_truear = New System.Windows.Forms.CheckBox()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.TrackBar2 = New System.Windows.Forms.TrackBar()
+        Me.TrackBar1 = New System.Windows.Forms.TrackBar()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.ButtonDelete = New System.Windows.Forms.Button()
+        Me.Button15 = New System.Windows.Forms.Button()
+        Me.Button16 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -285,6 +285,8 @@ Partial Class Form1
         Me.ContextMenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.TabPage7.SuspendLayout()
+        CType(Me.SS_Bar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.TabPage4.SuspendLayout()
@@ -292,8 +294,6 @@ Partial Class Form1
         Me.TabPage6.SuspendLayout()
         CType(Me.TrackBar2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage7.SuspendLayout()
-        CType(Me.SS_Bar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DataGridView1
@@ -2502,270 +2502,6 @@ Partial Class Form1
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Video"
         '
-        'TabPage2
-        '
-        Me.TabPage2.BackColor = System.Drawing.Color.Navy
-        Me.TabPage2.Controls.Add(Me.Label_Sound)
-        Me.TabPage2.Controls.Add(Me.CheckBox_emulatesound)
-        Me.TabPage2.Controls.Add(Me.Label17)
-        Me.TabPage2.Controls.Add(Me.CheckBox_flipstereo)
-        Me.TabPage2.Controls.Add(Me.Label16)
-        Me.TabPage2.Controls.Add(Me.CheckBox_emuDSB)
-        Me.TabPage2.Controls.Add(Me.Label_Balance)
-        Me.TabPage2.Controls.Add(Me.CheckBox_legacyDSP)
-        Me.TabPage2.Controls.Add(Me.SoundBar)
-        Me.TabPage2.Controls.Add(Me.Label15)
-        Me.TabPage2.Controls.Add(Me.BalanceBar)
-        Me.TabPage2.Controls.Add(Me.MusicBar)
-        Me.TabPage2.Controls.Add(Me.Label_Music)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 26)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Size = New System.Drawing.Size(439, 287)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Sound"
-        '
-        'TabPage3
-        '
-        Me.TabPage3.BackColor = System.Drawing.Color.Navy
-        Me.TabPage3.Controls.Add(Me.ComboBox_input)
-        Me.TabPage3.Controls.Add(Me.Label11)
-        Me.TabPage3.Controls.Add(Me.Panel4)
-        Me.TabPage3.Controls.Add(Me.Label18)
-        Me.TabPage3.Controls.Add(Me.Panel1)
-        Me.TabPage3.Controls.Add(Me.CheckBox18)
-        Me.TabPage3.Controls.Add(Me.Label29)
-        Me.TabPage3.Controls.Add(Me.GroupBox3)
-        Me.TabPage3.Controls.Add(Me.Button10)
-        Me.TabPage3.Controls.Add(Me.GroupBox4)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 26)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(439, 287)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "Control"
-        '
-        'TabPage4
-        '
-        Me.TabPage4.BackColor = System.Drawing.Color.Navy
-        Me.TabPage4.Controls.Add(Me.Label_Global_IPaddress)
-        Me.TabPage4.Controls.Add(Me.CheckBox_network)
-        Me.TabPage4.Controls.Add(Me.Button_Get_Global_IPAddress)
-        Me.TabPage4.Controls.Add(Me.Label19)
-        Me.TabPage4.Controls.Add(Me.Button_Get_Local_IPAddress)
-        Me.TabPage4.Controls.Add(Me.Label14)
-        Me.TabPage4.Controls.Add(Me.Label_Local_IPaddress)
-        Me.TabPage4.Controls.Add(Me.Label20)
-        Me.TabPage4.Controls.Add(Me.CheckBox_simnetwork)
-        Me.TabPage4.Controls.Add(Me.TextBox_Portin)
-        Me.TabPage4.Controls.Add(Me.TextBox_Addressout)
-        Me.TabPage4.Controls.Add(Me.TextBox_Portout)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 26)
-        Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Size = New System.Drawing.Size(439, 287)
-        Me.TabPage4.TabIndex = 3
-        Me.TabPage4.Text = "Network"
-        '
-        'TabPage5
-        '
-        Me.TabPage5.BackColor = System.Drawing.Color.Navy
-        Me.TabPage5.Controls.Add(Me.Button14)
-        Me.TabPage5.Controls.Add(Me.Button_U)
-        Me.TabPage5.Controls.Add(Me.RawInput_hook)
-        Me.TabPage5.Controls.Add(Me.Panel6)
-        Me.TabPage5.Controls.Add(Me.Label38)
-        Me.TabPage5.Controls.Add(Me.Button_X)
-        Me.TabPage5.Controls.Add(Me.Label1)
-        Me.TabPage5.Controls.Add(Me.Label32)
-        Me.TabPage5.Controls.Add(Me.Label35)
-        Me.TabPage5.Controls.Add(Me.Label33)
-        Me.TabPage5.Controls.Add(Me.Label34)
-        Me.TabPage5.Controls.Add(Me.Button_hook)
-        Me.TabPage5.Location = New System.Drawing.Point(4, 26)
-        Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Size = New System.Drawing.Size(439, 287)
-        Me.TabPage5.TabIndex = 4
-        Me.TabPage5.Text = "Option"
-        '
-        'Label33
-        '
-        Me.Label33.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label33.ForeColor = System.Drawing.Color.White
-        Me.Label33.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label33.Location = New System.Drawing.Point(183, 144)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(109, 20)
-        Me.Label33.TabIndex = 89
-        Me.Label33.Text = "FakeScanLine"
-        Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'TabPage6
-        '
-        Me.TabPage6.BackColor = System.Drawing.Color.Navy
-        Me.TabPage6.Controls.Add(Me.LinkLabel1)
-        Me.TabPage6.Controls.Add(Me.TextBox_Title)
-        Me.TabPage6.Controls.Add(Me.CheckBox_truear)
-        Me.TabPage6.Controls.Add(Me.Label50)
-        Me.TabPage6.Controls.Add(Me.Label49)
-        Me.TabPage6.Controls.Add(Me.Label30)
-        Me.TabPage6.Controls.Add(Me.TrackBar2)
-        Me.TabPage6.Controls.Add(Me.TrackBar1)
-        Me.TabPage6.Controls.Add(Me.Label45)
-        Me.TabPage6.Controls.Add(Me.Label31)
-        Me.TabPage6.Controls.Add(Me.ListBox1)
-        Me.TabPage6.Controls.Add(Me.ButtonDelete)
-        Me.TabPage6.Controls.Add(Me.Button15)
-        Me.TabPage6.Controls.Add(Me.Button16)
-        Me.TabPage6.Location = New System.Drawing.Point(4, 26)
-        Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Size = New System.Drawing.Size(439, 287)
-        Me.TabPage6.TabIndex = 5
-        Me.TabPage6.Text = "PonMi"
-        '
-        'Button15
-        '
-        Me.Button15.Font = New System.Drawing.Font("Cascadia Code", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button15.Location = New System.Drawing.Point(46, 149)
-        Me.Button15.Name = "Button15"
-        Me.Button15.Size = New System.Drawing.Size(65, 23)
-        Me.Button15.TabIndex = 101
-        Me.Button15.Text = "Record"
-        Me.Button15.UseVisualStyleBackColor = True
-        '
-        'Button16
-        '
-        Me.Button16.Font = New System.Drawing.Font("Cascadia Code", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button16.Location = New System.Drawing.Point(327, 149)
-        Me.Button16.Name = "Button16"
-        Me.Button16.Size = New System.Drawing.Size(65, 23)
-        Me.Button16.TabIndex = 102
-        Me.Button16.Text = "Replay"
-        Me.Button16.UseVisualStyleBackColor = True
-        '
-        'ListBox1
-        '
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 17
-        Me.ListBox1.Location = New System.Drawing.Point(47, 178)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(345, 72)
-        Me.ListBox1.TabIndex = 103
-        '
-        'ButtonDelete
-        '
-        Me.ButtonDelete.Font = New System.Drawing.Font("Cascadia Code", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonDelete.Location = New System.Drawing.Point(327, 254)
-        Me.ButtonDelete.Name = "ButtonDelete"
-        Me.ButtonDelete.Size = New System.Drawing.Size(65, 23)
-        Me.ButtonDelete.TabIndex = 104
-        Me.ButtonDelete.Text = "Delete"
-        Me.ButtonDelete.UseVisualStyleBackColor = True
-        '
-        'Label50
-        '
-        Me.Label50.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label50.ForeColor = System.Drawing.Color.White
-        Me.Label50.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label50.Location = New System.Drawing.Point(352, 108)
-        Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(40, 20)
-        Me.Label50.TabIndex = 113
-        Me.Label50.Text = "88"
-        Me.Label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label49
-        '
-        Me.Label49.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label49.ForeColor = System.Drawing.Color.White
-        Me.Label49.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label49.Location = New System.Drawing.Point(352, 81)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(40, 20)
-        Me.Label49.TabIndex = 112
-        Me.Label49.Text = "88"
-        Me.Label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'TrackBar2
-        '
-        Me.TrackBar2.AutoSize = False
-        Me.TrackBar2.LargeChange = 1
-        Me.TrackBar2.Location = New System.Drawing.Point(187, 110)
-        Me.TrackBar2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TrackBar2.Name = "TrackBar2"
-        Me.TrackBar2.Size = New System.Drawing.Size(169, 36)
-        Me.TrackBar2.TabIndex = 111
-        Me.TrackBar2.Value = 10
-        '
-        'TrackBar1
-        '
-        Me.TrackBar1.AutoSize = False
-        Me.TrackBar1.LargeChange = 1
-        Me.TrackBar1.Location = New System.Drawing.Point(188, 81)
-        Me.TrackBar1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TrackBar1.Name = "TrackBar1"
-        Me.TrackBar1.Size = New System.Drawing.Size(168, 36)
-        Me.TrackBar1.TabIndex = 110
-        Me.TrackBar1.Value = 10
-        '
-        'Label45
-        '
-        Me.Label45.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label45.ForeColor = System.Drawing.Color.White
-        Me.Label45.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label45.Location = New System.Drawing.Point(28, 109)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(145, 20)
-        Me.Label45.TabIndex = 109
-        Me.Label45.Text = "BarrelStrength"
-        Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label31
-        '
-        Me.Label31.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label31.ForeColor = System.Drawing.Color.White
-        Me.Label31.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label31.Location = New System.Drawing.Point(28, 81)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(146, 20)
-        Me.Label31.TabIndex = 108
-        Me.Label31.Text = "ScanlineStrength"
-        Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'CheckBox_truear
-        '
-        Me.CheckBox_truear.AutoSize = True
-        Me.CheckBox_truear.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBox_truear.ForeColor = System.Drawing.Color.White
-        Me.CheckBox_truear.Location = New System.Drawing.Point(47, 262)
-        Me.CheckBox_truear.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox_truear.Name = "CheckBox_truear"
-        Me.CheckBox_truear.Size = New System.Drawing.Size(83, 21)
-        Me.CheckBox_truear.TabIndex = 114
-        Me.CheckBox_truear.Text = "true-ar"
-        Me.CheckBox_truear.UseVisualStyleBackColor = True
-        '
-        'TextBox_Title
-        '
-        Me.TextBox_Title.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TextBox_Title.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox_Title.ForeColor = System.Drawing.Color.White
-        Me.TextBox_Title.Location = New System.Drawing.Point(112, 47)
-        Me.TextBox_Title.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TextBox_Title.Name = "TextBox_Title"
-        Me.TextBox_Title.Size = New System.Drawing.Size(280, 22)
-        Me.TextBox_Title.TabIndex = 80
-        Me.TextBox_Title.Text = "Supermodel"
-        '
-        'Label30
-        '
-        Me.Label30.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label30.ForeColor = System.Drawing.Color.White
-        Me.Label30.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label30.Location = New System.Drawing.Point(43, 47)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(52, 20)
-        Me.Label30.TabIndex = 115
-        Me.Label30.Text = "Title"
-        Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'TabPage7
         '
         Me.TabPage7.BackColor = System.Drawing.Color.Navy
@@ -2872,6 +2608,89 @@ Partial Class Form1
         Me.Label_SS.Text = "1"
         Me.Label_SS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'TabPage2
+        '
+        Me.TabPage2.BackColor = System.Drawing.Color.Navy
+        Me.TabPage2.Controls.Add(Me.Label_Sound)
+        Me.TabPage2.Controls.Add(Me.CheckBox_emulatesound)
+        Me.TabPage2.Controls.Add(Me.Label17)
+        Me.TabPage2.Controls.Add(Me.CheckBox_flipstereo)
+        Me.TabPage2.Controls.Add(Me.Label16)
+        Me.TabPage2.Controls.Add(Me.CheckBox_emuDSB)
+        Me.TabPage2.Controls.Add(Me.Label_Balance)
+        Me.TabPage2.Controls.Add(Me.CheckBox_legacyDSP)
+        Me.TabPage2.Controls.Add(Me.SoundBar)
+        Me.TabPage2.Controls.Add(Me.Label15)
+        Me.TabPage2.Controls.Add(Me.BalanceBar)
+        Me.TabPage2.Controls.Add(Me.MusicBar)
+        Me.TabPage2.Controls.Add(Me.Label_Music)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Size = New System.Drawing.Size(439, 287)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Sound"
+        '
+        'TabPage3
+        '
+        Me.TabPage3.BackColor = System.Drawing.Color.Navy
+        Me.TabPage3.Controls.Add(Me.ComboBox_input)
+        Me.TabPage3.Controls.Add(Me.Label11)
+        Me.TabPage3.Controls.Add(Me.Panel4)
+        Me.TabPage3.Controls.Add(Me.Label18)
+        Me.TabPage3.Controls.Add(Me.Panel1)
+        Me.TabPage3.Controls.Add(Me.CheckBox18)
+        Me.TabPage3.Controls.Add(Me.Label29)
+        Me.TabPage3.Controls.Add(Me.GroupBox3)
+        Me.TabPage3.Controls.Add(Me.Button10)
+        Me.TabPage3.Controls.Add(Me.GroupBox4)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Size = New System.Drawing.Size(439, 287)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Control"
+        '
+        'TabPage4
+        '
+        Me.TabPage4.BackColor = System.Drawing.Color.Navy
+        Me.TabPage4.Controls.Add(Me.Label_Global_IPaddress)
+        Me.TabPage4.Controls.Add(Me.CheckBox_network)
+        Me.TabPage4.Controls.Add(Me.Button_Get_Global_IPAddress)
+        Me.TabPage4.Controls.Add(Me.Label19)
+        Me.TabPage4.Controls.Add(Me.Button_Get_Local_IPAddress)
+        Me.TabPage4.Controls.Add(Me.Label14)
+        Me.TabPage4.Controls.Add(Me.Label_Local_IPaddress)
+        Me.TabPage4.Controls.Add(Me.Label20)
+        Me.TabPage4.Controls.Add(Me.CheckBox_simnetwork)
+        Me.TabPage4.Controls.Add(Me.TextBox_Portin)
+        Me.TabPage4.Controls.Add(Me.TextBox_Addressout)
+        Me.TabPage4.Controls.Add(Me.TextBox_Portout)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Size = New System.Drawing.Size(439, 287)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "Network"
+        '
+        'TabPage5
+        '
+        Me.TabPage5.BackColor = System.Drawing.Color.Navy
+        Me.TabPage5.Controls.Add(Me.Button14)
+        Me.TabPage5.Controls.Add(Me.Button_U)
+        Me.TabPage5.Controls.Add(Me.RawInput_hook)
+        Me.TabPage5.Controls.Add(Me.Panel6)
+        Me.TabPage5.Controls.Add(Me.Label38)
+        Me.TabPage5.Controls.Add(Me.Button_X)
+        Me.TabPage5.Controls.Add(Me.Label1)
+        Me.TabPage5.Controls.Add(Me.Label32)
+        Me.TabPage5.Controls.Add(Me.Label35)
+        Me.TabPage5.Controls.Add(Me.Label33)
+        Me.TabPage5.Controls.Add(Me.Label34)
+        Me.TabPage5.Controls.Add(Me.Button_hook)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.Size = New System.Drawing.Size(439, 287)
+        Me.TabPage5.TabIndex = 4
+        Me.TabPage5.Text = "Option"
+        '
         'Button14
         '
         Me.Button14.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -2881,6 +2700,187 @@ Partial Class Form1
         Me.Button14.TabIndex = 100
         Me.Button14.Text = "Capture"
         Me.Button14.UseVisualStyleBackColor = True
+        '
+        'Label33
+        '
+        Me.Label33.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label33.ForeColor = System.Drawing.Color.White
+        Me.Label33.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label33.Location = New System.Drawing.Point(183, 144)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(109, 20)
+        Me.Label33.TabIndex = 89
+        Me.Label33.Text = "FakeScanLine"
+        Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TabPage6
+        '
+        Me.TabPage6.BackColor = System.Drawing.Color.Navy
+        Me.TabPage6.Controls.Add(Me.Button16)
+        Me.TabPage6.Controls.Add(Me.LinkLabel1)
+        Me.TabPage6.Controls.Add(Me.TextBox_Title)
+        Me.TabPage6.Controls.Add(Me.CheckBox_truear)
+        Me.TabPage6.Controls.Add(Me.Label50)
+        Me.TabPage6.Controls.Add(Me.Label49)
+        Me.TabPage6.Controls.Add(Me.Label30)
+        Me.TabPage6.Controls.Add(Me.TrackBar2)
+        Me.TabPage6.Controls.Add(Me.TrackBar1)
+        Me.TabPage6.Controls.Add(Me.Label45)
+        Me.TabPage6.Controls.Add(Me.Label31)
+        Me.TabPage6.Controls.Add(Me.ListBox1)
+        Me.TabPage6.Controls.Add(Me.ButtonDelete)
+        Me.TabPage6.Controls.Add(Me.Button15)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.Size = New System.Drawing.Size(439, 287)
+        Me.TabPage6.TabIndex = 5
+        Me.TabPage6.Text = "PonMi"
+        '
+        'TextBox_Title
+        '
+        Me.TextBox_Title.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TextBox_Title.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox_Title.ForeColor = System.Drawing.Color.White
+        Me.TextBox_Title.Location = New System.Drawing.Point(112, 47)
+        Me.TextBox_Title.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TextBox_Title.Name = "TextBox_Title"
+        Me.TextBox_Title.Size = New System.Drawing.Size(280, 22)
+        Me.TextBox_Title.TabIndex = 80
+        Me.TextBox_Title.Text = "Supermodel"
+        '
+        'CheckBox_truear
+        '
+        Me.CheckBox_truear.AutoSize = True
+        Me.CheckBox_truear.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox_truear.ForeColor = System.Drawing.Color.White
+        Me.CheckBox_truear.Location = New System.Drawing.Point(47, 262)
+        Me.CheckBox_truear.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.CheckBox_truear.Name = "CheckBox_truear"
+        Me.CheckBox_truear.Size = New System.Drawing.Size(83, 21)
+        Me.CheckBox_truear.TabIndex = 114
+        Me.CheckBox_truear.Text = "true-ar"
+        Me.CheckBox_truear.UseVisualStyleBackColor = True
+        '
+        'Label50
+        '
+        Me.Label50.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label50.ForeColor = System.Drawing.Color.White
+        Me.Label50.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label50.Location = New System.Drawing.Point(352, 108)
+        Me.Label50.Name = "Label50"
+        Me.Label50.Size = New System.Drawing.Size(40, 20)
+        Me.Label50.TabIndex = 113
+        Me.Label50.Text = "88"
+        Me.Label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label49
+        '
+        Me.Label49.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label49.ForeColor = System.Drawing.Color.White
+        Me.Label49.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label49.Location = New System.Drawing.Point(352, 81)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(40, 20)
+        Me.Label49.TabIndex = 112
+        Me.Label49.Text = "88"
+        Me.Label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label30
+        '
+        Me.Label30.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label30.ForeColor = System.Drawing.Color.White
+        Me.Label30.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label30.Location = New System.Drawing.Point(43, 47)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(52, 20)
+        Me.Label30.TabIndex = 115
+        Me.Label30.Text = "Title"
+        Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TrackBar2
+        '
+        Me.TrackBar2.AutoSize = False
+        Me.TrackBar2.LargeChange = 1
+        Me.TrackBar2.Location = New System.Drawing.Point(187, 110)
+        Me.TrackBar2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TrackBar2.Name = "TrackBar2"
+        Me.TrackBar2.Size = New System.Drawing.Size(169, 36)
+        Me.TrackBar2.TabIndex = 111
+        Me.TrackBar2.Value = 10
+        '
+        'TrackBar1
+        '
+        Me.TrackBar1.AutoSize = False
+        Me.TrackBar1.LargeChange = 1
+        Me.TrackBar1.Location = New System.Drawing.Point(188, 81)
+        Me.TrackBar1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TrackBar1.Name = "TrackBar1"
+        Me.TrackBar1.Size = New System.Drawing.Size(168, 36)
+        Me.TrackBar1.TabIndex = 110
+        Me.TrackBar1.Value = 10
+        '
+        'Label45
+        '
+        Me.Label45.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label45.ForeColor = System.Drawing.Color.White
+        Me.Label45.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label45.Location = New System.Drawing.Point(28, 109)
+        Me.Label45.Name = "Label45"
+        Me.Label45.Size = New System.Drawing.Size(145, 20)
+        Me.Label45.TabIndex = 109
+        Me.Label45.Text = "BarrelStrength"
+        Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label31
+        '
+        Me.Label31.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label31.ForeColor = System.Drawing.Color.White
+        Me.Label31.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label31.Location = New System.Drawing.Point(28, 81)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(146, 20)
+        Me.Label31.TabIndex = 108
+        Me.Label31.Text = "ScanlineStrength"
+        Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'ListBox1
+        '
+        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.ItemHeight = 17
+        Me.ListBox1.Location = New System.Drawing.Point(47, 178)
+        Me.ListBox1.Name = "ListBox1"
+        Me.ListBox1.Size = New System.Drawing.Size(345, 72)
+        Me.ListBox1.TabIndex = 103
+        '
+        'ButtonDelete
+        '
+        Me.ButtonDelete.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonDelete.Location = New System.Drawing.Point(327, 252)
+        Me.ButtonDelete.Name = "ButtonDelete"
+        Me.ButtonDelete.Size = New System.Drawing.Size(64, 32)
+        Me.ButtonDelete.TabIndex = 104
+        Me.ButtonDelete.Text = "Delete"
+        Me.ButtonDelete.UseVisualStyleBackColor = True
+        '
+        'Button15
+        '
+        Me.Button15.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button15.Location = New System.Drawing.Point(46, 145)
+        Me.Button15.Name = "Button15"
+        Me.Button15.Size = New System.Drawing.Size(64, 32)
+        Me.Button15.TabIndex = 101
+        Me.Button15.Text = "Record"
+        Me.Button15.UseVisualStyleBackColor = True
+        '
+        'Button16
+        '
+        Me.Button16.Font = New System.Drawing.Font("Cascadia Code", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button16.Location = New System.Drawing.Point(327, 145)
+        Me.Button16.Name = "Button16"
+        Me.Button16.Size = New System.Drawing.Size(64, 32)
+        Me.Button16.TabIndex = 102
+        Me.Button16.Text = "Replay"
+        Me.Button16.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -2979,6 +2979,8 @@ Partial Class Form1
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        Me.TabPage7.ResumeLayout(False)
+        CType(Me.SS_Bar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
@@ -2990,8 +2992,6 @@ Partial Class Form1
         Me.TabPage6.PerformLayout()
         CType(Me.TrackBar2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage7.ResumeLayout(False)
-        CType(Me.SS_Bar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

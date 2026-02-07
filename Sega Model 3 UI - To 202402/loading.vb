@@ -30,6 +30,10 @@
         Else
             Label1.Text = "Success!"
             Timer2.Enabled = True
+            Form1.REC_F = False
+            Form1.REP_F = False
+            Form1.Button15.ForeColor = Color.Black
+            Form1.Button16.ForeColor = Color.Black
         End If
 
     End Sub
