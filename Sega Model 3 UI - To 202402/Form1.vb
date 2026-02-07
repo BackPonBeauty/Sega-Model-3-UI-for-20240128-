@@ -83,7 +83,7 @@ Public Class Form1
     Private Async Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetArchitecture()
         Await getRecFiles()
-        Panel8.Top = 299
+        'Panel8.Top = 299
         Surround1.Interval = interval
         Surround2.Interval = interval
         DemoTimer.Interval = interval
@@ -928,8 +928,8 @@ Public Class Form1
             Dim BarrelStrength As StringBuilder = New StringBuilder(300)
 
 
-            GetPrivateProfileString(" Global ", "ScanlineStrength", "0.8", ScanlineStrength, 15, iniFileName)
-            GetPrivateProfileString(" Global ", "BarrelStrength", "0.04", BarrelStrength, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "ScanlineStrength", "0", ScanlineStrength, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "BarrelStrength", "0", BarrelStrength, 15, iniFileName)
             GetPrivateProfileString(" Global ", "RefreshRate", "57.524158", RefreshRate, 15, iniFileName)
             GetPrivateProfileString(" Global ", "true-ar", "False", TrueAR, 15, iniFileName)
             GetPrivateProfileString(" Global ", "Supersampling", "1", Supersampling, 15, iniFileName)
@@ -992,9 +992,9 @@ Public Class Form1
             'GetPrivateProfileString(" Global ", "InputAutoTrigger", "Error", InputAutoTrigger, 15, iniFileName)
             'GetPrivateProfileString(" Global ", "InputAutoTrigger2", "Error", InputAutoTrigger2, 15, iniFileName)
 
-            GetPrivateProfileString(" Supermodel3 UI ", "HideCMD", "False", HideCMD, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "HideCMD", "False", HideCMD, 15, iniFileName)
 
-            GetPrivateProfileString(" Supermodel3 UI ", "Dir", "C:\天上天下唯我独尊\Roms", Dir, 150, iniFileName)
+            GetPrivateProfileString(" Global ", "Dir", "C:\天上天下唯我独尊\Roms", Dir, 150, iniFileName)
             GetPrivateProfileString(" Global ", "Title", "Supermodel", Title_SB, 150, iniFileName)
 
             GetPrivateProfileString(" Global ", "CrosshairStyle", "vector", CrosshairStyle, 15, iniFileName)
@@ -1032,8 +1032,10 @@ Public Class Form1
             GetPrivateProfileString(" Supermodel3 UI ", "Favorite", "False", Favorite, 15, iniFileName)
 
 
-            NumericUpDown1.Value = Double.Parse(ScanlineStrength.ToString)
-            NumericUpDown2.Value = Double.Parse(BarrelStrength.ToString)
+            TrackBar1.Value = Integer.Parse(ScanlineStrength.ToString)
+            Label49.Text = ScanlineStrength.ToString
+            TrackBar2.Value = Integer.Parse(BarrelStrength.ToString)
+            Label50.Text = BarrelStrength.ToString
 
             'SuperSampling
             If SS.ToString = True Then
@@ -1503,7 +1505,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub SS_Bar_Scroll(sender As Object, e As EventArgs) Handles SS_Bar.Scroll
+    Private Sub SS_Bar_Scroll(sender As Object, e As EventArgs)
         Label_SS.Text = CStr(SS_Bar.Value)
     End Sub
 
@@ -1564,6 +1566,10 @@ Public Class Form1
         Dim ffb As String = ""
         Dim rec As String = ""
         Dim rep As String = ""
+        Dim hide As String = ""
+        If CheckBox_hidecmd.Checked Then
+            hide = "-hidecmd "
+        End If
         If CheckBox18.Checked = True Then
             ffb = "-outputs=win "
         End If
@@ -1588,6 +1594,7 @@ Public Class Form1
             'Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ", " """ & Label_path.Text & "\" & Roms & ".zip """)
             Dim startInfo As New ProcessStartInfo(appPath & "\Supermodel.exe ")
             startInfo.Arguments =
+                        hide &
                         ffb &
                         rep &
                         rec &
@@ -1711,7 +1718,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+    Private Sub Button4_Click(sender As Object, e As EventArgs) 
         TabControl1.SelectedIndex = 0
         'Panel_Video.Left = 612
         'Panel_Video.Top = 336
@@ -1725,7 +1732,7 @@ Public Class Form1
         'Panel_ponmi.Top = 336
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    Private Sub Button5_Click(sender As Object, e As EventArgs) 
         TabControl1.SelectedIndex = 1
         'Panel_Video.Left = 2000
         'Panel_Video.Top = 336
@@ -1739,7 +1746,7 @@ Public Class Form1
         'Panel_ponmi.Top = 336
     End Sub
 
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+    Private Sub Button6_Click(sender As Object, e As EventArgs) 
         TabControl1.SelectedIndex = 2
         'Panel_Video.Left = 2000
         'Panel_Video.Top = 336
@@ -1753,7 +1760,7 @@ Public Class Form1
         'Panel_ponmi.Top = 336
     End Sub
 
-    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+    Private Sub Button7_Click(sender As Object, e As EventArgs) 
         TabControl1.SelectedIndex = 3
         'Panel_Video.Left = 2000
         'Panel_Video.Top = 336
@@ -1767,7 +1774,7 @@ Public Class Form1
         'Panel_ponmi.Top = 336
     End Sub
 
-    Private Sub Button_Ponmi_Click(sender As Object, e As EventArgs) Handles Button_Ponmi.Click
+    Private Sub Button_Ponmi_Click(sender As Object, e As EventArgs) 
         TabControl1.SelectedIndex = 4
         'Panel_Video.Left = 2000
         'Panel_Video.Top = 336
@@ -1825,12 +1832,8 @@ Public Class Form1
         Dim iniFileName As New StringBuilder(300)
         iniFileName.Append("Config\Supermodel.ini")
         Dim Section As String = " Global "
-        Dim s As String = "0.0"
-        If NumericUpDown2.Value.ToString <> "0.00" Then
-            s = NumericUpDown2.Value.ToString
-        End If
-        WritePrivateProfileString(Section, "ScanlineStrength", NumericUpDown1.Value.ToString, iniFileName)
-        WritePrivateProfileString(Section, "BarrelStrength", s, iniFileName)
+        WritePrivateProfileString(Section, "ScanlineStrength", TrackBar1.Value.ToString, iniFileName)
+        WritePrivateProfileString(Section, "BarrelStrength", TrackBar2.Value, iniFileName)
         WritePrivateProfileString(Section, "RefreshRate", Label_refreshrate.Text, iniFileName)
         WritePrivateProfileString(Section, "XResolution", Label_xRes.Text, iniFileName)
         WritePrivateProfileString(Section, "YResolution", Label_yRes.Text, iniFileName)
@@ -1885,8 +1888,10 @@ Public Class Form1
         WritePrivateProfileString(Section, "AddressOut", TextBox_Addressout.Text, iniFileName)
 
         WritePrivateProfileString(Section, "InputSystem", CStr(ComboBox_input.SelectedItem), iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "HideCMD", CheckBox_hidecmd.Checked.ToString, iniFileName)
-        WritePrivateProfileString(" Supermodel3 UI ", "Dir", Label_path.Text, iniFileName)
+        WritePrivateProfileString(Section, "HideCMD", CheckBox_hidecmd.Checked.ToString, iniFileName)
+        'WritePrivateProfileString(" Supermodel3 UI ", "HideCMD", CheckBox_hidecmd.Checked.ToString, iniFileName)
+        WritePrivateProfileString(Section, "Dir", Label_path.Text, iniFileName)
+        'WritePrivateProfileString(" Supermodel3 UI ", "Dir", Label_path.Text, iniFileName)
         If TextBox_Title.Text = "" Then
             TextBox_Title.Text = "Supermodel - PonMi"
         End If
@@ -3028,7 +3033,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+    Private Sub Button14_Click(sender As Object, e As EventArgs)
 
         'Button14.Top = -100
         If Capture_F = True Then
@@ -3209,7 +3214,17 @@ Public Class Form1
         End Try
     End Sub
 
+    Private Sub TrackBar1_Scroll(sender As Object, e As EventArgs)
+        Label49.Text = TrackBar1.Value
+    End Sub
 
+    Private Sub TrackBar2_Scroll(sender As Object, e As EventArgs)
+        Label50.Text = TrackBar2.Value
+    End Sub
+
+    Private Sub Panel8_Paint(sender As Object, e As PaintEventArgs)
+
+    End Sub
 End Class
 
 Module ControlExtensions

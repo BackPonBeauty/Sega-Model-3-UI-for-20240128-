@@ -311,7 +311,6 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="sharpdx.directinput.4.2.0.nupkg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -535,8 +534,6 @@
     </Content>
     <Content Include="icon.ico" />
     <Content Include="icon2.ico" />
-    <None Include="PonMi.co.ltd.pfx" />
-    <None Include="ponmi.pfx" />
     <None Include="Resource\HOOG0557.TTF" />
     <None Include="Resource\scanline2.png" />
     <Content Include="Resource\scanline.png" />
