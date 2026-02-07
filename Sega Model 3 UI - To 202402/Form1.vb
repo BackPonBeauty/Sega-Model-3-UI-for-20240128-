@@ -939,7 +939,7 @@ Public Class Form1
             Dim BarrelStrength As StringBuilder = New StringBuilder(300)
 
 
-            GetPrivateProfileString(" Global ", "ScanlineStrength", "0", ScanlineStrength, 15, iniFileName)
+            GetPrivateProfileString(" Global ", "ScanlineStrength", "1", ScanlineStrength, 15, iniFileName)
             GetPrivateProfileString(" Global ", "BarrelStrength", "0", BarrelStrength, 15, iniFileName)
             GetPrivateProfileString(" Global ", "RefreshRate", "57.524158", RefreshRate, 15, iniFileName)
             GetPrivateProfileString(" Global ", "true-ar", "False", TrueAR, 15, iniFileName)
@@ -1041,10 +1041,12 @@ Public Class Form1
             GetPrivateProfileString(" Supermodel3 UI ", "Opacity", "5", Opacity, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "SS", "False", SS, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Favorite", "False", Favorite, 15, iniFileName)
-
-
-            TrackBar1.Value = Integer.Parse(ScanlineStrength.ToString)
-            Label49.Text = ScanlineStrength.ToString
+            Dim sst As String = Integer.Parse(ScanlineStrength.ToString)
+            If CInt(sst) < 1 Or CInt(sst) > 10 Then
+                sst = "1"
+            End If
+            TrackBar1.Value = sst                 'Integer.Parse(ScanlineStrength.ToString)
+            Label49.Text = sst   'ScanlineStrength.ToString
             TrackBar2.Value = Integer.Parse(BarrelStrength.ToString)
             Label50.Text = BarrelStrength.ToString
 
