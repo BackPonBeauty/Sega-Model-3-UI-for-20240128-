@@ -11,10 +11,10 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("Sega Model 3 UI - for 20240128+")>
 <Assembly: AssemblyDescription("Supermodel3 Luncher")>
-<Assembly: AssemblyCompany("PonMi")>
+<Assembly: AssemblyCompany("BackPonBeauty")>
 <Assembly: AssemblyProduct("Sega Model 3 UI - for 20240128+")>
-<Assembly: AssemblyCopyright("Copyright ©  2024")>
-<Assembly: AssemblyTrademark("PonMi")>
+<Assembly: AssemblyCopyright("Copyright ©  2024-2026")>
+<Assembly: AssemblyTrademark("BackPonBeauty")>
 
 <Assembly: ComVisible(False)>
 

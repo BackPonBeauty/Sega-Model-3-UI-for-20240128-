@@ -39,7 +39,9 @@ Public Class Form1
 
     Public REC_F As Boolean = False
     Public REP_F As Boolean = False
-
+    Private cmb1ToolTip As New ToolTip()
+    Private cmb2ToolTip As New ToolTip()
+    Private btnToolTip As New ToolTip()
     Private listToolTip As New ToolTip()
     Private lastIndex As Integer = -1
 
@@ -1514,10 +1516,6 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub SS_Bar_Scroll(sender As Object, e As EventArgs)
-        Label_SS.Text = CStr(SS_Bar.Value)
-    End Sub
-
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_resolution.SelectedIndexChanged
         Dim S_Select As String = CStr(ComboBox_resolution.SelectedItem)
         Dim S_Split() As String = Split(S_Select, "x")
@@ -1727,75 +1725,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs)
-        TabControl1.SelectedIndex = 0
-        'Panel_Video.Left = 612
-        'Panel_Video.Top = 336
-        'Panel_Sound.Left = 2000
-        'Panel_Sound.Top = 336
-        'Panel_Input.Left = 2000
-        'Panel_Input.Top = 336
-        'Panel_Network.Left = 2000
-        'Panel_Network.Top = 336
-        'Panel_ponmi.Left = 2000
-        'Panel_ponmi.Top = 336
-    End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs)
-        TabControl1.SelectedIndex = 1
-        'Panel_Video.Left = 2000
-        'Panel_Video.Top = 336
-        'Panel_Sound.Left = 612
-        'Panel_Sound.Top = 336
-        'Panel_Input.Left = 2000
-        'Panel_Input.Top = 336
-        'Panel_Network.Left = 2000
-        'Panel_Network.Top = 336
-        'Panel_ponmi.Left = 2000
-        'Panel_ponmi.Top = 336
-    End Sub
-
-    Private Sub Button6_Click(sender As Object, e As EventArgs)
-        TabControl1.SelectedIndex = 2
-        'Panel_Video.Left = 2000
-        'Panel_Video.Top = 336
-        'Panel_Sound.Left = 2000
-        'Panel_Sound.Top = 336
-        'Panel_Input.Left = 612
-        'Panel_Input.Top = 336
-        'Panel_Network.Left = 2000
-        'Panel_Network.Top = 336
-        'Panel_ponmi.Left = 2000
-        'Panel_ponmi.Top = 336
-    End Sub
-
-    Private Sub Button7_Click(sender As Object, e As EventArgs)
-        TabControl1.SelectedIndex = 3
-        'Panel_Video.Left = 2000
-        'Panel_Video.Top = 336
-        'Panel_Sound.Left = 2000
-        'Panel_Sound.Top = 336
-        'Panel_Input.Left = 2000
-        'Panel_Input.Top = 336
-        'Panel_Network.Left = 612
-        'Panel_Network.Top = 336
-        'Panel_ponmi.Left = 2000
-        'Panel_ponmi.Top = 336
-    End Sub
-
-    Private Sub Button_Ponmi_Click(sender As Object, e As EventArgs)
-        TabControl1.SelectedIndex = 4
-        'Panel_Video.Left = 2000
-        'Panel_Video.Top = 336
-        'Panel_Sound.Left = 2000
-        'Panel_Sound.Top = 336
-        'Panel_Input.Left = 2000
-        'Panel_Input.Top = 336
-        'Panel_Network.Left = 2000
-        'Panel_Network.Top = 336
-        'Panel_ponmi.Left = 612
-        'Panel_ponmi.Top = 336
-    End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs)
         Dim result As DialogResult = MessageBox.Show("Do you want to overwrite the ini file?",
@@ -3042,7 +2972,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button14_Click(sender As Object, e As EventArgs)
+    Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
 
         'Button14.Top = -100
         If Capture_F = True Then
@@ -3223,15 +3153,35 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub TrackBar1_Scroll(sender As Object, e As EventArgs)
+    Private Sub TrackBar1_Scroll(sender As Object, e As EventArgs) Handles TrackBar1.Scroll
         Label49.Text = TrackBar1.Value
     End Sub
 
-    Private Sub TrackBar2_Scroll(sender As Object, e As EventArgs)
+    Private Sub TrackBar2_Scroll(sender As Object, e As EventArgs) Handles TrackBar2.Scroll
         Label50.Text = TrackBar2.Value
     End Sub
 
     Private Sub Panel8_Paint(sender As Object, e As PaintEventArgs)
+
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+
+    End Sub
+
+    Private Sub Button4_Move(sender As Object, e As EventArgs) Handles Button4.MouseMove
+        btnToolTip.SetToolTip(Button4, "Buy me a coffee")
+    End Sub
+
+    Private Sub SS_Bar_Scroll_1(sender As Object, e As EventArgs) Handles SS_Bar.Scroll
+        Label_SS.Text = SS_Bar.Value
+    End Sub
+
+    Private Sub TrackBar1_Scroll_1(sender As Object, e As EventArgs) Handles TrackBar1.Scroll
+
+    End Sub
+
+    Private Sub Button14_Click_1(sender As Object, e As EventArgs)
 
     End Sub
 End Class
