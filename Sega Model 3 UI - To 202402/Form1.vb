@@ -44,6 +44,8 @@ Public Class Form1
     Private btnToolTip As New ToolTip()
     Private listToolTip As New ToolTip()
     Private lastIndex As Integer = -1
+    'Private PonMi As SuperStar in NitchWorld
+    Private PonMi As Boolean = False
 
     Private Sub ListBox1_MouseMove(sender As Object, e As MouseEventArgs) _
     Handles ListBox1.MouseMove
@@ -76,8 +78,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub ListBox1_MouseLeave(sender As Object, e As EventArgs) _
-    Handles ListBox1.MouseLeave
+    Private Sub ListBox1_MouseLeave(sender As Object, e As EventArgs) Handles ListBox1.MouseLeave
 
         listToolTip.SetToolTip(ListBox1, "")
         lastIndex = -1
@@ -93,7 +94,18 @@ Public Class Form1
         Dim fileName As String = appPath & "/supermodel.exe"
         Dim newname As String = appPath & "/Supermodel.exe"
         If System.IO.File.Exists(fileName) Then
-            Label37.Text = System.IO.File.GetLastWriteTime(fileName).ToString
+            Dim productName As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(fileName).ProductName
+            Console.WriteLine("製品名: " & productName)
+            If productName = "Supermodel-PonMi" Then
+                Label36.Text = "Supermodel-PonMi"
+                PonMi = True
+                Label37.Text = "v." & System.Diagnostics.FileVersionInfo.GetVersionInfo(fileName).FileVersion
+            Else
+                Label36.Text = "Supermodel Lastwrite "
+                Label37.Text = System.IO.File.GetLastWriteTime(fileName).ToString
+            End If
+
+
             Microsoft.VisualBasic.FileSystem.Rename(fileName, newname)
         Else
             Dim downloadMessage = "PonMi version of Supermodel3?"
@@ -1045,7 +1057,7 @@ Public Class Form1
             If CInt(sst) < 1 Or CInt(sst) > 10 Then
                 sst = "1"
             End If
-            TrackBar1.Value = sst                 'Integer.Parse(ScanlineStrength.ToString)
+            TrackBar1.Value = CInt(sst)                 'Integer.Parse(ScanlineStrength.ToString)
             Label49.Text = sst   'ScanlineStrength.ToString
             TrackBar2.Value = Integer.Parse(BarrelStrength.ToString)
             Label50.Text = BarrelStrength.ToString
@@ -1577,7 +1589,9 @@ Public Class Form1
         Dim rep As String = ""
         Dim hide As String = ""
         If CheckBox_hidecmd.Checked Then
-            hide = "-hidecmd "
+            If PonMi = True Then
+                hide = "-hidecmd "
+            End If
         End If
         If CheckBox18.Checked = True Then
             ffb = "-outputs=win "
@@ -1666,6 +1680,7 @@ Public Class Form1
 
 
     Private Sub Roms_count(Dir As String)
+        Dir &= "/"
         Try
             If DT_Roms.Rows.Count > 0 Then
                 DT_Roms.Rows.Clear()
@@ -3163,15 +3178,12 @@ Public Class Form1
         Label50.Text = TrackBar2.Value
     End Sub
 
-    Private Sub Panel8_Paint(sender As Object, e As PaintEventArgs)
-
-    End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-
+        System.Diagnostics.Process.Start("https://github.com/sponsors/BackPonBeauty")
     End Sub
 
-    Private Sub Button4_Move(sender As Object, e As EventArgs) Handles Button4.MouseMove
+    Private Sub Button4_Move(sender As Object, e As EventArgs) Handles Button4.MouseHover
         btnToolTip.SetToolTip(Button4, "Buy me a coffee")
     End Sub
 
@@ -3179,13 +3191,6 @@ Public Class Form1
         Label_SS.Text = SS_Bar.Value
     End Sub
 
-    Private Sub TrackBar1_Scroll_1(sender As Object, e As EventArgs) Handles TrackBar1.Scroll
-
-    End Sub
-
-    Private Sub Button14_Click_1(sender As Object, e As EventArgs)
-
-    End Sub
 End Class
 
 Module ControlExtensions
