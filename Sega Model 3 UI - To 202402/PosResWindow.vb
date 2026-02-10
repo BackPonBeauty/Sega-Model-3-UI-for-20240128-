@@ -27,7 +27,7 @@ Public Class PosResWindow
         Next
         Dim canvas As New Bitmap(Integer.Parse(Form1.Label_xRes.Text), Integer.Parse(Form1.Label_yRes.Text))
         Dim g As Graphics = Graphics.FromImage(canvas)
-        Dim img As Image = Image.FromFile("Snaps\" & Form1.Roms & ".jpg")
+        Dim img As Image = Image.FromFile("Snaps\" & Form1.uRoms & ".jpg")
         Dim cm As New System.Drawing.Imaging.ColorMatrix()
         cm.Matrix00 = 1
         cm.Matrix11 = 1

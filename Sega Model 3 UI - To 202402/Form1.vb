@@ -570,7 +570,7 @@ Public Class Form1
 
 
     Dim GameData As New DataTable
-    Public Roms As String
+    Public uRoms As String
     Dim Inputs As String
     Dim DT_Roms As New DataTable
     Dim List_Rec As New List(Of ListInfo)
@@ -1506,9 +1506,9 @@ Public Class Form1
     End Sub
 
     Private Sub DataGridView1_SelectCellChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEnter
-        Roms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
+        uRoms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
         Inputs = CStr(DataGridView1.CurrentRow.Cells(5).Value)
-        PictureBox1.ImageLocation = "Snaps/" & Roms & ".jpg"
+        PictureBox1.ImageLocation = "Snaps/" & uRoms & ".jpg"
         Last_SelectedRow = DataGridView1.CurrentRow.Index
     End Sub
 
@@ -1598,12 +1598,12 @@ Public Class Form1
         End If
         If REP_F Then
             Dim s As String = " Replays/" & ListBox1.SelectedItem.ToString
-            Roms = s.Split("_"c)(0)
+            uRoms = ListBox1.SelectedItem.ToString.Split("@"c)(0)
             rep = " -play " & s & " "
         End If
         If REC_F Then
             Dim dateTimeString As String = DateTime.Now.ToString("yyyyMMddHHmmss")
-            Dim recFileName As String = "Replays/" & Roms & "_" & dateTimeString & ".rec"
+            Dim recFileName As String = "Replays/" & uRoms & "@" & dateTimeString & ".rec"
             Dim exeDir As String = Application.StartupPath
             Dim fullPath As String = IO.Path.Combine(exeDir, recFileName)
             IO.File.Create(fullPath).Close()
@@ -1621,7 +1621,7 @@ Public Class Form1
                         ffb &
                         rep &
                         rec &
-                        """" & Label_path.Text & "/" & Roms & ".zip """
+                        """" & Label_path.Text & "/" & uRoms & ".zip """
 
 
 
@@ -2021,9 +2021,9 @@ Public Class Form1
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentDoubleClick
         'Console.WriteLine(e.RowIndex)
         If e.RowIndex >= 0 Then
-            Roms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
+            uRoms = CStr(DataGridView1.CurrentRow.Cells(2).Value)
             Inputs = CStr(DataGridView1.CurrentRow.Cells(5).Value)
-            PictureBox1.ImageLocation = "Snaps/" & Roms & ".jpg"
+            PictureBox1.ImageLocation = "Snaps/" & uRoms & ".jpg"
             Load_Roms()
         End If
     End Sub
