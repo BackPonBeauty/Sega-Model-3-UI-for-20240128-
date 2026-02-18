@@ -13,7 +13,11 @@ Imports System.Runtime.CompilerServices
 
 
 Public Class Form1
+
     Inherits Form
+
+
+
     Private x_timer As System.Threading.Timer
     Private x2_timer As System.Threading.Timer
     Private rep_timer As System.Threading.Timer
@@ -1054,7 +1058,7 @@ Public Class Form1
             GetPrivateProfileString(" Supermodel3 UI ", "SS", "False", SS, 15, iniFileName)
             GetPrivateProfileString(" Supermodel3 UI ", "Favorite", "False", Favorite, 15, iniFileName)
             Dim sst As String = Integer.Parse(ScanlineStrength.ToString)
-            If CInt(sst) < 1 Or CInt(sst) > 10 Then
+            If CInt(sst) < 1 Or CInt(sst) > 100 Then
                 sst = "1"
             End If
             TrackBar1.Value = CInt(sst)                 'Integer.Parse(ScanlineStrength.ToString)
@@ -1788,7 +1792,7 @@ Public Class Form1
         Dim iniFileName As New StringBuilder(300)
         iniFileName.Append("Config/Supermodel.ini")
         Dim Section As String = " Global "
-        WritePrivateProfileString(Section, "ScanlineStrength", TrackBar1.Value.ToString, iniFileName)
+        WritePrivateProfileString(Section, "ScanlineStrength", TrackBar1.Value, iniFileName)
         WritePrivateProfileString(Section, "BarrelStrength", TrackBar2.Value, iniFileName)
         WritePrivateProfileString(Section, "RefreshRate", Label_refreshrate.Text, iniFileName)
         WritePrivateProfileString(Section, "XResolution", Label_xRes.Text, iniFileName)

@@ -2817,6 +2817,7 @@ Partial Class Form1
         Me.TrackBar1.LargeChange = 1
         Me.TrackBar1.Location = New System.Drawing.Point(188, 81)
         Me.TrackBar1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TrackBar1.Maximum = 100
         Me.TrackBar1.Minimum = 1
         Me.TrackBar1.Name = "TrackBar1"
         Me.TrackBar1.Size = New System.Drawing.Size(168, 36)
