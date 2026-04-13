@@ -2773,7 +2773,7 @@ Partial Class Form1
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(40, 20)
         Me.Label50.TabIndex = 113
-        Me.Label50.Text = "88"
+        Me.Label50.Text = "888"
         Me.Label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label49
@@ -2785,7 +2785,7 @@ Partial Class Form1
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(40, 20)
         Me.Label49.TabIndex = 112
-        Me.Label49.Text = "88"
+        Me.Label49.Text = "888"
         Me.Label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label30
@@ -2806,6 +2806,7 @@ Partial Class Form1
         Me.TrackBar2.LargeChange = 1
         Me.TrackBar2.Location = New System.Drawing.Point(187, 110)
         Me.TrackBar2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TrackBar2.Maximum = 100
         Me.TrackBar2.Name = "TrackBar2"
         Me.TrackBar2.Size = New System.Drawing.Size(169, 36)
         Me.TrackBar2.TabIndex = 111
@@ -2818,7 +2819,6 @@ Partial Class Form1
         Me.TrackBar1.Location = New System.Drawing.Point(188, 81)
         Me.TrackBar1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TrackBar1.Maximum = 100
-        Me.TrackBar1.Minimum = 1
         Me.TrackBar1.Name = "TrackBar1"
         Me.TrackBar1.Size = New System.Drawing.Size(168, 36)
         Me.TrackBar1.TabIndex = 110
