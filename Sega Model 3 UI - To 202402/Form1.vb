@@ -1449,26 +1449,32 @@ Public Class Form1
             'Resolution
             ComboBox_resolution.Text = XResolution.ToString & "x" & YResolution.ToString
 
-            'Get Display Size 
-            Dim i As Integer = 0
+            Try
+                Dim i As Integer = 0
 
-            For Each s In System.Windows.Forms.Screen.AllScreens
-                'display device name
-                ScreenN(i) = s.DeviceName
-                'top left of display
-                Bx(i) = s.Bounds.X
-                By(i) = s.Bounds.Y
-                'Display size
-                Bw(i) = s.Bounds.Width
-                Label_wScreenRes.Text = CStr(s.Bounds.Width)
-                Bh(i) = s.Bounds.Height
-                Label_hScreenRes.Text = CStr(s.Bounds.Height)
-                'Debug(i & "::" & ScreenN(i))
-                i += 1
-            Next
+                For Each s In System.Windows.Forms.Screen.AllScreens
+                    'display device name
+                    ScreenN(i) = s.DeviceName
+                    'top left of display
+                    Bx(i) = s.Bounds.X
+                    By(i) = s.Bounds.Y
+                    'Display size
+                    Bw(i) = s.Bounds.Width
+                    Label_wScreenRes.Text = CStr(s.Bounds.Width)
+                    Bh(i) = s.Bounds.Height
+                    Label_hScreenRes.Text = CStr(s.Bounds.Height)
+                    'Debug(i & "::" & ScreenN(i))
+                    i += 1
+                Next
+                Label_wScreenRes.Text = CStr(Screen.GetBounds(Me).Width)
+                Label_hScreenRes.Text = CStr(Screen.GetBounds(Me).Height)
+            Catch ex As Exception
+                Label_wScreenRes.Text = 640
+                Label_hScreenRes.Text = 480
+            End Try
 
-            Label_wScreenRes.Text = CStr(Screen.GetBounds(Me).Width)
-            Label_hScreenRes.Text = CStr(Screen.GetBounds(Me).Height)
+
+
         Else
             MessageBox.Show("supermodel.ini not found.")
             Me.Close()
