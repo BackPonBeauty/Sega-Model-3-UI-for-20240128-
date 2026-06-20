@@ -1,4 +1,19 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿' Copyright (C) 2026 BackPonBeauty
+'
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
@@ -241,6 +256,7 @@ Partial Class Form1
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.ButtonDelete = New System.Windows.Forms.Button()
         Me.Button15 = New System.Windows.Forms.Button()
+        Me.TabPage7 = New System.Windows.Forms.TabPage()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -2455,6 +2471,7 @@ Partial Class Form1
         Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Controls.Add(Me.TabPage6)
+        Me.TabControl1.Controls.Add(Me.TabPage7)
         Me.TabControl1.Location = New System.Drawing.Point(511, 312)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -2713,7 +2730,7 @@ Partial Class Form1
         Me.TabPage6.Name = "TabPage6"
         Me.TabPage6.Size = New System.Drawing.Size(439, 287)
         Me.TabPage6.TabIndex = 5
-        Me.TabPage6.Text = "PonMi"
+        Me.TabPage6.Text = "Replay"
         '
         'Button4
         '
@@ -2877,6 +2894,15 @@ Partial Class Form1
         Me.Button15.Text = "Record"
         Me.Button15.UseVisualStyleBackColor = True
         '
+        'TabPage7
+        '
+        Me.TabPage7.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage7.Name = "TabPage7"
+        Me.TabPage7.Size = New System.Drawing.Size(439, 287)
+        Me.TabPage7.TabIndex = 6
+        Me.TabPage7.Text = "Remote"
+        Me.TabPage7.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -2926,7 +2952,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Sega-Model3-UI-2026-04-13"
+        Me.Text = "Sega-Model3-UI-Remote 2026-06-20"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -3208,4 +3234,5 @@ Partial Class Form1
     Friend WithEvents Label_SS As Label
     Friend WithEvents Label43 As Label
     Friend WithEvents SS_Bar As TrackBar
+    Friend WithEvents TabPage7 As TabPage
 End Class

@@ -1,8 +1,24 @@
-﻿Option Strict Off
+' Copyright (C) 2026 BackPonBeauty
+'
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Option Strict Off
+Imports System
 Imports System.ComponentModel
 Imports System.IO
 Imports System.Net
-Imports System.Reflection.Emit
+Imports System.Net.Sockets
 Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Xml
@@ -10,11 +26,29 @@ Imports SharpDX.XInput
 Imports System.Threading
 Imports SharpDX.DirectInput
 Imports System.Runtime.CompilerServices
+Imports System.Reactive.Linq
+Imports System.Reactive
+Imports Firebase.Database.Streaming
 
 
 Public Class Form1
 
     Inherits Form
+
+    Shared Sub New()
+        AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
+    End Sub
+
+    Private Shared Function ResolveAssemblies(sender As Object, args As ResolveEventArgs) As System.Reflection.Assembly
+        Dim folderPath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dll")
+        Dim assemblyName As New System.Reflection.AssemblyName(args.Name)
+        Dim assemblyPath As String = Path.Combine(folderPath, assemblyName.Name & ".dll")
+
+        If File.Exists(assemblyPath) Then
+            Return System.Reflection.Assembly.LoadFrom(assemblyPath)
+        End If
+        Return Nothing
+    End Function
 
 
 
@@ -50,6 +84,44 @@ Public Class Form1
     Private lastIndex As Integer = -1
     'Private PonMi As SuperStar in NitchWorld
     Private PonMi As Boolean = False
+
+    ' Remote Tab Variables
+    Private version_s As String = "1.0.0"
+    Private _firebase As FirebaseMatchingClient
+    Private _discordUsername As String = ""
+    Private _hosts As Dictionary(Of String, HostInfo)
+    Private _selectedHostId As String = ""
+    Private _selectedSlot As Integer = 0
+    Private _videoUdp As UdpClient
+    Private _audioUdp As UdpClient
+    Private _handshakeClient As UdpClient
+    Private _portXInput As Integer
+    Private _portHS As Integer
+    Private _portVideo As Integer
+    Private _portAudio As Integer
+    Private _isLocalMode As Boolean = False
+    Private _remoteInitialized As Boolean = False
+    Private _lastTabSelectedIndex As Integer = 0
+    Private _hostsSubscription As IDisposable = Nothing
+    Private _pingCache As New Dictionary(Of String, String)()
+    Private _activeVideoForm As VideoForm = Nothing
+
+    ' UI Controls for TabPage7
+    Private pnlHostList As CyberPanel
+    Private lvHosts As CyberListView
+    Private btnRefresh As CyberButton
+    Private pnlConnect As CyberPanel
+    Private lblSlot As Label
+    Private cmbSlot As ComboBox
+    Private btnLocalMode As CyberButton
+    Private btnOption As CyberButton
+    Private btnConnect As CyberButton
+    Private btnDisconnect As CyberButton
+    Private txtNick As TextBox
+    Private txtLocalIp As TextBox
+    Private lblLocalIp As Label
+    Private lblStatus As Label
+
 
     Private Sub ListBox1_MouseMove(sender As Object, e As MouseEventArgs) _
     Handles ListBox1.MouseMove
@@ -190,8 +262,8 @@ Public Class Form1
             MessageBox.Show("Config folder not found.")
             Me.Close()
         End If
-        RegisterRawInputDevices()
-        InitializeMouseDevices()
+        'RegisterRawInputDevices()
+        'InitializeMouseDevices()
 
         'Dim filePath As String = "favorite.txt"
         'Dim favoriteItems As New HashSet(Of String)(File.ReadAllLines(filePath))
@@ -207,27 +279,27 @@ Public Class Form1
         Load_comp_F = True
 
         Timer3.Enabled = False
-        Dim cmd As String
-        cmd = "stop " + mysound
-        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
-        cmd = "close " + mysound
-        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
-        Dim Rnd As String = "up"
-        Dim leng As Integer = 2000
-        Dim sond As String = "sound/" & Rnd & ".mp3"
-        Dim fileNames As String = sond
-        cmd = "open """ + fileNames + """ type mpegvideo alias " + mysound
+        'Dim cmd As String
+        'cmd = "stop " + mysound
+        'mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        'cmd = "close " + mysound
+        'mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        'Dim Rnd As String = "up"
+        'Dim leng As Integer = 2000
+        'Dim sond As String = "sound/" & Rnd & ".mp3"
+        'Dim fileNames As String = sond
+        'cmd = "open """ + fileNames + """ type mpegvideo alias " + mysound
 
-        If mciSendString(cmd, Nothing, 0, IntPtr.Zero) <> 0 Then
-            Return
-        End If
-        cmd = "play " + mysound
-        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
-        cmd = "stop " + mysound
-        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
-        '  閉じる
-        cmd = "close " + mysound
-        mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        'If mciSendString(cmd, Nothing, 0, IntPtr.Zero) <> 0 Then
+        '    Return
+        'End If
+        'cmd = "play " + mysound
+        'mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        'cmd = "stop " + mysound
+        'mciSendString(cmd, Nothing, 0, IntPtr.Zero)
+        ''  閉じる
+        'cmd = "close " + mysound
+        'mciSendString(cmd, Nothing, 0, IntPtr.Zero)
         'End If
         'brdy = 0
         'Timer3.Interval = leng
@@ -236,6 +308,22 @@ Public Class Form1
         'ComboBox2.SelectedIndex = 0
         brdy = 1
 
+        ' --- Version check ---
+        Try
+            Dim tempFirebase As New FirebaseMatchingClient()
+            Await tempFirebase.InitializeAsync()
+            Dim remoteVersion = Await tempFirebase.GetRemoteVersionAsync("clientversion")
+            If Not String.IsNullOrEmpty(remoteVersion) AndAlso remoteVersion <> version_s Then
+                Dim dlgResult = MessageBox.Show("new version arrival. Would you like to download the latest version?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                If dlgResult = DialogResult.Yes Then
+                    Process.Start("https://github.com/BackPonBeauty/Sega-Model-3-UI-for-20240128-/releases")
+                End If
+                Application.Exit()
+                Return
+            End If
+        Catch ex As Exception
+            System.Diagnostics.Debug.WriteLine("[ERROR] Version check failed: " & ex.Message)
+        End Try
     End Sub
 
     Private Async Function getRecFiles() As Task
@@ -475,7 +563,7 @@ Public Class Form1
                             'End If
                             'If (mouse.usButtonFlags And RawInput.RI_MOUSE_BUTTON_5_UP) <> 0 Then
                             If mouse.usButtonData <> 0 Then
-                                Console.WriteLine(mouse.usButtonData)
+                                'Console.WriteLine(mouse.usButtonData)
                             End If
 
                             'End If
@@ -1908,6 +1996,13 @@ Public Class Form1
     End Sub
 
     Private Sub Me_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+        If _activeVideoForm IsNot Nothing Then
+            Try
+                _activeVideoForm.Close()
+            Catch
+            End Try
+        End If
+        _hostsSubscription?.Dispose()
         If IgnoreClose = False Then
             Try
                 WriteIni()
@@ -3201,6 +3296,721 @@ Public Class Form1
         Label_SS.Text = SS_Bar.Value
     End Sub
 
+    ' =========================================================================
+    ' REMOTE STREAM PLAY INTEGRATION
+    ' =========================================================================
+
+    Private Sub TabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl1.SelectedIndexChanged
+        If TabControl1.SelectedTab Is TabPage7 Then
+            Dim res = MessageBox.Show("Discord 認証が必要ですが本当に開きますか？", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If res = DialogResult.Yes Then
+                InitRemoteTab()
+                _lastTabSelectedIndex = TabControl1.SelectedIndex
+            Else
+                ' Go back to the previous tab
+                TabControl1.SelectedIndex = _lastTabSelectedIndex
+            End If
+        Else
+            _lastTabSelectedIndex = TabControl1.SelectedIndex
+        End If
+    End Sub
+
+    Private Async Sub InitRemoteTab()
+        If _remoteInitialized Then Return
+        _remoteInitialized = True
+
+        ' Build UI inside TabPage7
+        BuildCyberUI()
+
+        ' Start Discord Auth
+        SetRemoteStatus("Discord auth in progress...", Color.FromArgb(0, 180, 220))
+        pnlHostList.Enabled = False
+        pnlConnect.Enabled = False
+
+        Dim authResult = Await DiscordAuth.AuthenticateAndCheckMembershipAsync(
+            Sub(statusMsg)
+                Me.BeginInvoke(Sub() SetRemoteStatus(statusMsg, Color.FromArgb(0, 180, 220)))
+            End Sub
+        )
+
+        If Not authResult.Success Then
+            MessageBox.Show("An error occurred during Discord authentication." & vbCrLf & authResult.ErrorMessage, "Authentication Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            SetRemoteStatus("Discord auth failed.", Color.FromArgb(220, 60, 60))
+            Return
+        End If
+
+        If Not authResult.UserJoined Then
+            Dim inviteUrl = DiscordAuth.GetInviteUrl()
+            Dim msg = $"To connect to the host, you must join our Discord server.{vbCrLf}{vbCrLf}Current User: {authResult.Username}{vbCrLf}{vbCrLf}Would you like to join the server?"
+            Dim dialogResult = MessageBox.Show(msg, "Not a Server Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            If dialogResult = DialogResult.Yes AndAlso Not String.IsNullOrEmpty(inviteUrl) AndAlso inviteUrl.StartsWith("http") Then
+                Try
+                    Process.Start(inviteUrl)
+                Catch ex As Exception
+                    MessageBox.Show("Could not open the invite URL in browser: " & ex.Message)
+                End Try
+            End If
+            SetRemoteStatus("Access denied: Not a server member.", Color.FromArgb(220, 140, 0))
+            Return
+        End If
+
+        ' Success
+        _discordUsername = authResult.Username
+        If txtNick IsNot Nothing Then
+            txtNick.Text = authResult.Username
+        End If
+        SetRemoteStatus($"Discord Auth Success: {authResult.Username}", Color.FromArgb(0, 220, 100))
+
+        ' Initialize Firebase
+        pnlHostList.Enabled = True
+        pnlConnect.Enabled = True
+        SetRemoteStatus("Connecting to Firebase...", Color.FromArgb(100, 100, 100))
+
+        _firebase = New FirebaseMatchingClient()
+        Await _firebase.InitializeAsync()
+
+        ' Fetch Hosts
+        SetRemoteStatus("Fetching hosts...", Color.FromArgb(100, 100, 100))
+        StartHostsSubscription()
+
+        Dim initialHosts = Await _firebase.GetActiveHostsAsync()
+        _hosts = If(initialHosts, New Dictionary(Of String, HostInfo)())
+        UpdateHostsListView()
+
+        If Not File.Exists("ffmpeg.exe") Then
+            MessageBox.Show("ffmpeg.exe not found in Sega Model 3 UI folder. Please place ffmpeg.exe there to use remote streaming.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
+    Private Sub BuildCyberUI()
+        TabPage7.BackColor = Color.FromArgb(10, 14, 26)
+
+        pnlHostList = New CyberPanel() With {
+            .Title = "HOST LIST",
+            .Location = New Point(7, 7),
+            .Size = New Size(425, 175)
+        }
+        TabPage7.Controls.Add(pnlHostList)
+
+        btnRefresh = New CyberButton() With {
+            .Text = "REFRESH",
+            .Location = New Point(320, 2),
+            .Size = New Size(94, 20),
+            .GlowColor = Color.FromArgb(0, 180, 220),
+            .Enabled = False
+        }
+        AddHandler btnRefresh.Click, AddressOf btnRefresh_Click
+        pnlHostList.Controls.Add(btnRefresh)
+
+        lvHosts = New CyberListView() With {
+            .Location = New Point(7, 28),
+            .Size = New Size(411, 140),
+            .Font = New Font("MS Gothic", 7.0F)
+        }
+        lvHosts.Columns.Add("SERVER", 180)
+        lvHosts.Columns.Add("P1", 55)
+        lvHosts.Columns.Add("P2", 55)
+        lvHosts.Columns.Add("P3", 55)
+        lvHosts.Columns.Add("P4", 55)
+        AddHandler lvHosts.RowClicked, AddressOf lvHosts_RowClicked
+        AddHandler lvHosts.SlotClicked, AddressOf lvHosts_SlotClicked
+        pnlHostList.Controls.Add(lvHosts)
+
+        pnlConnect = New CyberPanel() With {
+            .Title = "CONNECT",
+            .Location = New Point(7, 188),
+            .Size = New Size(425, 75)
+        }
+        TabPage7.Controls.Add(pnlConnect)
+
+        lblSlot = New Label() With {
+            .Text = "SLOT:",
+            .Location = New Point(10, 15),
+            .Size = New Size(40, 20),
+            .ForeColor = Color.FromArgb(0, 180, 220),
+            .Font = New Font("Consolas", 8, FontStyle.Bold),
+            .TextAlign = ContentAlignment.MiddleLeft,
+            .BackColor = Color.Transparent
+        }
+        pnlConnect.Controls.Add(lblSlot)
+
+        cmbSlot = New ComboBox() With {
+            .Location = New Point(55, 13),
+            .Size = New Size(55, 20),
+            .FlatStyle = FlatStyle.Flat,
+            .BackColor = Color.FromArgb(3, 10, 22),
+            .ForeColor = Color.FromArgb(0, 238, 255),
+            .Font = New Font("Consolas", 8),
+            .DropDownStyle = ComboBoxStyle.DropDownList
+        }
+        pnlConnect.Controls.Add(cmbSlot)
+
+        btnLocalMode = New CyberButton() With {
+            .Name = "btnLocalMode",
+            .Text = "WAN",
+            .Location = New Point(115, 12),
+            .Size = New Size(40, 22),
+            .GlowColor = Color.FromArgb(0, 180, 220),
+            .ForeColor = Color.FromArgb(0, 180, 220)
+        }
+        AddHandler btnLocalMode.Click, AddressOf btnLocalMode_Click
+        pnlConnect.Controls.Add(btnLocalMode)
+
+        btnOption = New CyberButton() With {
+            .Name = "btnOption",
+            .Text = "KEY",
+            .Location = New Point(160, 12),
+            .Size = New Size(40, 22),
+            .GlowColor = Color.FromArgb(0, 180, 220),
+            .ForeColor = Color.FromArgb(0, 180, 220)
+        }
+        AddHandler btnOption.Click, AddressOf btnOption_Click
+        pnlConnect.Controls.Add(btnOption)
+
+        btnConnect = New CyberButton() With {
+            .Text = "CONNECT",
+            .Location = New Point(205, 12),
+            .Size = New Size(100, 22),
+            .GlowColor = Color.FromArgb(0, 210, 80),
+            .ForeColor = Color.FromArgb(0, 210, 80),
+            .Enabled = False
+        }
+        AddHandler btnConnect.Click, AddressOf btnConnect_Click
+        pnlConnect.Controls.Add(btnConnect)
+
+        btnDisconnect = New CyberButton() With {
+            .Text = "DISCONNECT",
+            .Location = New Point(310, 12),
+            .Size = New Size(100, 22),
+            .GlowColor = Color.FromArgb(210, 40, 40),
+            .ForeColor = Color.FromArgb(210, 40, 40),
+            .Enabled = False
+        }
+        AddHandler btnDisconnect.Click, AddressOf btnDisconnect_Click
+        pnlConnect.Controls.Add(btnDisconnect)
+
+        ' Nickname label and textbox
+        Dim lblNick As New Label() With {
+            .Text = "NICK:",
+            .Location = New Point(10, 45),
+            .Size = New Size(40, 20),
+            .ForeColor = Color.FromArgb(0, 180, 220),
+            .Font = New Font("Consolas", 8, FontStyle.Bold),
+            .TextAlign = ContentAlignment.MiddleLeft,
+            .BackColor = Color.Transparent
+        }
+        pnlConnect.Controls.Add(lblNick)
+
+        txtNick = New TextBox() With {
+            .Name = "txtNick",
+            .Location = New Point(55, 43),
+            .Size = New Size(80, 20),
+            .BackColor = Color.FromArgb(3, 10, 22),
+            .ForeColor = Color.FromArgb(0, 238, 255),
+            .Font = New Font("Consolas", 8),
+            .BorderStyle = BorderStyle.FixedSingle,
+            .Text = If(String.IsNullOrEmpty(_discordUsername), "guest", _discordUsername),
+            .ReadOnly = True
+        }
+        pnlConnect.Controls.Add(txtNick)
+
+        ' Local IP label and textbox
+        lblLocalIp = New Label() With {
+            .Text = "IP:",
+            .Location = New Point(145, 45),
+            .Size = New Size(24, 20),
+            .ForeColor = Color.FromArgb(0, 180, 220),
+            .Font = New Font("Consolas", 8, FontStyle.Bold),
+            .TextAlign = ContentAlignment.MiddleLeft,
+            .BackColor = Color.Transparent,
+            .Visible = False
+        }
+        pnlConnect.Controls.Add(lblLocalIp)
+
+        txtLocalIp = New TextBox() With {
+            .Name = "txtLocalIp",
+            .Location = New Point(175, 43),
+            .Size = New Size(90, 20),
+            .BackColor = Color.FromArgb(3, 10, 22),
+            .ForeColor = Color.FromArgb(255, 160, 0),
+            .Font = New Font("Consolas", 8),
+            .BorderStyle = BorderStyle.FixedSingle,
+            .Text = "127.0.0.1",
+            .Visible = False
+        }
+        pnlConnect.Controls.Add(txtLocalIp)
+
+        ' Sponsor Button
+        Dim btnSponsor As New CyberButton() With {
+            .Name = "btnSponsor",
+            .Text = "SPONSOR",
+            .Location = New Point(310, 42),
+            .Size = New Size(100, 22),
+            .GlowColor = Color.FromArgb(255, 80, 160),
+            .ForeColor = Color.FromArgb(255, 80, 160)
+        }
+        AddHandler btnSponsor.Click, AddressOf btnSponsor_Click
+        pnlConnect.Controls.Add(btnSponsor)
+
+        ' Status bar label
+        lblStatus = New Label() With {
+            .Text = "INITIALIZING...",
+            .Location = New Point(7, 268),
+            .Size = New Size(425, 15),
+            .ForeColor = Color.FromArgb(0, 180, 120),
+            .Font = New Font("Consolas", 8),
+            .TextAlign = ContentAlignment.MiddleLeft,
+            .BackColor = Color.Transparent
+        }
+        TabPage7.Controls.Add(lblStatus)
+    End Sub
+
+    Private Sub btnSponsor_Click(sender As Object, e As EventArgs)
+        Using sf As New SponsorForm()
+            sf.ShowDialog(Me)
+        End Using
+    End Sub
+
+    Private Sub SetRemoteStatus(msg As String, clr As Color)
+        If lblStatus IsNot Nothing Then
+            lblStatus.Text = msg.ToUpper()
+            lblStatus.ForeColor = clr
+        End If
+    End Sub
+
+    Private Sub StartHostsSubscription()
+        _hostsSubscription?.Dispose()
+        If _hosts Is Nothing Then
+            _hosts = New Dictionary(Of String, HostInfo)()
+        End If
+        Dim onNext As New Action(Of FirebaseEvent(Of HostInfo))(
+            Sub(hostEvent)
+                If hostEvent.Object IsNot Nothing Then
+                    Dim key = hostEvent.Key
+                    Me.BeginInvoke(Sub()
+                                       If hostEvent.EventType = Firebase.Database.Streaming.FirebaseEventType.InsertOrUpdate Then
+                                           _hosts(key) = hostEvent.Object
+                                       ElseIf hostEvent.EventType = Firebase.Database.Streaming.FirebaseEventType.Delete Then
+                                           If _hosts.ContainsKey(key) Then _hosts.Remove(key)
+                                       End If
+                                       UpdateHostsListView()
+                                   End Sub)
+                End If
+            End Sub
+        )
+        Dim onError As New Action(Of Exception)(
+            Sub(ex)
+                System.Diagnostics.Debug.WriteLine("[ERROR] Hosts subscription error: " & ex.Message)
+            End Sub
+        )
+        _hostsSubscription = _firebase.GetHostsObservable().Subscribe(onNext, onError)
+    End Sub
+
+    Private Sub UpdateHostsListView()
+        If lvHosts IsNot Nothing AndAlso lvHosts.InvokeRequired Then
+            Me.BeginInvoke(Sub() UpdateHostsListView())
+            Return
+        End If
+        If lvHosts Is Nothing Then Return
+
+        Dim prevSelectedHostId = _selectedHostId
+        Dim prevSelectedSlotText = If(cmbSlot.SelectedItem IsNot Nothing, cmbSlot.SelectedItem.ToString(), "")
+
+        lvHosts.Items.Clear()
+        cmbSlot.Items.Clear()
+        btnConnect.Enabled = False
+
+        Dim nowUnix = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+        Dim timeoutMs = 10 * 60 * 1000L
+        Dim activeCount As Integer = 0
+
+        For Each kvp In _hosts
+            Dim hostId = kvp.Key
+            Dim host = kvp.Value
+
+            Dim elapsed = nowUnix - host.Timestamp
+            If elapsed > timeoutMs Then Continue For
+
+            activeCount += 1
+            Dim ip = host.Ip
+            Dim namePart = If(String.IsNullOrEmpty(host.ServerName), ip, host.ServerName)
+
+            Dim pingStr As String = "---"
+            If _pingCache.ContainsKey(ip) Then
+                pingStr = _pingCache(ip)
+            End If
+
+            If Not _pingCache.ContainsKey(ip) Then
+                _pingCache(ip) = "Measuring..."
+                Dim targetIp = ip
+                Task.Run(Async Function()
+                             Dim ping As Integer = -1
+                             For Each testPort As Integer In {55001, 55005, 55009, 55013}
+                                 ping = Await MeasurePingAsync(targetIp, testPort)
+                                 If ping >= 0 Then Exit For
+                             Next
+                             Dim pStr = If(ping >= 0, $"{ping}ms", "---")
+                             Me.BeginInvoke(Sub()
+                                                _pingCache(targetIp) = pStr
+                                                UpdateHostsListView()
+                                            End Sub)
+                         End Function)
+            End If
+
+            Dim displayName = If(String.IsNullOrEmpty(host.GameTitle),
+                 $"{namePart} [{pingStr}]",
+                 $"{namePart} [{host.GameTitle}] {pingStr}")
+
+            Dim item = New ListViewItem(displayName)
+            item.Tag = hostId
+
+            For Each slot In {1, 2, 3, 4}
+                Dim slotKey = "slot" & slot.ToString()
+                If host.Slots IsNot Nothing AndAlso host.Slots.ContainsKey(slotKey) Then
+                    Dim slotInfo = host.Slots(slotKey)
+                    If slotInfo.Available Then
+                        Dim userCount = 0
+                        If Not String.IsNullOrEmpty(slotInfo.User) Then
+                            Dim users = slotInfo.User.Split(New String() {", "}, StringSplitOptions.RemoveEmptyEntries)
+                            userCount = users.Length
+                        End If
+                        item.SubItems.Add("●" & userCount.ToString())
+                    Else
+                        item.SubItems.Add("×")
+                    End If
+                Else
+                    item.SubItems.Add("")
+                End If
+            Next
+
+            lvHosts.Items.Add(item)
+
+            If hostId = prevSelectedHostId Then
+                _selectedHostId = hostId
+                If host.Slots IsNot Nothing Then
+                    For Each slotKvp In host.Slots
+                        If slotKvp.Value.Available Then
+                            Dim uCount = 0
+                            If Not String.IsNullOrEmpty(slotKvp.Value.User) Then
+                                Dim users = slotKvp.Value.User.Split(New String() {", "}, StringSplitOptions.RemoveEmptyEntries)
+                                uCount = users.Length
+                            End If
+                            If uCount < 2 Then
+                                cmbSlot.Items.Add($"P{slotKvp.Key.Replace("slot", "")}")
+                            End If
+                        End If
+                    Next
+                End If
+                If Not String.IsNullOrEmpty(prevSelectedSlotText) Then
+                    Dim idx = cmbSlot.Items.IndexOf(prevSelectedSlotText)
+                    If idx >= 0 Then
+                        cmbSlot.SelectedIndex = idx
+                        btnConnect.Enabled = True
+                    End If
+                End If
+            End If
+        Next
+
+        If activeCount = 0 Then
+            SetRemoteStatus("No hosts found.", Color.FromArgb(220, 140, 0))
+        Else
+            SetRemoteStatus($"{activeCount} host(s) found.", Color.FromArgb(0, 200, 100))
+        End If
+    End Sub
+
+    Private Async Function MeasurePingAsync(ip As String, port As Integer) As Task(Of Integer)
+        Try
+            Using client As New UdpClient()
+                client.Client.ReceiveTimeout = 1000
+                Dim ep As New IPEndPoint(IPAddress.Any, 0)
+                Dim total As Long = 0
+                Dim count As Integer = 0
+
+                For i = 1 To 2
+                    Dim t1 = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                    Dim msg = $"PING {t1}"
+                    Dim data = System.Text.Encoding.ASCII.GetBytes(msg)
+                    client.Send(data, data.Length, ip, port)
+
+                    Try
+                        Dim recv = client.Receive(ep)
+                        Dim t2 = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                        total += (t2 - t1) \ 2
+                        count += 1
+                    Catch ex As SocketException
+                        ' Timeout
+                    End Try
+                Next
+
+                If count > 0 Then
+                    Return CInt(total / count)
+                End If
+            End Using
+        Catch
+        End Try
+        Return -1
+    End Function
+
+    Private Sub lvHosts_SlotClicked(slotIndex As Integer, item As ListViewItem)
+        _selectedHostId = item.Tag.ToString()
+        cmbSlot.Items.Clear()
+        Dim host = _hosts(_selectedHostId)
+
+        Dim slotKey = "slot" & slotIndex.ToString()
+        If host.Slots IsNot Nothing AndAlso host.Slots.ContainsKey(slotKey) Then
+            Dim slotInfo = host.Slots(slotKey)
+            Dim userCount = 0
+            If Not String.IsNullOrEmpty(slotInfo.User) Then
+                Dim users = slotInfo.User.Split(New String() {", "}, StringSplitOptions.RemoveEmptyEntries)
+                userCount = users.Length
+            End If
+            If userCount >= 2 Then
+                btnConnect.Enabled = False
+                SetRemoteStatus($"Slot P{slotIndex} full. Connection blocked.", Color.FromArgb(255, 60, 60))
+                Return
+            End If
+        End If
+
+        If host.Slots IsNot Nothing Then
+            For Each kvp In host.Slots
+                If kvp.Value.Available Then
+                    Dim uCount = 0
+                    If Not String.IsNullOrEmpty(kvp.Value.User) Then
+                        Dim users = kvp.Value.User.Split(New String() {", "}, StringSplitOptions.RemoveEmptyEntries)
+                        uCount = users.Length
+                    End If
+                    If uCount < 2 Then
+                        cmbSlot.Items.Add($"P{kvp.Key.Replace("slot", "")}")
+                    End If
+                End If
+            Next
+        End If
+        Dim idx = cmbSlot.Items.IndexOf($"P{slotIndex}")
+        If idx >= 0 Then
+            cmbSlot.SelectedIndex = idx
+            btnConnect.Enabled = True
+            SetRemoteStatus($"Slot P{slotIndex} selected.", Color.FromArgb(0, 200, 255))
+        End If
+    End Sub
+
+    Private Sub lvHosts_RowClicked(item As ListViewItem)
+        _selectedHostId = item.Tag.ToString()
+        cmbSlot.Items.Clear()
+        Dim host = _hosts(_selectedHostId)
+        If host.Slots Is Nothing Then Return
+        For Each kvp In host.Slots
+            If kvp.Value.Available Then
+                Dim uCount = 0
+                If Not String.IsNullOrEmpty(kvp.Value.User) Then
+                    Dim users = kvp.Value.User.Split(New String() {", "}, StringSplitOptions.RemoveEmptyEntries)
+                    uCount = users.Length
+                End If
+                If uCount < 2 Then
+                    cmbSlot.Items.Add($"P{kvp.Key.Replace("slot", "")}")
+                End If
+            End If
+        Next
+        If cmbSlot.Items.Count > 0 Then
+            cmbSlot.SelectedIndex = 0
+            btnConnect.Enabled = True
+        Else
+            btnConnect.Enabled = False
+            SetRemoteStatus("No available slots.", Color.FromArgb(220, 140, 0))
+        End If
+    End Sub
+
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs)
+        UpdateHostsListView()
+    End Sub
+
+    Private Sub btnLocalMode_Click(sender As Object, e As EventArgs)
+        _isLocalMode = Not _isLocalMode
+        If _isLocalMode Then
+            btnLocalMode.Text = "LOCAL"
+            btnLocalMode.GlowColor = Color.FromArgb(255, 160, 0)
+            btnLocalMode.ForeColor = Color.FromArgb(255, 160, 0)
+            If lblLocalIp IsNot Nothing Then lblLocalIp.Visible = True
+            If txtLocalIp IsNot Nothing Then txtLocalIp.Visible = True
+        Else
+            btnLocalMode.Text = "WAN"
+            btnLocalMode.GlowColor = Color.FromArgb(0, 180, 220)
+            btnLocalMode.ForeColor = Color.FromArgb(0, 180, 220)
+            If lblLocalIp IsNot Nothing Then lblLocalIp.Visible = False
+            If txtLocalIp IsNot Nothing Then txtLocalIp.Visible = False
+        End If
+    End Sub
+
+    Private Sub btnOption_Click(sender As Object, e As EventArgs)
+        Dim f = New KeyConfigForm()
+        f.ShowDialog(Me)
+    End Sub
+
+    Private Async Sub btnConnect_Click(sender As Object, e As EventArgs)
+        If _selectedHostId = "" OrElse cmbSlot.SelectedItem Is Nothing Then Return
+        Dim slotStr = cmbSlot.SelectedItem.ToString().Replace("P", "")
+        _selectedSlot = CInt(slotStr)
+        Dim slotKey = "slot" & slotStr
+        Dim host = _hosts(_selectedHostId)
+        Dim slotInfo = host.Slots(slotKey)
+
+        Dim nameToWrite = If(String.IsNullOrEmpty(_discordUsername), "guest", _discordUsername)
+
+        If nameToWrite <> "back_ponmi" Then
+            For Each otherHostKvp In _hosts
+                Dim otherHost = otherHostKvp.Value
+                If otherHost.Slots IsNot Nothing Then
+                    For Each slotKvp In otherHost.Slots
+                        Dim slotInfoItem = slotKvp.Value
+                        If slotInfoItem IsNot Nothing Then
+                            Dim slotName = slotInfoItem.User
+                            If Not String.IsNullOrEmpty(slotName) Then
+                                Dim users = slotName.Split(New String() {", "}, StringSplitOptions.RemoveEmptyEntries)
+                                If users.Contains(nameToWrite) Then
+                                    Dim otherServerName = If(String.IsNullOrEmpty(otherHost.ServerName), otherHost.Ip, otherHost.ServerName)
+                                    Dim slotNum = slotKvp.Key.Replace("slot", "")
+                                    SetRemoteStatus($"Already in P{slotNum} on server '{otherServerName}'.", Color.FromArgb(255, 60, 60))
+                                    Return
+                                End If
+                            End If
+                        End If
+                    Next
+                End If
+            Next
+        End If
+
+        _portXInput = (_selectedSlot - 1) * 4 + 55000
+        _portHS = (_selectedSlot - 1) * 4 + 55001
+        _portVideo = slotInfo.Video
+        _portAudio = slotInfo.Audio
+
+        If Not _isLocalMode Then
+            Await UPnPHelper.OpenPorts(_portXInput, _portHS, _portVideo, _portAudio)
+        End If
+
+        btnConnect.Enabled = False
+        btnLocalMode.Enabled = False
+        btnOption.Enabled = False
+        btnRefresh.Enabled = False
+
+        SetRemoteStatus("Connecting...", Color.FromArgb(200, 200, 0))
+
+        Dim t As New Thread(Sub() DoHandshake(host.Ip))
+        t.IsBackground = True
+        t.Start()
+    End Sub
+
+    Private Sub DoHandshake(ip As String)
+        If _isLocalMode Then
+            Dim localIpInput = If(txtLocalIp IsNot Nothing, txtLocalIp.Text.Trim(), "")
+            ip = If(String.IsNullOrEmpty(localIpInput), "127.0.0.1", localIpInput)
+        End If
+        Try
+            _handshakeClient = New UdpClient()
+            Dim addresses = Dns.GetHostAddresses(ip)
+            If addresses.Length = 0 Then Return
+            Dim resolvedIP = addresses(0).ToString()
+            _handshakeClient.Connect(resolvedIP, _portHS)
+            Dim hello() As Byte = System.Text.Encoding.ASCII.GetBytes("HELLO")
+            Dim ep As New IPEndPoint(IPAddress.Any, 0)
+            For i = 1 To 10
+                _handshakeClient.Send(hello, hello.Length)
+                _handshakeClient.Client.ReceiveTimeout = 1000
+                Try
+                    Dim recv() As Byte = _handshakeClient.Receive(ep)
+                    Dim msg = System.Text.Encoding.ASCII.GetString(recv)
+                    If msg.StartsWith("OK") Then
+                        Dim parts = msg.Split(" "c)
+                        Dim w As Integer = 960
+                        Dim h As Integer = 540
+                        If parts.Length >= 3 Then
+                            Integer.TryParse(parts(1), w)
+                            Integer.TryParse(parts(2), h)
+                        End If
+                        Dim codec As String = "H265"
+                        If parts.Length >= 4 Then
+                            codec = parts(3).Trim()
+                        End If
+                        _videoUdp = New UdpClient(_portVideo)
+                        _audioUdp = New UdpClient(_portAudio)
+                        Thread.Sleep(500)
+                        Dim dummy As Byte() = {0, 0, 0, 0}
+                        For ii = 1 To 10
+                            _videoUdp.Send(dummy, dummy.Length, New IPEndPoint(IPAddress.Parse(resolvedIP), _portVideo))
+                            _audioUdp.Send(dummy, dummy.Length, New IPEndPoint(IPAddress.Parse(resolvedIP), _portAudio))
+                        Next
+                        Thread.Sleep(200)
+                        Me.BeginInvoke(Sub()
+                                           SetRemoteStatus("CONNECTED", Color.FromArgb(0, 220, 100))
+                                           btnDisconnect.Enabled = True
+
+                                           Dim nameToWrite = If(String.IsNullOrEmpty(_discordUsername), "guest", _discordUsername)
+
+                                           _firebase.UpdateSlotUserAsync(_selectedHostId, _selectedSlot, nameToWrite, True)
+                                           _firebase.SendChatMessageAsync(_selectedHostId, "SYSTEM", $"<P{_selectedSlot}><{nameToWrite}> joined")
+
+                                           _activeVideoForm = New VideoForm(resolvedIP, w, h, codec, _videoUdp, _audioUdp, _selectedSlot, _selectedHostId, _firebase, _discordUsername, _isLocalMode, _portXInput, _portHS, _portVideo, _portAudio, _handshakeClient, Me)
+                                           _activeVideoForm.Show()
+                                       End Sub)
+                        Return
+                    End If
+                Catch ex As SocketException
+                    ' Timeout
+                End Try
+            Next
+            Try
+                _handshakeClient?.Close()
+                _handshakeClient = Nothing
+            Catch
+            End Try
+            Me.BeginInvoke(Sub()
+                               SetRemoteStatus("Connection failed.", Color.FromArgb(220, 60, 60))
+                               btnConnect.Enabled = True
+                               btnLocalMode.Enabled = True
+                               btnOption.Enabled = True
+                               btnRefresh.Enabled = False
+                           End Sub)
+        Catch ex As Exception
+            Try
+                _handshakeClient?.Close()
+                _handshakeClient = Nothing
+            Catch
+            End Try
+            Me.BeginInvoke(Sub()
+                               SetRemoteStatus("Error: " & ex.Message, Color.FromArgb(220, 60, 60))
+                               btnConnect.Enabled = True
+                               btnLocalMode.Enabled = True
+                               btnOption.Enabled = True
+                               btnRefresh.Enabled = False
+                           End Sub)
+        End Try
+    End Sub
+
+    Public Sub OnStreamingDisconnected()
+        _activeVideoForm = Nothing
+        btnDisconnect.Enabled = False
+        btnConnect.Enabled = True
+        btnLocalMode.Enabled = True
+        btnOption.Enabled = True
+        btnRefresh.Enabled = False
+        SetRemoteStatus("Disconnected.", Color.FromArgb(150, 150, 150))
+        UpdateHostsListView()
+    End Sub
+
+    Private Async Sub btnDisconnect_Click(sender As Object, e As EventArgs)
+        If _activeVideoForm IsNot Nothing Then
+            _activeVideoForm.Close()
+        Else
+            If Not _isLocalMode Then
+                Await UPnPHelper.ClosePorts(_portXInput, _portHS, _portVideo, _portAudio)
+            End If
+            Dim nameToWrite = If(String.IsNullOrEmpty(_discordUsername), "guest", _discordUsername)
+            If Not String.IsNullOrEmpty(_selectedHostId) Then
+                Await _firebase.UpdateSlotUserAsync(_selectedHostId, _selectedSlot, nameToWrite, False)
+            End If
+            OnStreamingDisconnected()
+        End If
+    End Sub
+
 End Class
 
 Module ControlExtensions
@@ -3212,5 +4022,77 @@ Module ControlExtensions
         prop.SetValue(ctrl, enabled, Nothing)
     End Sub
 End Module
+
+Public Class SponsorForm
+    Inherits Form
+
+    Public Sub New()
+        Me.Text = "Sponsor - PonMi"
+        Me.Size = New Size(400, 480)
+        Me.StartPosition = FormStartPosition.CenterParent
+        Me.FormBorderStyle = FormBorderStyle.FixedDialog
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.BackColor = Color.FromArgb(10, 14, 26)
+        Me.ForeColor = Color.White
+        Me.Font = New Font("MS Gothic", 9.0F)
+
+        ' PictureBox for sponsor image
+        Dim pbImage As New PictureBox() With {
+            .Location = New Point(15, 15),
+            .Size = New Size(370, 330),
+            .SizeMode = PictureBoxSizeMode.Zoom,
+            .BackColor = Color.Transparent
+        }
+        
+        Try
+            pbImage.Image = My.Resources.Service_coupon
+        Catch ex As Exception
+            Debug.WriteLine("[ERROR] Failed to load sponsor image from resources: " & ex.Message)
+        End Try
+        Me.Controls.Add(pbImage)
+
+        ' System language detection
+        Dim isJapanese As Boolean = False
+        Try
+            Dim lang = System.Globalization.CultureInfo.CurrentUICulture.Name.ToLower()
+            If lang.StartsWith("ja") Then
+                isJapanese = True
+            End If
+        Catch
+        End Try
+
+        Dim lnkSponsor As New LinkLabel() With {
+            .Text = If(isJapanese, "かっちゃんの大衆酒場the STAND", "Kacchan's Popular Pub the STAND"),
+            .Location = New Point(15, 360),
+            .Size = New Size(370, 20),
+            .TextAlign = ContentAlignment.MiddleCenter,
+            .LinkColor = Color.FromArgb(0, 180, 255),
+            .ActiveLinkColor = Color.White,
+            .VisitedLinkColor = Color.FromArgb(0, 180, 255),
+            .Font = New Font("Consolas", 9.5F, FontStyle.Bold)
+        }
+        AddHandler lnkSponsor.LinkClicked, Sub()
+                                               Try
+                                                   Process.Start("https://katchan-the-stand.com/")
+                                               Catch ex As Exception
+                                                   MessageBox.Show("Could not open link: " & ex.Message)
+                                               End Try
+                                           End Sub
+        Me.Controls.Add(lnkSponsor)
+
+        Dim btnOk As New CyberButton() With {
+            .Text = "OK",
+            .Location = New Point(150, 395),
+            .Size = New Size(100, 30),
+            .GlowColor = Color.FromArgb(0, 210, 80),
+            .ForeColor = Color.FromArgb(0, 210, 80)
+        }
+        AddHandler btnOk.Click, Sub()
+                                    Me.Close()
+                                End Sub
+        Me.Controls.Add(btnOk)
+    End Sub
+End Class
 
 
