@@ -176,8 +176,10 @@ Public Class VideoForm
         Dim hbThread As New Thread(Sub()
                                        Do While _running
                                            Try
-                                               Dim hb() As Byte = System.Text.Encoding.ASCII.GetBytes("HB")
-                                               _handshakeClient.Send(hb, hb.Length)
+                                               If _handshakeClient IsNot Nothing Then
+                                                   Dim hb() As Byte = System.Text.Encoding.ASCII.GetBytes("HB")
+                                                   _handshakeClient.Send(hb, hb.Length)
+                                               End If
                                            Catch ex As Exception
                                                Debug.WriteLine("[HB] Error: " & ex.Message)
                                            End Try
@@ -190,18 +192,22 @@ Public Class VideoForm
         ' ハンドシェイク受信スレッド（KICK対応）
         Dim hsReceiveThread As New Thread(Sub()
                                               Dim epRecv As New IPEndPoint(IPAddress.Any, 0)
-                                              _handshakeClient.Client.ReceiveTimeout = 2000
+                                              If _handshakeClient IsNot Nothing AndAlso _handshakeClient.Client IsNot Nothing Then
+                                                  _handshakeClient.Client.ReceiveTimeout = 2000
+                                              End If
                                               Do While _running
                                                   Try
-                                                      Dim data() As Byte = _handshakeClient.Receive(epRecv)
-                                                      If data IsNot Nothing AndAlso data.Length > 0 Then
-                                                          Dim msgRecv = System.Text.Encoding.ASCII.GetString(data)
-                                                          If msgRecv.StartsWith("KICK") Then
-                                                              Me.BeginInvoke(Sub()
-                                                                                 MessageBox.Show("Kicked by host.", "Kicked", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                                                                                 Me.Close()
-                                                                             End Sub)
-                                                              Return
+                                                      If _handshakeClient IsNot Nothing Then
+                                                          Dim data() As Byte = _handshakeClient.Receive(epRecv)
+                                                          If data IsNot Nothing AndAlso data.Length > 0 Then
+                                                              Dim msgRecv = System.Text.Encoding.ASCII.GetString(data)
+                                                              If msgRecv.StartsWith("KICK") Then
+                                                                  Me.BeginInvoke(Sub()
+                                                                                     MessageBox.Show("Kicked by host.", "Kicked", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                                                                     Me.Close()
+                                                                                 End Sub)
+                                                                  Return
+                                                              End If
                                                           End If
                                                       End If
                                                   Catch ex As SocketException

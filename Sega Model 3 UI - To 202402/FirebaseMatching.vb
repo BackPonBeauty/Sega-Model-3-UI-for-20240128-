@@ -25,6 +25,9 @@ Public Class SlotInfo
     <JsonProperty("xinput")>
     Public Property XInput As Integer
 
+    <JsonProperty("handshake")>
+    Public Property Handshake As Integer
+
     <JsonProperty("video")>
     Public Property Video As Integer
 

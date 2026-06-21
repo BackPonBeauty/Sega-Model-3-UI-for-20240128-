@@ -86,7 +86,7 @@ Public Class Form1
     Private PonMi As Boolean = False
 
     ' Remote Tab Variables
-    Private version_s As String = "1.0.0"
+    Private version_s As String = "1.0.1"
     Private _firebase As FirebaseMatchingClient
     Private _discordUsername As String = ""
     Private _hosts As Dictionary(Of String, HostInfo)
@@ -3377,10 +3377,46 @@ Public Class Form1
         _hosts = If(initialHosts, New Dictionary(Of String, HostInfo)())
         UpdateHostsListView()
 
-        If Not File.Exists("ffmpeg.exe") Then
+        If Not System.IO.File.Exists("ffmpeg.exe") Then
+            Dim ffmpegPath As String = FindFfmpegInPath()
+            If Not String.IsNullOrEmpty(ffmpegPath) Then
+                Try
+                    System.IO.File.Copy(ffmpegPath, "ffmpeg.exe", True)
+                Catch ex As Exception
+                    ' Ignore copying errors
+                End Try
+            End If
+        End If
+
+        If Not System.IO.File.Exists("ffmpeg.exe") Then
             MessageBox.Show("ffmpeg.exe not found in Sega Model 3 UI folder. Please place ffmpeg.exe there to use remote streaming.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
+
+    Private Function FindFfmpegInPath() As String
+        Dim commonPaths As String() = {
+            "C:\msys64\mingw64\bin\ffmpeg.exe",
+            "C:\ffmpeg\bin\ffmpeg.exe"
+        }
+        For Each path In commonPaths
+            If System.IO.File.Exists(path) Then Return path
+        Next
+
+        Dim pathEnv As String = Environment.GetEnvironmentVariable("PATH")
+        If Not String.IsNullOrEmpty(pathEnv) Then
+            For Each pathDir In pathEnv.Split(";"c)
+                Dim cleanDir = pathDir.Trim()
+                If Not String.IsNullOrEmpty(cleanDir) Then
+                    Try
+                        Dim fullPath = System.IO.Path.Combine(cleanDir, "ffmpeg.exe")
+                        If System.IO.File.Exists(fullPath) Then Return fullPath
+                    Catch ex As Exception
+                    End Try
+                End If
+            Next
+        End If
+        Return Nothing
+    End Function
 
     Private Sub BuildCyberUI()
         TabPage7.BackColor = Color.FromArgb(10, 14, 26)
@@ -3878,8 +3914,8 @@ Public Class Form1
             Next
         End If
 
-        _portXInput = (_selectedSlot - 1) * 4 + 55000
-        _portHS = (_selectedSlot - 1) * 4 + 55001
+        _portXInput = slotInfo.XInput
+        _portHS = slotInfo.Handshake
         _portVideo = slotInfo.Video
         _portAudio = slotInfo.Audio
 
